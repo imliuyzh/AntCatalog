@@ -1,7 +1,8 @@
 const express = require('express');
 const { query, validationResult } = require('express-validator');
 const Fuse = require('fuse.js')
-const sqlite3 = require('sqlite3').verbose();
+
+const loadInstructors = require('../utils/instructorList');
 const logger = require('../utils/logger');
 
 let router = express.Router();
@@ -15,11 +16,11 @@ router.get(
         .trim()
         .notEmpty()
         .withMessage('Value Must Not be Empty.'),
-    (req, res) => {
+    async (req, res) => {
         let errors = validationResult(req);
         if (errors.isEmpty() === false) {
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${errors.array()}`)
             let errMsg = errors.array();
+            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`)
             return res
                 .status(400)
                 .json({
@@ -28,39 +29,10 @@ router.get(
                 });
         }
         
-        let instructorList = [];
-        let db = new sqlite3.Database(
-            './src/db/data.db', 
-            sqlite3.OPEN_READONLY, 
-            err => {
-                if (err !== null) {
-                    logger.error(err.message);
-                }
-                logger.info('Established a Connection to the Database Successfully.');
-            }
-        );
-
-        db.serialize(() => {
-            logger.info(`Begin to Retrieve All the Instructors' Name...`);
-            db.each('SELECT DISTINCT name FROM instructor', (err, row) => {
-                if (err !== null) {
-                    logger.error(err.message);
-                }
-                instructorList.push(row.name);
-            });
-            logger.info(`Finished Retrieving All the Instructors' Name.`);
-        });
-
-        db.close(err => {
-            if (err !== null) {
-                logger.warn(err.message);
-            }
-            logger.info('Closed the Connection to the Database Successfully.');
-        });
-        
+        let instructorList = await loadInstructors();
         let fuse = new Fuse(instructorList, { minMatchCharLength: 3 });
         let matches = fuse.search(req.query.name, { limit: 5 });
-        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${matches}`)
+        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(matches)}`)
         res.json({ success: true, matches });
     }
 );

@@ -1,38 +1,15 @@
-const sqlite3 = require('sqlite3').verbose();
+const sequelize = require('../db/sequelize');
 const logger = require('./logger');
+const Instructor = require('../models/instructor');
 
 const instructorList = [];
 
-function loadInstructors() {
+async function loadInstructors() {
     if (instructorList.length === 0) {
-        let db = new sqlite3.Database(
-            './src/db/data.db', 
-            sqlite3.OPEN_READONLY, 
-            err => {
-                if (err !== null) {
-                    logger.error(err.message);
-                }
-                logger.info('Established a Connection to the Database Successfully.');
-            }
-        );
-
-        db.serialize(() => {
-            logger.info(`Begin to Retrieve All the Instructors' Name...`);
-            db.each('SELECT DISTINCT name FROM instructor', (err, row) => {
-                if (err !== null) {
-                    logger.error(err.message);
-                }
-                instructorList.push(row.name);
-            });
-            logger.info(`Finished Retrieving All the Instructors' Name.`);
-        });
-
-        db.close(err => {
-            if (err !== null) {
-                logger.warn(err.message);
-            }
-            logger.info('Closed the Connection to the Database Successfully.');
-        });
+        logger.info(`Begin to Retrieve All the Instructors' Name...`);
+        let instructors = await Instructor.findAll({ attributes: [[sequelize.fn('DISTINCT', sequelize.col('name')), 'name']] });
+        instructors.forEach(instructor => instructorList.push(instructor.name));
+        logger.info(`Finished Retrieving All the Instructors' Name.`);
     }
     return instructorList;
 }
