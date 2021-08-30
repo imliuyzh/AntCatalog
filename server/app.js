@@ -16,6 +16,4 @@ app.use(express.json());
 app.use('/api/v1/search', searchRouter);
 app.use('/complete/instructors', instructorAutocompleteRouter);
 
-app.listen(port, () => {
-    logger.info(`Server is Running on Port #${port}.`);
-});
+module.exports = app;

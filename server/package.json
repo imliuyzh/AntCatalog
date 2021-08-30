@@ -2,15 +2,18 @@
   "name": "antcatalog-server",
   "version": "1.0.0",
   "description": "The package for the back end services of AntCatalog.",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "jest"
   },
   "author": "Yizhen Liu",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "jest": "^27.1.0",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
   },
   "dependencies": {
     "cors": "^2.8.5",
