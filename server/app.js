@@ -7,7 +7,7 @@ const logger = require('./src/utils/logger');
 const searchRouter = require('./src/routes/search');
 
 const app = express();
-const port = 36997; // Assign a specific port for ease of deployment
+const port = 26997; // Assign a specific port for ease of deployment
 
 app.use(cors());
 app.use(helmet());
