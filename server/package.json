@@ -1,11 +1,11 @@
 {
   "name": "antcatalog-server",
   "version": "1.0.0",
-  "description": "The package for the back end services of AntCatalog.",
+  "description": "The back end service for AntCatalog.",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest"
   },
   "author": "Yizhen Liu",
