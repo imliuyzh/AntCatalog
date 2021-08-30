@@ -15,6 +15,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.12.1",
     "fuse.js": "^6.4.6",
     "helmet": "^4.6.0",
     "sqlite3": "^5.0.2",
