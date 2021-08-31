@@ -11,11 +11,13 @@ router.get(
     query('name')
         .exists()
         .withMessage('Malformed Request Syntax.')
+        .bail()
         .isString()
-        .withMessage('Value Must be a String.')
+        .withMessage('Value Must Be a String.')
+        .bail()
         .trim()
         .notEmpty()
-        .withMessage('Value Must Not be Empty.'),
+        .withMessage('Value Must Not Be Empty.'),
     async (req, res) => {
         let errors = validationResult(req);
         if (errors.isEmpty() === false) {
