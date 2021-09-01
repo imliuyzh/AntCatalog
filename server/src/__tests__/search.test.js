@@ -398,9 +398,7 @@ describe('POST /api/v1/search', () => {
             expect(response.body.data[0].gradeFCount).toBe(10);
             expect(response.body.data[0].gradePCount).toBe(0);
             expect(response.body.data[0].gradeNpCount).toBe(0);
-            response.body.data[0].instructors.forEach(instructor => 
-                expect(instructor === 'LOPES, C.' || instructor === 'CHEN, J.' || instructor === 'NAGARAJAN, S.').toBeTruthy()
-            );
+            expect(response.body.data[0].instructors).toEqual(expect.arrayContaining(['LOPES, C.', 'CHEN, J.', 'NAGARAJAN, S.']));
         });
         
         test('swe 250p should have two instructors', async () => {
@@ -429,9 +427,7 @@ describe('POST /api/v1/search', () => {
             expect(response.body.data[0].gradeFCount).toBe(5);
             expect(response.body.data[0].gradePCount).toBe(0);
             expect(response.body.data[0].gradeNpCount).toBe(0);
-            response.body.data[0].instructors.forEach(instructor => 
-                expect(instructor === 'LOPES, C.' || instructor === 'KUTAS, D.').toBeTruthy()
-            );
+            expect(response.body.data[0].instructors).toEqual(expect.arrayContaining(['LOPES, C.', 'KUTAS, D.']));
         });
     });
     
@@ -456,9 +452,7 @@ describe('POST /api/v1/search', () => {
             expect(response.body.success).toBe(true);
             expect(response.body.aggregate).toBe(false);
             expect(response.body.data.length).toBe(1);
-            response.body.data[0].instructors.forEach(instructor => 
-                expect(instructor === 'VENKATASUBRAMA, N.' || instructor === 'VENKATESWARAN, P.').toBeTruthy()
-            );
+            expect(response.body.data[0].instructors).toEqual(expect.arrayContaining(['VENKATASUBRAMA, N.', 'VENKATESWARAN, P.']));
         });
         test('display two instructors for cs 261 in spring 2020 when one is specified', async () => {
             const response = await request
@@ -479,9 +473,7 @@ describe('POST /api/v1/search', () => {
             expect(response.body.success).toBe(true);
             expect(response.body.aggregate).toBe(false);
             expect(response.body.data.length).toBe(1);
-            response.body.data[0].instructors.forEach(instructor => 
-                expect(instructor === 'EPPSTEIN, D.' || instructor === 'HAVVAEI, H.').toBeTruthy()
-            );
+            expect(response.body.data[0].instructors).toEqual(expect.arrayContaining(['EPPSTEIN, D.', 'HAVVAEI, H.']));
         });
     });
 });
