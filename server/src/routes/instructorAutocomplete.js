@@ -18,24 +18,28 @@ router.get(
         .trim()
         .notEmpty()
         .withMessage('Value Must Not Be Empty.'),
-    async (req, res) => {
-        let errors = validationResult(req);
-        if (errors.isEmpty() === false) {
-            let errMsg = errors.array();
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`)
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    info: errMsg
-                });
+    async (req, res, next) => {
+        try {
+            let errors = validationResult(req);
+            if (errors.isEmpty() === false) {
+                let errMsg = errors.array();
+                logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`)
+                return res
+                    .status(400)
+                    .json({
+                        success: false,
+                        info: errMsg
+                    });
+            }
+            
+            let instructorList = await loadInstructors();
+            let fuse = new Fuse(instructorList, { minMatchCharLength: 3 });
+            let matches = fuse.search(req.query.name, { limit: 5 });
+            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(matches)}`)
+            res.json({ success: true, matches });
+        } catch (exception) {
+            next(exception);
         }
-        
-        let instructorList = await loadInstructors();
-        let fuse = new Fuse(instructorList, { minMatchCharLength: 3 });
-        let matches = fuse.search(req.query.name, { limit: 5 });
-        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(matches)}`)
-        res.json({ success: true, matches });
     }
 );
 
