@@ -8,7 +8,8 @@ const logger = require('../utils/logger');
 let router = express.Router();
 
 router.post(
-    '/', 
+    '/',
+    body('options.offset').default('0'),
     checkSchema({
         'values.term': {
             in: ['body'],
