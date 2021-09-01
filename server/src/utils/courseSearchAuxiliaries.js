@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/sequelize');
+const logger = require('./logger');
 
 async function getAggregatedStatistics(req) {
     let aggregateQuery = getAggregateQuery(req.body.values.instructor);
@@ -7,7 +8,7 @@ async function getAggregatedStatistics(req) {
     let parameters = [];
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
         aggregateQuery = `${aggregateQuery} AND C.term = ?`;
-        parameters.push(req.body.values.term.toUpperCase());
+        parameters.push(req.body.values.term);
     }
     if (req.body.values.department !== null && req.body.values.department !== undefined) {
         aggregateQuery = `${aggregateQuery} AND C.department = ?`;
@@ -115,7 +116,7 @@ async function getAssociatedCourseList(req) {
     let parameters = {};
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
         tokens[1] = `${tokens[1]} AND C.term = :term`;
-        parameters.term = req.body.values.term.toUpperCase();
+        parameters.term = req.body.values.term;
     }
     if (req.body.values.department !== null && req.body.values.department !== undefined) {
         tokens[1] = `${tokens[1]} AND C.department = :department`;
@@ -130,11 +131,13 @@ async function getAssociatedCourseList(req) {
         parameters.courseCode = req.body.values.courseCode;
     }
     if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
-        tokens[0] = `WITH A AS (SELECT Course.term || " " || Course.course_code FROM Course, Instructor WHERE Course.term = Instructor.term AND Course.course_code = Instructor.course_code AND Instructor.name = :instructor) ${tokens[0]}`
+        tokens[0] = `WITH A AS (SELECT (AC.term || " " || AC.course_code) FROM Course AC, Instructor AI WHERE AC.term = AI.term AND AC.course_code = AI.course_code AND AI.name = :instructor) ${tokens[0]}`
         tokens[1] = `${tokens[1]} AND (C.term || " " || C.course_code) IN A`;
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
     parameters.offset = req.body.options.offset;
+    
+    logger.warn(tokens.join(' '));
     
     let courses = await sequelize.query(tokens.join(' '), {
         replacements: parameters,
