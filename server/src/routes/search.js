@@ -153,7 +153,14 @@ router.post(
         try {
             let err = validationResult(req);
             if (err.isEmpty() === false) {
-                next(err.array());
+                let errMsg = err.array();
+                logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`)
+                return res
+                    .status(400)
+                    .json({
+                        success: false,
+                        info: errMsg
+                    });
             }
             
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);

@@ -109,31 +109,32 @@ async function getAssociatedCourseList(req) {
             C.gpa_avg AS gpaAvg
          FROM Course C, Instructor I`,
         `WHERE C.term = I.term AND C.course_code = I.course_code`,
-        `LIMIT 15 OFFSET ?`
+        `LIMIT 15 OFFSET :offset`
     ];
         
-    let parameters = [];
+    let parameters = {};
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.term = ?`;
-        parameters.push(req.body.values.term.toUpperCase());
+        tokens[1] = `${tokens[1]} AND C.term = :term`;
+        parameters.term = req.body.values.term.toUpperCase();
     }
     if (req.body.values.department !== null && req.body.values.department !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.department = ?`;
-        parameters.push(req.body.values.department.toUpperCase());
+        tokens[1] = `${tokens[1]} AND C.department = :department`;
+        parameters.department = req.body.values.department.toUpperCase();
     }
     if (req.body.values.courseNumber !== null && req.body.values.courseNumber !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.course_number = ?`;
-        parameters.push(req.body.values.courseNumber.toUpperCase());
+        tokens[1] = `${tokens[1]} AND C.course_number = :courseNumber`;
+        parameters.courseNumber = req.body.values.courseNumber.toUpperCase();
     }
     if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.course_code = ?`;
-        parameters.push(req.body.values.courseCode);
+        tokens[1] = `${tokens[1]} AND C.course_code = :courseCode`;
+        parameters.courseCode = req.body.values.courseCode;
     }
     if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
-        tokens[1] = `${tokens[1]} AND I.name = ?`;
-        parameters.push(req.body.values.instructor.toUpperCase());
+        tokens[0] = `WITH A AS (SELECT Course.term || " " || Course.course_code FROM Course, Instructor WHERE Course.term = Instructor.term AND Course.course_code = Instructor.course_code AND Instructor.name = :instructor) ${tokens[0]}`
+        tokens[1] = `${tokens[1]} AND (C.term || " " || C.course_code) IN A`;
+        parameters.instructor = req.body.values.instructor.toUpperCase();
     }
-    parameters.push(req.body.options.offset);
+    parameters.offset = req.body.options.offset;
     
     let courses = await sequelize.query(tokens.join(' '), {
         replacements: parameters,
