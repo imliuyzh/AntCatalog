@@ -35,7 +35,7 @@ async function getAggregatedStatistics(req) {
 }
 
 function getAggregateQuery(instructor) {
-    return (instructor === null)
+    return (instructor === null || instructor === undefined)
         ? `SELECT
             SUM(C.grade_a_count) AS gradeACount, 
             SUM(C.grade_b_count) AS gradeBCount, 

@@ -230,25 +230,32 @@ describe("POST /api/v1/search", () => {
             expect(response.body.success).toBe(true);
             expect(response.body.aggregate).toBe(true);
         });
-        test("should respond successfully when only one parameter has correct data but misspelled", async () => {
+        test("should have correct aggregated data for educ 247 in spring 2021 with most fields filled out", async () => {
             const response = await request
                 .post("/api/v1/search")
                 .send({
                     values: {
-                        term: "Fal 2021",
-                        department: null,
-                        courseNumber: null,
+                        term: "Spring 2021",
+                        department: "EDUC",
+                        courseNumber: "247",
                         courseCode: null,
-                        instructor: null
+                        instructor: "GUARINO, J."
                     },
                     options: {
-                        aggregate: false,
-                        offset: 100
+                        aggregate: true
                     }
                 });
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
-            expect(response.body.aggregate).toBe(false);
+            expect(response.body.aggregate).toBe(true);
+            expect(response.body.data.length).toBe(1);
+            expect(response.body.data[0].gradeACount).toBe(70);
+            expect(response.body.data[0].gradeBCount).toBe(7);
+            expect(response.body.data[0].gradeCCount).toBe(0);
+            expect(response.body.data[0].gradeDCount).toBe(0);
+            expect(response.body.data[0].gradeFCount).toBe(1);
+            expect(response.body.data[0].gradePCount).toBe(0);
+            expect(response.body.data[0].gradeNpCount).toBe(0);
         });
         test("should respond successfully when some parameters have correct data", async () => {
             const response = await request
