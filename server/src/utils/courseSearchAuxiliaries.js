@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../db/sequelize');
-const logger = require('./logger');
 
 async function getAggregatedStatistics(req) {
     let aggregateQuery = getAggregateQuery(req.body.values.instructor);
@@ -136,8 +135,6 @@ async function getAssociatedCourseList(req) {
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
     parameters.offset = req.body.options.offset;
-    
-    logger.warn(tokens.join(' '));
     
     let courses = await sequelize.query(tokens.join(' '), {
         replacements: parameters,
