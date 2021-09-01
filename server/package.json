@@ -7,13 +7,15 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "jest",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "jslint": "npx semistandard"
   },
   "author": "Yizhen Liu",
   "license": "ISC",
   "devDependencies": {
     "jest": "^27.1.0",
     "nodemon": "^2.0.12",
+    "semistandard": "^16.0.1",
     "supertest": "^6.1.6"
   },
   "dependencies": {

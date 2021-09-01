@@ -130,7 +130,7 @@ async function getAssociatedCourseList(req) {
         parameters.courseCode = req.body.values.courseCode;
     }
     if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
-        tokens[0] = `WITH A AS (SELECT (AC.term || " " || AC.course_code) FROM Course AC, Instructor AI WHERE AC.term = AI.term AND AC.course_code = AI.course_code AND AI.name = :instructor) ${tokens[0]}`
+        tokens[0] = `WITH A AS (SELECT (AC.term || " " || AC.course_code) FROM Course AC, Instructor AI WHERE AC.term = AI.term AND AC.course_code = AI.course_code AND AI.name = :instructor) ${tokens[0]}`;
         tokens[1] = `${tokens[1]} AND (C.term || " " || C.course_code) IN A`;
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }

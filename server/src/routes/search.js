@@ -1,6 +1,5 @@
 const express = require('express');
 const { body, checkSchema, oneOf, validationResult } = require('express-validator');
-const Sequelize = require('sequelize');
 
 const { getAggregatedStatistics, getAssociatedCourses } = require('../utils/courseSearchAuxiliaries');
 const logger = require('../utils/logger');
@@ -155,7 +154,7 @@ router.post(
             let err = validationResult(req);
             if (err.isEmpty() === false) {
                 let errMsg = err.array();
-                logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`)
+                logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
                 return res
                     .status(400)
                     .json({
@@ -166,7 +165,7 @@ router.post(
             
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
             let courseList = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courseList)}`)
+            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courseList)}`);
             res.json({ 
                 success: true, 
                 aggregate: req.body.options.aggregate,
