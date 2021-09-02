@@ -65,15 +65,28 @@ The file for handling the `/complete/instructors` endpoint which focuses on inst
 The file for handling the `/api/v1/search` endpoint which focuses on course search. It accepts a JSON object in the body:
 ```
   {
+    /* At least one of these fields must not be null/undefined. */
     "values": {
+      /* e.g. "Spring 2021, "Fall 2015" */
       "term": string,
+      
+      /* See front end dropdown menu for acceptable parameters (e.g. "COMPSCI, "EDUC"). */
       "department": string,
+      
+      /* e.g. "161, "45J" */
       "courseNumber": string,
+      
+      /* e.g. 02250, 35780 */
       "courseCode": number,
+      
+      /* e.g. "KLEFSTAD, R.", "GOODRICH, M." */
       "instructor": string
     },
     "options": {
+      /* Specify true when users want to summarize all matches into one. */
       "aggregate": boolean,
+      
+      /* Optional (default is 0), ignored when aggregate is true. */
       "offset": number
     }
   }
