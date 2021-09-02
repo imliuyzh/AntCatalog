@@ -19,3 +19,6 @@
   + sqlite3
 + semistandard
 + winston
+
+## Acknowledgments
+This project is made possible by UC Irvine's Public Records Office. But the inspiration has its root from the ZotCurve project.
