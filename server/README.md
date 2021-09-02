@@ -20,7 +20,7 @@ The test file for `/api/v1/search` which focuses on course search.
 
 #### `/db`
 ##### `data.db`
-A SQLite database containing course information. The schema is:
+A SQLite database containing course information.
 ```
   CREATE TABLE Course (
       term TEXT,
@@ -54,8 +54,13 @@ A file connecting to the SQLite database above.
 
 #### `/middlewares`
 ##### `internalErrorHandler.js`
+A file for handling server errors (HTTP 500).
+
 ##### `invalidRouteHandler.js`
+A file for handling errors where the location specified is not valid (HTTP 404).
+
 ##### `rateLimiter.js`
+A file for limiting two requests per second.
 
 #### `/routes`
 ##### `instructorAutocomplete.js`
@@ -65,7 +70,7 @@ The file for handling the `/complete/instructors` endpoint which focuses on inst
 The file for handling the `/api/v1/search` endpoint which focuses on course search. It accepts a JSON object in the body:
 ```
   {
-    /* At least one of these fields must not be null/undefined. */
+    /* At least one of these five fields must not be null/undefined. */
     "values": {
       /* e.g. "Spring 2021, "Fall 2015" */
       "term": string,
@@ -82,6 +87,7 @@ The file for handling the `/api/v1/search` endpoint which focuses on course sear
       /* e.g. "KLEFSTAD, R.", "GOODRICH, M." */
       "instructor": string
     },
+    
     "options": {
       /* Specify true when users want to summarize all matches into one. */
       "aggregate": boolean,
