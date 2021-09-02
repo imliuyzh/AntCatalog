@@ -72,13 +72,13 @@ The file for handling the `/api/v1/search` endpoint which focuses on course sear
   {
     /* At least one of these five fields must not be null/undefined. */
     "values": {
-      /* e.g. "Spring 2021, "Fall 2015" */
+      /* e.g. "Spring 2021", "Fall 2015" */
       "term": string,
       
-      /* See front end dropdown menu for acceptable parameters (e.g. "COMPSCI, "EDUC"). */
+      /* See front end dropdown menu for acceptable parameters (e.g. "COMPSCI", "EDUC"). */
       "department": string,
       
-      /* e.g. "161, "45J" */
+      /* e.g. "161", "45J" */
       "courseNumber": string,
       
       /* e.g. 02250, 35780 */
@@ -89,7 +89,7 @@ The file for handling the `/api/v1/search` endpoint which focuses on course sear
     },
     
     "options": {
-      /* Specify true when users want to summarize all matches into one. */
+      /* Indicate true to summarize all matches into one. */
       "aggregate": boolean,
       
       /* Optional (default is 0), ignored when aggregate is true. */
