@@ -2,7 +2,7 @@
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Alternatively, you can always use the link above to run the application.
 
-### Back end
+### Front end
 1. Enter the `client` folder in the command line and execute `npm i` to install the packages
 2. Run `npm start` to begin the front end application
 
