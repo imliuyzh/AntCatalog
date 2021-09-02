@@ -400,7 +400,6 @@ describe('POST /api/v1/search', () => {
             expect(response.body.data[0].gradeNpCount).toBe(0);
             expect(response.body.data[0].instructors).toEqual(expect.arrayContaining(['LOPES, C.', 'CHEN, J.', 'NAGARAJAN, S.']));
         });
-        
         test('swe 250p should have two instructors', async () => {
             const response = await request
                 .post('/api/v1/search')
