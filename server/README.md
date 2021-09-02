@@ -1,4 +1,4 @@
-# /server
+# `/server`
 
 ## Structure
 ### `index.js`
@@ -8,25 +8,78 @@ The entry point which starts the entire back end program. To do so, run `npm ind
 This file plays an overarching role in the application. It defines all the endpoints on the back end and how to process exceptions and request/response.
 
 ### `/src`
-#### `__tests__`
+#### `/__tests__`
 ##### `app.test.js`
+The test file for `app.js` which targets on invalid entry and server errors.
+
 ##### `instructorAutocomplete.test.js`
+The test file for `/complete/instructors` which focuses on instructor name autocomplete.
+
 ##### `search.test.js`
+The test file for `/api/v1/search` which focuses on course search.
 
-#### `db`
+#### `/db`
 ##### `data.db`
-##### `sequelize.js`
+A SQLite database containing course information. The schema is:
+```
+  CREATE TABLE Course (
+      term TEXT,
+      course_code INTEGER,
+      department TEXT NOT NULL,
+      course_number TEXT NOT NULL,
+      course_title TEXT NOT NULL,
+      grade_a_count INTEGER NOT NULL,
+      grade_b_count INTEGER NOT NULL,
+      grade_c_count INTEGER NOT NULL,
+      grade_d_count INTEGER NOT NULL,
+      grade_f_count INTEGER NOT NULL,
+      grade_p_count INTEGER NOT NULL,
+      grade_np_count INTEGER NOT NULL,
+      gpa_avg REAL NOT NULL,
+      CONSTRAINT CoursePrimaryKey PRIMARY KEY (term, course_code)
+  );
+  
+  CREATE TABLE Instructor (
+      term TEXT,
+      course_code INTEGER,
+      name TEXT,
+      CONSTRAINT InstructorPrimaryKey PRIMARY KEY (term, course_code, name),
+      CONSTRAINT InstructorTermForeignKey FOREIGN KEY (term) REFERENCES Course(term),
+      CONSTRAINT InstructorCourseCodeForeignKey FOREIGN KEY (course_code) REFERENCES Course(course_code) ON DELETE CASCADE
+  );
+```
 
-#### `middlewares`
+##### `sequelize.js`
+A file connecting to the SQLite database above.
+
+#### `/middlewares`
 ##### `internalErrorHandler.js`
 ##### `invalidRouteHandler.js`
 ##### `rateLimiter.js`
 
-#### `routes`
+#### `/routes`
 ##### `instructorAutocomplete.js`
-##### `search.js`
+The file for handling the `/complete/instructors` endpoint which focuses on instructor name autocomplete. It will read all instructors from `data.db` by calling the function in `instructorList.js`. It accepts only one argument called `name` in the query string: `/complete/instructors?name=`.
 
-#### `utils`
+##### `search.js`
+The file for handling the `/api/v1/search` endpoint which focuses on course search. It accepts a JSON object in the body:
+```
+  {
+    "values": {
+      "term": string,
+      "department": string,
+      "courseNumber": string,
+      "courseCode": number,
+      "instructor": string
+    },
+    "options": {
+      "aggregate": boolean,
+      "offset": number
+    }
+  }
+```
+
+#### `/utils`
 ##### `courseSearchAuxiliaries.js`
 ##### `instructorList.js`
 ##### `logger.js`
