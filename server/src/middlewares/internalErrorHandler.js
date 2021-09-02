@@ -1,4 +1,4 @@
-const logger = require('./logger');
+const logger = require('../utils/logger');
 
 function internalErrorHandler(err, req, res, next) {
     logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.query)} ${JSON.stringify(req.body)} ${err.stack}`);

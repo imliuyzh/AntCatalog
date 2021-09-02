@@ -4,7 +4,9 @@ const express = require('express');
 const helmet = require('helmet');
 
 const instructorAutocompleteRouter = require('./src/routes/instructorAutocomplete');
-const internalErrorHandler = require('./src/utils/internalErrorHandler');
+const internalErrorHandler = require('./src/middlewares/internalErrorHandler');
+const invalidRouteHandler = require('./src/middlewares/invalidRouteHandler');
+const rateLimiter = require('./src/middlewares/rateLimiter');   // Remove all rateLimiter occurrences when testing
 const searchRouter = require('./src/routes/search');
 
 const app = express();
@@ -15,9 +17,10 @@ app.use(cors());
 app.use(helmet());
 app.use(compression());
 
-app.use('/api/v1/search', searchRouter);
-app.use('/complete/instructors', instructorAutocompleteRouter);
+app.use('/api/v1/search', rateLimiter, searchRouter);
+app.use('/complete/instructors', rateLimiter, instructorAutocompleteRouter);
 
 app.use(internalErrorHandler);
+app.use(invalidRouteHandler);
 
 module.exports = app;
