@@ -4,7 +4,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Back end
 1. Enter the `client` folder in the command line and execute `npm i` to install the packages
-2. Run `npm start` to run the front end application
+2. Run `npm start` to begin the front end application
 
 ### Back end
 1. Enter the `server` folder in the command line and execute `npm i` to install the packages
@@ -14,7 +14,10 @@ For other purposes such as testing, please visit [here](https://github.com/imliu
 
 ## Built With
 ### Front end
++ IconPark
 + React
++ UUID
+
 ### Back end
 + Node.js
   + Nodemon
