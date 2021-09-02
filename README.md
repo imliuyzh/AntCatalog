@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 1. Enter the `server` folder in the command line and execute `npm i` to install the packages
 2. Run `npm run dev` to start the back end service
 
-For other purposes such as testing, please visit [here](https://github.com/imliuyzh/AntCatalog/tree/main/server) for more information. 
+For other information of back end services such as testing, please visit [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
 
 ## Built With
 ### Front end
