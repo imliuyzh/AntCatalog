@@ -89,10 +89,10 @@ The file for handling the `/api/v1/search` endpoint which focuses on course sear
     },
     
     "options": {
-      /* Indicate true to summarize all matches into one. */
+      /* Indicate true to combine all matches into one. */
       "aggregate": boolean,
       
-      /* Optional (default is 0), ignored when aggregate is true. */
+      /* The number of results to skip over. Optional (default is 0), ignored when aggregate is true. */
       "offset": number
     }
   }
