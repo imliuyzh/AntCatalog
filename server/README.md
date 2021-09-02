@@ -100,7 +100,7 @@ The file for handling the `/api/v1/search` endpoint which focuses on course sear
 
 #### `/utils`
 ##### `courseSearchAuxiliaries.js`
-
+Most of the work in `/api/v1/search` is actually being done here. The code in this file will fetch all relating classes based on the values provided.
 
 ##### `instructorList.js`
 A file for fetching all instructors in the database.
