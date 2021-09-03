@@ -29,6 +29,7 @@ For other information of back end services such as testing, please visit [here](
   + Helmet
 + Fuse.js
 + Jest 
++ Locust
 + SuperTest
 + Sequelize
   + sqlite3
