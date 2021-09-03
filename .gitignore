@@ -1,4 +1,7 @@
+.ipynb_checkpoints/
 node_modules/
 coverage/
 logs/
-.ipynb_checkpoints/
+locust/
+!locust/locustfile.py
+!locust/requirements.txt
