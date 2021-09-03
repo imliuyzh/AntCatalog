@@ -2,6 +2,3 @@
 node_modules/
 coverage/
 logs/
-locust/
-!locust/locustfile.py
-!locust/requirements.txt

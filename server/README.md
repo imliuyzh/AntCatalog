@@ -52,6 +52,19 @@ A SQLite database containing course information.
 ##### `sequelize.js`
 A file connecting to the SQLite database above.
 
+#### `/locust`
+##### `locustfile.py`
+The program for performing stress testing. To run it:
+1. Navigate to this directory
+2. Run `python3 -m venv .` or `python -m venv .` (may need to install python3-venv if on Linux)
+3. Run `source bin/activate` (Linux) or `cd Scripts && activate`
+4. Run `locust -f ./locustfile.py --host=http://localhost:26997`
+5. Open http://0.0.0.0:8089 and type 100 and 50
+6. Press start swarming
+
+##### `requirements.txt`
+Dependencies to `locustfile.py`.
+
 #### `/middlewares`
 ##### `internalErrorHandler.js`
 A file for handling server errors (HTTP 500).
