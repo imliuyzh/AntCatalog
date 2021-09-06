@@ -15,12 +15,14 @@ For other information of back end services such as testing, please visit [here](
 ## Built With
 ### Front end
 + IconPark
++ PatternFly
 + React
++ Redux
+  + React Redux
+  + redux-thunk
 + UUID
 
 ### Back end
-+ Node.js
-  + Nodemon
 + Express.js
   + compression
   + CORS
@@ -29,12 +31,15 @@ For other information of back end services such as testing, please visit [here](
   + Helmet
 + Fuse.js
 + Jest 
-+ Locust
++ Node.js
+  + Nodemon
 + SuperTest
 + Sequelize
   + sqlite3
 + semistandard
 + winston
+
+AntCatalog also uses Locust for load testing, which itself is written in Python.
 
 ## Deployment
 The instruction below is written for a VPS with Ubuntu 20.04 installed.

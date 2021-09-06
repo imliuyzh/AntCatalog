@@ -1,0 +1,95 @@
+@font-face
+{
+    font-family: "Kievit Slab Pro Thin";
+    src: url("./assets/fonts/thin.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Thin Italic";
+    src: url("./assets/fonts/thinitalic.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Extralight";
+    src: url("./assets/fonts/extralight.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Extralight Italic";
+    src: url("./assets/fonts/extralightitalic.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Light";
+    src: url("./assets/fonts/light.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Light Italic";
+    src: url("./assets/fonts/lightitalic.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro";
+    src: url("./assets/fonts/regular.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Italic";
+    src: url("./assets/fonts/regularitalic.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Medium";
+    src: url("./assets/fonts/medium.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Medium Italic";
+    src: url("./assets/fonts/mediumitalic.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Bold";
+    src: url("./assets/fonts/bold.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Bold Italic";
+    src: url("./assets/fonts/bolditalic.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Extrabold";
+    src: url("./assets/fonts/extrabold.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Extrabold Italic";
+    src: url("./assets/fonts/extrabolditalic.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Black";
+    src: url("./assets/fonts/black.ttf");
+}
+
+@font-face
+{
+    font-family: "Kievit Slab Pro Black Italic";
+    src: url("./assets/fonts/blackitalic.ttf");
+}
