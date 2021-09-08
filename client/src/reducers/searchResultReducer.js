@@ -1,6 +1,6 @@
 let initialState = [];
 
-export default reducer = (state=initialState, action) => {
+const reducer = (state=initialState, action) => {
     switch (action.type) {
         case "ADD_RESULTS":
             return [...initialState, ...action.payload];
@@ -10,3 +10,5 @@ export default reducer = (state=initialState, action) => {
             return state;
     }
 };
+
+export default reducer;

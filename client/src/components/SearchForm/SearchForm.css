@@ -1,0 +1,132 @@
+#search-form-area
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#search-form
+{
+	margin: 0 4vw;
+}
+
+#logo
+{
+	width: 100%;
+}
+
+.form-group
+{
+	margin: 48px 0;
+}
+
+.select-menu
+{
+	align-items: center;
+	display: grid;
+	grid-template-areas: "select";
+}
+
+.select-menu select
+{
+	appearance: none;
+	background-color: transparent;
+	border: 1.5px solid #aab3bc;
+	color: #aab3bc;
+	cursor: pointer;
+	font-family: "Kievit Slab Pro", serif;
+	font-size: 14px;
+	margin: 0;
+	padding: 8px 14px;
+	width: 100%;
+}
+
+.select-menu select:focus
+{
+	outline: none;
+}
+
+.select-menu::after 
+{
+	background-color: #aab3bc;
+	clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+	content: "";
+	height: 0.4em;
+	justify-self: end;
+	margin-right: 8px;
+	width: 0.7em;
+}
+
+select,
+.select-menu:after 
+{
+	grid-area: select;
+}
+
+.invalid-option, .invalid-option:focus, .invalid-option:hover, .invalid-option:active
+{
+	background-color: transparent;
+	color: transparent;
+}
+
+.group-elements
+{
+	margin: 8px 0;
+}
+
+input[type="text"], input[type="text"]:focus
+{
+	background-color: transparent;
+	border: 1.5px solid #aab3bc;
+	box-sizing: border-box;
+	color: #aab3bc;
+	font-family: "Kievit Slab Pro", serif;
+	font-size: 14px;
+	outline: none;
+	padding: 6px 14px;
+	width: 100%;
+}
+
+::placeholder
+{
+	color: #aab3bc;
+}
+
+#aggregate-view-area
+{
+	display: inline-flex;
+	margin: 2px 0;
+}
+
+input[type="checkbox"]
+{
+	margin: auto 3px auto 0;
+}
+
+label[for="aggregate-view"]
+{
+	color: #aab3bc;
+	font-family: "Kievit Slab Pro", serif;
+	font-size: 14px;
+}
+
+#search-button-area
+{
+	margin-bottom: 0;
+}
+
+#search-button
+{
+	align-items: center;
+	background-color: #0064a4;
+	border: none;
+	color: #ffffff;
+	cursor: pointer;
+	display: flex;
+	font-family: "Segoe UI", sans-serif;
+	font-size: 8px;
+	gap: 2px;
+	justify-content: center;
+	padding: 8px 0;
+	width: 100%;
+}

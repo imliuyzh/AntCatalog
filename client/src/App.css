@@ -93,3 +93,22 @@
     font-family: "Kievit Slab Pro Black Italic";
     src: url("./assets/fonts/blackitalic.ttf");
 }
+
+body
+{
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: "Kievit Slab Pro", serif;
+    height: 100vh;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+}
+
+#search-and-course-list-area
+{
+    width: 30vw;
+}

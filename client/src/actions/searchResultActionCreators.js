@@ -1,4 +1,4 @@
-const addResults = (results) => {
+export const addResults = (results) => {
     return dispatch => {
         dispatch({
             type: "ADD_RESULTS",
@@ -7,7 +7,7 @@ const addResults = (results) => {
     };
 };
 
-const replaceResults = (results) => {
+export const replaceResults = (results) => {
     return dispatch => {
         dispatch({
             type: "REPLACE_RESULTS",
@@ -15,5 +15,3 @@ const replaceResults = (results) => {
         });
     };
 };
-
-export * as searchResultActionCreators;

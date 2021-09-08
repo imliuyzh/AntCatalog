@@ -1,18 +1,14 @@
-import { bindActionCreators } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
-import searchResultActionCreators from './actions/searchResultActionCreators';
-
 import './App.css';
 
-function App() {
-    let searchResultState = useSelector(state => state.searchResult);
-    let dispatch = useDispatch();
-    let { addResults, replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
-    
-    return ();
+import SearchForm from './components/SearchForm/SearchForm';
+
+export default function App() {
+    return (
+        <div id="content">
+            <div id="search-and-course-list-area">
+                <SearchForm />
+            </div>
+            <div id="chart-area"></div>
+        </div>
+    );
 }
-
-/*      <button onClick={() => depositMoney(1000)}>Deposit</button>
-      <button onClick={() => withdrawMoney(1000)}>Withdraw</button>*/
-
-export default App;
