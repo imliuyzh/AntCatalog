@@ -1,6 +1,6 @@
 # AntCatalog
 ## Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Alternatively, you can always use the link above to run the application.
+Before moving on in this section, please install Node.js and npm. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
 
 ### Front end
 1. Enter the `client` folder in the command line and execute `npm i` to install the packages
