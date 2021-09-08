@@ -17,7 +17,6 @@ export default function SearchForm() {
 
 	/*      <button onClick={() => depositMoney(1000)}>Deposit</button>
 	  <button onClick={() => withdrawMoney(1000)}>Withdraw</button>
-      
       */
 
 	return (
@@ -27,7 +26,7 @@ export default function SearchForm() {
                 <div className="form-group">
                     <div className="select-menu" id="term">
                         <select>
-                            <option value="" disabled selected className="invalid-option">Term</option>
+                            <option value="" disabled selected={true} className="invalid-option">Term</option>
                             <option value="Spring 2021">2021 Spring Quarter</option>
                             <option value="Winter 2021">2021 Winter Quarter</option>
                             <option value="Fall 2020">2020 Fall Quarter</option>
@@ -59,7 +58,7 @@ export default function SearchForm() {
                 <div className="form-group">
                     <div className="select-menu group-elements" id="department">
                         <select>
-                            <option value="" disabled selected className="invalid-option">Department</option>
+                            <option value="" disabled selected={true} className="invalid-option">Department</option>
                             <option value="AC ENG">AC ENG . . . . . .Academic English</option>
                             <option value="AFAM">AFAM . . . . . . . African American Studies</option>
                             <option value="ANATOMY">ANATOMY . . . .Anatomy and Neurobiology</option>

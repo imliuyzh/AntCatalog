@@ -1,5 +1,6 @@
 #search-form-area
 {
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -7,12 +8,12 @@
 
 #search-form
 {
-	margin: 0 4vw;
+	margin: 0 56px;
 }
 
 #logo
 {
-	width: 100%;
+	width: 90%;
 }
 
 .form-group
@@ -37,7 +38,7 @@
 	font-family: "Kievit Slab Pro", serif;
 	font-size: 14px;
 	margin: 0;
-	padding: 8px 14px;
+	padding: 4px 14px;
 	width: 100%;
 }
 
@@ -83,7 +84,7 @@ input[type="text"], input[type="text"]:focus
 	font-family: "Kievit Slab Pro", serif;
 	font-size: 14px;
 	outline: none;
-	padding: 6px 14px;
+	padding: 4px 14px;
 	width: 100%;
 }
 
@@ -95,7 +96,7 @@ input[type="text"], input[type="text"]:focus
 #aggregate-view-area
 {
 	display: inline-flex;
-	margin: 2px 0;
+	margin: 0;
 }
 
 input[type="checkbox"]
@@ -123,8 +124,8 @@ label[for="aggregate-view"]
 	color: #ffffff;
 	cursor: pointer;
 	display: flex;
-	font-family: "Segoe UI", sans-serif;
-	font-size: 8px;
+	font-family: Selawik, sans-serif;
+	font-size: 12.5px;
 	gap: 2px;
 	justify-content: center;
 	padding: 8px 0;

@@ -1,0 +1,17 @@
+#course-list
+{
+	align-items: center;
+	color: #aab3bc;
+	cursor: pointer;
+	display: flex;
+	font-family: "Kievit Slab Pro", serif;
+	font-size: 14px;
+	gap: 2px;
+	justify-content: center;
+	margin-top: 2px;
+}
+
+#course-list span
+{
+	color: #aab3bc;
+}
