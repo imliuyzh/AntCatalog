@@ -6,10 +6,10 @@ import SearchForm from './components/SearchForm/SearchForm';
 
 import '@patternfly/react-core/dist/styles/base.css';
 
-const GlobalStyles = css`
+const GlobalStyles = css`    
     body {
         box-sizing: border-box;
-        font-family: Aleo, 'Times New Roman', serif;
+        font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
         margin: 0;
         padding: 0;
     }
@@ -48,7 +48,7 @@ const GlobalStyles = css`
     @media (max-width: 1279px) {
         body {
             box-sizing: border-box;
-            font-family: Aleo, 'Times New Roman', serif;
+            font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
             margin: 0;
             padding: 48px 0;
         }

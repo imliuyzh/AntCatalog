@@ -2,7 +2,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Paper from '@mui/material/Paper';
 import React, { useEffect, useMemo, useState } from 'react';
 import throttle from 'lodash/throttle';
-import { v4 } from 'uuid';
 
 const InstructorAutocomplete = ({ instructor, setInstructor }) => {
     let [open, setOpen] = useState(false);
@@ -54,7 +53,7 @@ const InstructorAutocomplete = ({ instructor, setInstructor }) => {
                 <Paper
                     sx={{
                         color: '#aab3bc',
-                        fontFamily: `'Aleo', 'Times New Roman', serif`,
+                        fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
                         fontSize: '14px',
                         padding: '6px 14px'
                     }}
@@ -73,7 +72,7 @@ const InstructorAutocomplete = ({ instructor, setInstructor }) => {
                     border: '1.5px solid #aab3bc',
                     boxSizing: 'border-box',
                     color: '#aab3bc',
-                    fontFamily: `'Aleo', 'Times New Roman', serif`,
+                    fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
                     fontSize: '14px',
                     lineHeight: '25px',
                     outline: 'none',

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Search } from '@icon-park/react';
 import styled from '@emotion/styled';
+
 import InstructorAutocomplete from './InstructorAutocomplete/InstructorAutocomplete';
 import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
 
@@ -40,7 +41,7 @@ const SearchFormAreaElement = styled.div`
 	    border: 1.5px solid #aab3bc;
 	    color: #aab3bc;
 	    cursor: pointer;
-	    font-family: 'Aleo', 'Times New Roman', serif;
+	    font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
 	    font-size: 14px;
 	    line-height: 25px;
 	    margin: 0;
@@ -87,7 +88,7 @@ const SearchFormAreaElement = styled.div`
 	    border: 1.5px solid #aab3bc;
 	    box-sizing: border-box;
 	    color: #aab3bc;
-	    font-family: 'Aleo', 'Times New Roman', serif;
+	    font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
 	    font-size: 14px;
 	    line-height: 25px;
 	    outline: none;
@@ -111,7 +112,7 @@ const SearchFormAreaElement = styled.div`
 
     label[for="aggregate-view"] {
 	    color: #aab3bc;
-	    font-family: 'Aleo', 'Times New Roman', serif;
+	    font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
 	    font-size: 14px;
     }
 
@@ -136,9 +137,8 @@ const SearchFormAreaElement = styled.div`
 `;
 
 const SearchForm = () => {
-	let searchResultState = useSelector(state => state.searchResult);
 	let dispatch = useDispatch();
-	let { addResults, replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
+	let { _, replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
 	
     let [term, setTerm] = useState(''), 
         [department, setDepartment] = useState(''),
@@ -146,25 +146,45 @@ const SearchForm = () => {
         [courseCode, setCourseCode] = useState(''),
         [instructor, setInstructor] = useState(''),
         [aggregate, setAggregate] = useState(false);
+      
+    const generateRequestParams = () => {
+        return {
+            values: {
+                term: (term.trim().length > 0) ? term : null,
+                department: (department.trim().length > 0) ? department : null,
+                courseNumber: (courseNumber.trim().length > 0) ? courseNumber : null,
+                courseCode: (courseCode.trim().length > 0) ? courseCode : null,
+                instructor: (instructor.trim().length > 0) ? instructor : null
+            },
+            options: {
+                aggregate,
+                offset: 0
+            }
+        };
+    };
 
-	/*      <button onClick={() => depositMoney(1000)}>Deposit</button>
-	  <button onClick={() => withdrawMoney(1000)}>Withdraw</button>
-      */
-    
-
-    const submitForm = async () => {
-        if (term.trim().length > 0 
+    const submitForm = async (event) => {
+        event.preventDefault();
+        if ((term.trim().length > 0 
                 || department.trim().length > 0
                 || department.trim().length > 0
                 || courseNumber.trim().length > 0
                 || courseCode.trim().length > 0
-                || instructor.trim().length > 0
-                || [true, false].contains(aggregate)) {
-            let response = await fetch('localhost:26997/api/v1/search', {
-                method: 'POST'
-            });
-            let data = await response.json();
+                || instructor.trim().length > 0)
+                && [true, false].includes(aggregate)) {
+            try {
+                let response = await fetch('http://localhost:26997/api/v1/search', {
+                    body: JSON.stringify(generateRequestParams()),
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST'
+                });
+                let information = await response.json();
+                replaceResults(information.data);
+            } catch (error) {
+                console.error(error);
+            }
         } else {
+            console.error('Please check the fields.');
         }
     };
 
@@ -377,8 +397,8 @@ const SearchForm = () => {
                     </div>
                 </div>
 
-                <div className="form-group" id="search-button-area" onClick={_ => submitForm()}>
-                    <button className="group-elements" id="search-button">
+                <div className="form-group" id="search-button-area">
+                    <button className="group-elements" id="search-button" onClick={event => submitForm(event)}>
                         <Search theme="outline" size="18" fill="#ffffff" />
                         Search
                     </button>

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: FFKievitSlabWebProBook;
+    src: url('./assets/fonts/ffkievitslabwebprobook.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Lato;
+    src: url('./assets/fonts/lato-regular.woff2') format('woff2');
+}

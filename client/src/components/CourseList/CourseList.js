@@ -1,7 +1,10 @@
+import { bindActionCreators } from 'redux';
 import { ListCheckbox } from '@icon-park/react';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
+import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
 
 import '@icon-park/react/styles/index.css';
 
@@ -10,7 +13,7 @@ const CourseListButtonElement = styled.div`
 	color: #aab3bc;
 	cursor: pointer;
 	display: flex;
-	font-family: 'Aleo', 'Times New Roman', serif;
+	font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
 	font-size: 14px;
 	gap: 2px;
 	justify-content: center;
@@ -22,7 +25,12 @@ const CourseListButtonElement = styled.div`
 `;
 
 const CourseList = () => {
+    let searchResultState = useSelector(state => state.searchResult);
+	let dispatch = useDispatch();
+	let { addResults, _ } = bindActionCreators(searchResultActionCreators, dispatch);
+	
     let [isOpen, setIsOpen] = useState(false);
+    
     const columns = ['Term', 'Course Code', 'Department', 'Course Number', 'Course Title', 'Instructor'];
     
 	return (
