@@ -18,7 +18,7 @@ app.use(helmet());
 app.use(compression());
 
 app.use('/api/v1/search', rateLimiter, searchRouter);
-app.use('/complete/instructors', rateLimiter, instructorAutocompleteRouter);
+app.use('/complete/instructors', instructorAutocompleteRouter);
 
 app.use(internalErrorHandler);
 app.use(invalidRouteHandler);

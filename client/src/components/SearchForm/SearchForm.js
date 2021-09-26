@@ -2,31 +2,180 @@ import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Search } from '@icon-park/react';
+import styled from '@emotion/styled';
+import InstructorAutocomplete from './InstructorAutocomplete/InstructorAutocomplete';
 import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
 
 import '@icon-park/react/styles/index.css';
 
-import './SearchForm.css';
 import logo from '../../assets/images/logo.png';
 
-export default function SearchForm() {
-    let [quarter, setQuarter] = useState(null);
+const SearchFormAreaElement = styled.div`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    #search-form {
+	    margin: 0 56px;
+    }
+
+    #logo {
+	    width: 90%;
+    }
+
+    .form-group {
+	    margin: 48px 0;
+    }
+
+    .select-menu {
+	    align-items: center;
+	    display: grid;
+	    grid-template-areas: 'select';
+    }
+
+    .select-menu select {
+	    appearance: none;
+	    background-color: transparent;
+	    border: 1.5px solid #aab3bc;
+	    color: #aab3bc;
+	    cursor: pointer;
+	    font-family: 'Aleo', 'Times New Roman', serif;
+	    font-size: 14px;
+	    line-height: 25px;
+	    margin: 0;
+	    padding: 4px 18px;
+	    width: 100%;
+    }
+    
+    @-moz-document url-prefix() {
+        .select-menu select {
+            text-indent: -2px;
+        }
+    }
+
+    .select-menu select:focus {
+	    outline: none;
+    }
+
+    .select-menu::after  {
+	    background-color: #aab3bc;
+	    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+	    content: '';
+	    height: 0.4em;
+	    justify-self: end;
+	    margin-right: 8px;
+	    width: 0.7em;
+    }
+
+    select,
+    .select-menu:after {
+	    grid-area: select;
+    }
+
+    .invalid-option, .invalid-option:focus, .invalid-option:hover, .invalid-option:active {
+	    background-color: transparent;
+	    color: transparent;
+    }
+
+    .group-elements {
+	    margin: 8px 0;
+    }
+
+    input[type="text"], input[type="text"]:focus {
+	    background-color: #ffffff;
+	    border: 1.5px solid #aab3bc;
+	    box-sizing: border-box;
+	    color: #aab3bc;
+	    font-family: 'Aleo', 'Times New Roman', serif;
+	    font-size: 14px;
+	    line-height: 25px;
+	    outline: none;
+	    padding: 4px 18px;
+	    width: 100%;
+    }
+
+    input::placeholder {
+	    color: #aab3bc;
+	    opacity: 1;
+    }
+
+    #aggregate-view-area {
+	    display: inline-flex;
+	    margin: 0;
+    }
+
+    input[type="checkbox"] {
+	    margin: auto 3px auto 0;
+    }
+
+    label[for="aggregate-view"] {
+	    color: #aab3bc;
+	    font-family: 'Aleo', 'Times New Roman', serif;
+	    font-size: 14px;
+    }
+
+    #search-button-area {
+	    margin-bottom: 0;
+    }
+
+    #search-button {
+	    align-items: center;
+	    background-color: #0064a4;
+	    border: none;
+	    color: #ffffff;
+	    cursor: pointer;
+	    display: flex;
+	    font-family: Lato, Arial, sans-serif;
+	    font-size: 14px;
+	    gap: 2px;
+	    justify-content: center;
+	    padding: 8px 0;
+	    width: 100%;
+    }
+`;
+
+const SearchForm = () => {
 	let searchResultState = useSelector(state => state.searchResult);
 	let dispatch = useDispatch();
 	let { addResults, replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
+	
+    let [term, setTerm] = useState(''), 
+        [department, setDepartment] = useState(''),
+        [courseNumber, setCourseNumber] = useState(''),
+        [courseCode, setCourseCode] = useState(''),
+        [instructor, setInstructor] = useState(''),
+        [aggregate, setAggregate] = useState(false);
 
 	/*      <button onClick={() => depositMoney(1000)}>Deposit</button>
 	  <button onClick={() => withdrawMoney(1000)}>Withdraw</button>
       */
+    
+
+    const submitForm = async () => {
+        if (term.trim().length > 0 
+                || department.trim().length > 0
+                || department.trim().length > 0
+                || courseNumber.trim().length > 0
+                || courseCode.trim().length > 0
+                || instructor.trim().length > 0
+                || [true, false].contains(aggregate)) {
+            let response = await fetch('localhost:26997/api/v1/search', {
+                method: 'POST'
+            });
+            let data = await response.json();
+        } else {
+        }
+    };
 
 	return (
-        <div id="search-form-area">
+        <SearchFormAreaElement>
             <img src={logo} id="logo" alt="AntCatalog's Logo" />
             <form id="search-form">
                 <div className="form-group">
                     <div className="select-menu" id="term">
-                        <select>
-                            <option value="" disabled selected={true} className="invalid-option">Term</option>
+                        <select value={term} onChange={event => setTerm(event.target.value)}>
+                            <option value="" disabled className="invalid-option">Term</option>
                             <option value="Spring 2021">2021 Spring Quarter</option>
                             <option value="Winter 2021">2021 Winter Quarter</option>
                             <option value="Fall 2020">2020 Fall Quarter</option>
@@ -57,8 +206,8 @@ export default function SearchForm() {
 
                 <div className="form-group">
                     <div className="select-menu group-elements" id="department">
-                        <select>
-                            <option value="" disabled selected={true} className="invalid-option">Department</option>
+                        <select value={department} onChange={event => setDepartment(event.target.value)}>
+                            <option value="" disabled className="invalid-option">Department</option>
                             <option value="AC ENG">AC ENG . . . . . .Academic English</option>
                             <option value="AFAM">AFAM . . . . . . . African American Studies</option>
                             <option value="ANATOMY">ANATOMY . . . .Anatomy and Neurobiology</option>
@@ -211,30 +360,32 @@ export default function SearchForm() {
                         </select>
                     </div>
                     <div className="group-elements">
-                        <input type="text" class="input-elements" id="course-number" placeholder="Course Number" />
+                        <input type="text" className="input-elements" id="course-number" onChange={event => setCourseNumber(event.target.value)} placeholder="Course Number" />
                     </div>
                     <div className="group-elements">
-                        <input type="text" class="input-elements" id="course-code" placeholder="Course Code" />
+                        <input type="text" className="input-elements" id="course-code" onChange={event => setCourseCode(event.target.value)} placeholder="Course Code" />
                     </div>
                 </div>
 
                 <div className="form-group">
                     <div className="group-elements">
-                        <input type="text" class="input-elements" id="instructor" placeholder="Instructor" />
+                        <InstructorAutocomplete instructor={instructor} setInstructor={setInstructor} />
                     </div>
                     <div className="group-elements" id="aggregate-view-area">
-                        <input type="checkbox" id="aggregate-view" value="aggregate" />
-                        <label for="aggregate-view">Aggregate View</label>
+                        <input type="checkbox" id="aggregate-view" onChange={event => setAggregate(event.target.checked)} />
+                        <label htmlFor="aggregate-view">Aggregate View</label>
                     </div>
                 </div>
 
-                <div className="form-group" id="search-button-area">
+                <div className="form-group" id="search-button-area" onClick={_ => submitForm()}>
                     <button className="group-elements" id="search-button">
                         <Search theme="outline" size="18" fill="#ffffff" />
                         Search
                     </button>
                 </div>
             </form>
-        </div>
+        </SearchFormAreaElement>
     );
-}
+};
+
+export default SearchForm;

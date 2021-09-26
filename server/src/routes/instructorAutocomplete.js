@@ -34,7 +34,7 @@ router.get(
             
             let instructorList = await loadInstructors();
             let fuse = new Fuse(instructorList, { minMatchCharLength: 3 });
-            let matches = fuse.search(req.query.name, { limit: 5 });
+            let matches = fuse.search(req.query.name, { limit: 5 }).map(match => match.item);
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(matches)}`);
             res.json({ success: true, matches });
         } catch (exception) {
