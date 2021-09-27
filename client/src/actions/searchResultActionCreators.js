@@ -1,17 +1,19 @@
-export const addResults = (results) => {
+export const addResults = (isAggregateData, results) => {
     return dispatch => {
         dispatch({
             type: "ADD_RESULTS",
-            payload: results
+            isAggregateData,
+            data: results
         });
     };
 };
 
-export const replaceResults = (results) => {
+export const replaceResults = (isAggregateData, results) => {
     return dispatch => {
         dispatch({
             type: "REPLACE_RESULTS",
-            payload: results
+            isAggregateData,
+            data: results
         });
     };
 };

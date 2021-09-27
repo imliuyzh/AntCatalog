@@ -109,7 +109,7 @@ async function getAssociatedCourseList(req) {
             C.gpa_avg AS gpaAvg
          FROM Course C, Instructor I`,
         `WHERE C.term = I.term AND C.course_code = I.course_code`,
-        `LIMIT 15 OFFSET :offset`
+        `LIMIT 25 OFFSET :offset`
     ];
         
     let parameters = {};

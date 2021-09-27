@@ -1,11 +1,20 @@
-let initialState = [];
+let initialState = {
+    isAggregateData: null,
+    data: []
+};
 
 const reducer = (state=initialState, action) => {
     switch (action.type) {
         case "ADD_RESULTS":
-            return [...initialState, ...action.payload];
+            return {
+                isAggregateData: action.isAggregateData,
+                data: [...initialState.data, ...action.data]
+            };
         case "REPLACE_RESULTS":
-            return [...action.payload];
+            return {
+                isAggregateData: action.isAggregateData,
+                data: [...action.data]
+            };
         default:
             return state;
     }

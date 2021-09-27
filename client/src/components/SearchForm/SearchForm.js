@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
+import { InputContext } from '../../contexts/InputStateProvider';
+import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { Search } from '@icon-park/react';
 import styled from '@emotion/styled';
@@ -127,7 +128,7 @@ const SearchFormAreaElement = styled.div`
 	    color: #ffffff;
 	    cursor: pointer;
 	    display: flex;
-	    font-family: Lato, Arial, sans-serif;
+	    font-family: RedHatText, Arial, sans-serif;
 	    font-size: 14px;
 	    gap: 2px;
 	    justify-content: center;
@@ -136,28 +137,22 @@ const SearchFormAreaElement = styled.div`
     }
 `;
 
-const SearchForm = () => {
+const SearchForm = ({ openAlert }) => {
+    let { formInput, setFormInput } = useContext(InputContext);
 	let dispatch = useDispatch();
-	let { _, replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
-	
-    let [term, setTerm] = useState(''), 
-        [department, setDepartment] = useState(''),
-        [courseNumber, setCourseNumber] = useState(''),
-        [courseCode, setCourseCode] = useState(''),
-        [instructor, setInstructor] = useState(''),
-        [aggregate, setAggregate] = useState(false);
+	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
       
     const generateRequestParams = () => {
         return {
             values: {
-                term: (term.trim().length > 0) ? term : null,
-                department: (department.trim().length > 0) ? department : null,
-                courseNumber: (courseNumber.trim().length > 0) ? courseNumber : null,
-                courseCode: (courseCode.trim().length > 0) ? courseCode : null,
-                instructor: (instructor.trim().length > 0) ? instructor : null
+                term: (formInput.term.trim().length > 0) ? formInput.term : null,
+                department: (formInput.department.trim().length > 0) ? formInput.department : null,
+                courseNumber: (formInput.courseNumber.trim().length > 0) ? formInput.courseNumber : null,
+                courseCode: (formInput.courseCode.trim().length > 0) ? formInput.courseCode : null,
+                instructor: (formInput.instructor.trim().length > 0) ? formInput.instructor : null
             },
             options: {
-                aggregate,
+                aggregate: formInput.aggregate,
                 offset: 0
             }
         };
@@ -165,13 +160,12 @@ const SearchForm = () => {
 
     const submitForm = async (event) => {
         event.preventDefault();
-        if ((term.trim().length > 0 
-                || department.trim().length > 0
-                || department.trim().length > 0
-                || courseNumber.trim().length > 0
-                || courseCode.trim().length > 0
-                || instructor.trim().length > 0)
-                && [true, false].includes(aggregate)) {
+        if ((formInput.term.trim().length > 0 
+                || formInput.department.trim().length > 0
+                || formInput.courseNumber.trim().length > 0
+                || formInput.courseCode.trim().length > 0
+                || formInput.instructor.trim().length > 0)
+                && [true, false].includes(formInput.aggregate)) {
             try {
                 let response = await fetch('http://localhost:26997/api/v1/search', {
                     body: JSON.stringify(generateRequestParams()),
@@ -179,12 +173,17 @@ const SearchForm = () => {
                     method: 'POST'
                 });
                 let information = await response.json();
-                replaceResults(information.data);
+                
+                if (information.aggregate === false) {
+                    information.data.forEach(course => course.instructors = course.instructors.join('/'));
+                }
+                replaceResults(information.aggregate, information.data);
             } catch (error) {
                 console.error(error);
+                openAlert('An Unexpected Error. Try Again.');
             }
         } else {
-            console.error('Please check the fields.');
+            openAlert('At Least One Field Must Be Non-Empty.');
         }
     };
 
@@ -194,7 +193,10 @@ const SearchForm = () => {
             <form id="search-form">
                 <div className="form-group">
                     <div className="select-menu" id="term">
-                        <select value={term} onChange={event => setTerm(event.target.value)}>
+                        <select
+                            onChange={event => setFormInput({ ...formInput, term: event.target.value})}
+                            value={formInput.term}
+                        >
                             <option value="" disabled className="invalid-option">Term</option>
                             <option value="Spring 2021">2021 Spring Quarter</option>
                             <option value="Winter 2021">2021 Winter Quarter</option>
@@ -226,7 +228,10 @@ const SearchForm = () => {
 
                 <div className="form-group">
                     <div className="select-menu group-elements" id="department">
-                        <select value={department} onChange={event => setDepartment(event.target.value)}>
+                        <select
+                            onChange={event => setFormInput({ ...formInput, department: event.target.value})}
+                            value={formInput.department}
+                        >
                             <option value="" disabled className="invalid-option">Department</option>
                             <option value="AC ENG">AC ENG . . . . . .Academic English</option>
                             <option value="AFAM">AFAM . . . . . . . African American Studies</option>
@@ -380,19 +385,35 @@ const SearchForm = () => {
                         </select>
                     </div>
                     <div className="group-elements">
-                        <input type="text" className="input-elements" id="course-number" onChange={event => setCourseNumber(event.target.value)} placeholder="Course Number" />
+                        <input
+                            className="input-elements"
+                            id="course-number"
+                            onChange={event => setFormInput({ ...formInput, courseNumber: event.target.value})}
+                            placeholder="Course Number"
+                            type="text"
+                        />
                     </div>
                     <div className="group-elements">
-                        <input type="text" className="input-elements" id="course-code" onChange={event => setCourseCode(event.target.value)} placeholder="Course Code" />
+                        <input
+                            className="input-elements"
+                            id="course-code"
+                            onChange={event => setFormInput({ ...formInput, courseCode: event.target.value})}
+                            placeholder="Course Code"
+                            type="text"
+                        />
                     </div>
                 </div>
 
                 <div className="form-group">
                     <div className="group-elements">
-                        <InstructorAutocomplete instructor={instructor} setInstructor={setInstructor} />
+                        <InstructorAutocomplete />
                     </div>
                     <div className="group-elements" id="aggregate-view-area">
-                        <input type="checkbox" id="aggregate-view" onChange={event => setAggregate(event.target.checked)} />
+                        <input
+                            id="aggregate-view"
+                            onChange={event => setFormInput({ ...formInput, aggregate: event.target.value})}
+                            type="checkbox"
+                        />
                         <label htmlFor="aggregate-view">Aggregate View</label>
                     </div>
                 </div>

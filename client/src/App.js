@@ -1,10 +1,12 @@
+import Alert from '@mui/material/Alert';
 import { css, Global } from "@emotion/react";
+import { React, useState } from 'react';
+import Snackbar from '@mui/material/Snackbar';
 
 import CourseList from './components/CourseList/CourseList';
 import GradeChart from './components/Chart/Chart';
+import { InputStateProvider } from './contexts/InputStateProvider';
 import SearchForm from './components/SearchForm/SearchForm';
-
-import '@patternfly/react-core/dist/styles/base.css';
 
 const GlobalStyles = css`    
     body {
@@ -56,15 +58,37 @@ const GlobalStyles = css`
 `;
 
 export default function App() {
+    let [isAlertEnabled, enableAlert] = useState(false);
+    let [alertMessage, setAlertMessage] = useState('');
+    
+    const openAlert = (message) => {
+        enableAlert(true);
+        setAlertMessage(message);
+    };
+    
     return (
         <>
             <Global styles={GlobalStyles} />
-            <div id="content">
-                <div id="search-and-course-list-area">
-                    <SearchForm />
-                    <CourseList />
+            <Snackbar open={isAlertEnabled} autoHideDuration={3000} onClose={() => enableAlert(false)}>
+                <Alert
+                    onClose={() => enableAlert(false)}
+                    severity='error'
+                    sx={{
+                        fontFamily: 'RedHatText, Arial, sans-serif',
+                        width: '100%'
+                    }}
+                >
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
+            <InputStateProvider>
+                <div id="content">
+                    <div id="search-and-course-list-area">
+                        <SearchForm openAlert={openAlert} />
+                        <CourseList openAlert={openAlert} />
+                    </div>
                 </div>
-            </div>
+            </InputStateProvider>
         </>
     );
 }

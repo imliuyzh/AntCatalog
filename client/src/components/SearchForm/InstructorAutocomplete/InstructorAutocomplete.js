@@ -1,12 +1,14 @@
 import Autocomplete from '@mui/material/Autocomplete';
+import { InputContext } from '../../../contexts/InputStateProvider';
 import Paper from '@mui/material/Paper';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import throttle from 'lodash/throttle';
 
-const InstructorAutocomplete = ({ instructor, setInstructor }) => {
+const InstructorAutocomplete = () => {
     let [open, setOpen] = useState(false);
     let [instructorInput, setInstructorInput] = useState('');
     let [instructorList, setInstructorList] = useState([]);
+    let { formInput, setFormInput } = useContext(InputContext);
     
     const getResults = useMemo(() =>
         throttle((request, callback) => {
@@ -41,7 +43,7 @@ const InstructorAutocomplete = ({ instructor, setInstructor }) => {
             id="instructor"
             inputValue={instructorInput}
             onChange={(event, value) => {
-                setInstructor(value ?? '');
+                setFormInput({ ...formInput, instructor: (value ?? '')});
                 setInstructorInput(value ?? '');
             }}
             onInputChange={(event, value) => setInstructorInput(value ?? '')}
@@ -79,7 +81,7 @@ const InstructorAutocomplete = ({ instructor, setInstructor }) => {
                     padding: '4px 18px'
                 }
             }}
-            value={instructor ?? ''}
+            value={formInput.instructor ?? ''}
         />
     );
 };
