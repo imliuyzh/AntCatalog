@@ -1,6 +1,5 @@
 import { bindActionCreators } from 'redux';
 import Box from '@mui/material/Box';
-import DataGrid from 'react-data-grid';
 import { InputContext } from '../../contexts/InputStateProvider';
 import { ListCheckbox } from '@icon-park/react';
 import Modal from '@mui/material/Modal';
@@ -135,15 +134,6 @@ const CourseList = ({ openAlert }) => {
                     transform: 'translate(-50%, -50%)',
                     width: '80%',
                 }}>
-                    <DataGrid
-                        className="fill-grid"
-                        columns={columns}
-                        rowHeight={40}
-                        rowKeyGetter={row => `${row.term} ${row.courseCode}`}
-                        rows={searchResultState.data}
-                        onRowsChange={() => {}}
-                        onScroll={handleScroll}
-                    />
                 </Box>
             </Modal>
         </>

@@ -1,9 +1,12 @@
+const apicache = require('apicache');
 const express = require('express');
 const { query, validationResult } = require('express-validator');
 const Fuse = require('fuse.js');
 
 const loadInstructors = require('../utils/instructorList');
 const logger = require('../utils/logger');
+
+const cache = apicache.middleware;
 
 const router = express.Router();
 router.get(
@@ -18,6 +21,7 @@ router.get(
         .trim()
         .notEmpty()
         .withMessage('Value Must Not Be Empty.'),
+    cache('30 seconds', (_, res) => res.statusCode === 200),
     async (req, res, next) => {
         try {
             let errors = validationResult(req);

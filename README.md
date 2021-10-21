@@ -15,6 +15,8 @@ For other information of back end services such as testing, please visit [here](
 ## Built With
 ### Front end
 + IconPark
++ Lodash
++ Material UI
 + PatternFly
 + React
 + Redux

@@ -73,13 +73,13 @@ describe('GET /complete/instructors', () => {
             const response = await request.get('/complete/instructors?name=klefstad');
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
-            expect(response.body.matches[0].item).toBe('KLEFSTAD, R.');
+            expect(response.body.matches[0]).toBe('KLEFSTAD, R.');
         });
         test('should respond with success with Prof. Dillencourt', async () => {
             const response = await request.get(`/complete/instructors?name=${encodeURIComponent('DILLENCOURT, M.')}`);
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
-            expect(response.body.matches[0].item).toBe('DILLENCOURT, M.');
+            expect(response.body.matches[0]).toBe('DILLENCOURT, M.');
         });
         test('should not have two professors at the same time', async () => {
             const response = await request.get('/complete/instructors?name=klefstad&name=pattis');
@@ -93,19 +93,19 @@ describe('GET /complete/instructors', () => {
             const response = await request.get('/complete/instructors?name=shnidler');
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
-            expect(response.body.matches[0].item).toBe('SHINDLER, M.');
+            expect(response.body.matches[0]).toBe('SHINDLER, M.');
         });
         test('should respond with NAVARRO, E. when given NAVRO, E.', async () => {
             const response = await request.get(`/complete/instructors?name=${encodeURIComponent('NAVRO, E.')}`);
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
-            expect(response.body.matches[0].item).toBe('NAVARRO, E.');
+            expect(response.body.matches[0]).toBe('NAVARRO, E.');
         });
         test('should respond with ZIV, H. when given zivvv', async () => {
             const response = await request.get('/complete/instructors?name=zivvv');
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
-            expect(response.body.matches[0].item).toBe('ZIV, H.');
+            expect(response.body.matches[0]).toBe('ZIV, H.');
         });
     });
 });

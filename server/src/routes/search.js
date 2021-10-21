@@ -1,11 +1,17 @@
+const apicache = require('apicache');
 const express = require('express');
 const { body, checkSchema, oneOf, validationResult } = require('express-validator');
 
 const { getAggregatedStatistics, getAssociatedCourses } = require('../utils/courseSearchAuxiliaries');
 const logger = require('../utils/logger');
 
-let router = express.Router();
+const cache = apicache
+    .options({
+        appendKey: (req, _) => JSON.stringify(req.body)
+    })
+    .middleware;
 
+let router = express.Router();
 router.post(
     '/',
     body('options.offset').default('0'),
@@ -148,7 +154,8 @@ router.post(
             .trim()
             .notEmpty()
             .withMessage('Value Must Not Be Empty.')
-    ]), 
+    ]),
+    cache('2 minutes', (_, res) => res.statusCode === 200),
     async (req, res, next) => {
         try {
             let err = validationResult(req);

@@ -2,3 +2,6 @@
 node_modules/
 coverage/
 logs/
+src/benchmark
+!src/benchmark/locustfile.py
+!src/benchmark/requirements.txt
