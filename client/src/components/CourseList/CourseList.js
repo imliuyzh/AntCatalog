@@ -1,18 +1,20 @@
 import { bindActionCreators } from 'redux';
-import Box from '@mui/material/Box';
-import { InputContext } from '../../contexts/InputStateProvider';
+import { InternalContext } from '../../contexts/InternalStateProvider';
 import { ListCheckbox } from '@icon-park/react';
-import Modal from '@mui/material/Modal';
-import React, { useContext, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Modal, ModalVariant } from '@patternfly/react-core';
+import { Pagination } from '@patternfly/react-core';
 import styled from '@emotion/styled';
+import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
+import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 } from 'uuid';
 import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
 
-import '@icon-park/react/styles/index.css';
+const PAGE_ITEM_LIMIT = 15;
 
 const CourseListButtonElement = styled.button`
 	align-items: center;
-	background-color: transparent;
+	background-color: #ffffff;
 	border: none;
 	color: #aab3bc;
 	cursor: pointer;
@@ -29,56 +31,25 @@ const CourseListButtonElement = styled.button`
     }
 `;
 
-const columns = [
-    {
-        key: 'term',
-        name: 'Term',
-    },
-    {
-        key: 'courseCode',
-        name: 'Course Code',
-    },
-    {
-        key: 'department',
-        name: 'Department',
-    },
-    {
-        key: 'courseNumber',
-        name: 'Course Number',
-    },
-    {
-        key: 'courseTitle',
-        name: 'Course Title',
-    },
-    {
-        key: 'instructors',
-        name: 'Instructors',
-    },
-];
-
-const CourseList = ({ openAlert }) => {
-    let { formInput, setFormInput } = useContext(InputContext);
+export default function CourseList() {
+    let { formInput, openAlert, setFormInput, setShowCourseList, showCourseList } = useContext(InternalContext);
     let searchResultState = useSelector(state => state.searchResult);
 	let dispatch = useDispatch();
-	let { addResults } = bindActionCreators(searchResultActionCreators, dispatch);
-	
-    let [isOpen, setIsOpen] = useState(false),
-        [isLoading, setIsLoading] = useState(false);
+	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
     
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
-            openAlert('Course List Disabled for Aggregate Data.');
+            openAlert('Course list is disabled for aggregated data');
         } else if (searchResultState.isAggregateData === null && searchResultState.data.length === 0) {
-            openAlert('Please Search for Courses First.')
+            openAlert('Please search for courses')
         } else if (searchResultState.data.length === 0) {
-            openAlert('Empty Course List.')
+            openAlert('Empty course list')
         } else {
-            setIsOpen(true);
+            setShowCourseList(true);
         }
     };
-    
-    const generateRequestParams = () => {
-        setFormInput({ ...formInput, offset: formInput.offset + 25});
+
+    const generateRequestParams = (newOffset) => {
         return {
             values: {
                 term: (formInput.term.trim().length > 0) ? formInput.term : null,
@@ -88,27 +59,28 @@ const CourseList = ({ openAlert }) => {
                 instructor: (formInput.instructor.trim().length > 0) ? formInput.instructor : null
             },
             options: {
-                aggregate: formInput.aggregate,
-                offset: formInput.offset
+                aggregate: false,
+                offset: newOffset
             }
         };
     };
-    
-    const handleScroll = async ({ currentTarget }) => {
-        if (isLoading && (currentTarget.scrollTop + 10 >= currentTarget.scrollHeight - currentTarget.clientHeight)) {
-            setIsLoading(true);
-            
-            let response = await fetch('http://localhost:26997/api/v1/search', {
-                body: JSON.stringify(generateRequestParams()),
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST'
+
+    const fetchPageData = (event, newOffset) => {
+        event.preventDefault();
+        fetch('http://localhost:26997/api/v1/search', {
+            body: JSON.stringify(generateRequestParams(newOffset)),
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(information => {
+                replaceResults(information.aggregate, information.data);
+                setFormInput({ ...formInput, offset: newOffset });
+            })
+            .catch(error => {
+                console.error(error);
+                openAlert('An unexpected error occurs, try again');
             });
-            let information = await response.json();
-            information.data.forEach(course => course.instructors = course.instructors.join('/'));
-            addResults(information.aggregate, information.data);
-            
-            setIsLoading(false);
-        }
     };
     
 	return (
@@ -119,25 +91,46 @@ const CourseList = ({ openAlert }) => {
             </CourseListButtonElement>
             
             <Modal
-                onClose={() => setIsOpen(false)}
-                open={isOpen}
+                isOpen={showCourseList}
+                onClose={() => setShowCourseList(false)}
+                title="Search"
+                variant={ModalVariant.large}
             >
-                <Box sx={{
-                    bgcolor: '#ffffff',
-                    border: 'none',
-                    boxShadow: 24,
-                    height: '90%',
-                    left: '50%',
-                    p: 3,
-                    position: 'absolute',
-                    top: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '80%',
-                }}>
-                </Box>
+                <TableComposable variant="compact">
+                    <Thead>
+                        <Tr>
+                            <Th>{'Term'}</Th>
+                            <Th>{'Course Code'}</Th>
+                            <Th>{'Department'}</Th>
+                            <Th>{'Course Number'}</Th>
+                            <Th>{'Course Title'}</Th>
+                            <Th>{'Instructor(s)'}</Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {searchResultState.data.map(course => (
+                            <Tr key={v4()}>
+                                <Td dataLabel={'Term'}>{course.term}</Td>
+                                <Td dataLabel={'Course Code'}>{course.courseCode}</Td>
+                                <Td dataLabel={'Department'}>{course.department}</Td>
+                                <Td dataLabel={'Course Number'}>{course.courseNumber}</Td>
+                                <Td dataLabel={'Course Title'}>{course.courseTitle}</Td>
+                                <Td dataLabel={'Instructor(s)'}>{course.instructors.join(`/`)}</Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </TableComposable>
+                <Pagination
+                    dropDirection="up"
+                    isCompact
+                    onPreviousClick={(event, _) => fetchPageData(event, formInput.offset - PAGE_ITEM_LIMIT)}
+                    onNextClick={(event, _) => fetchPageData(event, formInput.offset + PAGE_ITEM_LIMIT)}
+                    page={parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
+                    perPage={PAGE_ITEM_LIMIT}
+                    perPageOptions={[{ title: "15", value: PAGE_ITEM_LIMIT }]}
+                    toggleTemplate={() => `Page ${parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
+                />
             </Modal>
         </>
 	);
-};//onRowsScrollEnd={}
-
-export default CourseList;
+}

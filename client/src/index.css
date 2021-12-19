@@ -2,8 +2,3 @@
     font-family: FFKievitSlabWebProBook;
     src: url('./assets/fonts/ffkievitslabwebprobook.woff2') format('woff2');
 }
-
-@font-face {
-    font-family: RedHatText;
-    src: url('./assets/fonts/redhattext-regular.woff2') format('woff2');
-}

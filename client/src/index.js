@@ -1,13 +1,13 @@
+import './assets/fonts/ffkievitslabwebprobook.woff2';
+import './index.css';
+import '@patternfly/react-core/dist/styles/base.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import App from './App';
 import { store } from './store';
-
-import './assets/fonts/ffkievitslabwebprobook.woff2';
-import './assets/fonts/redhattext-regular.woff2';
-import './index.css';
 
 ReactDOM.render(
     <React.StrictMode>

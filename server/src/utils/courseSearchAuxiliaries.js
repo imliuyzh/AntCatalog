@@ -109,10 +109,10 @@ async function getAssociatedCourseList(req) {
             C.gpa_avg AS gpaAvg
          FROM Course C, Instructor I`,
         `WHERE C.term = I.term AND C.course_code = I.course_code`,
-        `LIMIT 25 OFFSET :offset`
+        `LIMIT 15 OFFSET :offset`
     ];
         
-    let parameters = {};
+    let parameters = { offset: req.body.options.offset };
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
         tokens[1] = `${tokens[1]} AND C.term = :term`;
         parameters.term = req.body.values.term;
@@ -134,7 +134,6 @@ async function getAssociatedCourseList(req) {
         tokens[1] = `${tokens[1]} AND (C.term || " " || C.course_code) IN T1`;
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
-    parameters.offset = req.body.options.offset;
     
     let courses = await sequelize.query(tokens.join(' '), {
         replacements: parameters,
