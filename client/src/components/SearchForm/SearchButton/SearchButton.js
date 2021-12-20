@@ -18,7 +18,7 @@ const SearchButtonElement = styled.div`
         display: flex;
         font-family: RedHatText, Arial, sans-serif;
         font-size: 14px;
-        gap: 2px;
+        gap: 5px;
         justify-content: center;
 	    margin: 8px 0;
         padding: 8px 0;
@@ -67,7 +67,6 @@ export default function SearchButton() {
                 if (information.aggregate === false) {
                     setShowCourseList(true);
                 }
-                
             } catch (error) {
                 console.error(error);
                 openAlert('An expected error occurs, try again');

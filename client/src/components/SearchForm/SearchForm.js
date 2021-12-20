@@ -21,7 +21,7 @@ const SearchFormAreaElement = styled.div`
     }
 
     #logo {
-	    width: 90%;
+	    width: 80%;
     }
 
     .form-group {

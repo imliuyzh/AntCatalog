@@ -32,7 +32,7 @@ const CourseListButtonElement = styled.button`
 `;
 
 export default function CourseList() {
-    let { formInput, openAlert, setFormInput, setShowCourseList, showCourseList } = useContext(InternalContext);
+    let { formInput, openAlert, setFormInput, selectedCourses, setShowCourseList, setSelectedCourses, showCourseList } = useContext(InternalContext);
     let searchResultState = useSelector(state => state.searchResult);
 	let dispatch = useDispatch();
 	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
@@ -82,6 +82,19 @@ export default function CourseList() {
                 openAlert('An unexpected error occurs, try again');
             });
     };
+
+    const isCourseSelected = (course) => `${course.term} ${course.courseCode}` in selectedCourses;
+
+    const addCourse = (course, isSelected=true) => {
+        setSelectedCourses(prevState => {
+            let result = {...prevState};
+            delete result[`${course.term} ${course.courseCode}`];
+            if (isSelected) {
+                result[`${course.term} ${course.courseCode}`] = course;
+            }
+            return result;
+        });
+    };
     
 	return (
         <>
@@ -99,6 +112,7 @@ export default function CourseList() {
                 <TableComposable variant="compact">
                     <Thead>
                         <Tr>
+                            <Th>{''}</Th>
                             <Th>{'Term'}</Th>
                             <Th>{'Course Code'}</Th>
                             <Th>{'Department'}</Th>
@@ -108,8 +122,13 @@ export default function CourseList() {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {searchResultState.data.map(course => (
+                        {searchResultState.data.map((course, rowIndex) => (
                             <Tr key={v4()}>
+                                <Td select={{
+                                    isSelected: isCourseSelected(course),
+                                    onSelect: (_, isSelected) => addCourse(course, isSelected),
+                                    rowIndex
+                                }} />
                                 <Td dataLabel={'Term'}>{course.term}</Td>
                                 <Td dataLabel={'Course Code'}>{course.courseCode}</Td>
                                 <Td dataLabel={'Department'}>{course.department}</Td>
@@ -129,6 +148,7 @@ export default function CourseList() {
                     perPage={PAGE_ITEM_LIMIT}
                     perPageOptions={[{ title: "15", value: PAGE_ITEM_LIMIT }]}
                     toggleTemplate={() => `Page ${parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
+                    variant="bottom"
                 />
             </Modal>
         </>

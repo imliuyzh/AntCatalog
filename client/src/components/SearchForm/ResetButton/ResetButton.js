@@ -18,7 +18,7 @@ const ResetButtonElement = styled.div`
         display: flex;
         font-family: RedHatText, Arial, sans-serif;
         font-size: 14px;
-        gap: 2px;
+        gap: 5px;
         justify-content: center;
 	    margin: 8px 0;
         padding: 8px 0;

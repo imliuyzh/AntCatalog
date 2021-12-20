@@ -15,7 +15,7 @@ export const InternalStateProvider = ({ children }) => {
     let [showAlert, setShowAlert] = useState(false);
     let [alertMessage, setAlertMessage] = useState('');
     let [showCourseList, setShowCourseList] = useState(false);
-    let [courseData, setCourseData] = useState({});
+    let [selectedCourses, setSelectedCourses] = useState({});
 
     const openAlert = (message) => {
         setShowAlert(true);
@@ -32,8 +32,8 @@ export const InternalStateProvider = ({ children }) => {
         setAlertMessage,
         showCourseList,
         setShowCourseList,
-        courseData,
-        setCourseData
+        selectedCourses,
+        setSelectedCourses
     };
 
     return <InternalContext.Provider value={value}>{children}</InternalContext.Provider>

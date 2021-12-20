@@ -1,57 +1,85 @@
-import React from 'react';
 import { Chart, ChartAxis, ChartBar, ChartGroup, ChartVoronoiContainer } from '@patternfly/react-charts';
-
-import '@patternfly/react-core/dist/styles/base.css';
-
-import './Chart.css';
+import { InternalContext } from '../../contexts/InternalStateProvider';
+import { useContext } from 'react';
+import { v4 } from 'uuid';
 
 export default function GradeChart() {
+	let { selectedCourses } = useContext(InternalContext);
+	
+	const initializeLegend = () => {
+		let result = [];
+		for (let course in selectedCourses) {
+			result.push({
+				name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`
+			});
+		}
+		return result;
+	};
+
+	const initializeData = () => {
+		let result = [];
+		for (let course in selectedCourses) {
+			let data = [
+				{
+					name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+					x: 'A',
+					y: selectedCourses[course].gradeACount
+				},
+				{
+					name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+					x: 'B',
+					y: selectedCourses[course].gradeBCount
+				},
+				{
+					name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+					x: 'C',
+					y: selectedCourses[course].gradeCCount
+				},
+				{
+					name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+					x: 'D',
+					y: selectedCourses[course].gradeDCount
+				},
+				{
+					name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+					x: 'F',
+					y: selectedCourses[course].gradeFCount
+				},
+				{
+					name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+					x: 'P',
+					y: selectedCourses[course].gradePCount
+				},
+				{
+					name: `${selectedCourses[course].department}${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+					x: 'NP',
+					y: selectedCourses[course].gradeNpCount
+				}
+			];
+			result.push(<ChartBar data={data} key={v4()} />);
+		}
+		return result;
+	};
+
 	return (
 		<Chart
-			containerComponent={<ChartVoronoiContainer labels={({ datum }) => `${datum.name}: ${datum.y}`} constrainToVisibleArea />}
-			domainPadding={{ x: [30, 25] }}
-			height={629}
-			legendData={[{ name: 'Cats' }, { name: 'Dogs' }, { name: 'Birds' }, { name: 'Mice' }]}
-			legendOrientation="horizontal"
+			containerComponent={<ChartVoronoiContainer constrainToVisibleArea containerId={'chart-area'} labels={({ datum }) => `${datum.name}: ${datum.y}`} />}
+			domainPadding={{ x: [15, 5] }}
+			legendData={initializeLegend()}
+			legendOrientation="vertical"
 			legendPosition="bottom"
 			padding={{
 				bottom: 100,
-				left: 100,
-				right: 100,
-				top: 100
+				left: 40,
+				right: 40,
+				top: 0
 			}}
-			width={700}
 		>
 			<ChartAxis />
 			<ChartAxis dependentAxis showGrid />
 			<ChartGroup offset={11}>
-				<ChartBar data={[{ name: 'Cats', x: '2015', y: 1 }, { name: 'Cats', x: '2016', y: 2 }, { name: 'Cats', x: '2017', y: 5 }, { name: 'Cats', x: '2018', y: 3 }]} />
-				<ChartBar data={[{ name: 'Dogs', x: '2015', y: 2 }, { name: 'Dogs', x: '2016', y: 1 }, { name: 'Dogs', x: '2017', y: 7 }, { name: 'Dogs', x: '2018', y: 4 }]} />
-				<ChartBar data={[{ name: 'Birds', x: '2015', y: 4 }, { name: 'Birds', x: '2016', y: 4 }, { name: 'Birds', x: '2017', y: 9 }, { name: 'Birds', x: '2018', y: 7 }]} />
-				<ChartBar data={[{ name: 'Mice', x: '2015', y: 3 }, { name: 'Mice', x: '2016', y: 3 }, { name: 'Mice', x: '2017', y: 8 }, { name: 'Mice', x: '2018', y: 5 }]} />
+				{initializeData()}
 			</ChartGroup>
 		</Chart>
 	);
-	/*return (
-		<div id="chart">
-			<Chart
-				containerComponent={<ChartVoronoiContainer labels={({ datum }) => `${datum.name}: ${datum.y}`} constrainToVisibleArea />}
-				legendData={[{ course: 'CS 261P' }]}
-				legendOrientation="vertical"
-				legendPosition="right"
-			>
-				<ChartAxis />
-				<ChartAxis dependentAxis showGrid />
-				<ChartGroup>
-					<ChartBar data={[{ course: 'CS 261P', x: 'A', y: 46 }]} />
-					<ChartBar data={[{ course: 'CS 261P', x: 'B', y: 2 }]} />
-					<ChartBar data={[{ course: 'CS 261P', x: 'C', y: 0 }]} />
-					<ChartBar data={[{ course: 'CS 261P', x: 'D', y: 0 }]} />
-					<ChartBar data={[{ course: 'CS 261P', x: 'F', y: 0 }]} />
-					<ChartBar data={[{ course: 'CS 261P', x: 'P', y: 0 }]} />
-					<ChartBar data={[{ course: 'CS 261P', x: 'NP', y: 0 }]} />
-				</ChartGroup>
-			</Chart>
-		</div>
-	);*/
 }
