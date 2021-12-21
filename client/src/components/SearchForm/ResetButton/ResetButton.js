@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { InternalContext } from '../../../contexts/InternalStateProvider';
-import { Refresh } from '@icon-park/react';
+import { ReactComponent as ResetIcon } from '../../../assets/images/reset.svg';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
@@ -11,7 +11,7 @@ const ResetButtonElement = styled.div`
 
     #reset-button {
         align-items: center;
-        background-color: #aab3bc;
+        background-color: #efefef;
         border: none;
         color: #333538;
         cursor: pointer;
@@ -24,10 +24,14 @@ const ResetButtonElement = styled.div`
         padding: 8px 0;
         width: 100%;
     }
+
+    #reset-icon {
+        width: 24px;
+    }
 `;
 
 export default function ResetButton() {
-    let { setFormInput } = useContext(InternalContext);
+    let { setFormInput, setSelectedCourses } = useContext(InternalContext);
 	let dispatch = useDispatch();
 	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
 
@@ -42,20 +46,14 @@ export default function ResetButton() {
             aggregate: false,
             offset: 0
         });
+        setSelectedCourses({});
         replaceResults(null, []);
     };
 
     return (
         <ResetButtonElement>
-            <button
-                id="reset-button"
-                onClick={event => reset(event)}
-            >
-                <Refresh
-                    theme="outline"
-                    size="18"
-                    fill="#000000" 
-                />
+            <button id="reset-button" onClick={event => reset(event)}>
+                <ResetIcon fill="#333538" id="reset-icon" />
                 Reset
             </button>
         </ResetButtonElement>

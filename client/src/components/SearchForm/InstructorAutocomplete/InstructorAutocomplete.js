@@ -76,7 +76,7 @@ export default function InstructorAutocomplete() {
                     color: '#aab3bc',
                     fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
                     fontSize: '14px',
-                    lineHeight: '25px',
+                    lineHeight: '1rem',
                     outline: 'none',
                     padding: '4px 18px'
                 }

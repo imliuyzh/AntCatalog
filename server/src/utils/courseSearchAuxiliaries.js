@@ -56,8 +56,10 @@ function getAggregateQuery(instructor) {
             SUM(C.grade_p_count) AS gradePCount, 
             SUM(C.grade_np_count) AS gradeNpCount, 
             AVG(C.gpa_avg) AS gpaAvg
-          FROM Course C, Instructor I
-          WHERE C.term = I.term AND C.course_code = I.course_code`;
+          FROM
+            Course C,
+            Instructor I
+          WHERE C.course_id = I.course_id`;
 }
 
 async function getAssociatedCourses(req) {
@@ -107,9 +109,12 @@ async function getAssociatedCourseList(req) {
             C.grade_p_count AS gradePCount, 
             C.grade_np_count AS gradeNpCount, 
             C.gpa_avg AS gpaAvg
-         FROM Course C, Instructor I`,
-        `WHERE C.term = I.term AND C.course_code = I.course_code`,
-        `LIMIT 15 OFFSET :offset`
+         FROM
+            Course C, 
+            Instructor I`,
+        `WHERE C.course_id = I.course_id`,
+        `ORDER BY C.course_id ASC
+         LIMIT 15 OFFSET :offset`
     ];
         
     let parameters = { offset: req.body.options.offset };
@@ -130,7 +135,7 @@ async function getAssociatedCourseList(req) {
         parameters.courseCode = req.body.values.courseCode;
     }
     if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
-        tokens[0] = `WITH T1 AS (SELECT (AC.term || " " || AC.course_code) FROM Course AC, Instructor AI WHERE AC.term = AI.term AND AC.course_code = AI.course_code AND AI.name = :instructor) ${tokens[0]}`;
+        tokens[0] = `WITH T1 AS (SELECT (AC.term || " " || AC.course_code) FROM Course AC, Instructor AI WHERE AC.course_id = AI.course_id AND AI.name = :instructor) ${tokens[0]}`;
         tokens[1] = `${tokens[1]} AND (C.term || " " || C.course_code) IN T1`;
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }

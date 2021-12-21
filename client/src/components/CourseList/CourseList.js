@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { InternalContext } from '../../contexts/InternalStateProvider';
-import { ListCheckbox } from '@icon-park/react';
+import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import { Pagination } from '@patternfly/react-core';
 import styled from '@emotion/styled';
@@ -12,7 +12,7 @@ import * as searchResultActionCreators from '../../actions/searchResultActionCre
 
 const PAGE_ITEM_LIMIT = 15;
 
-const CourseListButtonElement = styled.button`
+const CourseListButtonContainerElement = styled.button`
 	align-items: center;
 	background-color: #ffffff;
 	border: none;
@@ -26,6 +26,10 @@ const CourseListButtonElement = styled.button`
 	margin-top: 2px;
 	outline: none;
 	
+    #list-icon {
+        width: 24px;
+    }
+
     span {
 	    color: #aab3bc;
     }
@@ -96,61 +100,68 @@ export default function CourseList() {
         });
     };
     
-	return (
-        <>
-            <CourseListButtonElement onClick={handleOnClick}>
-                <ListCheckbox theme="outline" size="18" fill="#aab3bc"/>
+	return (formInput.aggregate)
+        ? (
+            <CourseListButtonContainerElement onClick={handleOnClick}>
+                <ListIcon fill="#aab3bc" id="list-icon" />
                 <span>Course List</span>
-            </CourseListButtonElement>
-            
-            <Modal
-                isOpen={showCourseList}
-                onClose={() => setShowCourseList(false)}
-                title="Search"
-                variant={ModalVariant.large}
-            >
-                <TableComposable variant="compact">
-                    <Thead>
-                        <Tr>
-                            <Th>{''}</Th>
-                            <Th>{'Term'}</Th>
-                            <Th>{'Course Code'}</Th>
-                            <Th>{'Department'}</Th>
-                            <Th>{'Course Number'}</Th>
-                            <Th>{'Course Title'}</Th>
-                            <Th>{'Instructor(s)'}</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {searchResultState.data.map((course, rowIndex) => (
-                            <Tr key={v4()}>
-                                <Td select={{
-                                    isSelected: isCourseSelected(course),
-                                    onSelect: (_, isSelected) => addCourse(course, isSelected),
-                                    rowIndex
-                                }} />
-                                <Td dataLabel={'Term'}>{course.term}</Td>
-                                <Td dataLabel={'Course Code'}>{course.courseCode}</Td>
-                                <Td dataLabel={'Department'}>{course.department}</Td>
-                                <Td dataLabel={'Course Number'}>{course.courseNumber}</Td>
-                                <Td dataLabel={'Course Title'}>{course.courseTitle}</Td>
-                                <Td dataLabel={'Instructor(s)'}>{course.instructors.join(`/`)}</Td>
+            </CourseListButtonContainerElement>
+          ) 
+        : (
+            <>
+                <CourseListButtonContainerElement onClick={handleOnClick}>
+                    <ListIcon fill="#aab3bc" id="list-icon" />
+                    <span>Course List</span>
+                </CourseListButtonContainerElement>
+                
+                <Modal
+                    isOpen={showCourseList}
+                    onClose={() => setShowCourseList(false)}
+                    title="Search"
+                    variant={ModalVariant.large}
+                >
+                    <TableComposable variant="compact">
+                        <Thead>
+                            <Tr>
+                                <Th>{''}</Th>
+                                <Th>{'Term'}</Th>
+                                <Th>{'Course Code'}</Th>
+                                <Th>{'Department'}</Th>
+                                <Th>{'Course Number'}</Th>
+                                <Th>{'Course Title'}</Th>
+                                <Th>{'Instructor(s)'}</Th>
                             </Tr>
-                        ))}
-                    </Tbody>
-                </TableComposable>
-                <Pagination
-                    dropDirection="up"
-                    isCompact
-                    onPreviousClick={(event, _) => fetchPageData(event, formInput.offset - PAGE_ITEM_LIMIT)}
-                    onNextClick={(event, _) => fetchPageData(event, formInput.offset + PAGE_ITEM_LIMIT)}
-                    page={parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
-                    perPage={PAGE_ITEM_LIMIT}
-                    perPageOptions={[{ title: "15", value: PAGE_ITEM_LIMIT }]}
-                    toggleTemplate={() => `Page ${parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
-                    variant="bottom"
-                />
-            </Modal>
-        </>
-	);
+                        </Thead>
+                        <Tbody>
+                            {searchResultState.data.map((course, rowIndex) => (
+                                <Tr key={v4()}>
+                                    <Td select={{
+                                        isSelected: isCourseSelected(course),
+                                        onSelect: (_, isSelected) => addCourse(course, isSelected),
+                                        rowIndex
+                                    }} />
+                                    <Td dataLabel={'Term'}>{course.term}</Td>
+                                    <Td dataLabel={'Course Code'}>{course.courseCode}</Td>
+                                    <Td dataLabel={'Department'}>{course.department}</Td>
+                                    <Td dataLabel={'Course Number'}>{course.courseNumber}</Td>
+                                    <Td dataLabel={'Course Title'}>{course.courseTitle}</Td>
+                                    <Td dataLabel={'Instructor(s)'}>{course.instructors.join(`/`)}</Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </TableComposable>
+                    <Pagination
+                        dropDirection="up"
+                        isCompact
+                        onPreviousClick={(event, _) => fetchPageData(event, formInput.offset - PAGE_ITEM_LIMIT)}
+                        onNextClick={(event, _) => fetchPageData(event, formInput.offset + PAGE_ITEM_LIMIT)}
+                        page={parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
+                        perPage={PAGE_ITEM_LIMIT}
+                        perPageOptions={[{ title: "15", value: PAGE_ITEM_LIMIT }]}
+                        toggleTemplate={() => `Page ${parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
+                        variant="bottom"
+                    />
+                </Modal>
+            </>
+         );
 }

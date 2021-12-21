@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { InternalContext } from '../../../contexts/InternalStateProvider';
-import { Search } from '@icon-park/react';
+import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
 import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
@@ -23,6 +23,10 @@ const SearchButtonElement = styled.div`
 	    margin: 8px 0;
         padding: 8px 0;
         width: 100%;
+    }
+
+    #search-icon {
+        width: 24px;
     }
 `;
 
@@ -64,8 +68,12 @@ export default function SearchButton() {
                 let information = await response.json();
                 replaceResults(information.aggregate, information.data);
                 setFormInput({ ...formInput, offset: 0 });
-                if (information.aggregate === false) {
+                if (information.aggregate === false && information.data.length > 0) {
                     setShowCourseList(true);
+                } else if (information.aggregate === true && information.data.length > 0) {
+                    setShowCourseList(false);
+                } else {
+                    openAlert('Empty search results');
                 }
             } catch (error) {
                 console.error(error);
@@ -78,15 +86,8 @@ export default function SearchButton() {
 
     return (
         <SearchButtonElement>
-            <button
-                id="search-button"
-                onClick={event => submitForm(event)}
-            >
-                <Search
-                    theme="outline"
-                    size="18"
-                    fill="#ffffff" 
-                />
+            <button id="search-button" onClick={event => submitForm(event)}>
+                <SearchIcon fill="#ffffff" id="search-icon" />
                 Search
             </button>
         </SearchButtonElement>

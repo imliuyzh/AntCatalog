@@ -1,7 +1,7 @@
 import ErrorAlert from './components/ErrorAlert/ErrorAlert';
 import { css, Global } from "@emotion/react";
 import CourseList from './components/CourseList/CourseList';
-import GradeChart from './components/Chart/Chart';
+import GradeChart from './components/Chart/GradeChart';
 import { InternalStateProvider } from './contexts/InternalStateProvider';
 import SearchForm from './components/SearchForm/SearchForm';
 
@@ -15,27 +15,31 @@ const GlobalStyles = css`
         align-items: center;
         display: flex;
         flex-wrap: wrap;
+        gap: 24px;
         height: 100vh;
         justify-content: center;
         width: 100vw;
     }
 
-    #search-and-course-list-area {
+    #search-area {
         display: flex;
         flex-direction: column;
-        height: 80%;
         justify-content: center;
         width: 450px;
     }
 
     #chart-area {
-        height: 50vh;
-        width: 720px;
+        padding: 24px 16px;
+        width: 50vw;
     }
 
     @media (max-width: 1279px) {
         body {
             padding: 48px 0;
+        }
+
+        #chart-area {
+            width: 100%;
         }
     }
 `;
@@ -46,15 +50,15 @@ export default function App() {
             <Global styles={GlobalStyles} />
             <InternalStateProvider>
                 <ErrorAlert />
-                <div id="content">
-                    <div id="search-and-course-list-area">
+                <main id="content">
+                    <section id="search-area">
                         <SearchForm />
                         <CourseList />
-                    </div>
-                    <div id="chart-area">
+                    </section>
+                    <section id="chart-area">
                         <GradeChart />
-                    </div>
-                </div>
+                    </section>
+                </main>
             </InternalStateProvider>
         </>
     );
