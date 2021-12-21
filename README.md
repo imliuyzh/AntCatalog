@@ -14,7 +14,8 @@ For other information of back end services such as testing, please visit [here](
 
 ## Built With
 ### Front end
-+ IconPark
++ Ant Design Charts
++ Emotion
 + Lodash
 + Material UI
 + PatternFly
@@ -26,15 +27,17 @@ For other information of back end services such as testing, please visit [here](
 
 ### Back end
 + Express.js
+  + apicache
   + compression
   + CORS
   + Express Rate Limit
   + express-validator
   + Helmet
+  + node-cache
 + Fuse.js
 + Jest 
 + Node.js
-  + Nodemon
++ Nodemon
 + SuperTest
 + Sequelize
   + sqlite3
@@ -47,4 +50,4 @@ AntCatalog also uses Locust for load testing, which itself is written in Python.
 The instruction below is written for a VPS with Ubuntu 20.04 installed.
 
 ## Acknowledgments
-This project is made possible by UC Irvine's Public Records Office. But the inspiration has its root from the ZotCurve project.
+This project has inspirations from ZotCurve and is made possible by UC Irvine's Public Records Office.
