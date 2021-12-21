@@ -23,8 +23,9 @@ The test file for `/api/v1/search` which focuses on course search.
 A SQLite database containing course information.
 ```
   CREATE TABLE Course (
-      term TEXT,
-      course_code INTEGER,
+      course_id INTEGER,
+      term TEXT NOT NULL,
+      course_code INTEGER NOT NULL,
       department TEXT NOT NULL,
       course_number TEXT NOT NULL,
       course_title TEXT NOT NULL,
@@ -36,16 +37,14 @@ A SQLite database containing course information.
       grade_p_count INTEGER NOT NULL,
       grade_np_count INTEGER NOT NULL,
       gpa_avg REAL NOT NULL,
-      CONSTRAINT CoursePrimaryKey PRIMARY KEY (term, course_code)
+      CONSTRAINT CoursePrimaryKey PRIMARY KEY (course_id)
   );
-  
+
   CREATE TABLE Instructor (
-      term TEXT,
-      course_code INTEGER,
+      course_id INTEGER,
       name TEXT,
-      CONSTRAINT InstructorPrimaryKey PRIMARY KEY (term, course_code, name),
-      CONSTRAINT InstructorTermForeignKey FOREIGN KEY (term) REFERENCES Course(term),
-      CONSTRAINT InstructorCourseCodeForeignKey FOREIGN KEY (course_code) REFERENCES Course(course_code) ON DELETE CASCADE
+      CONSTRAINT InstructorPrimaryKey PRIMARY KEY (course_id, name),
+      CONSTRAINT InstructorCourseIdForeignKey FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE
   );
 ```
 
