@@ -77,10 +77,12 @@ The instruction below is written for an AWS EC2 instance with Ubuntu 20.04 insta
       }
       ```
    + Enter `:wq` and run `sudo service nginx stop`
-   + Wait for 5 seconds and then type `sudo service nginx restart`
 8. Type `npm install pm2 -g`
 9. Execute `pm2 startup` to ensure pm2 is started automatically when the OS booted
-10. Run `pm2 start index.js` to finish deploying the application
+10. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
+11. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx` `sudo certbot renew`
+12. Run `pm2 start index.js` and `sudo service nginx start`
+    + Renew the SSL certificate by `sudo certbot renew`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 
