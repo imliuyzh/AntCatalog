@@ -47,20 +47,20 @@ For other information of back end services such as testing, please visit [here](
 AntCatalog also uses Locust for load testing, which itself is written in Python.
 
 ## Deployment
-The instruction below is written for an AWS EC2 instance with Ubuntu 20.04 installed. If there is a problem with the instructions below, please feel free to create an issue.
+The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 installed. If there is a problem with the instructions below, please feel free to create an issue.
 1. Create an instance on EC2 like [this](https://www.youtube.com/watch?v=BtxbeZx6NXM)
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server` folders
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` and move the `/build` folder on your device to `/client` on the instance
-6. Uncomment these lines in `/server/app.js
+6. Uncomment these lines in `/server/app.js`
    + `app.use(express.static(path.join(__dirname, '..', 'client', 'build')));`
    + ```app.get('/', (_, res) => res.sendFile(path.resolve(`${__dirname}/../client/build/index.html`)));```
 7. Run `sudo apt install nginx` to install NGINX
-   + Run `sudo rm /etc/nginx/sites-available/default`
+   + Run `sudo service nginx stop` and `sudo rm /etc/nginx/sites-available/default`
    + Run `sudo vi /etc/nginx/sites-available/default`
-   + Press `i` and paste
+   + Press `i`, paste the code snippet below, and enter `:wq`
       ```
       server {
           listen 80;
@@ -76,7 +76,6 @@ The instruction below is written for an AWS EC2 instance with Ubuntu 20.04 insta
           }
       }
       ```
-   + Enter `:wq` and run `sudo service nginx stop`
 8. Type `npm install pm2 -g`
 9. Execute `pm2 startup` to ensure pm2 is started automatically when the OS booted
 10. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
