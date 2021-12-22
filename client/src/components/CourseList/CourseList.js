@@ -36,7 +36,7 @@ const CourseListButtonContainerElement = styled.button`
 `;
 
 export default function CourseList() {
-    let { formInput, openAlert, setFormInput, selectedCourses, setShowCourseList, setSelectedCourses, showCourseList } = useContext(InternalContext);
+    let { formInput, openAlert, setFormInput, selectedCourses, SERVICES_ENDPOINT, setShowCourseList, setSelectedCourses, showCourseList } = useContext(InternalContext);
     let searchResultState = useSelector(state => state.searchResult);
 	let dispatch = useDispatch();
 	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
@@ -71,7 +71,7 @@ export default function CourseList() {
 
     const fetchPageData = (event, newOffset) => {
         event.preventDefault();
-        fetch('http://localhost:26997/api/v1/search', {
+        fetch(`${SERVICES_ENDPOINT}/api/v1/search`, {
             body: JSON.stringify(generateRequestParams(newOffset)),
             headers: { 'Content-Type': 'application/json' },
             method: 'POST'

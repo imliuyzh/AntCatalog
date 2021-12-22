@@ -8,11 +8,11 @@ export default function InstructorAutocomplete() {
     let [open, setOpen] = useState(false);
     let [instructorInput, setInstructorInput] = useState('');
     let [instructorList, setInstructorList] = useState([]);
-    let { formInput, setFormInput } = useContext(InternalContext);
+    let { formInput, SERVICES_ENDPOINT, setFormInput } = useContext(InternalContext);
     
     const getResults = useMemo(() =>
         throttle((request, callback) => {
-            fetch(`http://localhost:26997/complete/instructors?name=${encodeURIComponent(instructorInput)}`)
+            fetch(`${SERVICES_ENDPOINT}/complete/instructors?name=${encodeURIComponent(instructorInput)}`)
                 .then(response => response.json())
                 .then(data => {
                     setInstructorList(data.matches);
@@ -22,7 +22,7 @@ export default function InstructorAutocomplete() {
                     setInstructorList([]);
                     setOpen(false);
                 });
-        }, 500), [instructorInput]
+        }, 500), [instructorInput, SERVICES_ENDPOINT]
     );
     
     useEffect(() => {

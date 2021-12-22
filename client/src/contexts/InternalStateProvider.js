@@ -17,6 +17,8 @@ export const InternalStateProvider = ({ children }) => {
     let [showCourseList, setShowCourseList] = useState(false);
     let [selectedCourses, setSelectedCourses] = useState({});
 
+    const SERVICES_ENDPOINT = (process.env.NODE_ENV === 'production') ? '' : 'http://localhost:26997';
+
     const openAlert = (message) => {
         setShowAlert(true);
         setAlertMessage(message);
@@ -33,7 +35,8 @@ export const InternalStateProvider = ({ children }) => {
         showCourseList,
         setShowCourseList,
         selectedCourses,
-        setSelectedCourses
+        setSelectedCourses,
+        SERVICES_ENDPOINT
     };
 
     return <InternalContext.Provider value={value}>{children}</InternalContext.Provider>

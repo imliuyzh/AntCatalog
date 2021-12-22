@@ -31,7 +31,7 @@ const SearchButtonElement = styled.div`
 `;
 
 export default function SearchButton() {
-    let { formInput, openAlert, setFormInput, setShowCourseList } = useContext(InternalContext);
+    let { formInput, openAlert, SERVICES_ENDPOINT, setFormInput, setShowCourseList } = useContext(InternalContext);
 	let dispatch = useDispatch();
 	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
 
@@ -60,7 +60,7 @@ export default function SearchButton() {
                 || formInput.instructor.trim().length > 0)
                 && [true, false].includes(formInput.aggregate)) {
             try {
-                let response = await fetch('http://localhost:26997/api/v1/search', {
+                let response = await fetch(`${SERVICES_ENDPOINT}/api/v1/search`, {
                     body: JSON.stringify(generateRequestParams()),
                     headers: { 'Content-Type': 'application/json' },
                     method: 'POST'
