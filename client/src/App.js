@@ -17,7 +17,6 @@ const GlobalStyles = css`
         flex-wrap: wrap;
         height: 100vh;
         justify-content: center;
-        width: 100vw;
     }
 
     #search-area {
