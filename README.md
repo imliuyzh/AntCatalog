@@ -56,24 +56,24 @@ The instruction below is written for an AWS EC2 instance with Ubuntu 20.04 insta
    + If there is a memory error, you can run `npm run build` and move the `/build` folder on your device to `/client` on the instance
 6. Uncomment these lines in `/server/app.js
    + `app.use(express.static(path.join(__dirname, '..', 'client', 'build')));`
-   + `app.get('/', (_, res) => res.sendFile(path.resolve(`${__dirname}/../client/build/index.html`)));`
+   + ```app.get('/', (_, res) => res.sendFile(path.resolve(`${__dirname}/../client/build/index.html`)));```
 7. Run `sudo apt install nginx` to install NGINX
    + Run `sudo rm /etc/nginx/sites-available/default`
    + Run `sudo vi /etc/nginx/sites-available/default`
    + Press `i` and paste
       ```
       server {
-        listen 80;
-        server_name your_domain.com www.your_domain.com;
-        location / { 
-          proxy_pass http://127.0.0.1:26997;
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection 'upgrade';
-          proxy_set_header Host $host;
-          proxy_cache_bypass $http_upgrade;
-          proxy_redirect off;
-        }
+          listen 80;
+          server_name your_domain.com www.your_domain.com;
+          location / {
+              proxy_pass http://127.0.0.1:26997;
+              proxy_http_version 1.1;
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection 'upgrade';
+              proxy_set_header Host $host;
+              proxy_cache_bypass $http_upgrade;
+              proxy_redirect off;
+          }
       }
       ```
    + Enter `:wq` and run `sudo service nginx stop`
