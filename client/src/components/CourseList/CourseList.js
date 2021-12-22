@@ -78,8 +78,12 @@ export default function CourseList() {
         })
             .then(response => response.json())
             .then(information => {
-                replaceResults(information.aggregate, information.data);
-                setFormInput({ ...formInput, offset: newOffset });
+                if (information.data.length > 0) {
+                    replaceResults(information.aggregate, information.data);
+                    setFormInput({ ...formInput, offset: newOffset });
+                } else {
+                    openAlert('No more courses!');
+                }
             })
             .catch(error => {
                 console.error(error);
@@ -157,7 +161,14 @@ export default function CourseList() {
                         onNextClick={(event, _) => fetchPageData(event, formInput.offset + PAGE_ITEM_LIMIT)}
                         page={parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
                         perPage={PAGE_ITEM_LIMIT}
-                        perPageOptions={[{ title: "15", value: PAGE_ITEM_LIMIT }]}
+                        perPageOptions={[{
+                            title: "15", 
+                            value: PAGE_ITEM_LIMIT
+                        }]}
+                        titles={{
+                            itemsPerPage: '',
+                            perPageSuffix: 'Max'
+                        }}
                         toggleTemplate={() => `Page ${parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
                         variant="bottom"
                     />
