@@ -140,6 +140,7 @@ export default function GradeChart() {
 		};
 
 		const config = {
+			autoHide: true,
 			color: ['#0066cc', '#8bc1f7', '#002f5d', '#519de9', '#004b95'],
 			data: (searchResultState.isAggregateData) ? formatAggregateCoursesData() : formatSelectedCoursesData(),
 			isGroup: true,
