@@ -15,7 +15,6 @@ const GlobalStyles = css`
         align-items: center;
         display: flex;
         flex-wrap: wrap;
-        gap: 24px;
         height: 100vh;
         justify-content: center;
         width: 100vw;
@@ -25,6 +24,7 @@ const GlobalStyles = css`
         display: flex;
         flex-direction: column;
         justify-content: center;
+        padding: 64px 0;
         width: 450px;
     }
 

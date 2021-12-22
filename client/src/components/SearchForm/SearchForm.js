@@ -10,7 +10,7 @@ import QuarterMenu from './QuarterMenu/QuarterMenu';
 import SearchButton from './SearchButton/SearchButton';
 import styled from '@emotion/styled';
 
-const SearchFormAreaElement = styled.div`
+const SearchFormContainerElement = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -103,7 +103,7 @@ const SearchFormAreaElement = styled.div`
 
 export default function SearchForm() {
 	return (
-        <SearchFormAreaElement>
+        <SearchFormContainerElement>
             <img src={logo} id="logo" alt="AntCatalog Logo" />
             <form id="search-form">
                 <div className="form-group select-menu">
@@ -136,7 +136,7 @@ export default function SearchForm() {
                     <ResetButton />
                 </div>
             </form>
-        </SearchFormAreaElement>
+        </SearchFormContainerElement>
     );
 }
 
