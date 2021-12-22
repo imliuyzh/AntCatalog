@@ -80,7 +80,8 @@ The instruction below is written for an AWS EC2 instance with Ubuntu 20.04 insta
 8. Type `npm install pm2 -g`
 9. Execute `pm2 startup` to ensure pm2 is started automatically when the OS booted
 10. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
-11. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx` and `sudo certbot renew`
+11. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx`
+    + Answer the questions based on your circumstances
 12. Run `pm2 start index.js` and `sudo service nginx start`
     + Renew the SSL certificate by `sudo certbot renew`
 
