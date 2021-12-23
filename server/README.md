@@ -22,30 +22,37 @@ The test file for `/api/v1/search` which focuses on course search.
 ##### `data.db`
 A SQLite database containing course information.
 ```
-  CREATE TABLE Course (
-      course_id INTEGER,
-      term TEXT NOT NULL,
-      course_code INTEGER NOT NULL,
-      department TEXT NOT NULL,
-      course_number TEXT NOT NULL,
-      course_title TEXT NOT NULL,
-      grade_a_count INTEGER NOT NULL,
-      grade_b_count INTEGER NOT NULL,
-      grade_c_count INTEGER NOT NULL,
-      grade_d_count INTEGER NOT NULL,
-      grade_f_count INTEGER NOT NULL,
-      grade_p_count INTEGER NOT NULL,
-      grade_np_count INTEGER NOT NULL,
-      gpa_avg REAL NOT NULL,
-      CONSTRAINT CoursePrimaryKey PRIMARY KEY (course_id)
-  );
+    CREATE TABLE Course (
+        course_id INTEGER,
+        term TEXT NOT NULL,
+        course_code INTEGER NOT NULL,
+        department TEXT NOT NULL,
+        course_number TEXT NOT NULL,
+        course_title TEXT NOT NULL,
+        grade_a_count INTEGER NOT NULL,
+        grade_b_count INTEGER NOT NULL,
+        grade_c_count INTEGER NOT NULL,
+        grade_d_count INTEGER NOT NULL,
+        grade_f_count INTEGER NOT NULL,
+        grade_p_count INTEGER NOT NULL,
+        grade_np_count INTEGER NOT NULL,
+        gpa_avg REAL NOT NULL,
+        CONSTRAINT CoursePrimaryKey PRIMARY KEY (course_id)
+    );
 
-  CREATE TABLE Instructor (
-      course_id INTEGER,
-      name TEXT,
-      CONSTRAINT InstructorPrimaryKey PRIMARY KEY (course_id, name),
-      CONSTRAINT InstructorCourseIdForeignKey FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE
-  );
+    CREATE TABLE Instructor (
+        course_id INTEGER,
+        name TEXT,
+        CONSTRAINT InstructorPrimaryKey PRIMARY KEY (course_id, name),
+        CONSTRAINT InstructorCourseIdForeignKey FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE
+    );
+
+    CREATE VIEW InstructorView AS
+        SELECT
+            I.course_id,
+            GROUP_CONCAT(I.name, '/') AS names
+        FROM Instructor I
+        GROUP BY I.course_id;
 ```
 
 ##### `sequelize.js`

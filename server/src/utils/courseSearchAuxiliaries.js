@@ -63,33 +63,9 @@ function getAggregateQuery(instructor) {
 }
 
 async function getAssociatedCourses(req) {
-    let courses = await getAssociatedCourseList(req);
-    let courseMap = new Map();
-    courses.forEach(course => {
-        if (courseMap.has(`${course.term} ${course.courseCode}`)) {
-            let info = courseMap.get(`${course.term} ${course.courseCode}`);
-            info.instructors.push(course.instructorName);
-            courseMap.set(`${course.term} ${course.courseCode}`, info);
-        } else {
-            courseMap.set(`${course.term} ${course.courseCode}`, {
-                term: course.term,
-                courseCode: course.courseCode,
-                department: course.department,
-                courseNumber: course.courseNumber,
-                courseTitle: course.courseTitle,
-                instructors: [course.instructorName],
-                gradeACount: course.gradeACount,
-                gradeBCount: course.gradeBCount,
-                gradeCCount: course.gradeCCount,
-                gradeDCount: course.gradeDCount,
-                gradeFCount: course.gradeFCount,
-                gradePCount: course.gradePCount,
-                gradeNpCount: course.gradeNpCount,
-                gpaAvg: course.gpaAvg
-            });
-        }
-    });
-    return [...courseMap.values()];
+    let results = await getAssociatedCourseList(req);
+    results.forEach(course => course.instructors = course.instructors.split(`/`));
+    return results;
 }
 
 async function getAssociatedCourseList(req) {
@@ -100,7 +76,7 @@ async function getAssociatedCourseList(req) {
             C.department,
             C.course_number AS courseNumber,
             C.course_title AS courseTitle,
-            I.name AS instructorName,
+            IV.names AS instructors,
             C.grade_a_count AS gradeACount, 
             C.grade_b_count AS gradeBCount, 
             C.grade_c_count AS gradeCCount, 
@@ -110,9 +86,9 @@ async function getAssociatedCourseList(req) {
             C.grade_np_count AS gradeNpCount, 
             C.gpa_avg AS gpaAvg
          FROM
-            Course C, 
-            Instructor I`,
-        `WHERE C.course_id = I.course_id`,
+            Course C,
+            InstructorView IV`,
+        `WHERE C.course_id = IV.course_id`,
         `ORDER BY C.course_id ASC
          LIMIT 15 OFFSET :offset`
     ];
@@ -135,8 +111,8 @@ async function getAssociatedCourseList(req) {
         parameters.courseCode = req.body.values.courseCode;
     }
     if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
-        tokens[0] = `WITH T1 AS (SELECT (AC.term || " " || AC.course_code) FROM Course AC, Instructor AI WHERE AC.course_id = AI.course_id AND AI.name = :instructor) ${tokens[0]}`;
-        tokens[1] = `${tokens[1]} AND (C.term || " " || C.course_code) IN T1`;
+        tokens[0] = `${tokens[0]}, Instructor I`;
+        tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name = :instructor`;
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
     
