@@ -20,6 +20,7 @@ For other information of back end services such as testing, please visit [here](
 + Material UI
 + PatternFly
 + React
++ React Router
 + Redux
   + React Redux
   + redux-thunk
