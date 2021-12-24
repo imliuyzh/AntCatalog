@@ -3,8 +3,6 @@ import CourseCodeInput from './CourseCodeInput/CourseCodeInput';
 import CourseNumberInput from './CourseNumberInput/CourseNumberInput';
 import DepartmentMenu from './DepartmentMenu/DepartmentMenu';
 import InstructorAutocomplete from './InstructorAutocomplete/InstructorAutocomplete';
-import logo from '../../assets/images/logo.png';
-import React from 'react';
 import ResetButton from './ResetButton/ResetButton';
 import QuarterMenu from './QuarterMenu/QuarterMenu';
 import SearchButton from './SearchButton/SearchButton';
@@ -18,10 +16,6 @@ const SearchFormContainerElement = styled.div`
 
     #search-form {
 	    margin: 0 56px;
-    }
-
-    #logo {
-	    width: 80%;
     }
 
     .form-group {
@@ -104,7 +98,6 @@ const SearchFormContainerElement = styled.div`
 export default function SearchForm() {
 	return (
         <SearchFormContainerElement>
-            <img src={logo} id="logo" alt="AntCatalog Logo" />
             <form id="search-form">
                 <div className="form-group select-menu">
                     <QuarterMenu />

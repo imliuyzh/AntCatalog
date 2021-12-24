@@ -1,45 +1,13 @@
-import ErrorAlert from './components/ErrorAlert/ErrorAlert';
 import { css, Global } from "@emotion/react";
-import CourseList from './components/CourseList/CourseList';
-import GradeChart from './components/Chart/GradeChart';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
+import HomePage from './pages/HomePage/HomePage';
 import { InternalStateProvider } from './contexts/InternalStateProvider';
-import SearchForm from './components/SearchForm/SearchForm';
+import { BrowserRouter, Outlet, Routes, Route } from 'react-router-dom';
 
 const GlobalStyles = css`
     ::selection {
         background: #ffd200;
         color: #000000;
-    }
-
-    #content {
-        align-items: center;
-        display: flex;
-        flex-wrap: wrap;
-        height: 100vh;
-        justify-content: center;
-    }
-
-    #search-area {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 64px 0;
-        width: 450px;
-    }
-
-    #chart-area {
-        padding: 24px 16px;
-        width: 50vw;
-    }
-
-    @media (max-width: 1279px) {
-        body {
-            padding: 48px 0;
-        }
-
-        #chart-area {
-            width: 100%;
-        }
     }
 `;
 
@@ -48,16 +16,16 @@ export default function App() {
         <>
             <Global styles={GlobalStyles} />
             <InternalStateProvider>
-                <ErrorAlert />
-                <main id="content">
-                    <section id="search-area">
-                        <SearchForm />
-                        <CourseList />
-                    </section>
-                    <section id="chart-area">
-                        <GradeChart />
-                    </section>
-                </main>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/">
+                            <Route index element={<HomePage />} />
+                            <Route path="*" element={<ErrorPage />} />
+                        </Route>
+                    </Routes>
+
+                    <Outlet />
+                </BrowserRouter>
             </InternalStateProvider>
         </>
     );

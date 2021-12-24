@@ -108,14 +108,14 @@ export default function CourseList() {
         ? (
             <CourseListButtonContainerElement onClick={handleOnClick}>
                 <ListIcon fill="#aab3bc" id="list-icon" />
-                <span>Course List</span>
+                <span>Course List (Last Search)</span>
             </CourseListButtonContainerElement>
           ) 
         : (
             <>
                 <CourseListButtonContainerElement onClick={handleOnClick}>
                     <ListIcon fill="#aab3bc" id="list-icon" />
-                    <span>Course List</span>
+                    <span>Course List (Last Search)</span>
                 </CourseListButtonContainerElement>
                 
                 <Modal
