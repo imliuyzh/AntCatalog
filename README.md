@@ -54,7 +54,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server` folders
 5. Run `npm run build` on `/client`
-   + If there is a memory error, you can run `npm run build` and move the `/build` folder on your device to `/client` on the instance
+   + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
 6. Uncomment these lines in `/server/app.js`
    + `app.use(express.static(path.join(__dirname, '..', 'client', 'build')));`
    + ```app.get('*', (_, res) => res.sendFile(path.resolve(`${__dirname}/../client/build/index.html`)));```
