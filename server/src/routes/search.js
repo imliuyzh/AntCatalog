@@ -6,9 +6,7 @@ const { getAggregatedStatistics, getAssociatedCourses } = require('../utils/cour
 const logger = require('../utils/logger');
 
 const cache = apicache
-    .options({
-        appendKey: (req, _) => JSON.stringify(req.body)
-    })
+    .options({ appendKey: (req, _) => JSON.stringify(req.body) })
     .middleware;
 
 let router = express.Router();
