@@ -1,10 +1,12 @@
 const rateLimit = require('express-rate-limit');
 
 module.exports = rateLimit({
-    windowMs: 1000,
-    max: 2,
+    keyGenerator: (req, _) => JSON.stringify(req.body),
     message: {
         success: false,
-        info: 'Too Many Requests Received.'
-    }
+        info: 'Too Many Requests.'
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    windowMs: 1000,
 });
