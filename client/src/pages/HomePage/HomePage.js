@@ -33,7 +33,7 @@ const HomePageContainerElement = styled.div`
         width: 50vw;
     }
 
-    @media (max-width: 1279px) {
+    @media (max-width: 1023px) {
         body {
             padding: 48px 0;
         }
