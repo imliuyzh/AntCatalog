@@ -1,6 +1,6 @@
 import { EmptyState, EmptyStateBody, EmptyStateVariant, Title } from '@patternfly/react-core';
-import styled from '@emotion/styled';
 import { ReactComponent as GithubIcon } from '../../../assets/images/github.svg';
+import styled from '@emotion/styled';
 
 const GitHubLinkContainerElement = styled.div`
     #github-button {

@@ -81,7 +81,7 @@ A file for handling server errors (HTTP 500).
 A file for handling errors where the location specified is not valid (HTTP 404).
 
 ##### `rateLimiter.js`
-A file for limiting two requests per second.
+A file for limiting five requests per second.
 
 #### `/routes`
 ##### `instructorAutocomplete.js`
