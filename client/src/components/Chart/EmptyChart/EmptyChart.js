@@ -13,7 +13,7 @@ const GitHubLinkContainerElement = styled.div`
         font-size: 14px;
         gap: 5px;
         justify-content: center;
-        margin-top: 24px;
+        margin-top: 56px;
     }
 
     #github-button:hover {
