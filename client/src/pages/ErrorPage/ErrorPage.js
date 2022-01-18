@@ -45,6 +45,7 @@ export default function ErrorPage() {
                     <h1 id="title">Error</h1>
                     <p id="description">Apologies, the page you're looking for cannot be found.</p>
                 </div>
+
                 <Link to="/">
                     <img src={Logo} id="logo" alt="AntCatalog Logo" />
                 </Link>

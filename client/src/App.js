@@ -2,7 +2,7 @@ import { css, Global } from "@emotion/react";
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
 import { InternalStateProvider } from './contexts/InternalStateProvider';
-import { BrowserRouter, Outlet, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const GlobalStyles = css`
     ::selection {
@@ -23,8 +23,6 @@ export default function App() {
                             <Route path="*" element={<ErrorPage />} />
                         </Route>
                     </Routes>
-
-                    <Outlet />
                 </BrowserRouter>
             </InternalStateProvider>
         </>
