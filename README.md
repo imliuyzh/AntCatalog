@@ -82,8 +82,8 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 10. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
 11. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx`
     + Answer the questions based on your circumstances
-12. Run `pm2 start index.js` and `sudo service nginx start`
     + Renew the SSL certificate by `sudo certbot renew`
+12. Run `pm2 start index.js` and `sudo service nginx start`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 
