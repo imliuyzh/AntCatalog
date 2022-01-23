@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import { Pagination } from '@patternfly/react-core';
+import React from 'react';
 import styled from '@emotion/styled';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,7 +36,7 @@ const CourseListButtonContainerElement = styled.button`
     }
 `;
 
-export default function CourseList() {
+let CourseList = React.memo(() => {
     let internalState = useSelector(state => state.InternalState),
         searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);
@@ -176,4 +177,6 @@ export default function CourseList() {
             }
         </>
     );
-}
+});
+
+export default CourseList;

@@ -1,8 +1,9 @@
 import { Column } from '@ant-design/charts';
 import CourseTooltip from './CourseTooltip/CourseTooltip';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-export default function GradeChart() {
+let GradeChart = React.memo(() => {
     let searchResultState = useSelector(state => state.searchResult),
 		selectedCoursesState = useSelector(state => state.selectedCourses);
 	
@@ -149,4 +150,6 @@ export default function GradeChart() {
 	};
 
 	return <Column {...config} />;
-}
+});
+
+export default GradeChart;
