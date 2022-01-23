@@ -161,7 +161,7 @@ router.post(
                 let errMsg = err.array();
                 logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
                 return res
-                    .status(400)
+                    .status(422)
                     .json({
                         success: false,
                         info: errMsg

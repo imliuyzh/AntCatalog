@@ -60,20 +60,30 @@ export default function SearchButton() {
                 || formInput.instructor.trim().length > 0)
                 && [true, false].includes(formInput.aggregate)) {
             try {
-                let response = await fetch(`${SERVICES_ENDPOINT}/api/v1/search`, {
+                let response = await fetch(`${SERVICES_ENDPOINT}/api/search`, {
                     body: JSON.stringify(generateRequestParams()),
                     headers: { 'Content-Type': 'application/json' },
                     method: 'POST'
                 });
-                let information = await response.json();
-                replaceResults(information.aggregate, information.data);
-                setFormInput({ ...formInput, offset: 0 });
-                if (information.aggregate === false && information.data.length > 0) {
-                    setShowCourseList(true);
-                } else if (information.aggregate === true && information.data.length > 0) {
-                    setShowCourseList(false);
-                } else {
-                    openAlert('Empty search results');
+
+                switch (response.status) {
+                    case 200:
+                        let information = await response.json();
+                        replaceResults(information.aggregate, information.data);
+                        setFormInput({ ...formInput, offset: 0 });
+                        if (information.aggregate === false && information.data.length > 0) {
+                            setShowCourseList(true);
+                        } else if (information.aggregate === true && information.data.length > 0) {
+                            setShowCourseList(false);
+                        } else {
+                            openAlert('Empty search results');
+                        }
+                        break;
+                    case 422:
+                        openAlert('Please ensure your search condition is valid');
+                        break;
+                    case 500: default:
+                        openAlert('An expected error occurs, please report to GitHub issues');
                 }
             } catch (error) {
                 console.error(error);

@@ -10,7 +10,8 @@ const cache = apicache.middleware;
 
 const router = express.Router();
 router.get(
-    '/', 
+    '/',
+    query('name').default(''),
     query('name')
         .exists()
         .withMessage('Malformed Request Syntax.')
@@ -29,7 +30,7 @@ router.get(
                 let errMsg = errors.array();
                 logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
                 return res
-                    .status(400)
+                    .status(422)
                     .json({
                         success: false,
                         info: errMsg

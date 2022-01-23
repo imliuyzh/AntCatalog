@@ -7,17 +7,17 @@ describe('GET /complete/instructors', () => {
     describe('sending malformed requests', () => {
         test('should respond with a failed status when there is nothing', async () => {
             const response = await request.get('/complete/instructors');
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when there is only name=', async () => {
             const response = await request.get('/complete/instructors?name=');
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when there are professor=&course=ICS32', async () => {
             const response = await request.get('/complete/instructors?professor=&course=ICS32');
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
     });
@@ -34,17 +34,17 @@ describe('GET /complete/instructors', () => {
     describe('cannot have empty strings', () => {
         test('', async () => {
             const response = await request.get('/complete/instructors?name=');
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test(' ', async () => {
             const response = await request.get(`/complete/instructors?name=${encodeURIComponent(' ')}`);
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('                                ', async () => {
             const response = await request.get(`/complete/instructors?name=${encodeURIComponent('                                ')}`);
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
     });
@@ -83,7 +83,7 @@ describe('GET /complete/instructors', () => {
         });
         test('should not have two professors at the same time', async () => {
             const response = await request.get('/complete/instructors?name=klefstad&name=pattis');
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
     });

@@ -71,7 +71,7 @@ export default function CourseList() {
 
     const fetchPageData = (event, newOffset) => {
         event.preventDefault();
-        fetch(`${SERVICES_ENDPOINT}/api/v1/search`, {
+        fetch(`${SERVICES_ENDPOINT}/api/search`, {
             body: JSON.stringify(generateRequestParams(newOffset)),
             headers: { 'Content-Type': 'application/json' },
             method: 'POST'

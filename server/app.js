@@ -24,7 +24,7 @@ app.use(helmet({
 app.use(compression());
 //app.use(express.static(path.join(__dirname, '..', 'client', 'build')));   // Comment it out when doing local development
 
-app.use('/api/v1/search', rateLimiter, searchRouter);
+app.use('/api/search', rateLimiter, searchRouter);
 app.use('/complete/instructors', instructorAutocompleteRouter);
 //app.get('*', (_, res) => res.sendFile(path.resolve(`${__dirname}/../client/build/index.html`)));   // Comment it out when doing local development
 

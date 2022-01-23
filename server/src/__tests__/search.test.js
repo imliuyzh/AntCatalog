@@ -3,31 +3,31 @@ const app = require('../../app');
 
 const request = supertest(app);
 
-describe('POST /api/v1/search', () => {
+describe('POST /api/search', () => {
     describe('sending malformed requests', () => {
         test('should respond with a failed status when there is nothing', async () => {
-            const response = await request.post('/api/v1/search');
-            expect(response.statusCode).toBe(400);
+            const response = await request.post('/api/search');
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when parameters are off', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     p1: {},
                     p2: {}
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when parameters are empty', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {},
                     options: {}
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
     });
@@ -35,7 +35,7 @@ describe('POST /api/v1/search', () => {
     describe('sending requests with missing fields', () => {
         test('should respond with a failed status when the department field is gone since it is nullable', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: null,
@@ -53,7 +53,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should respond with a failed status when the term field is gone since it is nullable', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         department: 'ECON',
@@ -71,7 +71,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should respond with a failed status when the aggregated field is gone because it is required', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: null,
@@ -84,7 +84,7 @@ describe('POST /api/v1/search', () => {
                         offset: null
                     }
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
     });
@@ -92,7 +92,7 @@ describe('POST /api/v1/search', () => {
     describe('sending requests with invalid parameters', () => {
         test('should respond with a failed status when parameters are all null', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: null,
@@ -106,12 +106,12 @@ describe('POST /api/v1/search', () => {
                         offset: null
                     }
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when parameters except options are all null', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: null,
@@ -125,12 +125,12 @@ describe('POST /api/v1/search', () => {
                         offset: 0
                     }
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when parameters except values are all null', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Spring 2021',
@@ -144,12 +144,12 @@ describe('POST /api/v1/search', () => {
                         offset: null
                     }
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when parameters type are different from expectations', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 225,
@@ -163,7 +163,7 @@ describe('POST /api/v1/search', () => {
                         offset: null
                     }
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
     });
@@ -171,7 +171,7 @@ describe('POST /api/v1/search', () => {
     describe('sending requests with partially valid parameters', () => {
         test('should respond with a failed status 1', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Winter 2020',
@@ -185,12 +185,12 @@ describe('POST /api/v1/search', () => {
                         offset: 0
                     }
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status 2', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Winter 2020',
@@ -204,7 +204,7 @@ describe('POST /api/v1/search', () => {
                         offset: null
                     }
                 });
-            expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
     });
@@ -212,7 +212,7 @@ describe('POST /api/v1/search', () => {
     describe('sending requests with valid parameters', () => {
         test('should respond successfully when only one parameter has correct data', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Fall 2021',
@@ -232,7 +232,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should have correct aggregated data for educ 247 in spring 2021 with most fields filled out', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Spring 2021',
@@ -259,7 +259,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should respond successfully when some parameters have correct data', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: null,
@@ -280,7 +280,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should respond successfully when all parameters have correct data', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Spring 2021',
@@ -308,7 +308,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should respond successfully without specifying the value for offset', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Fall 2020',
@@ -328,7 +328,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should respond zero match since there is no such class 1', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: null,
@@ -349,7 +349,7 @@ describe('POST /api/v1/search', () => {
         });
         test('should respond zero match since there is no such class 2', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: null,
@@ -373,7 +373,7 @@ describe('POST /api/v1/search', () => {
     describe('courses with multiple instructors', () => {
         test('swe 246p should have three instructors', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Fall 2020',
@@ -402,7 +402,7 @@ describe('POST /api/v1/search', () => {
         });
         test('swe 250p should have two instructors', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Fall 2020',
@@ -433,7 +433,7 @@ describe('POST /api/v1/search', () => {
     describe('get all instructors no matter an instructor is specified or not', () => {
         test('display two instructors for cs 230 in winter 2021 when no one is specified', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Winter 2021',
@@ -455,7 +455,7 @@ describe('POST /api/v1/search', () => {
         });
         test('display two instructors for cs 261 in spring 2020 when one is specified', async () => {
             const response = await request
-                .post('/api/v1/search')
+                .post('/api/search')
                 .send({
                     values: {
                         term: 'Spring 2020',

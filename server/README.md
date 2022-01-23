@@ -16,7 +16,7 @@ The test file for `app.js` which targets on invalid entry and server errors.
 The test file for `/complete/instructors` which focuses on instructor name autocomplete.
 
 ##### `search.test.js`
-The test file for `/api/v1/search` which focuses on course search.
+The test file for `/api/search` which focuses on course search.
 
 #### `/db`
 ##### `data.db`
@@ -88,7 +88,7 @@ A file for limiting five requests per second.
 The file for handling the `/complete/instructors` endpoint which focuses on instructor name autocomplete. It will read all instructors from `data.db` by calling the function in `instructorList.js`. It accepts only one argument called `name` in the query string: `/complete/instructors?name=`.
 
 ##### `search.js`
-The file for handling the `/api/v1/search` endpoint which focuses on course search. It accepts a JSON object in the body:
+The file for handling the `/api/search` endpoint which focuses on course search. It accepts a JSON object in the body:
 ```
   {
     /* At least one of these five fields must not be null/undefined. */
@@ -121,7 +121,7 @@ The file for handling the `/api/v1/search` endpoint which focuses on course sear
 
 #### `/utils`
 ##### `courseSearchAuxiliaries.js`
-Most of the work in `/api/v1/search` is actually being done here. The code in this file will fetch all relating classes based on the values provided.
+Most of the work in `/api/search` is actually being done here. The code in this file will fetch all relating classes based on the values provided.
 
 ##### `instructorList.js`
 A file for fetching all instructors in the database.
