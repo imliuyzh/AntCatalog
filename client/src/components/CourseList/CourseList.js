@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
+import * as selectedCoursesActionCreators from '../../actions/selectedCoursesActionCreators';
 
 const PAGE_ITEM_LIMIT = 15;
 
@@ -36,10 +37,11 @@ const CourseListButtonContainerElement = styled.button`
 `;
 
 export default function CourseList() {
-    let { formInput, openAlert, setFormInput, selectedCourses, SERVICES_ENDPOINT, setShowCourseList, setSelectedCourses, showCourseList } = useContext(InternalContext);
-    let searchResultState = useSelector(state => state.searchResult);
-	let dispatch = useDispatch();
-	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
+    let { formInput, openAlert, setFormInput, SERVICES_ENDPOINT, setShowCourseList, showCourseList } = useContext(InternalContext);
+    let searchResultState = useSelector(state => state.searchResult), selectedCoursesState = useSelector(state => state.selectedCourses);
+	let searchResultDispatch = useDispatch(), selectedCoursesDispatch = useDispatch();
+	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
+    let { addCourse } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
     
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
@@ -91,17 +93,15 @@ export default function CourseList() {
             });
     };
 
-    const isCourseSelected = (course) => `${course.term} ${course.courseCode}` in selectedCourses;
+    const isCourseSelected = (course) => `${course.term} ${course.courseCode}` in selectedCoursesState;
 
-    const addCourse = (course, isSelected=true) => {
-        setSelectedCourses(prevState => {
-            let result = {...prevState};
-            delete result[`${course.term} ${course.courseCode}`];
-            if (isSelected) {
-                result[`${course.term} ${course.courseCode}`] = course;
-            }
-            return result;
-        });
+    const addNewCourse = (course, isSelected=true) => {
+        let result = { ...selectedCoursesState };
+        delete result[`${course.term} ${course.courseCode}`];
+        if (isSelected) {
+            result[`${course.term} ${course.courseCode}`] = course;
+        }
+        addCourse(result);
     };
     
 	return (
@@ -138,7 +138,7 @@ export default function CourseList() {
                                         <Tr key={v4()}>
                                             <Td select={{
                                                 isSelected: isCourseSelected(course),
-                                                onSelect: (_, isSelected) => addCourse(course, isSelected),
+                                                onSelect: (_, isSelected) => addNewCourse(course, isSelected),
                                                 rowIndex
                                             }} />
                                             <Td dataLabel={'Term'}>{course.term}</Td>

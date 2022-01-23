@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
+import * as selectedCoursesActionCreators from '../../../actions/selectedCoursesActionCreators';
 
 const ResetButtonElement = styled.div`
     margin-bottom: 0;
@@ -31,9 +32,10 @@ const ResetButtonElement = styled.div`
 `;
 
 export default function ResetButton() {
-    let { setFormInput, setSelectedCourses } = useContext(InternalContext);
-	let dispatch = useDispatch();
-	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
+    let { setFormInput } = useContext(InternalContext);
+	let searchResultDispatch = useDispatch(), selectedCoursesDispatch = useDispatch();
+	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
+    let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     const reset = (event) => {
         event.preventDefault();
@@ -46,7 +48,7 @@ export default function ResetButton() {
             aggregate: false,
             offset: 0
         });
-        setSelectedCourses({});
+        resetCourses();
         replaceResults(null, []);
     };
 

@@ -49,8 +49,8 @@ const HomePageContainerElement = styled.div`
 `;
 
 export default function HomePage() {
-	let { formInput, selectedCourses } = useContext(InternalContext);
-    let searchResultState = useSelector(state => state.searchResult);
+	let { formInput } = useContext(InternalContext);
+    let searchResultState = useSelector(state => state.searchResult), selectedCoursesState = useSelector(state => state.selectedCourses);
     useEffect(() => document.title = 'AntCatalog', []);
 
     return (
@@ -64,7 +64,7 @@ export default function HomePage() {
                 </section>
                 <section id="chart-area">
                     {
-                        (([null, false].includes(formInput.aggregate) && Object.keys(selectedCourses).length <= 0)
+                        (([null, false].includes(formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
                                 || (formInput.aggregate === true && searchResultState.data.length <= 0))
                             ? <EmptyChart />
                             : <GradeChart />

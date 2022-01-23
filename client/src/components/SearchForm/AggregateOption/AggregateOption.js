@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
+import * as selectedCoursesActionCreators from '../../../actions/selectedCoursesActionCreators';
 
 const AggregateOptionElement = styled.div`
     display: inline-flex;
@@ -21,9 +22,10 @@ const AggregateOptionElement = styled.div`
 `;
 
 export default function AggregateOption() {
-    let { formInput, setFormInput, setSelectedCourses } = useContext(InternalContext);
-	let dispatch = useDispatch();
-	let { replaceResults } = bindActionCreators(searchResultActionCreators, dispatch);
+    let { formInput, setFormInput } = useContext(InternalContext);
+	let searchResultDispatch = useDispatch(), selectedCoursesDispatch = useDispatch();
+	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
+    let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     return (
         <AggregateOptionElement>
@@ -32,7 +34,7 @@ export default function AggregateOption() {
                 id="aggregate-view"
                 onChange={event => {
                     setFormInput({ ...formInput, aggregate: event.target.checked});
-                    setSelectedCourses({});
+                    resetCourses();
                     replaceResults(null, []);
                 }}
                 type="checkbox"

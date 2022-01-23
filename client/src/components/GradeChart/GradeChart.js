@@ -1,12 +1,9 @@
 import { Column } from '@ant-design/charts';
 import CourseTooltip from './CourseTooltip/CourseTooltip';
-import { InternalContext } from '../../contexts/InternalStateProvider';
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function GradeChart() {
-	let { selectedCourses } = useContext(InternalContext);
-    let searchResultState = useSelector(state => state.searchResult);
+    let searchResultState = useSelector(state => state.searchResult), selectedCoursesState = useSelector(state => state.selectedCourses);
 	
 	const formatAggregateCoursesData = () => {
 		let result = [
@@ -58,69 +55,69 @@ export default function GradeChart() {
 
 	const formatSelectedCoursesData = () => {
 		let result = [];
-		for (let course in selectedCourses) {
+		for (let course in selectedCoursesState) {
 			result.push({
-				name: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+				name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
 				grade: 'A',
-				title: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term})`,
-				courseCode: selectedCourses[course].courseCode,
-				amount: selectedCourses[course].gradeACount,
-				instructors: selectedCourses[course].instructors.join(`/`),
-				avgGPA: selectedCourses[course].gpaAvg
+				title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+				courseCode: selectedCoursesState[course].courseCode,
+				amount: selectedCoursesState[course].gradeACount,
+				instructors: selectedCoursesState[course].instructors.join(`/`),
+				avgGPA: selectedCoursesState[course].gpaAvg
 			});
 			result.push({
-				name: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+				name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
 				grade: 'B',
-				title: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term})`,
-				courseCode: selectedCourses[course].courseCode,
-				amount: selectedCourses[course].gradeBCount,
-				instructors: selectedCourses[course].instructors.join(`/`),
-				avgGPA: selectedCourses[course].gpaAvg
+				title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+				courseCode: selectedCoursesState[course].courseCode,
+				amount: selectedCoursesState[course].gradeBCount,
+				instructors: selectedCoursesState[course].instructors.join(`/`),
+				avgGPA: selectedCoursesState[course].gpaAvg
 			});
 			result.push({
-				name: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+				name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
 				grade: 'C',
-				title: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term})`,
-				courseCode: selectedCourses[course].courseCode,
-				amount: selectedCourses[course].gradeCCount,
-				instructors: selectedCourses[course].instructors.join(`/`),
-				avgGPA: selectedCourses[course].gpaAvg
+				title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+				courseCode: selectedCoursesState[course].courseCode,
+				amount: selectedCoursesState[course].gradeCCount,
+				instructors: selectedCoursesState[course].instructors.join(`/`),
+				avgGPA: selectedCoursesState[course].gpaAvg
 			});
 			result.push({
-				name: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+				name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
 				grade: 'D',
-				title: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term})`,
-				courseCode: selectedCourses[course].courseCode,
-				amount: selectedCourses[course].gradeDCount,
-				instructors: selectedCourses[course].instructors.join(`/`),
-				avgGPA: selectedCourses[course].gpaAvg
+				title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+				courseCode: selectedCoursesState[course].courseCode,
+				amount: selectedCoursesState[course].gradeDCount,
+				instructors: selectedCoursesState[course].instructors.join(`/`),
+				avgGPA: selectedCoursesState[course].gpaAvg
 			});
 			result.push({
-				name: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+				name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
 				grade: 'F',
-				title: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term})`,
-				courseCode: selectedCourses[course].courseCode,
-				amount: selectedCourses[course].gradeFCount,
-				instructors: selectedCourses[course].instructors.join(`/`),
-				avgGPA: selectedCourses[course].gpaAvg
+				title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+				courseCode: selectedCoursesState[course].courseCode,
+				amount: selectedCoursesState[course].gradeFCount,
+				instructors: selectedCoursesState[course].instructors.join(`/`),
+				avgGPA: selectedCoursesState[course].gpaAvg
 			});
 			result.push({
-				name: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+				name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
 				grade: 'P',
-				title: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term})`,
-				courseCode: selectedCourses[course].courseCode,
-				amount: selectedCourses[course].gradePCount,
-				instructors: selectedCourses[course].instructors.join(`/`),
-				avgGPA: selectedCourses[course].gpaAvg
+				title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+				courseCode: selectedCoursesState[course].courseCode,
+				amount: selectedCoursesState[course].gradePCount,
+				instructors: selectedCoursesState[course].instructors.join(`/`),
+				avgGPA: selectedCoursesState[course].gpaAvg
 			});
 			result.push({
-				name: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term}/${selectedCourses[course].courseCode})`,
+				name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
 				grade: 'NP',
-				title: `${selectedCourses[course].department} ${selectedCourses[course].courseNumber} (${selectedCourses[course].term})`,
-				courseCode: selectedCourses[course].courseCode,
-				amount: selectedCourses[course].gradeNpCount,
-				instructors: selectedCourses[course].instructors.join(`/`),
-				avgGPA: selectedCourses[course].gpaAvg
+				title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+				courseCode: selectedCoursesState[course].courseCode,
+				amount: selectedCoursesState[course].gradeNpCount,
+				instructors: selectedCoursesState[course].instructors.join(`/`),
+				avgGPA: selectedCoursesState[course].gpaAvg
 			});
 		}
 		return result;

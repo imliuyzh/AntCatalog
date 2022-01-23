@@ -15,7 +15,6 @@ export const InternalStateProvider = ({ children }) => {
     let [showAlert, setShowAlert] = useState(false);
     let [alertMessage, setAlertMessage] = useState('');
     let [showCourseList, setShowCourseList] = useState(false);
-    let [selectedCourses, setSelectedCourses] = useState({});
 
     const SERVICES_ENDPOINT = (process.env.NODE_ENV === 'production') ? '' : 'http://localhost:26997';
 
@@ -34,8 +33,6 @@ export const InternalStateProvider = ({ children }) => {
         setAlertMessage,
         showCourseList,
         setShowCourseList,
-        selectedCourses,
-        setSelectedCourses,
         SERVICES_ENDPOINT
     };
 
