@@ -1,16 +1,20 @@
-import { InternalContext } from '../../../contexts/InternalStateProvider';
-import { useContext } from 'react';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function CourseCodeInput() {
-    let { formInput, setFormInput } = useContext(InternalContext);
+    let internalState = useSelector(state => state.InternalState);
+	let internalStateDispatch = useDispatch();
+    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
+
     return (
         <input
             className="input-elements"
             id="course-code"
-            onChange={event => setFormInput({ ...formInput, courseCode: event.target.value})}
+            onChange={event => updateFormInput({ courseCode: event.target.value })}
             placeholder="Course Code"
             type="text"
-            value={formInput.courseCode}
+            value={internalState.formInput.courseCode}
         />
     );
 }

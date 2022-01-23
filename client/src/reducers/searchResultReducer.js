@@ -8,7 +8,7 @@ const reducer = (state=initialState, action) => {
         case "ADD_RESULTS":
             return {
                 isAggregateData: action.isAggregateData,
-                data: [...initialState.data, ...action.data]
+                data: [...state.data, ...action.data]
             };
         case "REPLACE_RESULTS":
             return {

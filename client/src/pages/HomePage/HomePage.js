@@ -2,11 +2,10 @@ import CourseList from '../../components/CourseList/CourseList';
 import GradeChart from '../../components/GradeChart/GradeChart';
 import EmptyChart from '../../components/EmptyChart/EmptyChart';
 import ErrorAlert from '../../components/ErrorAlert/ErrorAlert';
-import { InternalContext } from '../../contexts/InternalStateProvider';
 import Logo from '../../assets/images/logo.png';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import styled from '@emotion/styled';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 const HomePageContainerElement = styled.div`
@@ -49,8 +48,10 @@ const HomePageContainerElement = styled.div`
 `;
 
 export default function HomePage() {
-	let { formInput } = useContext(InternalContext);
-    let searchResultState = useSelector(state => state.searchResult), selectedCoursesState = useSelector(state => state.selectedCourses);
+    let internalState = useSelector(state => state.InternalState),
+        searchResultState = useSelector(state => state.searchResult),
+        selectedCoursesState = useSelector(state => state.selectedCourses);
+
     useEffect(() => document.title = 'AntCatalog', []);
 
     return (
@@ -64,8 +65,8 @@ export default function HomePage() {
                 </section>
                 <section id="chart-area">
                     {
-                        (([null, false].includes(formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
-                                || (formInput.aggregate === true && searchResultState.data.length <= 0))
+                        (([null, false].includes(internalState.formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
+                                || (internalState.formInput.aggregate === true && searchResultState.data.length <= 0))
                             ? <EmptyChart />
                             : <GradeChart />
                     }

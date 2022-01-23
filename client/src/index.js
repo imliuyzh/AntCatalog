@@ -9,6 +9,9 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './store';
 
+window.ANTCATALOG_SERVICES_ENDPOINT =
+    (process.env.NODE_ENV === 'production') ? '' : 'http://localhost:26997'
+
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>

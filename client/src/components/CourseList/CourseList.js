@@ -1,13 +1,12 @@
 import { bindActionCreators } from 'redux';
-import { InternalContext } from '../../contexts/InternalStateProvider';
 import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import { Pagination } from '@patternfly/react-core';
 import styled from '@emotion/styled';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
-import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
+import * as internalStateActionCreators from '../../actions/internalStateActionCreators';
 import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
 import * as selectedCoursesActionCreators from '../../actions/selectedCoursesActionCreators';
 
@@ -37,32 +36,36 @@ const CourseListButtonContainerElement = styled.button`
 `;
 
 export default function CourseList() {
-    let { formInput, openAlert, setFormInput, SERVICES_ENDPOINT, setShowCourseList, showCourseList } = useContext(InternalContext);
-    let searchResultState = useSelector(state => state.searchResult), selectedCoursesState = useSelector(state => state.selectedCourses);
-	let searchResultDispatch = useDispatch(), selectedCoursesDispatch = useDispatch();
+    let internalState = useSelector(state => state.InternalState),
+        searchResultState = useSelector(state => state.searchResult),
+        selectedCoursesState = useSelector(state => state.selectedCourses);
+	let internalStateDispatch = useDispatch(),
+        searchResultDispatch = useDispatch(), 
+        selectedCoursesDispatch = useDispatch();
+    let { closeCourseList, showAlert, showCourseList, updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { addCourse } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
     
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
-            openAlert('Course list is disabled for aggregated data');
+            showAlert('Course list is disabled for aggregated data');
         } else if (searchResultState.isAggregateData === null && searchResultState.data.length === 0) {
-            openAlert('Please search for courses')
+            showAlert('Please search for courses')
         } else if (searchResultState.data.length === 0) {
-            openAlert('Empty course list')
+            showAlert('Empty course list')
         } else {
-            setShowCourseList(true);
+            showCourseList();
         }
     };
 
     const generateRequestParams = (newOffset) => {
         return {
             values: {
-                term: (formInput.term.trim().length > 0) ? formInput.term : null,
-                department: (formInput.department.trim().length > 0) ? formInput.department : null,
-                courseNumber: (formInput.courseNumber.trim().length > 0) ? formInput.courseNumber : null,
-                courseCode: (formInput.courseCode.trim().length > 0) ? formInput.courseCode : null,
-                instructor: (formInput.instructor.trim().length > 0) ? formInput.instructor : null
+                term: (internalState.formInput.term.trim().length > 0) ? internalState.formInput.term : null,
+                department: (internalState.formInput.department.trim().length > 0) ? internalState.formInput.department : null,
+                courseNumber: (internalState.formInput.courseNumber.trim().length > 0) ? internalState.formInput.courseNumber : null,
+                courseCode: (internalState.formInput.courseCode.trim().length > 0) ? internalState.formInput.courseCode : null,
+                instructor: (internalState.formInput.instructor.trim().length > 0) ? internalState.formInput.instructor : null
             },
             options: {
                 aggregate: false,
@@ -73,7 +76,7 @@ export default function CourseList() {
 
     const fetchPageData = (event, newOffset) => {
         event.preventDefault();
-        fetch(`${SERVICES_ENDPOINT}/api/search`, {
+        fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/api/search`, {
             body: JSON.stringify(generateRequestParams(newOffset)),
             headers: { 'Content-Type': 'application/json' },
             method: 'POST'
@@ -82,14 +85,14 @@ export default function CourseList() {
             .then(information => {
                 if (information.data.length > 0) {
                     replaceResults(information.aggregate, information.data);
-                    setFormInput({ ...formInput, offset: newOffset });
+                    updateFormInput({ offset: newOffset });
                 } else {
-                    openAlert('No more courses!');
+                    showAlert('No more courses!');
                 }
             })
             .catch(error => {
                 console.error(error);
-                openAlert('An unexpected error occurs, try again');
+                showAlert('An unexpected error occurs, try again');
             });
     };
 
@@ -112,12 +115,12 @@ export default function CourseList() {
             </CourseListButtonContainerElement>
 
             {
-                (formInput.aggregate)
+                (internalState.formInput.aggregate)
                     ? ''
                     :
                         <Modal
-                            isOpen={showCourseList}
-                            onClose={() => setShowCourseList(false)}
+                            isOpen={internalState.showCourseList}
+                            onClose={() => closeCourseList()}
                             title="Search"
                             variant={ModalVariant.large}
                         >
@@ -154,9 +157,9 @@ export default function CourseList() {
                             <Pagination
                                 dropDirection="up"
                                 isCompact
-                                onPreviousClick={(event, _) => fetchPageData(event, formInput.offset - PAGE_ITEM_LIMIT)}
-                                onNextClick={(event, _) => fetchPageData(event, formInput.offset + PAGE_ITEM_LIMIT)}
-                                page={parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
+                                onPreviousClick={(event, _) => fetchPageData(event, internalState.formInput.offset - PAGE_ITEM_LIMIT)}
+                                onNextClick={(event, _) => fetchPageData(event, internalState.formInput.offset + PAGE_ITEM_LIMIT)}
+                                page={parseInt((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
                                 perPage={PAGE_ITEM_LIMIT}
                                 perPageOptions={[{
                                     title: "15", 
@@ -166,7 +169,7 @@ export default function CourseList() {
                                     itemsPerPage: '',
                                     perPageSuffix: 'Max'
                                 }}
-                                toggleTemplate={() => `Page ${parseInt((formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
+                                toggleTemplate={() => `Page ${parseInt((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
                                 variant="bottom"
                             />
                         </Modal>

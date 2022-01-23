@@ -1,8 +1,7 @@
 import { bindActionCreators } from 'redux';
-import { InternalContext } from '../../../contexts/InternalStateProvider';
-import { useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
+import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
 import * as selectedCoursesActionCreators from '../../../actions/selectedCoursesActionCreators';
 
@@ -22,18 +21,21 @@ const AggregateOptionElement = styled.div`
 `;
 
 export default function AggregateOption() {
-    let { formInput, setFormInput } = useContext(InternalContext);
-	let searchResultDispatch = useDispatch(), selectedCoursesDispatch = useDispatch();
+    let internalState = useSelector(state => state.InternalState);
+	let internalStateDispatch = useDispatch(),
+        searchResultDispatch = useDispatch(),
+        selectedCoursesDispatch = useDispatch();
+    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     return (
         <AggregateOptionElement>
             <input
-                checked={formInput.aggregate}
+                checked={internalState.formInput.aggregate}
                 id="aggregate-view"
                 onChange={event => {
-                    setFormInput({ ...formInput, aggregate: event.target.checked});
+                    updateFormInput({ aggregate: event.target.checked });
                     resetCourses();
                     replaceResults(null, []);
                 }}

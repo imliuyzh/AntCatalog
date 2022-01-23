@@ -1,33 +1,38 @@
 import Autocomplete from '@mui/material/Autocomplete';
-import { InternalContext } from '../../../contexts/InternalStateProvider';
+import { bindActionCreators } from 'redux';
 import Paper from '@mui/material/Paper';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useMemo, useState } from 'react';
 import throttle from 'lodash/throttle';
+import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function InstructorAutocomplete() {
     let [open, setOpen] = useState(false);
     let [instructorInput, setInstructorInput] = useState('');
     let [instructorList, setInstructorList] = useState([]);
-    let { formInput, SERVICES_ENDPOINT, setFormInput } = useContext(InternalContext);
+
+    let internalState = useSelector(state => state.InternalState);
+	let internalStateDispatch = useDispatch();
+    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
     
     const getResults = useMemo(() =>
         throttle((request, callback) => {
-            fetch(`${SERVICES_ENDPOINT}/complete/instructors?name=${encodeURIComponent(instructorInput)}`)
+            fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/complete/instructors?name=${encodeURIComponent(instructorInput)}`)
                 .then(response => response.json())
                 .then(data => {
                     setInstructorList(data.matches);
                     setOpen(true);
                 })
-                .catch(error => {
+                .catch(_ => {
                     setInstructorList([]);
                     setOpen(false);
                 });
-        }, 500), [instructorInput, SERVICES_ENDPOINT]
+        }, 500), [instructorInput]
     );
     
     useEffect(() => {
         if (instructorInput.trim().length >= 3) {
-            getResults({ input: instructorInput }, results => {});
+            getResults({ input: instructorInput }, _ => {});
             return () => false;
         } else {
             setInstructorList([]);
@@ -42,11 +47,11 @@ export default function InstructorAutocomplete() {
             fullWidth
             id="instructor"
             inputValue={instructorInput}
-            onChange={(event, value) => {
-                setFormInput({ ...formInput, instructor: (value ?? '')});
+            onChange={(_, value) => {
+                updateFormInput({ instructor: value ?? '' });
                 setInstructorInput(value ?? '');
             }}
-            onInputChange={(event, value) => setInstructorInput(value ?? '')}
+            onInputChange={(_, value) => setInstructorInput(value ?? '')}
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
             open={open}
@@ -81,7 +86,7 @@ export default function InstructorAutocomplete() {
                     padding: '4px 18px'
                 }
             }}
-            value={formInput.instructor ?? ''}
+            value={internalState.formInput.instructor ?? ''}
         />
     );
 }

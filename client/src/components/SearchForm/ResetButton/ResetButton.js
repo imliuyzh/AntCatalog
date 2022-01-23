@@ -1,9 +1,8 @@
 import { bindActionCreators } from 'redux';
-import { InternalContext } from '../../../contexts/InternalStateProvider';
 import { ReactComponent as ResetIcon } from '../../../assets/images/reset.svg';
-import { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
+import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
 import * as selectedCoursesActionCreators from '../../../actions/selectedCoursesActionCreators';
 
@@ -32,14 +31,16 @@ const ResetButtonElement = styled.div`
 `;
 
 export default function ResetButton() {
-    let { setFormInput } = useContext(InternalContext);
-	let searchResultDispatch = useDispatch(), selectedCoursesDispatch = useDispatch();
+    let internalStateDispatch = useDispatch(),
+        searchResultDispatch = useDispatch(),
+        selectedCoursesDispatch = useDispatch();
+    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     const reset = (event) => {
         event.preventDefault();
-        setFormInput({
+        updateFormInput({
             term: '',
             department: '',
             courseNumber: '',

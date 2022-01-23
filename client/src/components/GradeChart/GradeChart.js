@@ -3,7 +3,8 @@ import CourseTooltip from './CourseTooltip/CourseTooltip';
 import { useSelector } from 'react-redux';
 
 export default function GradeChart() {
-    let searchResultState = useSelector(state => state.searchResult), selectedCoursesState = useSelector(state => state.selectedCourses);
+    let searchResultState = useSelector(state => state.searchResult),
+		selectedCoursesState = useSelector(state => state.selectedCourses);
 	
 	const formatAggregateCoursesData = () => {
 		let result = [

@@ -3,7 +3,7 @@ let initialState = {};
 const reducer = (state=initialState, action) => {
     switch (action.type) {
         case "ADD_COURSE":
-            return { ...initialState, ...action.courses };
+            return { ...state, ...action.courses };
         case "REMOVE_COURSE":
             let newState = { ...action.courses };
             delete newState[action.targetCourse];

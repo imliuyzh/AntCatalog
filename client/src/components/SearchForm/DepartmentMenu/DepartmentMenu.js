@@ -1,12 +1,16 @@
-import { InternalContext } from '../../../contexts/InternalStateProvider';
-import { useContext } from 'react';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function DepartmentMenu() {
-    let { formInput, setFormInput } = useContext(InternalContext);
+    let internalState = useSelector(state => state.InternalState);
+	let internalStateDispatch = useDispatch();
+    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
+
     return (
         <select
-            onChange={event => setFormInput({ ...formInput, department: event.target.value})}
-            value={formInput.department}
+            onChange={event => updateFormInput({ department: event.target.value })}
+            value={internalState.formInput.department}
         >
             <option value="" disabled>Department</option>
             <option value="AC ENG">AC ENG . . . . . .Academic English</option>

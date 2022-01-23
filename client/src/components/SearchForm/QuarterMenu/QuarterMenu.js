@@ -1,12 +1,16 @@
-import { InternalContext } from '../../../contexts/InternalStateProvider';
-import { useContext } from 'react';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function QuarterMenu() {
-    let { formInput, setFormInput } = useContext(InternalContext);
+    let internalState = useSelector(state => state.InternalState);
+	let internalStateDispatch = useDispatch();
+    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
+
     return (
         <select
-            onChange={event => setFormInput({ ...formInput, term: event.target.value})}
-            value={formInput.term}
+            onChange={event => updateFormInput({ term: event.target.value })}
+            value={internalState.formInput.term}
         >
             <option value="" disabled className="invalid-option">Term</option>
             <option value="Spring 2021">2021 Spring Quarter</option>
