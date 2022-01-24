@@ -14,25 +14,25 @@ import * as selectedCoursesActionCreators from '../../actions/selectedCoursesAct
 const PAGE_ITEM_LIMIT = 15;
 
 const CourseListButtonContainerElement = styled.button`
-	align-items: center;
-	background-color: #ffffff;
-	border: none;
-	color: #aab3bc;
-	cursor: pointer;
-	display: flex;
-	font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
-	font-size: 14px;
-	gap: 2px;
-	justify-content: center;
-	margin-top: 2px;
-	outline: none;
-	
+    align-items: center;
+    background-color: #ffffff;
+    border: none;
+    color: #aab3bc;
+    cursor: pointer;
+    display: flex;
+    font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
+    font-size: 14px;
+    gap: 2px;
+    justify-content: center;
+    margin-top: 2px;
+    outline: none;
+
     #list-icon {
         width: 24px;
     }
 
     span {
-	color: #aab3bc;
+        color: #aab3bc;
     }
 `;
 
@@ -41,12 +41,12 @@ let CourseList = React.memo(() => {
         searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);
     let internalStateDispatch = useDispatch(),
-        searchResultDispatch = useDispatch(), 
+        searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
     let { closeCourseList, showAlert, showCourseList, updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
     let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { addCourse } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
-    
+
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
             showAlert('Course list is disabled for aggregated data');
@@ -107,8 +107,8 @@ let CourseList = React.memo(() => {
         }
         addCourse(result);
     };
-    
-	return (
+
+    return (
         <>
             <CourseListButtonContainerElement onClick={handleOnClick}>
                 <ListIcon fill="#aab3bc" id="list-icon" />
@@ -163,7 +163,7 @@ let CourseList = React.memo(() => {
                                 page={parseInt((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
                                 perPage={PAGE_ITEM_LIMIT}
                                 perPageOptions={[{
-                                    title: "15", 
+                                    title: "15",
                                     value: PAGE_ITEM_LIMIT
                                 }]}
                                 titles={{
