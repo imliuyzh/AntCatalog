@@ -7,5 +7,5 @@ module.exports = rateLimit({
         info: 'Too Many Requests.'
     },
     standardHeaders: true,
-    windowMs: 1000,
+    windowMs: 1000
 });

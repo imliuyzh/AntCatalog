@@ -21,7 +21,7 @@ describe('GET /complete/instructors', () => {
             expect(response.body.success).toBe(false);
         });
     });
-    
+
     describe('no matches for strings of length < 3', () => {
         test('should respond with success with prof. klefstad', async () => {
             const response = await request.get('/complete/instructors?name=zv');
@@ -48,7 +48,7 @@ describe('GET /complete/instructors', () => {
             expect(response.body.success).toBe(false);
         });
     });
-    
+
     describe('should have at most five matches at any given time', () => {
         test('should respond with SHINDLER, M. when given shnidler', async () => {
             const response = await request.get('/complete/instructors?name=shnidler');

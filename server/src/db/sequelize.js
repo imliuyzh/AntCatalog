@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = new Sequelize('sqlite:./src/db/data.db', {
     define: {
         freezeTableName: true,
-        timestamps: false 
+        timestamps: false
     },
     logging: false,
     pool: {

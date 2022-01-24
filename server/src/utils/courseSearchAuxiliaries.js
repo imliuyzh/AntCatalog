@@ -3,7 +3,7 @@ const sequelize = require('../db/sequelize');
 
 async function getAggregatedStatistics(req) {
     let aggregateQuery = getAggregateQuery(req.body.values.instructor);
-    
+
     let parameters = [];
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
         aggregateQuery = `${aggregateQuery} AND C.term = ?`;
@@ -25,12 +25,12 @@ async function getAggregatedStatistics(req) {
         aggregateQuery = `${aggregateQuery} AND I.name = ?`;
         parameters.push(req.body.values.instructor.toUpperCase());
     }
-    
+
     let result = await sequelize.query(aggregateQuery, {
         replacements: parameters,
-        type: Sequelize.QueryTypes.SELECT 
+        type: Sequelize.QueryTypes.SELECT
     });
-    
+
     return (result[0].gradeACount !== null && result[0].gradeBCount !== null && result[0].gradeCCount !== null && result[0].gradeDCount !== null && result[0].gradeFCount !== null && result[0].gradePCount !== null && result[0].gradeNpCount !== null && result[0].gpaAvg !== null) ? result : [];
 }
 
@@ -47,7 +47,7 @@ function getAggregateQuery(instructor) {
             AVG(C.gpa_avg) AS gpaAvg
            FROM Course C
            WHERE 1 = 1`
-        :`SELECT
+        : `SELECT
             SUM(C.grade_a_count) AS gradeACount, 
             SUM(C.grade_b_count) AS gradeBCount, 
             SUM(C.grade_c_count) AS gradeCCount, 
@@ -64,7 +64,9 @@ function getAggregateQuery(instructor) {
 
 async function getAssociatedCourses(req) {
     let results = await getAssociatedCourseList(req);
-    results.forEach(course => course.instructors = course.instructors.split(`/`));
+    results.forEach(course => {
+        course.instructors = course.instructors.split(`/`);
+    });
     return results;
 }
 
@@ -115,12 +117,12 @@ async function getAssociatedCourseList(req) {
         tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name = :instructor`;
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
-    
+
     let courses = await sequelize.query(tokens.join(' '), {
         replacements: parameters,
-        type: Sequelize.QueryTypes.SELECT 
+        type: Sequelize.QueryTypes.SELECT
     });
-    
+
     return courses;
 }
 

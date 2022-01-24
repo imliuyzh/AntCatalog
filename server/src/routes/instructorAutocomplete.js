@@ -36,7 +36,7 @@ router.get(
                         info: errMsg
                     });
             }
-            
+
             let instructorList = await loadInstructors();
             let fuse = new Fuse(instructorList, { minMatchCharLength: 3 });
             let matches = fuse.search(req.query.name, { limit: 5 }).map(match => match.item);

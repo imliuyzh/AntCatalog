@@ -30,7 +30,7 @@ describe('GET /invalid-route', () => {
             }
         };
         let next = jest.fn();
-        
+
         internalErrorHandler(new Error(), req, res, next);
         expect(res.code).toBe(500);
         expect(res.data.info).toBe('Encountered an Internal Server-Side Error.');

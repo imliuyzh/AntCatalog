@@ -16,8 +16,8 @@ router.post(
     checkSchema({
         'values.term': {
             in: ['body'],
-            optional: { 
-                options: { nullable: true } 
+            optional: {
+                options: { nullable: true }
             },
             isString: {
                 bail: true,
@@ -32,8 +32,8 @@ router.post(
         },
         'values.department': {
             in: ['body'],
-            optional: { 
-                options: { nullable: true } 
+            optional: {
+                options: { nullable: true }
             },
             isString: {
                 bail: true,
@@ -48,8 +48,8 @@ router.post(
         },
         'values.courseNumber': {
             in: ['body'],
-            optional: { 
-                options: { nullable: true } 
+            optional: {
+                options: { nullable: true }
             },
             isString: {
                 bail: true,
@@ -64,8 +64,8 @@ router.post(
         },
         'values.courseCode': {
             in: ['body'],
-            optional: { 
-                options: { nullable: true } 
+            optional: {
+                options: { nullable: true }
             },
             isInt: {
                 bail: true,
@@ -75,8 +75,8 @@ router.post(
         },
         'values.instructor': {
             in: ['body'],
-            optional: { 
-                options: { nullable: true } 
+            optional: {
+                options: { nullable: true }
             },
             isString: {
                 bail: true,
@@ -104,7 +104,7 @@ router.post(
             },
             toInt: true
         }
-    }), 
+    }),
     oneOf([
         body('values.term')
             .exists()
@@ -167,12 +167,12 @@ router.post(
                         info: errMsg
                     });
             }
-            
+
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
             let courseList = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courseList)}`);
             res.json({ 
-                success: true, 
+                success: true,
                 aggregate: req.body.options.aggregate,
                 data: courseList
             });

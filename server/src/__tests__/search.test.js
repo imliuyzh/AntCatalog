@@ -429,7 +429,7 @@ describe('POST /api/search', () => {
             expect(response.body.data[0].instructors).toEqual(expect.arrayContaining(['LOPES, C.', 'KUTAS, D.']));
         });
     });
-    
+
     describe('get all instructors no matter an instructor is specified or not', () => {
         test('display two instructors for cs 230 in winter 2021 when no one is specified', async () => {
             const response = await request
