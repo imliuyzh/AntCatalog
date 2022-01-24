@@ -6,14 +6,13 @@ const GitHubLinkContainerElement = styled.div`
     #github-button {
         align-items: center;
         background-color: transparent;
-        color: #000000;
         cursor: pointer;
         display: flex;
-        font-family: RedHatText, Arial, sans-serif;
         font-size: 14px;
         gap: 5px;
         justify-content: center;
         margin-top: 56px;
+        transition: all 1s;
     }
 
     #github-button:hover {
@@ -22,7 +21,12 @@ const GitHubLinkContainerElement = styled.div`
 
     #github-icon {
         height: 24px;
+        transition: all 0.5s;
         width: 24px;
+    }
+
+    #github-icon:hover {
+        transform: scale(1.2);
     }
 `;
 
