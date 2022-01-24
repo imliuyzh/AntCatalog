@@ -20,7 +20,7 @@ const ResetButtonElement = styled.div`
         font-size: 14px;
         gap: 5px;
         justify-content: center;
-	    margin: 8px 0;
+        margin: 8px 0;
         padding: 8px 0;
         transition: all 1s;
         width: 100%;
@@ -40,7 +40,7 @@ export default function ResetButton() {
         searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
     let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
-	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
+    let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     const reset = (event) => {

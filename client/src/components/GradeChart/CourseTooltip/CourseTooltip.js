@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { v4 } from 'uuid';
 
 const CourseInformationContainerElement = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 4px;
-	margin: 5px 0 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 5px 0 0 16px;
 `;
 
 export default function CourseTooltip({ isAggregateData, items, title }) {

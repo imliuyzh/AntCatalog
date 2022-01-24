@@ -32,7 +32,7 @@ const CourseListButtonContainerElement = styled.button`
     }
 
     span {
-	    color: #aab3bc;
+	color: #aab3bc;
     }
 `;
 
@@ -40,11 +40,11 @@ let CourseList = React.memo(() => {
     let internalState = useSelector(state => state.InternalState),
         searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);
-	let internalStateDispatch = useDispatch(),
+    let internalStateDispatch = useDispatch(),
         searchResultDispatch = useDispatch(), 
         selectedCoursesDispatch = useDispatch();
     let { closeCourseList, showAlert, showCourseList, updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
-	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
+    let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { addCourse } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
     
     const handleOnClick = () => {

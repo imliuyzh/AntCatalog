@@ -4,7 +4,7 @@ import * as internalStateActionCreators from '../../../actions/internalStateActi
 
 export default function CourseCodeInput() {
     let internalState = useSelector(state => state.InternalState);
-	let internalStateDispatch = useDispatch();
+    let internalStateDispatch = useDispatch();
     let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 
     return (

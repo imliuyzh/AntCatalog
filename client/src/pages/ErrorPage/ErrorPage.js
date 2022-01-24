@@ -18,7 +18,7 @@ const ErrorPageContainerElement = styled.div`
     }
 
     #logo {
-	    width: 16rem;
+	width: 16rem;
     }
 
     #message {

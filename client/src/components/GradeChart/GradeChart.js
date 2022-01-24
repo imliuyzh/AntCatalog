@@ -5,55 +5,55 @@ import { useSelector } from 'react-redux';
 
 let GradeChart = React.memo(() => {
     let searchResultState = useSelector(state => state.searchResult),
-		selectedCoursesState = useSelector(state => state.selectedCourses);
+        selectedCoursesState = useSelector(state => state.selectedCourses);
 	
-	const formatAggregateCoursesData = () => {
-		let result = [
-			{
-				name: `Aggregate Data`,
-				grade: 'A',
-				amount: searchResultState.data[0].gradeACount,
-				avgGPA: searchResultState.data[0].gpaAvg
-			},
-			{
-				name: `Aggregate Data`,
-				grade: 'B',
-				amount: searchResultState.data[0].gradeBCount,
-				avgGPA: searchResultState.data[0].gpaAvg
-			},
-			{
-				name: `Aggregate Data`,
-				grade: 'C',
-				amount: searchResultState.data[0].gradeCCount,
-				avgGPA: searchResultState.data[0].gpaAvg
-			},
-			{
-				name: `Aggregate Data`,
-				grade: 'D',
-				amount: searchResultState.data[0].gradeDCount,
-				avgGPA: searchResultState.data[0].gpaAvg
-			},
-			{
-				name: `Aggregate Data`,
-				grade: 'F',
-				amount: searchResultState.data[0].gradeFCount,
-				avgGPA: searchResultState.data[0].gpaAvg
-			},
-			{
-				name: `Aggregate Data`,
-				grade: 'P',
-				amount: searchResultState.data[0].gradePCount,
-				avgGPA: searchResultState.data[0].gpaAvg
-			},
-			{
-				name: `Aggregate Data`,
-				grade: 'NP',
-				amount: searchResultState.data[0].gradeNpCount,
-				avgGPA: searchResultState.data[0].gpaAvg
-			},
-		];
-		return result;
-	};
+    const formatAggregateCoursesData = () => {
+        let result = [
+            {
+                name: `Aggregate Data`,
+                grade: 'A',
+                amount: searchResultState.data[0].gradeACount,
+                avgGPA: searchResultState.data[0].gpaAvg
+            },
+            {
+                name: `Aggregate Data`,
+                grade: 'B',
+                amount: searchResultState.data[0].gradeBCount,
+                avgGPA: searchResultState.data[0].gpaAvg
+            },
+            {
+                name: `Aggregate Data`,
+                grade: 'C',
+                amount: searchResultState.data[0].gradeCCount,
+                avgGPA: searchResultState.data[0].gpaAvg
+            },
+            {
+                name: `Aggregate Data`,
+                grade: 'D',
+                amount: searchResultState.data[0].gradeDCount,
+                avgGPA: searchResultState.data[0].gpaAvg
+            },
+            {
+                name: `Aggregate Data`,
+                grade: 'F',
+                amount: searchResultState.data[0].gradeFCount,
+                avgGPA: searchResultState.data[0].gpaAvg
+            },
+            {
+                name: `Aggregate Data`,
+                grade: 'P',
+                amount: searchResultState.data[0].gradePCount,
+                avgGPA: searchResultState.data[0].gpaAvg
+            },
+            {
+                name: `Aggregate Data`,
+                grade: 'NP',
+                amount: searchResultState.data[0].gradeNpCount,
+                avgGPA: searchResultState.data[0].gpaAvg
+            },
+        ];
+        return result;
+    };
 
 	const formatSelectedCoursesData = () => {
 		let result = [];

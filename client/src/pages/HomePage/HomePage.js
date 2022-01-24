@@ -19,7 +19,7 @@ const HomePageContainerElement = styled.div`
 
     #logo {
         cursor: pointer;
-	    width: 80%;
+	width: 80%;
     }
 
     #search-area {

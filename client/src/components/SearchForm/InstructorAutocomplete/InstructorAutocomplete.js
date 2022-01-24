@@ -12,9 +12,9 @@ export default function InstructorAutocomplete() {
     let [instructorList, setInstructorList] = useState([]);
 
     let internalState = useSelector(state => state.InternalState);
-	let internalStateDispatch = useDispatch();
+    let internalStateDispatch = useDispatch();
     let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
-    
+
     const getResults = useMemo(() =>
         throttle((request, callback) => {
             fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/complete/instructors?name=${encodeURIComponent(instructorInput)}`)
@@ -29,7 +29,7 @@ export default function InstructorAutocomplete() {
                 });
         }, 500), [instructorInput]
     );
-    
+
     useEffect(() => {
         if (instructorInput.trim().length >= 3) {
             getResults({ input: instructorInput }, _ => {});
@@ -40,7 +40,7 @@ export default function InstructorAutocomplete() {
             return undefined;
         }
    }, [getResults, instructorInput]);
-    
+
     return (
         <Autocomplete
             filterOptions={x => x}

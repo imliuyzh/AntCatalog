@@ -6,7 +6,7 @@ import * as internalStateActionCreators from '../../actions/internalStateActionC
 
 export default function ErrorAlert() {
     let internalState = useSelector(state => state.InternalState);
-	let internalStateDispatch = useDispatch();
+    let internalStateDispatch = useDispatch();
     let { closeAlert } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 
     return (

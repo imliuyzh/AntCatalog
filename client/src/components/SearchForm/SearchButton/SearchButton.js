@@ -19,7 +19,7 @@ const SearchButtonElement = styled.div`
         font-size: 14px;
         gap: 5px;
         justify-content: center;
-	    margin: 8px 0;
+        margin: 8px 0;
         padding: 8px 0;
         transition: all 1s;
         width: 100%;
@@ -58,7 +58,7 @@ export default function SearchButton() {
 
     const submitForm = async (event) => {
         event.preventDefault();
-        if ((internalState.formInput.term.trim().length > 0 
+        if ((internalState.formInput.term.trim().length > 0
                 || internalState.formInput.department.trim().length > 0
                 || internalState.formInput.courseNumber.trim().length > 0
                 || internalState.formInput.courseCode.trim().length > 0

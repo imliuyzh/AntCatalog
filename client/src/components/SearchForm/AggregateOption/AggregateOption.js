@@ -10,23 +10,23 @@ const AggregateOptionElement = styled.div`
     margin: 0;
 
     input[type="checkbox"] {
-	    margin: auto 3px auto 0;
+	margin: auto 3px auto 0;
     }
 
     label {
-	    color: #aab3bc;
-	    font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
-	    font-size: 14px;
+	color: #aab3bc;
+	font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
+	font-size: 14px;
     }
 `;
 
 export default function AggregateOption() {
     let internalState = useSelector(state => state.InternalState);
-	let internalStateDispatch = useDispatch(),
+    let internalStateDispatch = useDispatch(),
         searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
     let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
-	let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
+    let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     return (
