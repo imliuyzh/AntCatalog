@@ -13,12 +13,12 @@ class User(HttpUser):
 
     @task
     def get_statistics(self):
-        '''Test the /api/v1/search endpoint with aggregate=false.'''
+        '''Test the /api/search endpoint with aggregate=false.'''
         courseNumber = random.choice(['260', '260P', '261', '261P', '263'])
-        instructor = random.choice(['GOODRICH, M.', 'SHINDLER, M.', 'EPPSTEIN, D.'])
+        instructor = random.choice(['GOODRICH, M.', 'SHINDLER, M.', 'EPPSTEIN, D.', 'DILLENCOURT, M.', 'WORTMAN, M.'])
         offset = random.randint(0, 11)
         
-        self.client.post("/api/v1/search", json=json.loads(
+        self.client.post("/api/search", json=json.loads(
             '{' +
                 '"values": {' +
                     '"department": "COMPSCI",' +
@@ -35,9 +35,9 @@ class User(HttpUser):
         
     @task
     def get_aggregated_statistics(self):
-        '''Test the /api/v1/search endpoint with aggregate=true.'''
+        '''Test the /api/search endpoint with aggregate=true.'''
         instructor = random.choice(['LOPES, C.', 'SHINDLER, M.', 'DILLENCOURT, M.'])
-        self.client.post("/api/v1/search", json=json.loads(
+        self.client.post("/api/search", json=json.loads(
             '{' +
                 '"values": {' +
                     '"department": "COMPSCI",' +
