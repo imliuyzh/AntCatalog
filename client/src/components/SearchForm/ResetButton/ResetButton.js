@@ -22,12 +22,7 @@ const ResetButtonElement = styled.div`
         justify-content: center;
         margin: 8px 0;
         padding: 8px 0;
-        transition: all 1s;
         width: 100%;
-    }
-
-    #reset-button:hover {
-        transform: scale(1.03);
     }
 
     #reset-icon {

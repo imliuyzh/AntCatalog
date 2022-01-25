@@ -21,12 +21,7 @@ const SearchButtonElement = styled.div`
         justify-content: center;
         margin: 8px 0;
         padding: 8px 0;
-        transition: all 1s;
         width: 100%;
-    }
-
-    #search-button:hover {
-        transform: scale(1.03);
     }
 
     #search-icon {
