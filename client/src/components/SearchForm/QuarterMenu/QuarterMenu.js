@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function QuarterMenu() {
-    let internalState = useSelector(state => state.InternalState);
+    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
     let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 

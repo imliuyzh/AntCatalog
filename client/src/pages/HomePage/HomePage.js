@@ -48,7 +48,7 @@ const HomePageContainerElement = styled.div`
 `;
 
 export default function HomePage() {
-    let internalState = useSelector(state => state.InternalState),
+    let internalState = useSelector(state => state.internalState),
         searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);
 

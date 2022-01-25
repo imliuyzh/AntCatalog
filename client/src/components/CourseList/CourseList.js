@@ -37,7 +37,7 @@ const CourseListButtonContainerElement = styled.button`
 `;
 
 let CourseList = React.memo(() => {
-    let internalState = useSelector(state => state.InternalState),
+    let internalState = useSelector(state => state.internalState),
         searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);
     let internalStateDispatch = useDispatch(),
@@ -45,7 +45,7 @@ let CourseList = React.memo(() => {
         selectedCoursesDispatch = useDispatch();
     let { closeCourseList, showAlert, showCourseList, updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
     let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
-    let { addCourse } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
+    let { addCourse, removeCourse } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
@@ -99,13 +99,15 @@ let CourseList = React.memo(() => {
 
     const isCourseSelected = (course) => `${course.term} ${course.courseCode}` in selectedCoursesState;
 
-    const addNewCourse = (course, isSelected=true) => {
+    const addOrRemoveCourse = (course, isSelected=true) => {
         let result = { ...selectedCoursesState };
-        delete result[`${course.term} ${course.courseCode}`];
+        let targetCourse = `${course.term} ${course.courseCode}`;
         if (isSelected) {
-            result[`${course.term} ${course.courseCode}`] = course;
+            result[targetCourse] = course;
+            addCourse(result);
+        } else {
+            removeCourse(result, targetCourse);
         }
-        addCourse(result);
     };
 
     return (
@@ -142,7 +144,7 @@ let CourseList = React.memo(() => {
                                         <Tr key={v4()}>
                                             <Td select={{
                                                 isSelected: isCourseSelected(course),
-                                                onSelect: (_, isSelected) => addNewCourse(course, isSelected),
+                                                onSelect: (_, isSelected) => addOrRemoveCourse(course, isSelected),
                                                 rowIndex
                                             }} />
                                             <Td dataLabel={'Term'}>{course.term}</Td>

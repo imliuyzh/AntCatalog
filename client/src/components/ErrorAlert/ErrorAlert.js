@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as internalStateActionCreators from '../../actions/internalStateActionCreators';
 
 export default function ErrorAlert() {
-    let internalState = useSelector(state => state.InternalState);
+    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
     let { closeAlert } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 

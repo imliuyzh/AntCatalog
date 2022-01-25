@@ -35,7 +35,7 @@ const SearchButtonElement = styled.div`
 `;
 
 export default function SearchButton() {
-    let internalState = useSelector(state => state.InternalState);
+    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch(), searchResultDispatch = useDispatch();
     let { closeCourseList, showAlert, showCourseList, updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
     let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);

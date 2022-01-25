@@ -11,7 +11,7 @@ export default function InstructorAutocomplete() {
     let [instructorInput, setInstructorInput] = useState('');
     let [instructorList, setInstructorList] = useState([]);
 
-    let internalState = useSelector(state => state.InternalState);
+    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
     let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 

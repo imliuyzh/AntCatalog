@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import InternalStateReducer from './internalStateReducer';
+import internalStateReducer from './internalStateReducer';
 import searchResultReducer from './searchResultReducer';
 import selectedCoursesReducer from './selectedCoursesReducer';
 
 const reducers = combineReducers({
-    InternalState: InternalStateReducer,
+    internalState: internalStateReducer,
     searchResult: searchResultReducer,
     selectedCourses: selectedCoursesReducer,
 });

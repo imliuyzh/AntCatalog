@@ -21,7 +21,7 @@ const AggregateOptionElement = styled.div`
 `;
 
 export default function AggregateOption() {
-    let internalState = useSelector(state => state.InternalState);
+    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch(),
         searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
