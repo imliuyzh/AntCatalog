@@ -1,6 +1,4 @@
-import express from 'express';
 import supertest from 'supertest';
-
 import app from '../app';
 import internalErrorHandler from '../middlewares/internalErrorHandler';
 
@@ -13,7 +11,7 @@ describe('GET /invalid-route', () => {
         expect(response.body.success).toBe(false);
     });
     test('should respond with 500 status when there is an internal error', async () => {
-        let res: Partial<express.Response> = {
+        let res = {
             status: jest.fn().mockReturnThis(),
             send: jest.fn().mockReturnThis(),
             json: jest.fn().mockReturnThis(),

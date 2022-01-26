@@ -2,7 +2,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-// import path from 'path';     // Comment it out when doing local development
+//import path from 'path';     // Comment it out when doing local development
 
 import instructorAutocompleteRouter from './routes/instructorAutocomplete';
 import internalErrorHandler from './middlewares/internalErrorHandler';

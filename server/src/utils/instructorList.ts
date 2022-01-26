@@ -7,7 +7,7 @@ import logger from './logger';
 const cache: NodeCache = new NodeCache();
 
 async function loadInstructors(): Promise<string[]> {
-    let instructorList: any = cache.get('instructors');
+    let instructorList: string[] | any = cache.get('instructors');
     if (instructorList === undefined) {
         instructorList = [];
         logger.info(`Begin to Retrieve All the Instructors' Name...`);

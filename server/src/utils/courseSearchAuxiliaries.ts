@@ -27,7 +27,7 @@ async function getAggregatedStatistics(req: express.Request): Promise<object> {
         parameters.push(req.body.values.instructor.toUpperCase());
     }
 
-    let result: any = await sequelize.query(aggregateQuery, {
+    let result: any[] = await sequelize.query(aggregateQuery, {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
     });
@@ -128,7 +128,7 @@ async function getAssociatedCourseList(req: express.Request): Promise<object[]> 
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
 
-    let courses: any = await sequelize.query(tokens.join(' '), {
+    let courses: any[] = await sequelize.query(tokens.join(' '), {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
     });
