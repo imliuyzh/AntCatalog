@@ -9,13 +9,13 @@ This file plays an overarching role in the application. It defines all the endpo
 
 ### `/src`
 #### `/__tests__`
-##### `app.test.js`
+##### `app.test.ts`
 The test file for `app.js` which targets on invalid entry and server errors.
 
-##### `instructorAutocomplete.test.js`
+##### `instructorAutocomplete.test.ts`
 The test file for `/complete/instructors` which focuses on instructor name autocomplete.
 
-##### `search.test.js`
+##### `search.test.ts`
 The test file for `/api/search` which focuses on course search.
 
 #### `/db`
