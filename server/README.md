@@ -1,13 +1,13 @@
 # `/server`
 
 ## Structure
+### `/src`
 ### `index.ts`
 The entry point which starts the entire back end program.
 
 ### `app.ts`
 This file plays an overarching role in the application. It defines all the endpoints on the back end and how to process exceptions and request/response.
 
-### `/src`
 #### `/__tests__`
 ##### `app.test.ts`
 The test file for `app.js` which targets on invalid entry and server errors.
