@@ -58,10 +58,10 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server` folders
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
-6. Uncomment these lines in `/server/app.ts`
+6. Uncomment these lines in `/server/src/app.ts`
    + `import path from 'path';`
-   + `app.use(express.static(path.join(__dirname, '..', 'client', 'build')));`
-   + ```app.get('*', (_, res) => res.sendFile(path.resolve(`${__dirname}/../client/build/index.html`)));```
+   + `app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));`
+   + ```app.get('*', (_, res) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));```
 7. Run `sudo apt install nginx` to install NGINX
    + Run `sudo service nginx stop` and `sudo rm /etc/nginx/sites-available/default`
    + Run `sudo vi /etc/nginx/sites-available/default`
