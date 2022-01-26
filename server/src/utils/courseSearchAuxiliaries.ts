@@ -1,10 +1,11 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../db/sequelize');
+import express from 'express';
+import Sequelize from 'sequelize';
+import sequelize from '../db/sequelize';
 
-async function getAggregatedStatistics(req) {
-    let aggregateQuery = getAggregateQuery(req.body.values.instructor);
+async function getAggregatedStatistics(req: express.Request): Promise<object> {
+    let aggregateQuery: string = getAggregateQuery(req.body.values.instructor);
 
-    let parameters = [];
+    let parameters: string[] = [];
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
         aggregateQuery = `${aggregateQuery} AND C.term = ?`;
         parameters.push(req.body.values.term);
@@ -26,15 +27,24 @@ async function getAggregatedStatistics(req) {
         parameters.push(req.body.values.instructor.toUpperCase());
     }
 
-    let result = await sequelize.query(aggregateQuery, {
+    let result: any = await sequelize.query(aggregateQuery, {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
     });
 
-    return (result[0].gradeACount !== null && result[0].gradeBCount !== null && result[0].gradeCCount !== null && result[0].gradeDCount !== null && result[0].gradeFCount !== null && result[0].gradePCount !== null && result[0].gradeNpCount !== null && result[0].gpaAvg !== null) ? result : [];
+    return (result[0].gradeACount !== null
+            && result[0].gradeBCount !== null
+            && result[0].gradeCCount !== null
+            && result[0].gradeDCount !== null
+            && result[0].gradeFCount !== null
+            && result[0].gradePCount !== null
+            && result[0].gradeNpCount !== null
+            && result[0].gpaAvg !== null)
+        ? result
+        : [];
 }
 
-function getAggregateQuery(instructor) {
+function getAggregateQuery(instructor: string[]): string {
     return (instructor === null || instructor === undefined)
         ? `SELECT
             SUM(C.grade_a_count) AS gradeACount, 
@@ -62,16 +72,16 @@ function getAggregateQuery(instructor) {
           WHERE C.course_id = I.course_id`;
 }
 
-async function getAssociatedCourses(req) {
-    let results = await getAssociatedCourseList(req);
-    results.forEach(course => {
-        course.instructors = course.instructors.split(`/`);
+async function getAssociatedCourses(req: express.Request): Promise<object[]> {
+    let results: object[] = await getAssociatedCourseList(req);
+    results.forEach((course: any) => {
+        course['instructors'] = course['instructors'].split(`/`);
     });
     return results;
 }
 
-async function getAssociatedCourseList(req) {
-    let tokens = [
+async function getAssociatedCourseList(req: express.Request): Promise<object[]> {
+    let tokens: string[] = [
         `SELECT
             C.term,
             C.course_code AS courseCode,
@@ -95,7 +105,7 @@ async function getAssociatedCourseList(req) {
          LIMIT 15 OFFSET :offset`
     ];
         
-    let parameters = { offset: req.body.options.offset };
+    let parameters: any = { offset: req.body.options.offset };
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
         tokens[1] = `${tokens[1]} AND C.term = :term`;
         parameters.term = req.body.values.term;
@@ -118,7 +128,7 @@ async function getAssociatedCourseList(req) {
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
 
-    let courses = await sequelize.query(tokens.join(' '), {
+    let courses: any = await sequelize.query(tokens.join(' '), {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
     });
@@ -126,7 +136,4 @@ async function getAssociatedCourseList(req) {
     return courses;
 }
 
-module.exports = {
-    getAggregatedStatistics,
-    getAssociatedCourses
-};
+export { getAggregatedStatistics, getAssociatedCourses };

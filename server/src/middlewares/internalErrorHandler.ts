@@ -1,6 +1,7 @@
-const logger = require('../utils/logger');
+import { NextFunction, Request, Response } from 'express';
+import logger from '../utils/logger';
 
-function internalErrorHandler(err, req, res, next) {
+function internalErrorHandler(err: Error, req: Request | any, res: Response | any, next: NextFunction): void {
     logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.query)} ${JSON.stringify(req.body)} ${err.stack}`);
     res
         .status(500)
@@ -11,4 +12,4 @@ function internalErrorHandler(err, req, res, next) {
     next();
 }
 
-module.exports = internalErrorHandler;
+export default internalErrorHandler;

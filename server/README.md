@@ -1,10 +1,10 @@
 # `/server`
 
 ## Structure
-### `index.js`
-The entry point which starts the entire back end program. To do so, run `node index.js`.
+### `index.ts`
+The entry point which starts the entire back end program.
 
-### `app.js`
+### `app.ts`
 This file plays an overarching role in the application. It defines all the endpoints on the back end and how to process exceptions and request/response.
 
 ### `/src`
@@ -55,7 +55,7 @@ A SQLite database containing course information.
         GROUP BY I.course_id;
 ```
 
-##### `sequelize.js`
+##### `sequelize.ts`
 A file connecting to the SQLite database above.
 
 #### `/locust`
@@ -74,20 +74,20 @@ The program for performing stress testing. To run it:
 Dependencies to `locustfile.py`.
 
 #### `/middlewares`
-##### `internalErrorHandler.js`
+##### `internalErrorHandler.ts`
 A file for handling server errors (HTTP 500).
 
-##### `invalidRouteHandler.js`
+##### `invalidRouteHandler.ts`
 A file for handling errors where the location specified is not valid (HTTP 404).
 
-##### `rateLimiter.js`
+##### `rateLimiter.ts`
 A file for limiting five requests per second.
 
 #### `/routes`
-##### `instructorAutocomplete.js`
+##### `instructorAutocomplete.ts`
 The file for handling the `/complete/instructors` endpoint which focuses on instructor name autocomplete. It will read all instructors from `data.db` by calling the function in `instructorList.js`. It accepts only one argument called `name` in the query string: `/complete/instructors?name=`.
 
-##### `search.js`
+##### `search.ts`
 The file for handling the `/api/search` endpoint which focuses on course search. It accepts a JSON object in the body:
 ```
   {
@@ -120,14 +120,14 @@ The file for handling the `/api/search` endpoint which focuses on course search.
 ```
 
 #### `/utils`
-##### `courseSearchAuxiliaries.js`
+##### `courseSearchAuxiliaries.ts`
 Most of the work in `/api/search` is actually being done here. The code in this file will fetch all relating classes based on the values provided.
 
-##### `instructorList.js`
+##### `instructorList.ts`
 A file for fetching all instructors in the database.
 
-##### `logger.js`
+##### `logger.ts`
 A file for reporting user request information like IP address and body content in a file under the generated `/logs` folder.
 
 ## Code Analysis and Testing
-AntCatalog uses semistandard for code styles. However, AntCatalog actually does not enforce every rule due to readability and potential bugs. AntCatalog also uses Jest and SuperTest for testing. Type `npm run test` to run all the test cases and `npm run coverage` to see test coverage information. As of September 2021, AntCatalog achieved over 98% on overall coverage.
+AntCatalog uses Jest and SuperTest for testing. Type `npm run test` to run all the test cases and `npm run coverage` to see test coverage information. As of September 2021, AntCatalog achieved over 98% on overall coverage.

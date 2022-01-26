@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize');
-module.exports = new Sequelize('sqlite:./src/db/data.db', {
+import { Sequelize } from 'sequelize';
+
+const sequelize: Sequelize = new Sequelize('sqlite:./src/db/data.db', {
     define: {
         freezeTableName: true,
         timestamps: false
@@ -12,3 +13,5 @@ module.exports = new Sequelize('sqlite:./src/db/data.db', {
         idle: 10000
     }
 });
+
+export default sequelize;

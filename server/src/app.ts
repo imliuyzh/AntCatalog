@@ -1,16 +1,16 @@
-const compression = require('compression');
-const cors = require('cors');
-const express = require('express');
-const helmet = require('helmet');
-const path = require('path');
+import compression from 'compression';
+import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
+// import path from 'path';     // Comment it out when doing local development
 
-const instructorAutocompleteRouter = require('./src/routes/instructorAutocomplete');
-const internalErrorHandler = require('./src/middlewares/internalErrorHandler');
-const invalidRouteHandler = require('./src/middlewares/invalidRouteHandler');
-const rateLimiter = require('./src/middlewares/rateLimiter');   // Comment out all rateLimiter occurrences when testing
-const searchRouter = require('./src/routes/search');
+import instructorAutocompleteRouter from './routes/instructorAutocomplete';
+import internalErrorHandler from './middlewares/internalErrorHandler';
+import invalidRouteHandler from './middlewares/invalidRouteHandler';
+import rateLimiter from './middlewares/rateLimiter';   // Comment out all rateLimiter occurrences when testing
+import searchRouter from './routes/search';
 
-const app = express();
+const app: express.Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,4 +31,4 @@ app.use('/complete/instructors', instructorAutocompleteRouter);
 app.use(internalErrorHandler);
 app.use(invalidRouteHandler);
 
-module.exports = app;
+export default app;

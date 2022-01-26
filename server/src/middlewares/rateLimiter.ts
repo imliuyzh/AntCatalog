@@ -1,5 +1,6 @@
-const rateLimit = require('express-rate-limit');
-module.exports = rateLimit({
+import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
+
+const rateLimiter: RateLimitRequestHandler = rateLimit({
     legacyHeaders: false,
     max: 5,
     message: {
@@ -9,3 +10,5 @@ module.exports = rateLimit({
     standardHeaders: true,
     windowMs: 1000
 });
+
+export default rateLimiter;

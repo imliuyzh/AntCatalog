@@ -1,15 +1,15 @@
-const apicache = require('apicache');
-const express = require('express');
-const { body, checkSchema, oneOf, validationResult } = require('express-validator');
+import apicache from 'apicache';
+import express from 'express';
+import { body, checkSchema, oneOf, Result, ValidationError, validationResult } from 'express-validator';
 
-const { getAggregatedStatistics, getAssociatedCourses } = require('../utils/courseSearchAuxiliaries');
-const logger = require('../utils/logger');
+import { getAggregatedStatistics, getAssociatedCourses } from '../utils/courseSearchAuxiliaries';
+import logger from '../utils/logger';
 
-const cache = apicache
-    .options({ appendKey: (req, _) => JSON.stringify(req.body) })
+const cache: any = apicache
+    .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
     .middleware;
 
-let router = express.Router();
+let router: express.Router = express.Router();
 router.post(
     '/',
     body('options.offset').default('0'),
@@ -153,12 +153,12 @@ router.post(
             .notEmpty()
             .withMessage('Value Must Not Be Empty.')
     ]),
-    cache('2 minutes', (_, res) => res.statusCode === 200),
-    async (req, res, next) => {
+    cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200),
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
-            let err = validationResult(req);
+            let err: Result<ValidationError> = validationResult(req);
             if (err.isEmpty() === false) {
-                let errMsg = err.array();
+                let errMsg: ValidationError[] = err.array();
                 logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
                 return res
                     .status(422)
@@ -169,17 +169,17 @@ router.post(
             }
 
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
-            let courseList = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
+            let courseList: object | object[] = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courseList)}`);
             res.json({ 
                 success: true,
                 aggregate: req.body.options.aggregate,
                 data: courseList
             });
-        } catch (exception) {
+        } catch (exception: any) {
             next(exception);
         }
     }
 );
 
-module.exports = router;
+export default router;

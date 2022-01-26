@@ -36,13 +36,15 @@ For other information of back end services such as testing, please visit [here](
   + Helmet
   + node-cache
 + Fuse.js
-+ Jest 
++ Jest
+  + ts-jest
 + Node.js
 + Nodemon
 + SuperTest
 + Sequelize
   + sqlite3
-+ semistandard
++ TypeScript
+  + ts-node
 + winston
 
 AntCatalog also uses Locust for load testing, which itself is written in Python.
@@ -55,7 +57,8 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server` folders
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
-6. Uncomment these lines in `/server/app.js`
+6. Uncomment these lines in `/server/app.ts`
+   + `import path from 'path';`
    + `app.use(express.static(path.join(__dirname, '..', 'client', 'build')));`
    + ```app.get('*', (_, res) => res.sendFile(path.resolve(`${__dirname}/../client/build/index.html`)));```
 7. Run `sudo apt install nginx` to install NGINX
@@ -83,7 +86,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 11. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx`
     + Answer the questions based on your circumstances
     + Renew the SSL certificate by `sudo certbot renew`
-12. Run `pm2 start index.js` and `sudo service nginx start`
+12. Run `npm run build`, `pm2 start ./build/index.js`, and `sudo service nginx start`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 
