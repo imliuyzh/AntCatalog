@@ -9,7 +9,7 @@ Before moving on in this section, please install Node.js and npm. It is recommen
 ### Back end
 1. Enter the `server` folder in the command line and execute `npm i` to install the packages
 2. Run `npm run dev` to start the back end service
-  + If there is an error about ts-node, run `npm i -g ts-node`
+   + If there is an error about ts-node, run `npm i -g ts-node`
 
 For other information of back end services such as testing, please visit [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
 
