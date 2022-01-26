@@ -9,30 +9,47 @@ const ErrorPageContainerElement = styled.div`
     place-items: center;
 
     #content {
-        align-items: flex-start;
+        align-items: center;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 56px 56px;
-    }
-
-    #logo {
-	width: 16rem;
+        text-align: center;
     }
 
     #message {
-        margin-bottom: 20rem;
+        margin-top: 3rem;
+        padding: 0 36px;
     }
 
     #title {
         font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
-        font-size: 6rem;
     }
 
     #description {
         font-family: RedHatText, Arial, sans-serif;
         line-height: 28px;
+    }
+
+    @media (min-width: 641px) {
+        #logo {
+            max-width: 1024px;
+            width: 70%;
+        }
+    
+        #title {
+            font-size: 5rem;
+        }
+    }
+
+    @media (max-width: 640px) {
+        #logo {
+            width: 80vw;
+        }
+    
+        #title {
+            font-size: 4rem;
+        }
     }
 `;
 
@@ -41,14 +58,14 @@ export default function ErrorPage() {
     return (
         <ErrorPageContainerElement>
             <main id="content">
+                <Link to="/">
+                    <img src={Logo} id="logo" alt="AntCatalog Logo" />
+                </Link>
+
                 <div id="message">
                     <h1 id="title">Error</h1>
                     <p id="description">Apologies, the page you're looking for cannot be found.</p>
                 </div>
-
-                <Link to="/">
-                    <img src={Logo} id="logo" alt="AntCatalog Logo" />
-                </Link>
             </main>
         </ErrorPageContainerElement>
     );
