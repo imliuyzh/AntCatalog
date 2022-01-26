@@ -4,7 +4,7 @@ import internalErrorHandler from '../middlewares/internalErrorHandler';
 
 const request = supertest(app);
 
-describe('GET /invalid-route', () => {
+describe('miscellaneous cases', () => {
     test('should respond with 404 status when sending requests to an endpoint that does not exist', async () => {
         const response = await request.get('/invalid-route');
         expect(response.statusCode).toBe(404);

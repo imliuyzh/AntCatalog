@@ -6,7 +6,7 @@ import { query, Result, ValidationError, validationResult } from 'express-valida
 import loadInstructors from '../utils/instructorList';
 import logger from '../utils/logger';
 
-const cache: any = apicache.middleware;
+const cache = apicache.middleware;
 
 const router: express.Router = express.Router();
 router.get(

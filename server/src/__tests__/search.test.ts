@@ -33,7 +33,7 @@ describe('POST /api/search', () => {
     });
     
     describe('sending requests with missing fields', () => {
-        test('should respond with a failed status when the department field is gone since it is nullable', async () => {
+        test('should respond when the offset field is gone since it looks for aggregate data', async () => {
             const response = await request
                 .post('/api/search')
                 .send({
@@ -45,13 +45,12 @@ describe('POST /api/search', () => {
                     },
                     options: {
                         aggregate: true,
-                        offset: null
                     }
                 });
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
         });
-        test('should respond with a failed status when the term field is gone since it is nullable', async () => {
+        test('should respond when the term field is gone since it is nullable', async () => {
             const response = await request
                 .post('/api/search')
                 .send({

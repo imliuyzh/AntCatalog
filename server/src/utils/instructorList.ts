@@ -7,12 +7,11 @@ import logger from './logger';
 const cache: NodeCache = new NodeCache();
 
 async function loadInstructors(): Promise<string[]> {
-    let instructorList: string[] | any = cache.get('instructors');
-    if (instructorList === undefined) {
-        instructorList = [];
+    let instructorList: string[] = cache.get('instructors') ?? [];
+    if (instructorList.length <= 0) {
         logger.info(`Begin to Retrieve All the Instructors' Name...`);
-        let instructors: any[] = await sequelize.query('SELECT DISTINCT name FROM Instructor', { type: QueryTypes.SELECT });
-        instructors.forEach(instructor => instructorList.push(instructor.name));
+        let instructors: Array<{ name: string }> = await sequelize.query('SELECT DISTINCT name FROM Instructor', { type: QueryTypes.SELECT });
+        instructors.forEach((instructor: { name: string }) => instructorList.push(instructor['name']));
         cache.set('instructors', instructorList);
         logger.info(`Finished Retrieving All the Instructors' Name.`);
     }

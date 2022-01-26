@@ -5,14 +5,14 @@ import { body, checkSchema, oneOf, Result, ValidationError, validationResult } f
 import { getAggregatedStatistics, getAssociatedCourses } from '../utils/courseSearchAuxiliaries';
 import logger from '../utils/logger';
 
-const cache: any = apicache
+const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
     .middleware;
 
 let router: express.Router = express.Router();
 router.post(
     '/',
-    body('options.offset').default('0'),
+    body('options.offset').default(0),
     checkSchema({
         'values.term': {
             in: ['body'],
@@ -169,12 +169,12 @@ router.post(
             }
 
             logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
-            let courseList: object | object[] = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courseList)}`);
+            let courses: object[] = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
+            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courses)}`);
             res.json({ 
                 success: true,
                 aggregate: req.body.options.aggregate,
-                data: courseList
+                data: courses
             });
         } catch (exception: any) {
             next(exception);
