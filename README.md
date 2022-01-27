@@ -55,7 +55,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 1. Create an instance on EC2 like [this](https://www.youtube.com/watch?v=BtxbeZx6NXM)
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
-4. Clone the project to the instance and run `npm i` for both `/client` and `/server` folders
+4. Clone the project to the instance and run `npm i` for both `/client` and `/server`
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
 6. Uncomment these lines in `/server/src/app.ts`
@@ -87,7 +87,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 11. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx`
     + Answer the questions based on your circumstances
     + Renew the SSL certificate by `sudo certbot renew`
-12. Run `npm run build`, `pm2 start ./build/index.js`, and `sudo service nginx start` in `/server`
+12. Run `npm run build`, `pm2 start ./build/index.js`, and `sudo service nginx start` on `/server`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 
