@@ -8,21 +8,26 @@ import logger from '../utils/logger';
 
 const cache = apicache.middleware;
 
-const router: express.Router = express.Router();
+const validatorPreparer = query('name').default('');
+
+const validator = query('name')
+    .exists()
+    .withMessage('Malformed Request Syntax.')
+    .bail()
+    .isString()
+    .withMessage('Value Must Be a String.')
+    .bail()
+    .trim()
+    .notEmpty()
+    .withMessage('Value Must Not Be Empty.');
+
+const cacheWorker = cache('30 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
+
+let router: express.Router = express.Router();
+
 router.get(
     '/',
-    query('name').default(''),
-    query('name')
-        .exists()
-        .withMessage('Malformed Request Syntax.')
-        .bail()
-        .isString()
-        .withMessage('Value Must Be a String.')
-        .bail()
-        .trim()
-        .notEmpty()
-        .withMessage('Value Must Not Be Empty.'),
-    cache('30 seconds', (_: unknown, res: express.Response) => res.statusCode === 200),
+    [validatorPreparer, validator, cacheWorker],
     async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             let errors: Result<ValidationError> = validationResult(req);
