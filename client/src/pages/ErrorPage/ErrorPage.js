@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import styled from '@emotion/styled';
+import { Title } from '@patternfly/react-core';
 import { useEffect } from 'react';
 
 const ErrorPageContainerElement = styled.div`
     display: grid;
+    font-family: RedHatText, Arial, sans-serif;
     height: 100vh;
     place-items: center;
+    
+    a, a:hover {
+        text-decoration: none;
+    }
 
     #content {
         align-items: center;
@@ -14,6 +20,7 @@ const ErrorPageContainerElement = styled.div`
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 0 2rem;
         text-align: center;
     }
 
@@ -22,13 +29,32 @@ const ErrorPageContainerElement = styled.div`
         padding: 0 36px;
     }
 
-    #title {
-        font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
-    }
-
     #description {
-        font-family: RedHatText, Arial, sans-serif;
-        line-height: 28px;
+        color: #6a6e73;
+        line-height: 2rem;
+        margin: 1rem;
+    }
+    
+    #home-button {
+        align-items: center;
+        background-color: #0064a4;
+        border: 1px solid #efefef;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        font-size: 14px;
+        gap: 5px;
+        justify-content: center;
+        margin: 6rem 0 0;
+        padding: 8px 28px;
+        transition: all 0.8s;
+        width: 100%;
+    }
+    
+    #home-button:hover {
+        background-color: transparent;
+        color: rgb(170, 179, 188);
+        text-decoration: none;
     }
 
     @media (min-width: 641px) {
@@ -36,9 +62,9 @@ const ErrorPageContainerElement = styled.div`
             max-width: 1024px;
             width: 70%;
         }
-    
-        #title {
-            font-size: 5rem;
+        
+        .pf-c-title {
+            font-size: 72px;
         }
     }
 
@@ -46,9 +72,9 @@ const ErrorPageContainerElement = styled.div`
         #logo {
             width: 80vw;
         }
-    
-        #title {
-            font-size: 4rem;
+        
+        .pf-c-title {
+            font-size: 36px;
         }
     }
 `;
@@ -63,9 +89,13 @@ export default function ErrorPage() {
                 </Link>
 
                 <div id="message">
-                    <h1 id="title">Error</h1>
+                    <Title headingLevel="h1">Error</Title>
                     <p id="description">Apologies, the page you're looking for cannot be found.</p>
                 </div>
+                
+                <Link to="/">
+                    <button id="home-button">Return to Home</button>  
+                </Link>
             </main>
         </ErrorPageContainerElement>
     );
