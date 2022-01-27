@@ -75,26 +75,35 @@ let CourseList = React.memo(() => {
         };
     };
 
-    const fetchPageData = (event, newOffset) => {
-        event.preventDefault();
-        fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/api/search`, {
-            body: JSON.stringify(generateRequestParams(newOffset)),
-            headers: { 'Content-Type': 'application/json' },
-            method: 'POST'
-        })
-            .then(response => response.json())
-            .then(information => {
-                if (information.data.length > 0) {
-                    replaceResults(information.aggregate, information.data);
-                    updateFormInput({ offset: newOffset });
-                } else {
-                    showAlert('No more courses!');
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                showAlert('An unexpected error occurs, try again');
+    const fetchPageData = async (event, newOffset) => {
+        try {
+            event.preventDefault();
+            let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/api/search`, {
+                body: JSON.stringify(generateRequestParams(newOffset)),
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST'
             });
+            
+            switch (response.status) {
+                case 200:
+                    let information = await response.json();
+                    if (information.data.length > 0) {
+                        replaceResults(information.aggregate, information.data);
+                        updateFormInput({ offset: newOffset });
+                    } else {
+                        showAlert('No more courses!');
+                    }
+                    break;
+                case 429:
+                    showAlert('Please slow down, you are going too fast!');
+                    break;
+                case 500: default:
+                    showAlert('An expected error occurs, please report to GitHub issues');
+            }
+        } catch (error) {
+            console.error(error);
+            showAlert('An expected error occurs, try again');
+        }
     };
 
     const isCourseSelected = (course) => `${course.term} ${course.courseCode}` in selectedCoursesState;
@@ -160,8 +169,8 @@ let CourseList = React.memo(() => {
                             <Pagination
                                 dropDirection="up"
                                 isCompact
-                                onPreviousClick={(event, _) => fetchPageData(event, internalState.formInput.offset - PAGE_ITEM_LIMIT)}
-                                onNextClick={(event, _) => fetchPageData(event, internalState.formInput.offset + PAGE_ITEM_LIMIT)}
+                                onPreviousClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset - PAGE_ITEM_LIMIT)}
+                                onNextClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset + PAGE_ITEM_LIMIT)}
                                 page={parseInt((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
                                 perPage={PAGE_ITEM_LIMIT}
                                 perPageOptions={[{
