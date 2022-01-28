@@ -1,8 +1,8 @@
 import NodeCache from 'node-cache';
 import { QueryTypes } from 'sequelize';
 
-import sequelize from '../db/sequelize';
 import logger from './logger';
+import sequelize from '../db/sequelize';
 
 const cache: NodeCache = new NodeCache();
 

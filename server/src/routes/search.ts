@@ -1,6 +1,6 @@
 import apicache from 'apicache';
-import express from 'express';
 import { body, checkSchema, oneOf, Result, ValidationError, validationResult } from 'express-validator';
+import express from 'express';
 
 import { getAggregatedStatistics, getAssociatedCourses } from '../utils/courseSearchAuxiliaries';
 import logger from '../utils/logger';
