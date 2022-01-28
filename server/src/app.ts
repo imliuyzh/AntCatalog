@@ -12,16 +12,16 @@ import searchRouter from './routes/search';
 
 const app: express.Application = express();
 
+app.use(compression());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use(helmet({
     contentSecurityPolicy: {
         useDefaults: true,
         directives: { scriptSrc: [`'self'`, `'unsafe-inline'`] }
     }
 }));
-app.use(compression());
 //app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));   // Comment it out when doing local development
 
 app.use('/api/search', rateLimiter, searchRouter);
