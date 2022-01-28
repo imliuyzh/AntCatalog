@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
+import { useDispatch, useSelector } from 'react-redux';
 import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
 

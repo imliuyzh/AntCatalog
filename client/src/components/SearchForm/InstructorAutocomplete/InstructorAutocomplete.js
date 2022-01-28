@@ -1,9 +1,9 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import { bindActionCreators } from 'redux';
 import Paper from '@mui/material/Paper';
+import throttle from 'lodash/throttle';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo, useState } from 'react';
-import throttle from 'lodash/throttle';
 import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function InstructorAutocomplete() {

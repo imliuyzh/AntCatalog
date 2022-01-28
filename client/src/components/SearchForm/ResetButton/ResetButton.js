@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { ReactComponent as ResetIcon } from '../../../assets/images/reset.svg';
-import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
+import { useDispatch } from 'react-redux';
 import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
 import * as selectedCoursesActionCreators from '../../../actions/selectedCoursesActionCreators';

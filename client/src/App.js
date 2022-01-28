@@ -1,7 +1,7 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { css, Global } from "@emotion/react";
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const GlobalStyles = css`
     ::selection {
