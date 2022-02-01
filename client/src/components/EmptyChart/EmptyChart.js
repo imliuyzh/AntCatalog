@@ -3,6 +3,8 @@ import { ReactComponent as GithubIcon } from '../../assets/images/github.svg';
 import styled from '@emotion/styled';
 
 const GitHubLinkContainerElement = styled.div`
+    margin-top: 56px;
+
     #github-button {
         align-items: center;
         background-color: transparent;
@@ -11,7 +13,6 @@ const GitHubLinkContainerElement = styled.div`
         font-size: 14px;
         gap: 5px;
         justify-content: center;
-        margin-top: 56px;
         transition: all 1s;
     }
 

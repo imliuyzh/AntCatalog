@@ -19,7 +19,7 @@ const HomePageContainerElement = styled.div`
 
     #logo {
         cursor: pointer;
-	width: 80%;
+        width: 80%;
     }
 
     #search-area {
@@ -33,6 +33,7 @@ const HomePageContainerElement = styled.div`
 
     #chart-area {
         padding: 24px 16px;
+        max-width: 800px;
         width: 50vw;
     }
 
@@ -64,12 +65,10 @@ export default function HomePage() {
                     <CourseList />
                 </section>
                 <section id="chart-area">
-                    {
-                        (([null, false].includes(internalState.formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
+                    {(([null, false].includes(internalState.formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
                                 || (internalState.formInput.aggregate === true && searchResultState.data.length <= 0))
                             ? <EmptyChart />
-                            : <GradeChart />
-                    }
+                            : <GradeChart />}
                 </section>
             </main>
         </HomePageContainerElement>

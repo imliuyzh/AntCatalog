@@ -1,8 +1,14 @@
-.ipynb_checkpoints/
+# dependencies
 node_modules/
+
+# misc
 coverage/
 logs/
+
+# benchmark
 src/benchmark
 !src/benchmark/locustfile.py
 !src/benchmark/requirements.txt
+
+# production
 build/

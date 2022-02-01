@@ -10,13 +10,13 @@ const AggregateOptionElement = styled.div`
     margin: 0;
 
     input[type="checkbox"] {
-	margin: auto 3px auto 0;
+        margin: auto 3px auto 0;
     }
 
     label {
-	color: #aab3bc;
-	font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
-	font-size: 14px;
+        color: #aab3bc;
+        font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
+        font-size: 14px;
     }
 `;
 
