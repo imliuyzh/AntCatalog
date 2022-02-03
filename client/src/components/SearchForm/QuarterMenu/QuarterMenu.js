@@ -13,6 +13,7 @@ export default function QuarterMenu() {
             value={internalState.formInput.term}
         >
             <option value="" disabled className="invalid-option">Term</option>
+            <option value="Fall 2021">2021 Fall Quarter</option>
             <option value="Spring 2021">2021 Spring Quarter</option>
             <option value="Winter 2021">2021 Winter Quarter</option>
             <option value="Fall 2020">2020 Fall Quarter</option>
