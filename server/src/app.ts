@@ -26,7 +26,7 @@ app.use(helmet({
 
 app.use('/api/search', rateLimiter, searchRouter);
 app.use('/complete/instructors', instructorAutocompleteRouter);
-//app.get('*', (_, res) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));   // Comment it out when doing local development
+//app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));   // Comment it out when doing local development
 
 app.use(internalErrorHandler);
 app.use(invalidRouteHandler);
