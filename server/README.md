@@ -130,4 +130,4 @@ A file for fetching all instructors in the database.
 A file for reporting user request information like IP address and body content in a file under the generated `/logs` folder.
 
 ## Code Analysis and Testing
-AntCatalog uses Jest and SuperTest for testing. Type `npm run test` to run all the test cases and `npm run coverage` to see test coverage information. As of September 2021, AntCatalog achieved over 98% on overall coverage.
+AntCatalog uses Jest and SuperTest for testing. Type `npm run test` to run all the test cases and `npm run coverage` to see test coverage information. As of January 2022, AntCatalog achieved over 98% on overall coverage.
