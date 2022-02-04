@@ -31,7 +31,7 @@ export default function InstructorAutocomplete() {
     );
 
     useEffect(() => {
-        if (instructorInput.trim().length >= 3) {
+        if (instructorInput.trim().length >= 2) {
             getResults({ input: instructorInput }, _ => {});
             return () => false;
         } else {
