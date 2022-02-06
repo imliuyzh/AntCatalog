@@ -12,7 +12,7 @@ import searchRouter from './routes/search';
 
 const app: express.Application = express();
 
-app.set('trust proxy', (_: unknown) => app.get('env') === 'production');
+app.set('trust proxy', true);
 app.use(compression());
 app.use(cors());
 app.use(express.json());
