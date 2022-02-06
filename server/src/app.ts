@@ -12,7 +12,7 @@ import searchRouter from './routes/search';
 
 const app: express.Application = express();
 
-app.set('trust proxy', true);
+//app.set('trust proxy', true);     // Comment it out when doing local development
 app.use(compression());
 app.use(cors());
 app.use(express.json());
