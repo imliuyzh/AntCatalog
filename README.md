@@ -51,8 +51,9 @@ For other information of back end services such as testing, please visit [here](
 AntCatalog also uses Locust for load testing, which itself is written in Python.
 
 ## Deployment
-The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 installed. If there is a problem with the instructions below, please feel free to create an issue.
-1. Create an instance on EC2 like [this](https://www.youtube.com/watch?v=BtxbeZx6NXM)
+The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 installed. Also, please ensure your operating system is able to initiate a SSH/SCP session. If there is a problem with the instructions below, please feel free to create an issue.
+1. Create an instance on EC2 like [this](https://www.youtube.com/watch?v=GEVbYQWWJkQ)
+   + Restrict SSH access to your IP address only and allow HTTP/HTTPS connections from everywhere with the security group feature
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server`
