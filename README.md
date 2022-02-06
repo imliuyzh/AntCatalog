@@ -66,8 +66,8 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
    + ```app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));```
 7. Run `sudo apt install nginx` to install NGINX
    + Run `sudo service nginx stop` and `sudo rm /etc/nginx/sites-available/default`
-   + Run `sudo vi /etc/nginx/sites-available/default`
-   + Press `i`, paste the code snippet below, and enter `:wq`
+   + Run `sudo touch /etc/nginx/sites-available/default`
+   + Paste the code snippet below into the file you just created
       ```
       server {
           listen 80;
