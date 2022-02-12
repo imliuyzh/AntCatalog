@@ -56,36 +56,17 @@ type CourseDataQueryParameters = {
     offset: number
 };
 
-async function getAggregatedStatistics(req: express.Request): Promise<RawAggregateCourseData[]> {
-    let aggregateQuery: string = getAggregateQuery(req.body.values.instructor);
-
-    let parameters: string[] = [];
-    if (req.body.values.term !== null && req.body.values.term !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.term = ?`;
-        parameters.push(req.body.values.term);
-    }
-    if (req.body.values.department !== null && req.body.values.department !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.department = ?`;
-        parameters.push(req.body.values.department.toUpperCase());
-    }
-    if (req.body.values.courseNumber !== null && req.body.values.courseNumber !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.course_number = ?`;
-        parameters.push(req.body.values.courseNumber.toUpperCase());
-    }
-    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.course_code = ?`;
-        parameters.push(req.body.values.courseCode);
-    }
-    if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND I.name = ?`;
-        parameters.push(req.body.values.instructor.toUpperCase());
-    }
-
+/**
+ * Fetch aggregate course data based on user parameters
+ * @param req user's request
+ * @returns a promise for the aggregate data
+ */
+export async function getAggregatedStatistics(req: express.Request): Promise<RawAggregateCourseData[]> {
+    let [aggregateQuery, parameters]: [string, string[]] = createAggregateQueryWithParameters(req);
     let result: RawAggregateCourseData[] = await sequelize.query(aggregateQuery, {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
     });
-
     return (result[0].gradeACount !== null
             && result[0].gradeBCount !== null
             && result[0].gradeCCount !== null
@@ -98,7 +79,28 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
         : [];
 }
 
-function getAggregateQuery(instructor: string[]): string {
+/**
+ * Fetch a list of course data based on user parameters
+ * @param req user's request
+ * @returns a promise for a list of course data that the instructors are stored into an array instead of a string
+ */
+export async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
+    let data: RawCourseData[] = await getAssociatedCourseList(req), result: ProcessedCourseData[] = [];
+    data.forEach((course: RawCourseData) => {
+        result.push({
+            ...course,
+            instructors: course['instructors'].split(`/`)
+        });
+    });
+    return result;
+}
+
+/**
+ * Create a SQL query based on whether the instructor is provided or not
+ * @param instructor the instructor parameter from user parameters
+ * @returns a string for a SQL query
+ */
+function createAggregateQuery(instructor: string): string {
     return (instructor === null || instructor === undefined)
         ? `SELECT
             SUM(C.grade_a_count) AS gradeACount,
@@ -126,19 +128,59 @@ function getAggregateQuery(instructor: string[]): string {
           WHERE C.course_id = I.course_id`;
 }
 
-async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
-    let data: RawCourseData[] = await getAssociatedCourseList(req), result: ProcessedCourseData[] = [];
-    data.forEach((course: RawCourseData) => {
-        result.push({
-            ...course,
-            instructors: course['instructors'].split(`/`)
-        });
-    });
-    return result;
+/**
+ * Compute the query and its parameters for aggregate data
+ * @param req user's request
+ * @returns a string for the SQL query and an array of strings for the query's parameters
+ */
+function createAggregateQueryWithParameters(req: express.Request): [string, string[]] {
+    let aggregateQuery: string = createAggregateQuery(req.body.values.instructor);
+    let parameters: string[] = [];
+
+    if (req.body.values.term !== null && req.body.values.term !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.term = ?`;
+        parameters.push(req.body.values.term);
+    }
+    if (req.body.values.department !== null && req.body.values.department !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.department = ?`;
+        parameters.push(req.body.values.department.toUpperCase());
+    }
+    if (req.body.values.courseNumber !== null && req.body.values.courseNumber !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.course_number = ?`;
+        parameters.push(req.body.values.courseNumber.toUpperCase());
+    }
+    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.course_code = ?`;
+        parameters.push(req.body.values.courseCode);
+    }
+    if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND I.name = ?`;
+        parameters.push(req.body.values.instructor.toUpperCase());
+    }
+
+    return [aggregateQuery, parameters];
 }
 
+/**
+ * Fetch a list of course data where instructors are stored into a string
+ * @param req user's request
+ * @returns a promise for a list of course data that all instructors are stored into a string
+ */
 async function getAssociatedCourseList(req: express.Request): Promise<RawCourseData[]> {
-    let tokens: string[] = [
+    let [query, parameters]: [string, CourseDataQueryParameters] = createAssociatedCourseListQueryWithParameters(req);
+    let courses: RawCourseData[] = await sequelize.query(query, {
+        replacements: parameters,
+        type: Sequelize.QueryTypes.SELECT
+    });
+    return courses;
+}
+
+/**
+ * Return an array of a big SQL query
+ * @returns an array that makes up a SQL string
+ */
+function createAssociatedCourseListQuery(): string[] {
+    return [
         `SELECT
             C.term,
             C.course_code AS courseCode,
@@ -161,8 +203,17 @@ async function getAssociatedCourseList(req: express.Request): Promise<RawCourseD
         `ORDER BY C.course_id ASC
          LIMIT 15 OFFSET :offset`
     ];
+}
 
+/**
+ * Compute the query and its parameters for a list of course data
+ * @param req user's request
+ * @returns a string for the SQL query and an object for the query's parameters
+ */
+function createAssociatedCourseListQueryWithParameters(req: express.Request): [string, CourseDataQueryParameters] {
+    let tokens: string[] = createAssociatedCourseListQuery();
     let parameters: CourseDataQueryParameters = { offset: req.body.options.offset };
+
     if (req.body.values.term !== null && req.body.values.term !== undefined) {
         tokens[1] = `${tokens[1]} AND C.term = :term`;
         parameters.term = req.body.values.term;
@@ -185,12 +236,5 @@ async function getAssociatedCourseList(req: express.Request): Promise<RawCourseD
         parameters.instructor = req.body.values.instructor.toUpperCase();
     }
 
-    let courses: RawCourseData[] = await sequelize.query(tokens.join(' '), {
-        replacements: parameters,
-        type: Sequelize.QueryTypes.SELECT
-    });
-
-    return courses;
+    return [tokens.join(' '), parameters];
 }
-
-export { getAggregatedStatistics, getAssociatedCourses };

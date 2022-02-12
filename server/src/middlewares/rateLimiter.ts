@@ -1,5 +1,8 @@
 import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 
+/**
+ * Restricts 5 requests maximum per second from the same client
+ */
 const rateLimiter: RateLimitRequestHandler = rateLimit({
     legacyHeaders: false,
     max: 5,

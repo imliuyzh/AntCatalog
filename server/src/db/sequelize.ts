@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 
+/**  Database connection specifications */
 const sequelize: Sequelize = new Sequelize('sqlite:./src/db/data.db', {
     define: {
         freezeTableName: true,
