@@ -54,11 +54,7 @@ const validator = query('name')
     .notEmpty()
     .withMessage('Value Must Not Be Empty.');
 
-const router: express.Router = express.Router();
-router.get(
-    '/',
-    [validatorPreparer, validator, cacheWorker],
-    async (req: express.Request, res: express.Response, next: express.NextFunction) => await InstructorAutocompleteController(req, res, next)
-);
 
-export default router;
+export default express
+    .Router()
+    .get('/', [validatorPreparer, validator, cacheWorker], InstructorAutocompleteController);

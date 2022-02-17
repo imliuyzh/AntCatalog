@@ -240,11 +240,6 @@ const validator = oneOf([
 ]);
 const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
 
-const router: express.Router = express.Router();
-router.post(
-    '/',
-    [validatorPreparer, schemaChecker, validator, cacheWorker],
-    async (req: express.Request, res: express.Response, next: express.NextFunction) => await SearchController(req, res, next)
-);
-
-export default router;
+export default express
+    .Router()
+    .post('/', [validatorPreparer, schemaChecker, validator, cacheWorker], SearchController);
