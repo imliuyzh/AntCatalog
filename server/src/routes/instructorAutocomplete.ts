@@ -54,7 +54,6 @@ const validator = query('name')
     .notEmpty()
     .withMessage('Value Must Not Be Empty.');
 
-
 export default express
     .Router()
     .get('/', [validatorPreparer, validator, cacheWorker], InstructorAutocompleteController);
