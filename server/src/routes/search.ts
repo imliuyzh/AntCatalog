@@ -90,11 +90,9 @@
  */
 
 import apicache from 'apicache';
-import { body, checkSchema, oneOf, Result, ValidationError, validationResult } from 'express-validator';
+import { body, checkSchema, oneOf } from 'express-validator';
 import express from 'express';
-
-import { getAggregatedStatistics, getAssociatedCourses } from '../utils/courseSearchAuxiliaries';
-import logger from '../utils/logger';
+import SearchController from '../controllers/search';
 
 const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
@@ -242,36 +240,11 @@ const validator = oneOf([
 ]);
 const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
 
-let router: express.Router = express.Router();
+const router: express.Router = express.Router();
 router.post(
     '/',
     [validatorPreparer, schemaChecker, validator, cacheWorker],
-    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        try {
-            let err: Result<ValidationError> = validationResult(req);
-            if (err.isEmpty() === false) {
-                let errMsg: ValidationError[] = err.array();
-                logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
-                return res
-                    .status(422)
-                    .json({
-                        success: false,
-                        info: errMsg
-                    });
-            }
-
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
-            let courses: object[] = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courses)}`);
-            res.json({
-                success: true,
-                aggregate: req.body.options.aggregate,
-                data: courses
-            });
-        } catch (exception: any) {
-            next(exception);
-        }
-    }
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => await SearchController(req, res, next)
 );
 
 export default router;

@@ -1,5 +1,8 @@
 import express from 'express';
+import { Result, ValidationError, validationResult } from 'express-validator';
 import Sequelize from 'sequelize';
+
+import logger from '../utils/logger';
 import sequelize from '../db/sequelize';
 
 type RawAggregateCourseData = {
@@ -57,11 +60,45 @@ type CourseDataQueryParameters = {
 };
 
 /**
+ * A controller for course search.
+ * @param req user's request
+ * @param res response to user's request
+ * @param next the function that will be called if an exception is thrown
+ */
+export default async function SearchController(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+    try {
+        let err: Result<ValidationError> = validationResult(req);
+        if (err.isEmpty() === false) {
+            let errMsg: ValidationError[] = err.array();
+            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
+            res
+                .status(422)
+                .json({
+                    success: false,
+                    info: errMsg
+                });
+            return;
+        }
+
+        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
+        let courses: object[] = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
+        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courses)}`);
+        res.json({
+            success: true,
+            aggregate: req.body.options.aggregate,
+            data: courses
+        });
+    } catch (exception: any) {
+        next(exception);
+    }
+}
+
+/**
  * Fetch aggregate course data based on user parameters
  * @param req user's request
  * @returns a promise for the aggregate data
  */
-export async function getAggregatedStatistics(req: express.Request): Promise<RawAggregateCourseData[]> {
+async function getAggregatedStatistics(req: express.Request): Promise<RawAggregateCourseData[]> {
     let [aggregateQuery, parameters]: [string, string[]] = createAggregateQueryWithParameters(req);
     let result: RawAggregateCourseData[] = await sequelize.query(aggregateQuery, {
         replacements: parameters,
@@ -84,7 +121,7 @@ export async function getAggregatedStatistics(req: express.Request): Promise<Raw
  * @param req user's request
  * @returns a promise for a list of course data that the instructors are stored into an array instead of a string
  */
-export async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
+async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
     let data: RawCourseData[] = await getAssociatedCourseList(req), result: ProcessedCourseData[] = [];
     data.forEach((course: RawCourseData) => {
         result.push({
