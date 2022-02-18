@@ -6,7 +6,7 @@
     "build": "npx tsc",
     "coverage": "jest --coverage",
     "dev": "nodemon ./src/index.ts",
-    "start": "npm run build && NODE_ENV=production pm2 start ./build/index.js",
+    "start": "NODE_ENV=production pm2 start ./build/index.js",
     "stop": "pm2 stop ./build/index.js",
     "test": "jest"
   },
