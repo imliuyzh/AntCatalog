@@ -59,12 +59,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server`
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
-6. Uncomment these lines in `/server/src/app.ts`
-   + `import path from 'path';`
-   + `app.set('trust proxy', true);`
-   + `app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));`
-   + ```app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));```
-7. Run `sudo apt install nginx` to install NGINX
+6. Run `sudo apt install nginx` to install NGINX
    + Run `sudo service nginx stop` and `sudo rm /etc/nginx/sites-available/default`
    + Run `sudo touch /etc/nginx/sites-available/default`
    + Paste the code snippet below into the file you just created
@@ -84,13 +79,13 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
           }
       }
       ```
-8. Type `npm install pm2 -g`
-9. Execute `pm2 startup` to ensure pm2 is started automatically when the OS booted
-10. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
-11. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx`
+7. Type `npm install pm2 -g`
+8. Execute `pm2 startup` to ensure pm2 is started automatically when the OS booted
+9. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
+10. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx`
     + Answer the questions based on your circumstances
     + Renew the SSL certificate by `sudo certbot renew`
-12. Run `npm run build`, `pm2 start ./build/index.js`, and `sudo service nginx start` on `/server`
+11. Run `npm run build`, `pm2 start ./build/index.js`, and `sudo service nginx start` on `/server`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 

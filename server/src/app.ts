@@ -2,7 +2,7 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-//import path from 'path';     // Not needed for local development
+import path from 'path';
 
 import instructorAutocompleteRouter from './routes/instructorAutocomplete';
 import internalErrorHandler from './middlewares/internalErrorHandler';
@@ -12,7 +12,7 @@ import searchRouter from './routes/search';
 
 const app: express.Application = express();
 
-//app.set('trust proxy', true);     // Not needed for local development
+app.set('trust proxy', process.env.NODE_ENV === 'production');
 app.use(compression());
 app.use(cors());
 app.use(express.json());
@@ -23,11 +23,14 @@ app.use(helmet({
         directives: { scriptSrc: [`'self'`, `'unsafe-inline'`] }
     }
 }));
-//app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));   // Not needed for local development
 
 app.use('/api/search', rateLimiter, searchRouter);
 app.use('/complete/instructors', instructorAutocompleteRouter);
-//app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));   // Not needed for local development
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));
+    app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));
+}
 
 app.use(internalErrorHandler);
 app.use(invalidRouteHandler);
