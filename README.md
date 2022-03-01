@@ -85,19 +85,16 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 10. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx`
     + Answer the questions based on your circumstances
     + Renew the SSL certificate by `sudo certbot renew`
-      + You can also do it automatically with cron (see below)
+      + You can also do it automatically with cron by replace the content in `/etc/cron.d/certbot`
+        ```
+        SHELL=/bin/sh
+        PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+        0 */12 * * * root certbot -q renew --nginx
+        ```
 11. Run `npm run build`, `npm start`, and `sudo service nginx start` on `/server`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
-
-### Automating SSL certificate renewal
-Replace the content in `/etc/cron.d/certbot`:
-```
-SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-
-0 */12 * * * root certbot -q renew --nginx
-```
 
 ## Acknowledgments
 This project has inspirations from ZotCurve and is made possible by UC Irvine's Public Records Office.
