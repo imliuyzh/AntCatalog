@@ -90,15 +90,14 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 
-### Auto-renew SSL certificate
-1. Run `sudo crontab -e`
-2. Add the following lines:
-    ```
-    SHELL=/bin/sh
-    PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+### Automating SSL certificate renewal
+Replace the content in `/etc/cron.d/certbot`:
+```
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-    0 */12 * * * root certbot -q renew --nginx
-    ```
+0 */12 * * * root certbot -q renew --nginx
+```
 
 ## Acknowledgments
 This project has inspirations from ZotCurve and is made possible by UC Irvine's Public Records Office.
