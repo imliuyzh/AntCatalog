@@ -4,7 +4,7 @@ Before moving on in this section, please install the latest LTS version of Node.
 
 ### Front end
 1. Enter the `client` folder in the command line and execute `npm i` to install the packages
-2. Run `npm start` to begin the front end application
+2. Run `npm start` to run the front end application
 
 ### Back end
 1. Enter the `server` folder in the command line and execute `npm i` to install the packages
@@ -59,7 +59,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
    + Restrict SSH access to your IP address only and allow HTTP/HTTPS connections from everywhere with the security group feature
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
-   + Remember to install the latest LTS version of Node.js and npm
+   + Get the latest LTS version of Node.js and npm
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server`
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
