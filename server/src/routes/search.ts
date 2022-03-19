@@ -5,7 +5,8 @@
  * 
  * @apiParam {Object} values A mandatory parameter object specifying the quarter, department, course number,
  * course code, and instructor of target classes. One of these fields must be non-empty.
- * @apiParam {String} [values[term]] Optional quarter field for the class (e.g. "Spring 2021", "Fall 2015").
+ * @apiParam {Number} [values[year]] Optional year field for the class (e.g. 2021, 2015).
+ * @apiParam {String} [values[quarter]] Optional quarter field for the class (e.g. "Spring", "Fall").
  * @apiParam {String} [values[department]] Optional department field for the class (e.g. "COMPSCI", "EDUC").
  * @apiParam {String} [values[courseNumber]] Optional course number field for the class (e.g. "161", "45J").
  * @apiParam {Number} [values[courseCode]] Optional course code field for the class (e.g. 02250, 35780).
@@ -24,7 +25,8 @@
  *         "success": true,
  *         "aggregate": false,
  *         "data": [{
- *             "term": "Fall 2021",
+ *             "year": 2021,
+ *             "quarter": "Fall"
  *             "courseCode": 35220,
  *             "department": "COMPSCI",
  *             "courseNumber": "220P",
@@ -99,7 +101,18 @@ const cache = apicache
     .middleware;
 const validatorPreparer = body('options.offset').default(0);
 const schemaChecker = checkSchema({
-    'values.term': {
+    'values.year': {
+        in: ['body'],
+        optional: {
+            options: { nullable: true }
+        },
+        isInt: {
+            bail: true,
+            errorMessage: 'Value Must Be an Integer.'
+        },
+        toInt: true
+    },
+    'values.quarter': {
         in: ['body'],
         optional: {
             options: { nullable: true }
@@ -111,8 +124,8 @@ const schemaChecker = checkSchema({
         trim: true,
         isLength: {
             bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.',
-            options: { min: 1 }
+            errorMessage: `Value Must Be Either "Fall," "Winter," or "Spring."`,
+            options: { min: 3 }
         }
     },
     'values.department': {
@@ -191,7 +204,13 @@ const schemaChecker = checkSchema({
     }
 });
 const validator = oneOf([
-    body('values.term')
+    body('values.year')
+        .exists()
+        .withMessage('Malformed Request Syntax.')
+        .bail()
+        .isInt()
+        .withMessage('Value Must Be an Integer.'),
+    body('values.quarter')
         .exists()
         .withMessage('Malformed Request Syntax.')
         .bail()

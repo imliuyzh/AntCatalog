@@ -38,7 +38,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: null,
+                        year: null,
+                        quarter: null,
                         courseNumber: null,
                         courseCode: 45505,
                         instructor: null
@@ -50,7 +51,7 @@ describe('POST /api/search', () => {
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
         });
-        test('should respond when the term field is gone since it is nullable', async () => {
+        test('should respond when the year and quarter field are gone since they are nullable', async () => {
             const response = await request
                 .post('/api/search')
                 .send({
@@ -73,7 +74,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: null,
+                        year: null,
+                        quarter: null,
                         department: null,
                         courseNumber: null,
                         courseCode: null,
@@ -94,7 +96,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: null,
+                        year: null,
+                        quarter: null,
                         department: null,
                         courseNumber: null,
                         courseCode: null,
@@ -113,7 +116,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: null,
+                        year: null,
+                        quarter: null,
                         department: null,
                         courseNumber: null,
                         courseCode: null,
@@ -132,7 +136,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Spring 2021',
+                        year: 2021,
+                        quarter: 'Spring',
                         department: 'COMPSCI',
                         courseNumber: '261P',
                         courseCode: 35210,
@@ -151,7 +156,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 225,
+                        year: '2021',
+                        quarter: 225,
                         department: 5+5,
                         courseNumber: 261,
                         courseCode: 'testingtesting',
@@ -173,7 +179,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Winter 2020',
+                        year: 2020,
+                        quarter: 'Winter',
                         department: null,
                         courseNumber: null,
                         courseCode: '123A',
@@ -192,7 +199,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Winter 2020',
+                        year: 2020,
+                        quarter: 'Winter',
                         department: null,
                         courseNumber: null,
                         courseCode: '            ',
@@ -214,7 +222,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Fall 2021',
+                        year: 2021,
+                        quarter: 'Fall',
                         department: null,
                         courseNumber: null,
                         courseCode: null,
@@ -234,7 +243,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Spring 2021',
+                        year: 2021,
+                        quarter: 'Spring',
                         department: 'EDUC',
                         courseNumber: '247',
                         courseCode: null,
@@ -261,7 +271,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: null,
+                        year: null,
+                        quarter: null,
                         department: 'COMPSCI',
                         courseNumber: '260',
                         courseCode: null,
@@ -282,7 +293,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Spring 2021',
+                        year: 2021,
+                        quarter: 'Spring',
                         department: 'COMPSCI',
                         courseNumber: '261P',
                         courseCode: 35210,
@@ -310,7 +322,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Fall 2020',
+                        year: 2020,
+                        quarter: 'Fall',
                         department: 'SWE',
                         courseNumber: '250P',
                         courseCode: null,
@@ -330,7 +343,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: null,
+                        year: null,
+                        quarter: null,
                         department: 'DEPT',
                         courseNumber: '101',
                         courseCode: null,
@@ -351,7 +365,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: null,
+                        year: null,
+                        quarter: null,
                         department: 'DEPT',
                         courseNumber: '201',
                         courseCode: null,
@@ -375,7 +390,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Fall 2020',
+                        year: 2020,
+                        quarter: 'Fall',
                         department: 'SWE',
                         courseNumber: '246P',
                         courseCode: null,
@@ -404,7 +420,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Fall 2020',
+                        year: 2020,
+                        quarter: 'Fall',
                         department: 'SWE',
                         courseNumber: '250P',
                         courseCode: 37945,
@@ -435,7 +452,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Winter 2021',
+                        year: 2021,
+                        quarter: 'Winter',
                         department: 'COMPSCI',
                         courseNumber: '230',
                         courseCode: 34770,
@@ -457,7 +475,8 @@ describe('POST /api/search', () => {
                 .post('/api/search')
                 .send({
                     values: {
-                        term: 'Spring 2020',
+                        year: 2020,
+                        quarter: 'Spring',
                         department: null,
                         courseNumber: null,
                         courseCode: 34750,

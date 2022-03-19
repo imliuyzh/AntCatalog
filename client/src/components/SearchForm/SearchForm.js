@@ -7,6 +7,7 @@ import ResetButton from './ResetButton/ResetButton';
 import QuarterMenu from './QuarterMenu/QuarterMenu';
 import SearchButton from './SearchButton/SearchButton';
 import styled from '@emotion/styled';
+import YearMenu from './YearMenu/YearMenu';
 
 const SearchFormContainerElement = styled.div`
     align-items: center;
@@ -99,8 +100,13 @@ export default function SearchForm() {
     return (
         <SearchFormContainerElement>
             <form id="search-form">
-                <div className="form-group select-menu">
-                    <QuarterMenu />
+                <div className="form-group">
+                    <div className="group-elements select-menu">
+                        <YearMenu />
+                    </div>
+                    <div className="group-elements select-menu">
+                        <QuarterMenu />
+                    </div>
                 </div>
 
                 <div className="form-group">

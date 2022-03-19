@@ -17,7 +17,8 @@ type RawAggregateCourseData = {
 };
 
 type RawCourseData = {
-    term: string,
+    year: number,
+    quarter: string,
     courseCode: number,
     department: string,
     courseNumber: string,
@@ -34,7 +35,8 @@ type RawCourseData = {
 };
 
 type ProcessedCourseData = {
-    term: string,
+    year: number,
+    quarter: string,
     courseCode: number,
     department: string,
     courseNumber: string,
@@ -51,7 +53,8 @@ type ProcessedCourseData = {
 };
 
 type CourseDataQueryParameters = {
-    term?: string,
+    year?: number,
+    quarter?: string,
     courseCode?: number,
     department?: string,
     courseNumber?: string,
@@ -174,21 +177,25 @@ function createAggregateQueryWithParameters(req: express.Request): [string, stri
     let aggregateQuery: string = createAggregateQuery(req.body.values.instructor);
     let parameters: string[] = [];
 
-    if (req.body.values.term !== null && req.body.values.term !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.term = ?`;
-        parameters.push(req.body.values.term);
-    }
-    if (req.body.values.department !== null && req.body.values.department !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.department = ?`;
-        parameters.push(req.body.values.department.toUpperCase());
+    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.course_code = ?`;
+        parameters.push(req.body.values.courseCode);
     }
     if (req.body.values.courseNumber !== null && req.body.values.courseNumber !== undefined) {
         aggregateQuery = `${aggregateQuery} AND C.course_number = ?`;
         parameters.push(req.body.values.courseNumber.toUpperCase());
     }
-    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.course_code = ?`;
-        parameters.push(req.body.values.courseCode);
+    if (req.body.values.department !== null && req.body.values.department !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.department = ?`;
+        parameters.push(req.body.values.department.toUpperCase());
+    }
+    if (req.body.values.quarter !== null && req.body.values.quarter !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.quarter = ?`;
+        parameters.push(req.body.values.quarter);
+    }
+    if (req.body.values.year !== null && req.body.values.year !== undefined) {
+        aggregateQuery = `${aggregateQuery} AND C.year = ?`;
+        parameters.push(req.body.values.year);
     }
     if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
         aggregateQuery = `${aggregateQuery} AND I.name = ?`;
@@ -219,7 +226,8 @@ async function getAssociatedCourseList(req: express.Request): Promise<RawCourseD
 function createAssociatedCourseListQuery(): string[] {
     return [
         `SELECT
-            C.term,
+            C.year,
+            C.quarter,
             C.course_code AS courseCode,
             C.department,
             C.course_number AS courseNumber,
@@ -251,21 +259,25 @@ function createAssociatedCourseListQueryWithParameters(req: express.Request): [s
     let tokens: string[] = createAssociatedCourseListQuery();
     let parameters: CourseDataQueryParameters = { offset: req.body.options.offset };
 
-    if (req.body.values.term !== null && req.body.values.term !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.term = :term`;
-        parameters.term = req.body.values.term;
-    }
-    if (req.body.values.department !== null && req.body.values.department !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.department = :department`;
-        parameters.department = req.body.values.department.toUpperCase();
+    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
+        tokens[1] = `${tokens[1]} AND C.course_code = :courseCode`;
+        parameters.courseCode = req.body.values.courseCode;
     }
     if (req.body.values.courseNumber !== null && req.body.values.courseNumber !== undefined) {
         tokens[1] = `${tokens[1]} AND C.course_number = :courseNumber`;
         parameters.courseNumber = req.body.values.courseNumber.toUpperCase();
     }
-    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.course_code = :courseCode`;
-        parameters.courseCode = req.body.values.courseCode;
+    if (req.body.values.department !== null && req.body.values.department !== undefined) {
+        tokens[1] = `${tokens[1]} AND C.department = :department`;
+        parameters.department = req.body.values.department.toUpperCase();
+    }
+    if (req.body.values.quarter !== null && req.body.values.quarter !== undefined) {
+        tokens[1] = `${tokens[1]} AND C.quarter = :quarter`;
+        parameters.quarter = req.body.values.quarter;
+    }
+    if (req.body.values.year !== null && req.body.values.year !== undefined) {
+        tokens[1] = `${tokens[1]} AND C.year = :year`;
+        parameters.year = req.body.values.year;
     }
     if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
         tokens[0] = `${tokens[0]}, Instructor I`;

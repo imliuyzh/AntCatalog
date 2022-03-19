@@ -43,8 +43,11 @@ The file for handling the `/api/search` endpoint which focuses on course search.
   {
     /* At least one of these five fields must not be null/undefined. */
     "values": {
-      /* e.g. "Spring 2021", "Fall 2015" */
-      "term": string,
+      /* e.g. "2022", "2015" */
+      "year": number,
+
+      /* e.g. "Spring", "Fall" */
+      "quarter": string,
       
       /* See front end dropdown menu for acceptable parameters (e.g. "COMPSCI", "EDUC"). */
       "department": string,
@@ -75,7 +78,8 @@ A SQLite database containing course information.
 ```
     CREATE TABLE Course (
         course_id INTEGER,
-        term TEXT NOT NULL,
+        year INTEGER NOT NULL,
+        quarter TEXT NOT NULL,
         course_code INTEGER NOT NULL,
         department TEXT NOT NULL,
         course_number TEXT NOT NULL,
