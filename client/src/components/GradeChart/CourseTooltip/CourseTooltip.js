@@ -33,26 +33,26 @@ export default function CourseTooltip({ isAggregateData, items, title }) {
                         </div>
                         <CourseInformationContainerElement>
                             <div>
-                                <span style={{ marginRight: 5 }}>{'Amount'}:</span>
+                                <span style={{ marginRight: 5 }}>Amount:</span>
                                 <span className="g2-tooltip-list-item-value">{data.amount}</span>
                             </div>
                             {
                                 (isAggregateData)
                                     ? ''
                                     : <div>
-                                          <span style={{ marginRight: 5 }}>{'Course Code'}:</span>
+                                          <span style={{ marginRight: 5 }}>Course Code:</span>
                                           <span className="g2-tooltip-list-item-value">{data.courseCode}</span>
                                       </div>
                             }
                             <div>
-                                <span style={{ marginRight: 5 }}>{'GPA'}:</span>
+                                <span style={{ marginRight: 5 }}>GPA:</span>
                                 <span className="g2-tooltip-list-item-value">{data.avgGPA.toFixed(2)}/4</span>
                             </div>
                             {
                                 (isAggregateData)
                                     ? ''
                                     : <div>
-                                          <span style={{ marginRight: 5 }}>{'Instructor(s)'}:</span>
+                                          <span style={{ marginRight: 5 }}>Instructor(s):</span>
                                           <span className="g2-tooltip-list-item-value">{data.instructors}</span>
                                       </div>
                             }

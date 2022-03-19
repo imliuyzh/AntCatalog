@@ -38,10 +38,11 @@ export default function SearchButton() {
     const generateRequestParams = () => {
         return {
             values: {
-                term: (internalState.formInput.term.trim().length > 0) ? internalState.formInput.term : null,
+                year: (internalState.formInput.year.trim().length > 0) ? parseInt(internalState.formInput.year) : null,
+                quarter: (internalState.formInput.quarter.trim().length > 0) ? internalState.formInput.quarter : null,
                 department: (internalState.formInput.department.trim().length > 0) ? internalState.formInput.department : null,
                 courseNumber: (internalState.formInput.courseNumber.trim().length > 0) ? internalState.formInput.courseNumber : null,
-                courseCode: (internalState.formInput.courseCode.trim().length > 0) ? internalState.formInput.courseCode : null,
+                courseCode: (internalState.formInput.courseCode.trim().length > 0) ? parseInt(internalState.formInput.courseCode) : null,
                 instructor: (internalState.formInput.instructor.trim().length > 0) ? internalState.formInput.instructor : null
             },
             options: {
@@ -53,44 +54,35 @@ export default function SearchButton() {
 
     const submitForm = async (event) => {
         event.preventDefault();
-        if ((internalState.formInput.term.trim().length > 0
-                || internalState.formInput.department.trim().length > 0
-                || internalState.formInput.courseNumber.trim().length > 0
-                || internalState.formInput.courseCode.trim().length > 0
-                || internalState.formInput.instructor.trim().length > 0)
-                && [true, false].includes(internalState.formInput.aggregate)) {
-            try {
-                let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/api/search`, {
-                    body: JSON.stringify(generateRequestParams()),
-                    headers: { 'Content-Type': 'application/json' },
-                    method: 'POST'
-                });
+        try {
+            let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/api/search`, {
+                body: JSON.stringify(generateRequestParams()),
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST'
+            });
 
-                switch (response.status) {
-                    case 200:
-                        let information = await response.json();
-                        replaceResults(information.aggregate, information.data);
-                        updateFormInput({ offset: 0 });
-                        if (information.aggregate === false && information.data.length > 0) {
-                            showCourseList();
-                        } else if (information.aggregate === true && information.data.length > 0) {
-                            closeCourseList();
-                        } else {
-                            showAlert('Empty search results');
-                        }
-                        break;
-                    case 422:
-                        showAlert('Please ensure your search condition is valid');
-                        break;
-                    case 500: default:
-                        showAlert('An expected error occurs, please report to GitHub issues');
-                }
-            } catch (error) {
-                console.error(error);
-                showAlert('An expected error occurs, try again');
+            switch (response.status) {
+                case 200:
+                    let information = await response.json();
+                    replaceResults(information.aggregate, information.data);
+                    updateFormInput({ offset: 0 });
+                    if (information.aggregate === false && information.data.length > 0) {
+                        showCourseList();
+                    } else if (information.aggregate === true && information.data.length > 0) {
+                        closeCourseList();
+                    } else {
+                        showAlert('Empty search results');
+                    }
+                    break;
+                case 422:
+                    showAlert('Please ensure your search condition is valid');
+                    break;
+                case 500: default:
+                    showAlert('An expected error occurs, please report to GitHub issues');
             }
-        } else {
-            showAlert('At least one field must be non-empty');
+        } catch (error) {
+            console.error(error);
+            showAlert('An expected error occurs, try again');
         }
     };
 

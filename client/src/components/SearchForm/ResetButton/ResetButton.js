@@ -34,21 +34,13 @@ export default function ResetButton() {
     let internalStateDispatch = useDispatch(),
         searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
-    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
+    let { resetFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
     let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
     let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     const reset = (event) => {
         event.preventDefault();
-        updateFormInput({
-            term: '',
-            department: '',
-            courseNumber: '',
-            courseCode: '',
-            instructor: '',
-            aggregate: false,
-            offset: 0
-        });
+        resetFormInput();
         resetCourses();
         replaceResults(null, []);
     };

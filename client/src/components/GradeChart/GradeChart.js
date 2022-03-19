@@ -59,63 +59,63 @@ let GradeChart = memo(() => {
         let result = [];
         for (let course in selectedCoursesState) {
             result.push({
-                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
+                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                 grade: 'A',
-                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                 courseCode: selectedCoursesState[course].courseCode,
                 amount: selectedCoursesState[course].gradeACount,
                 instructors: selectedCoursesState[course].instructors.join(`/`),
                 avgGPA: selectedCoursesState[course].gpaAvg
             });
             result.push({
-                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
+                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                 grade: 'B',
-                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                 courseCode: selectedCoursesState[course].courseCode,
                 amount: selectedCoursesState[course].gradeBCount,
                 instructors: selectedCoursesState[course].instructors.join(`/`),
                 avgGPA: selectedCoursesState[course].gpaAvg
             });
             result.push({
-                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
+                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                 grade: 'C',
-                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                 courseCode: selectedCoursesState[course].courseCode,
                 amount: selectedCoursesState[course].gradeCCount,
                 instructors: selectedCoursesState[course].instructors.join(`/`),
                 avgGPA: selectedCoursesState[course].gpaAvg
             });
             result.push({
-                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
+                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                 grade: 'D',
-                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                 courseCode: selectedCoursesState[course].courseCode,
                 amount: selectedCoursesState[course].gradeDCount,
                 instructors: selectedCoursesState[course].instructors.join(`/`),
                 avgGPA: selectedCoursesState[course].gpaAvg
             });
             result.push({
-                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
+                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                 grade: 'F',
-                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                 courseCode: selectedCoursesState[course].courseCode,
                 amount: selectedCoursesState[course].gradeFCount,
                 instructors: selectedCoursesState[course].instructors.join(`/`),
                 avgGPA: selectedCoursesState[course].gpaAvg
             });
             result.push({
-                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
+                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                 grade: 'P',
-                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                 courseCode: selectedCoursesState[course].courseCode,
                 amount: selectedCoursesState[course].gradePCount,
                 instructors: selectedCoursesState[course].instructors.join(`/`),
                 avgGPA: selectedCoursesState[course].gpaAvg
             });
             result.push({
-                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term}/${selectedCoursesState[course].courseCode})`,
+                name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                 grade: 'NP',
-                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].term})`,
+                title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                 courseCode: selectedCoursesState[course].courseCode,
                 amount: selectedCoursesState[course].gradeNpCount,
                 instructors: selectedCoursesState[course].instructors.join(`/`),

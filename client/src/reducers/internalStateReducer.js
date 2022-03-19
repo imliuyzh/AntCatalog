@@ -1,7 +1,8 @@
 let initialState = {
     alertMessage: '',
     formInput: {
-        term: '',
+        year: '',
+        quarter: '',
         department: '',
         courseNumber: '',
         courseCode: '',
@@ -30,6 +31,20 @@ const reducer = (state=initialState, action) => {
                 ...state,
                 alertMessage: action.errorMessage,
                 showAlert: true,
+            };
+        case "RESET_FORM_INPUT":
+            return {
+                ...state,
+                formInput: {
+                    year: '',
+                    quarter: '',
+                    department: '',
+                    courseNumber: '',
+                    courseCode: '',
+                    instructor: '',
+                    aggregate: false,
+                    offset: 0
+                }
             };
         case "SHOW_COURSE_LIST":
             return {

@@ -62,10 +62,11 @@ let CourseList = React.memo(() => {
     const generateRequestParams = (newOffset) => {
         return {
             values: {
-                term: (internalState.formInput.term.trim().length > 0) ? internalState.formInput.term : null,
+                year: (internalState.formInput.year.trim().length > 0) ? parseInt(internalState.formInput.year) : null,
+                quarter: (internalState.formInput.quarter.trim().length > 0) ? internalState.formInput.quarter : null,
                 department: (internalState.formInput.department.trim().length > 0) ? internalState.formInput.department : null,
                 courseNumber: (internalState.formInput.courseNumber.trim().length > 0) ? internalState.formInput.courseNumber : null,
-                courseCode: (internalState.formInput.courseCode.trim().length > 0) ? internalState.formInput.courseCode : null,
+                courseCode: (internalState.formInput.courseCode.trim().length > 0) ? parseInt(internalState.formInput.courseCode) : null,
                 instructor: (internalState.formInput.instructor.trim().length > 0) ? internalState.formInput.instructor : null
             },
             options: {
@@ -139,12 +140,13 @@ let CourseList = React.memo(() => {
                             <Thead>
                                 <Tr>
                                     <Th>{''}</Th>
-                                    <Th>{'Term'}</Th>
-                                    <Th>{'Course Code'}</Th>
-                                    <Th>{'Department'}</Th>
-                                    <Th>{'Course Number'}</Th>
-                                    <Th>{'Course Title'}</Th>
-                                    <Th>{'Instructor(s)'}</Th>
+                                    <Th>Year</Th>
+                                    <Th>Quarter</Th>
+                                    <Th>Course Code</Th>
+                                    <Th>Department</Th>
+                                    <Th>Course Number</Th>
+                                    <Th>Course Title</Th>
+                                    <Th>Instructor(s)</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -155,7 +157,8 @@ let CourseList = React.memo(() => {
                                             onSelect: (_, isSelected) => addOrRemoveCourse(course, isSelected),
                                             rowIndex
                                         }} />
-                                        <Td dataLabel={'Term'}>{course.term}</Td>
+                                        <Td dataLabel={'year'}>{course.year}</Td>
+                                        <Td dataLabel={'quarter'}>{course.quarter}</Td>
                                         <Td dataLabel={'Course Code'}>{course.courseCode}</Td>
                                         <Td dataLabel={'Department'}>{course.department}</Td>
                                         <Td dataLabel={'Course Number'}>{course.courseNumber}</Td>

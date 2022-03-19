@@ -33,3 +33,9 @@ export const updateFormInput = (updatedFields) => {
         });
     };
 };
+
+export const resetFormInput = () => {
+    return dispatch => {
+        dispatch({ type: "RESET_FORM_INPUT" });
+    };
+};

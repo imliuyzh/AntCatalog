@@ -9,8 +9,8 @@ export default function QuarterMenu() {
 
     return (
         <select
-            onChange={event => updateFormInput({ term: event.target.value })}
-            value={internalState.formInput.term}
+            onChange={event => updateFormInput({ quarter: event.target.value })}
+            value={internalState.formInput.quarter}
         >
             <option value="" disabled className="invalid-option">Quarter</option>
             <option value="Fall">Fall</option>
