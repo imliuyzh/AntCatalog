@@ -1,3 +1,5 @@
+# Remember to comment out courseRateLimiter before testing.
+
 import json, random
 from locust import HttpUser, task, between
 
@@ -7,18 +9,18 @@ class User(HttpUser):
 
     @task
     def match_instructors(self):
-        '''Test the /complete/instructors endpoint.'''
+        '''Test the /instructors endpoint.'''
         instructor = random.choice(['KLEFSTAD, R.', 'SHINDLER, M.', 'DILLENCOURT, M.', 'VENKETASUBRAMANIAN', 'vewv342342vw', 'NAVRRO'])
-        self.client.get(f'/complete/instructors?name={instructor}')
+        self.client.get(f'/instructors?name={instructor}')
 
     @task
     def get_statistics(self):
-        '''Test the /api/search endpoint with aggregate=false.'''
+        '''Test the /courses endpoint with aggregate=false.'''
         courseNumber = random.choice(['260', '260P', '261', '261P', '263'])
         instructor = random.choice(['GOODRICH, M.', 'SHINDLER, M.', 'EPPSTEIN, D.', 'DILLENCOURT, M.', 'WORTMAN, M.'])
         offset = random.randint(0, 11)
         
-        self.client.post("/api/search", json=json.loads(
+        self.client.post("/courses", json=json.loads(
             '{' +
                 '"values": {' +
                     '"department": "COMPSCI",' +
@@ -35,9 +37,9 @@ class User(HttpUser):
         
     @task
     def get_aggregated_statistics(self):
-        '''Test the /api/search endpoint with aggregate=true.'''
+        '''Test the /courses endpoint with aggregate=true.'''
         instructor = random.choice(['LOPES, C.', 'SHINDLER, M.', 'DILLENCOURT, M.'])
-        self.client.post("/api/search", json=json.loads(
+        self.client.post("/courses", json=json.loads(
             '{' +
                 '"values": {' +
                     '"department": "COMPSCI",' +
