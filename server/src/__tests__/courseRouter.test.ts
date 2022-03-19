@@ -1,18 +1,19 @@
 import supertest from 'supertest';
 import app from '../app';
 
+const ROUTE = '/courses';
 const request = supertest(app);
 
-describe('POST /api/search', () => {
+describe('POST /courses', () => {
     describe('sending malformed requests', () => {
         test('should respond with a failed status when there is nothing', async () => {
-            const response = await request.post('/api/search');
+            const response = await request.post(ROUTE);
             expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
         test('should respond with a failed status when parameters are off', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     p1: {},
                     p2: {}
@@ -22,7 +23,7 @@ describe('POST /api/search', () => {
         });
         test('should respond with a failed status when parameters are empty', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {},
                     options: {}
@@ -35,7 +36,7 @@ describe('POST /api/search', () => {
     describe('sending requests with missing fields', () => {
         test('should respond when the offset field is gone since it looks for aggregate data', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: null,
@@ -53,7 +54,7 @@ describe('POST /api/search', () => {
         });
         test('should respond when the year and quarter field are gone since they are nullable', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         department: 'ECON',
@@ -71,7 +72,7 @@ describe('POST /api/search', () => {
         });
         test('should respond with a failed status when the aggregated field is gone because it is required', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: null,
@@ -93,7 +94,7 @@ describe('POST /api/search', () => {
     describe('sending requests with invalid parameters', () => {
         test('should respond with a failed status when parameters are all null', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: null,
@@ -113,7 +114,7 @@ describe('POST /api/search', () => {
         });
         test('should respond with a failed status when parameters except options are all null', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: null,
@@ -133,7 +134,7 @@ describe('POST /api/search', () => {
         });
         test('should respond with a failed status when parameters except values are all null', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2021,
@@ -153,7 +154,7 @@ describe('POST /api/search', () => {
         });
         test('should respond with a failed status when parameters type are different from expectations', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: '2021',
@@ -176,7 +177,7 @@ describe('POST /api/search', () => {
     describe('sending requests with partially valid parameters', () => {
         test('should respond with a failed status 1', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2020,
@@ -196,7 +197,7 @@ describe('POST /api/search', () => {
         });
         test('should respond with a failed status 2', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2020,
@@ -219,7 +220,7 @@ describe('POST /api/search', () => {
     describe('sending requests with valid parameters', () => {
         test('should respond successfully when only one parameter has correct data', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2021,
@@ -240,7 +241,7 @@ describe('POST /api/search', () => {
         });
         test('should have correct aggregated data for educ 247 in spring 2021 with most fields filled out', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2021,
@@ -268,7 +269,7 @@ describe('POST /api/search', () => {
         });
         test('should respond successfully when some parameters have correct data', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: null,
@@ -290,7 +291,7 @@ describe('POST /api/search', () => {
         });
         test('should respond successfully when all parameters have correct data', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2021,
@@ -319,7 +320,7 @@ describe('POST /api/search', () => {
         });
         test('should respond successfully without specifying the value for offset', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2020,
@@ -340,7 +341,7 @@ describe('POST /api/search', () => {
         });
         test('should respond zero match since there is no such class 1', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: null,
@@ -362,7 +363,7 @@ describe('POST /api/search', () => {
         });
         test('should respond zero match since there is no such class 2', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: null,
@@ -387,7 +388,7 @@ describe('POST /api/search', () => {
     describe('courses with multiple instructors', () => {
         test('swe 246p should have three instructors', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2020,
@@ -417,7 +418,7 @@ describe('POST /api/search', () => {
         });
         test('swe 250p should have two instructors', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2020,
@@ -449,7 +450,7 @@ describe('POST /api/search', () => {
     describe('get all instructors no matter an instructor is specified or not', () => {
         test('display two instructors for cs 230 in winter 2021 when no one is specified', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2021,
@@ -472,7 +473,7 @@ describe('POST /api/search', () => {
         });
         test('display two instructors for cs 261 in spring 2020 when one is specified', async () => {
             const response = await request
-                .post('/api/search')
+                .post(ROUTE)
                 .send({
                     values: {
                         year: 2020,

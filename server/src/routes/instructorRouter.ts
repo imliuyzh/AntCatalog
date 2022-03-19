@@ -1,6 +1,6 @@
 /**
- * @api {get} /complete/instructors Suggest instructors with similar names through fuzzy search
- * @apiName GetInstructorSuggestions
+ * @api {get} /instructors Suggest instructors with similar names through fuzzy search
+ * @apiName InstructorSearch
  * @apiGroup Search
  * 
  * @apiParam {String} name A token used as the basis for the matching process
@@ -38,7 +38,7 @@
 
 import apicache from 'apicache';
 import express from 'express';
-import InstructorAutocompleteController from '../controllers/instructorAutocomplete';
+import InstructorController from '../controllers/instructorController';
 import { query } from 'express-validator';
 
 const cacheWorker = apicache.middleware('30 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
@@ -56,4 +56,4 @@ const validator = query('name')
 
 export default express
     .Router()
-    .get('/', [validatorPreparer, validator, cacheWorker], InstructorAutocompleteController);
+    .get('/', [validatorPreparer, validator, cacheWorker], InstructorController);

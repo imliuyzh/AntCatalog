@@ -2,24 +2,24 @@
 
 ## Structure
 ### `/src`
-### `index.ts`
+### index.ts
 The entry point which starts the entire back end program.
 
-### `app.ts`
+### app.ts
 This file plays an overarching role in the application. It defines all the endpoints on the back end and how to process exceptions and request/response.
 
 #### `/__tests__`
-##### `app.test.ts`
+##### app.test.ts
 The test file for `app.js` which targets on invalid entry and server errors.
 
-##### `instructorAutocomplete.test.ts`
-The test file for `/complete/instructors` which focuses on instructor name autocomplete.
+##### courseRouter.test.ts
+The test file for `/courses` which focuses on course search.
 
-##### `search.test.ts`
-The test file for `/api/search` which focuses on course search.
+##### instructorRouter.test.ts
+The test file for `/instructors` which focuses on instructor name autocomplete.
 
 #### `/benchmark`
-##### `locustfile.py`
+##### locustfile.py
 The program for performing stress testing. To run it:
 1. Navigate to this directory
 2. Run `python3 -m venv .` or `python -m venv .` (may need to install python3-venv if on Linux)
@@ -30,15 +30,12 @@ The program for performing stress testing. To run it:
 5. Open http://0.0.0.0:8089 and type 100 and 50
 6. Press start swarming
 
-##### `requirements.txt`
+##### requirements.txt
 Dependencies to `locustfile.py`.
 
 #### `/controllers`
-##### instructorAutocomplete.ts
-The file for handling the `/complete/instructors` endpoint which focuses on instructor name autocomplete. It will read all instructors from `data.db` by calling the function `loadInstructors()`. It accepts only one argument called `name` in the query string: `/complete/instructors?name=`.
-
-##### search.ts
-The file for handling the `/api/search` endpoint which focuses on course search. It accepts a JSON object in the body:
+##### courseController.ts
+The file for handling the `/courses` endpoint which focuses on course search. It accepts a JSON object in the body:
 ```
   {
     /* At least one of these five fields must not be null/undefined. */
@@ -72,8 +69,11 @@ The file for handling the `/api/search` endpoint which focuses on course search.
   }
 ```
 
+##### instructorController.ts
+The file for handling the `/instructors` endpoint which focuses on instructor name autocomplete. It will read all instructors from `data.db` by calling the function `loadInstructors()`. It accepts only one argument called `name` in the query string: `/instructors?name=`.
+
 #### `/db`
-##### `data.db`
+##### data.db
 A SQLite database containing course information.
 ```
     CREATE TABLE Course (
@@ -110,28 +110,28 @@ A SQLite database containing course information.
         GROUP BY I.course_id;
 ```
 
-##### `sequelize.ts`
+##### sequelize.ts
 A file connecting to the SQLite database above.
 
 #### `/middlewares`
-##### `internalErrorHandler.ts`
-A file for handling server errors (HTTP 500).
-
-##### `invalidRouteHandler.ts`
-A file for handling errors where the location specified is not valid (HTTP 404).
-
-##### `rateLimiter.ts`
+##### courseRateLimiter.ts
 A file for limiting five requests per second.
 
+##### internalErrorHandler.ts
+A file for handling server errors (HTTP 500).
+
+##### invalidRouteHandler.ts
+A file for handling errors where the location specified is not valid (HTTP 404).
+
 #### `/routes`
-##### `instructorAutocomplete.ts`
+##### courseRouter.ts
 Top-level declaration file for the corresponding controller.
 
-##### `search.ts`
+##### instructorRouter.ts
 Top-level declaration file for the corresponding controller.
 
 #### `/utils`
-##### `logger.ts`
+##### logger.ts
 A file for reporting user request information like IP address and body content in a file under the generated `/logs` folder.
 
 ## Code Analysis and Testing

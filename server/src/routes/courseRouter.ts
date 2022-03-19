@@ -1,6 +1,6 @@
 /**
- * @api {post} /api/search Retrieve statistics for at most 15 courses based on the parameters given
- * @apiName SearchCourses
+ * @api {post} /courses Retrieve statistics for at most 15 courses based on the parameters given
+ * @apiName CourseSearch
  * @apiGroup Search
  * 
  * @apiParam {Object} values A mandatory parameter object specifying the quarter, department, course number,
@@ -94,7 +94,7 @@
 import apicache from 'apicache';
 import { body, checkSchema, oneOf } from 'express-validator';
 import express from 'express';
-import SearchController from '../controllers/search';
+import CourseController from '../controllers/courseController';
 
 const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
@@ -261,4 +261,4 @@ const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => re
 
 export default express
     .Router()
-    .post('/', [validatorPreparer, schemaChecker, validator, cacheWorker], SearchController);
+    .post('/', [validatorPreparer, schemaChecker, validator, cacheWorker], CourseController);

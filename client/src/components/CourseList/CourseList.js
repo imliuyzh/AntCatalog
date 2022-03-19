@@ -79,7 +79,7 @@ let CourseList = React.memo(() => {
     const fetchPageData = async (event, newOffset) => {
         try {
             event.preventDefault();
-            let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/api/search`, {
+            let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/courses`, {
                 body: JSON.stringify(generateRequestParams(newOffset)),
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'

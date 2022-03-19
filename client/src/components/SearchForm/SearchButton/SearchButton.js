@@ -55,7 +55,7 @@ export default function SearchButton() {
     const submitForm = async (event) => {
         event.preventDefault();
         try {
-            let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/api/search`, {
+            let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/courses`, {
                 body: JSON.stringify(generateRequestParams()),
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'

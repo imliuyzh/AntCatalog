@@ -17,7 +17,7 @@ export default function InstructorAutocomplete() {
 
     const getResults = useMemo(() =>
         throttle((request, callback) => {
-            fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/complete/instructors?name=${encodeURIComponent(instructorInput)}`)
+            fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/instructors?name=${encodeURIComponent(instructorInput)}`)
                 .then(response => response.json())
                 .then(data => {
                     setInstructorList(data.matches);

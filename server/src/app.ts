@@ -4,11 +4,11 @@ import express from 'express';
 import helmet from 'helmet';
 import path from 'path';
 
-import instructorAutocompleteRouter from './routes/instructorAutocomplete';
+import courseRateLimiter from './middlewares/courseRateLimiter';   // Must comment out all occurrences during testing
+import courseRouter from './routes/courseRouter';
+import instructorRouter from './routes/instructorRouter';
 import internalErrorHandler from './middlewares/internalErrorHandler';
 import invalidRouteHandler from './middlewares/invalidRouteHandler';
-import rateLimiter from './middlewares/rateLimiter';   // Must comment out all rateLimiter occurrences during testing
-import searchRouter from './routes/search';
 
 const app: express.Application = express();
 
@@ -24,8 +24,8 @@ app.use(helmet({
     }
 }));
 
-app.use('/api/search', rateLimiter, searchRouter);
-app.use('/complete/instructors', instructorAutocompleteRouter);
+app.use('/courses', courseRateLimiter, courseRouter);
+app.use('/instructors', instructorRouter);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));
