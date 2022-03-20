@@ -107,11 +107,11 @@ let CourseList = React.memo(() => {
         }
     };
 
-    const isCourseSelected = (course) => `${course.term} ${course.courseCode}` in selectedCoursesState;
+    const isCourseSelected = (course) => `${course.year} ${course.quarter} ${course.courseCode}` in selectedCoursesState;
 
     const addOrRemoveCourse = (course, isSelected=true) => {
         let result = { ...selectedCoursesState };
-        let targetCourse = `${course.term} ${course.courseCode}`;
+        let targetCourse = `${course.year} ${course.quarter} ${course.courseCode}`;
         if (isSelected) {
             result[targetCourse] = course;
             addCourse(result);
