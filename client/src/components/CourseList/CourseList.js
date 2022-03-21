@@ -157,13 +157,13 @@ let CourseList = React.memo(() => {
                                             onSelect: (_, isSelected) => addOrRemoveCourse(course, isSelected),
                                             rowIndex
                                         }} />
-                                        <Td dataLabel={'year'}>{course.year}</Td>
-                                        <Td dataLabel={'quarter'}>{course.quarter}</Td>
-                                        <Td dataLabel={'Course Code'}>{course.courseCode}</Td>
-                                        <Td dataLabel={'Department'}>{course.department}</Td>
-                                        <Td dataLabel={'Course Number'}>{course.courseNumber}</Td>
-                                        <Td dataLabel={'Course Title'}>{course.courseTitle}</Td>
-                                        <Td dataLabel={'Instructor(s)'}>{course.instructors.join(`/`)}</Td>
+                                        <Td dataLabel="Year">{course.year}</Td>
+                                        <Td dataLabel="Quarter">{course.quarter}</Td>
+                                        <Td dataLabel="Course Code">{course.courseCode}</Td>
+                                        <Td dataLabel="Department">{course.department}</Td>
+                                        <Td dataLabel="Course Number">{course.courseNumber}</Td>
+                                        <Td dataLabel="Course Title">{course.courseTitle}</Td>
+                                        <Td dataLabel="Instructor(s)">{course.instructors.join(`/`)}</Td>
                                     </Tr>
                                 ))}
                             </Tbody>
