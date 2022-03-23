@@ -68,7 +68,7 @@ type CourseDataQueryParameters = {
  * @param res response to user's request
  * @param next the function that will be called if an exception is thrown
  */
-export default async function SearchController(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+export default async function CourseController(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
         let err: Result<ValidationError> = validationResult(req);
         if (err.isEmpty() === false) {

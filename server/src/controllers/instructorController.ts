@@ -37,7 +37,7 @@ namespace CacheNamespace {
  * @param res response to user's request
  * @param next the function that will be called if an exception is thrown
  */
-export default async function InstructorAutocompleteController(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+export default async function InstructorController(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
         let errors: Result<ValidationError> = validationResult(req);
         if (errors.isEmpty() === false) {
