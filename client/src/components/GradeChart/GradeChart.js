@@ -1,9 +1,9 @@
 import { Column } from '@ant-design/charts';
 import CourseTooltip from './CourseTooltip/CourseTooltip';
-import { memo } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-let GradeChart = memo(() => {
+let GradeChart = React.memo(() => {
     let searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);
 
