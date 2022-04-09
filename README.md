@@ -51,10 +51,10 @@ For other information of back end services such as testing, please visit [here](
 AntCatalog also uses Locust for load testing, which itself is written in Python.
 
 ## Deployment
-Please ensure your operating system is able to initiate a SSH/SCP session. If there is a problem with the instructions below, please feel free to create an issue.
+If there is a problem with the instructions below, please feel free to create an issue.
 
 ### Amazon Elastic Compute Cloud (EC2)
-The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 installed.
+The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 installed. Please ensure your operating system is able to initiate a SSH/SCP session.
 1. Create an instance on EC2 like [this](https://www.youtube.com/watch?v=GEVbYQWWJkQ)
    + Restrict SSH access to your IP address only and allow HTTP/HTTPS connections from everywhere with the security group feature
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
