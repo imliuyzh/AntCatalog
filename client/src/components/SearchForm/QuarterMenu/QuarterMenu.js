@@ -9,6 +9,7 @@ export default function QuarterMenu() {
 
     return (
         <select
+            aria-label="Quarter"
             onChange={event => updateFormInput({ quarter: event.target.value })}
             value={internalState.formInput.quarter}
         >

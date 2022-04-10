@@ -9,6 +9,7 @@ export default function YearMenu() {
 
     return (
         <select
+            aria-label="Year"
             onChange={event => updateFormInput({ year: event.target.value })}
             value={internalState.formInput.year}
         >

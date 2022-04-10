@@ -47,7 +47,7 @@ export default function ResetButton() {
 
     return (
         <ResetButtonElement>
-            <button id="reset-button" onClick={event => reset(event)}>
+            <button id="reset-button" onClick={event => reset(event)} type="button">
                 <ResetIcon fill="#333538" id="reset-icon" />
                 Reset
             </button>

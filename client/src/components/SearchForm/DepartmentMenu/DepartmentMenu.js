@@ -9,6 +9,7 @@ export default function DepartmentMenu() {
 
     return (
         <select
+            aria-label="Department"
             onChange={event => updateFormInput({ department: event.target.value })}
             value={internalState.formInput.department}
         >

@@ -99,11 +99,11 @@ let CourseList = React.memo(() => {
                     showAlert('Please slow down, you are going too fast!');
                     break;
                 case 500: default:
-                    showAlert('An expected error occurs, please report to GitHub issues');
+                    showAlert('An unexpected error occurs, please report to GitHub issues');
             }
         } catch (error) {
             console.error(error);
-            showAlert('An expected error occurs, try again');
+            showAlert('An unexpected error occurs, try again');
         }
     };
 
@@ -122,7 +122,7 @@ let CourseList = React.memo(() => {
 
     return (
         <>
-            <CourseListButtonContainerElement onClick={handleOnClick}>
+            <CourseListButtonContainerElement onClick={handleOnClick} type="button">
                 <ListIcon fill="#aab3bc" id="list-icon" />
                 <span>Course List (Last Search)</span>
             </CourseListButtonContainerElement>

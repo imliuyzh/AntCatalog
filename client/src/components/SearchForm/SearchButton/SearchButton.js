@@ -78,17 +78,17 @@ export default function SearchButton() {
                     showAlert('Please ensure your search condition is valid');
                     break;
                 case 500: default:
-                    showAlert('An expected error occurs, please report to GitHub issues');
+                    showAlert('An unexpected error occurs, please report to GitHub issues');
             }
         } catch (error) {
             console.error(error);
-            showAlert('An expected error occurs, try again');
+            showAlert('An unexpected error occurs, try again');
         }
     };
 
     return (
         <SearchButtonElement>
-            <button id="search-button" onClick={async (event) => await submitForm(event)}>
+            <button id="search-button" onClick={async (event) => await submitForm(event)} type="submit">
                 <SearchIcon fill="#ffffff" id="search-icon" />
                 Search
             </button>
