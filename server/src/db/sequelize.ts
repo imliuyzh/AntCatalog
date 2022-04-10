@@ -10,7 +10,7 @@ const sequelize: Sequelize = new Sequelize('sqlite:./src/db/data.db', {
     pool: {
         max: 100,
         min: 30,
-        acquire: 15000,
+        acquire: 10000,
         idle: 10000
     }
 });

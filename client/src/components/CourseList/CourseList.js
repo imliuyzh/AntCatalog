@@ -2,12 +2,12 @@ import { bindActionCreators } from 'redux';
 import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import { Pagination } from '@patternfly/react-core';
-import React from 'react';
 import styled from '@emotion/styled';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
 import * as internalStateActionCreators from '../../actions/internalStateActionCreators';
+import * as React from 'react';
 import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
 import * as selectedCoursesActionCreators from '../../actions/selectedCoursesActionCreators';
 
