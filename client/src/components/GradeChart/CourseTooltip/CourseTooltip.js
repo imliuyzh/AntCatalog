@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { v4 } from 'uuid';
 
 const CourseInformationContainerElement = styled.div`
     display: flex;
@@ -16,7 +15,7 @@ export default function CourseTooltip({ isAggregateData, items, title }) {
                 {items?.map(({ data, color }) => 
                     <li
                         className="g2-tooltip-list-item"
-                        key={v4()}
+                        key={crypto.randomUUID()}
                         style={{
                             display: 'flex',
                             flexDirection: 'column',

@@ -25,7 +25,6 @@ For other information of back end services such as testing, please visit [here](
 + Redux
   + React Redux
   + redux-thunk
-+ UUID
 
 ### Back end
 + Express.js

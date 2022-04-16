@@ -5,7 +5,6 @@ import { Pagination } from '@patternfly/react-core';
 import styled from '@emotion/styled';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 } from 'uuid';
 import * as internalStateActionCreators from '../../actions/internalStateActionCreators';
 import * as React from 'react';
 import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
@@ -151,7 +150,7 @@ let CourseList = React.memo(() => {
                             </Thead>
                             <Tbody>
                                 {searchResultState.data.map((course, rowIndex) => (
-                                    <Tr key={v4()}>
+                                    <Tr key={crypto.randomUUID()}>
                                         <Td select={{
                                             isSelected: isCourseSelected(course),
                                             onSelect: (_, isSelected) => addOrRemoveCourse(course, isSelected),
