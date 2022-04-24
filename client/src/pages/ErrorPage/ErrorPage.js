@@ -1,31 +1,29 @@
+import ErrorIllustration from '../../assets/images/error-bg.jpg';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/images/logo.png';
 import styled from '@emotion/styled';
 import { Title } from '@patternfly/react-core';
 import { useEffect } from 'react';
 
 const ErrorPageContainerElement = styled.div`
-    display: grid;
-    font-family: RedHatText, Arial, sans-serif;
-    height: 100vh;
-    place-items: center;
-    
     a, a:hover {
         text-decoration: none;
+    }
+    
+    #figure {
+        line-height: 0;
+        margin: 0;
     }
 
     #content {
         align-items: center;
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        height: 512px;
         justify-content: center;
-        padding: 0 2rem;
         text-align: center;
     }
 
     #message {
-        margin-top: 3rem;
         padding: 0 36px;
     }
 
@@ -83,11 +81,11 @@ export default function ErrorPage() {
     useEffect(() => document.title = 'Error | AntCatalog', []);
     return (
         <ErrorPageContainerElement>
-            <main id="content">
-                <Link to="/">
-                    <img src={Logo} id="logo" alt="AntCatalog Logo" />
-                </Link>
+            <figure id="figure">
+                <img src={ErrorIllustration} alt="" />
+            </figure>
 
+            <main id="content">
                 <div id="message">
                     <Title headingLevel="h1">Error</Title>
                     <p id="description">Apologies, the page you're looking for cannot be found.</p>
