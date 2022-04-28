@@ -22,6 +22,10 @@ const ErrorPageContainerElement = styled.div`
         justify-content: center;
         text-align: center;
     }
+    
+    #title {
+        font-size: 4rem;
+    }
 
     #message {
         padding: 0 36px;
@@ -54,27 +58,6 @@ const ErrorPageContainerElement = styled.div`
         color: rgb(170, 179, 188);
         text-decoration: none;
     }
-
-    @media (min-width: 641px) {
-        #logo {
-            max-width: 1024px;
-            width: 70%;
-        }
-        
-        .pf-c-title {
-            font-size: 72px;
-        }
-    }
-
-    @media (max-width: 640px) {
-        #logo {
-            width: 80vw;
-        }
-        
-        .pf-c-title {
-            font-size: 36px;
-        }
-    }
 `;
 
 export default function ErrorPage() {
@@ -87,7 +70,7 @@ export default function ErrorPage() {
 
             <main id="content">
                 <div id="message">
-                    <Title headingLevel="h1">Error</Title>
+                    <Title headingLevel="h1" id="title">Error</Title>
                     <p id="description">Apologies, the page you're looking for cannot be found.</p>
                 </div>
                 
