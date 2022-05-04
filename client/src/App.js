@@ -16,10 +16,8 @@ export default function App() {
             <Global styles={GlobalStyles} />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/">
-                        <Route index element={<HomePage />} />
-                        <Route path="*" element={<ErrorPage />} />
-                    </Route>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </BrowserRouter>
         </>
