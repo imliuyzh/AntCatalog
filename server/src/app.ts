@@ -4,7 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import path from 'path';
 
-import courseRateLimiter from './middlewares/courseRateLimiter';   // Must comment out all occurrences during testing
+//import courseRateLimiter from './middlewares/courseRateLimiter';   // Must comment out all occurrences during testing
 import courseRouter from './routes/courseRouter';
 import instructorRouter from './routes/instructorRouter';
 import internalErrorHandler from './middlewares/internalErrorHandler';
@@ -24,7 +24,7 @@ app.use(helmet({
     }
 }));
 
-app.use('/courses', courseRateLimiter, courseRouter);
+app.use('/courses', courseRouter);
 app.use('/instructors', instructorRouter);
 
 if (process.env.NODE_ENV === 'production') {
