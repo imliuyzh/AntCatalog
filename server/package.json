@@ -3,7 +3,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "(yes | rm -r build); npx tsc",
+    "build": "npx tsc",
     "coverage": "jest --coverage",
     "dev": "nodemon ./src/index.ts",
     "start": "NODE_ENV=production pm2 start ./build/index.js",
