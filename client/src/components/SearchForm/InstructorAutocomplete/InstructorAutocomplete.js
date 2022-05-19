@@ -1,10 +1,9 @@
 import Autocomplete from '@mui/material/Autocomplete';
-import { bindActionCreators } from 'redux';
 import Paper from '@mui/material/Paper';
 import throttle from 'lodash/throttle';
+import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo, useState } from 'react';
-import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function InstructorAutocomplete() {
     let [open, setOpen] = useState(false);
@@ -13,10 +12,9 @@ export default function InstructorAutocomplete() {
 
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
-    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 
     const getResults = useMemo(() =>
-        throttle((request, callback) => {
+        throttle((_request, _response) => {
             fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/instructors?name=${encodeURIComponent(instructorInput)}`)
                 .then(response => response.json())
                 .then(data => {
@@ -48,7 +46,7 @@ export default function InstructorAutocomplete() {
             id="instructor"
             inputValue={instructorInput}
             onChange={(_, value) => {
-                updateFormInput({ instructor: value ?? '' });
+                internalStateDispatch(updateFormInput({ instructor: value ?? '' }));
                 setInstructorInput(value ?? '');
             }}
             onInputChange={(_, value) => setInstructorInput(value ?? '')}

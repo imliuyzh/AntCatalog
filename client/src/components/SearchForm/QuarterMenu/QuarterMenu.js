@@ -1,16 +1,14 @@
-import { bindActionCreators } from 'redux';
+import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function QuarterMenu() {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
-    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 
     return (
         <select
             aria-label="Quarter"
-            onChange={event => updateFormInput({ quarter: event.target.value })}
+            onChange={event => internalStateDispatch(updateFormInput({ quarter: event.target.value }))}
             value={internalState.formInput.quarter}
         >
             <option value="" disabled className="invalid-option">Quarter</option>

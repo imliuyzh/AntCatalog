@@ -1,9 +1,8 @@
-import { bindActionCreators } from 'redux';
+import { closeCourseList, showAlert, showCourseList, updateFormInput } from '../../../features/internalStateSlice';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
+import { replaceResult } from '../../../features/searchResultSlice';
 import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
-import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
-import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
 
 const SearchButtonElement = styled.div`
     margin-bottom: 0;
@@ -32,8 +31,6 @@ const SearchButtonElement = styled.div`
 export default function SearchButton() {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch(), searchResultDispatch = useDispatch();
-    let { closeCourseList, showAlert, showCourseList, updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
-    let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
 
     const generateRequestParams = () => {
         return {
@@ -64,25 +61,28 @@ export default function SearchButton() {
             switch (response.status) {
                 case 200:
                     let information = await response.json();
-                    replaceResults(information.aggregate, information.data);
-                    updateFormInput({ offset: 0 });
+                    searchResultDispatch(replaceResult({
+                        isAggregateData: information.aggregate,
+                        data: information.data
+                    }));
+                    internalStateDispatch(updateFormInput({ offset: 0 }));
                     if (information.aggregate === false && information.data.length > 0) {
-                        showCourseList();
+                        internalStateDispatch(showCourseList());
                     } else if (information.aggregate === true && information.data.length > 0) {
-                        closeCourseList();
+                        internalStateDispatch(closeCourseList());
                     } else {
-                        showAlert('Empty search results');
+                        internalStateDispatch(showAlert('Empty search results'));
                     }
                     break;
                 case 422:
-                    showAlert('Please ensure your search condition is valid');
+                    internalStateDispatch(showAlert('Please ensure your search condition is valid'));
                     break;
                 case 500: default:
-                    showAlert('An unexpected error occurs, please report to GitHub issues');
+                    internalStateDispatch(showAlert('An unexpected error occurs, please report to GitHub issues'));
             }
         } catch (error) {
             console.error(error);
-            showAlert('An unexpected error occurs, try again');
+            internalStateDispatch(showAlert('An unexpected error occurs, try again'));
         }
     };
 

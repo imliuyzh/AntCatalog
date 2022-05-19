@@ -1,5 +1,12 @@
-import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import reducers from './reducers/reducers';
+import { configureStore } from '@reduxjs/toolkit';
+import internalStateReducer from './features/internalStateSlice';
+import searchResultReducer from './features/searchResultSlice';
+import selectedCoursesReducer from './features/selectedCoursesSlice';
 
-export const store = createStore(reducers, {}, applyMiddleware(thunk));
+export const store = configureStore({
+    reducer: {
+        internalState: internalStateReducer,
+        searchResult: searchResultReducer,
+        selectedCourses: selectedCoursesReducer,
+    }
+});

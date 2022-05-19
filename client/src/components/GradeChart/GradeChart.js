@@ -7,8 +7,8 @@ let GradeChart = React.memo(() => {
     let searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);
 
-    const formatAggregateCoursesData = () => {
-        let result = [
+    const formatAggregateCoursesData = () => (
+        [
             {
                 name: `Aggregate Data`,
                 grade: 'A',
@@ -51,9 +51,8 @@ let GradeChart = React.memo(() => {
                 amount: searchResultState.data[0].gradeNpCount,
                 avgGPA: searchResultState.data[0].gpaAvg
             },
-        ];
-        return result;
-    };
+        ]
+    );
 
     const formatSelectedCoursesData = () => {
         let result = [];

@@ -1,16 +1,14 @@
-import { bindActionCreators } from 'redux';
+import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
 
 export default function DepartmentMenu() {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
-    let { updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 
     return (
         <select
             aria-label="Department"
-            onChange={event => updateFormInput({ department: event.target.value })}
+            onChange={event => internalStateDispatch(updateFormInput({ department: event.target.value }))}
             value={internalState.formInput.department}
         >
             <option value="" disabled>Department</option>

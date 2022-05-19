@@ -1,4 +1,6 @@
-import { bindActionCreators } from 'redux';
+import { addCourse, removeCourse } from '../../features/selectedCoursesSlice';
+import { replaceResult } from '../../features/searchResultSlice';
+import { closeCourseList, showAlert, showCourseList, updateFormInput } from '../../features/internalStateSlice';
 import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import { Pagination } from '@patternfly/react-core';
@@ -6,10 +8,7 @@ import styled from '@emotion/styled';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 } from 'uuid';
-import * as internalStateActionCreators from '../../actions/internalStateActionCreators';
 import * as React from 'react';
-import * as searchResultActionCreators from '../../actions/searchResultActionCreators';
-import * as selectedCoursesActionCreators from '../../actions/selectedCoursesActionCreators';
 
 const PAGE_ITEM_LIMIT = 15;
 
@@ -43,19 +42,16 @@ let CourseList = React.memo(() => {
     let internalStateDispatch = useDispatch(),
         searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
-    let { closeCourseList, showAlert, showCourseList, updateFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
-    let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
-    let { addCourse, removeCourse } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
-            showAlert('Course list is disabled for aggregated data');
+            internalStateDispatch(showAlert('Course list is disabled for aggregated data'));
         } else if (searchResultState.isAggregateData === null && searchResultState.data.length === 0) {
-            showAlert('Please search for courses')
+            internalStateDispatch(showAlert('Please search for courses'));
         } else if (searchResultState.data.length === 0) {
-            showAlert('Empty course list')
+            internalStateDispatch(showAlert('Empty course list'));
         } else {
-            showCourseList();
+            internalStateDispatch(showCourseList());
         }
     };
 
@@ -89,34 +85,35 @@ let CourseList = React.memo(() => {
                 case 200:
                     let information = await response.json();
                     if (information.data.length > 0) {
-                        replaceResults(information.aggregate, information.data);
-                        updateFormInput({ offset: newOffset });
+                        searchResultDispatch(replaceResult({
+                            isAggregateData: information.aggregate,
+                            data: information.data
+                        }));
+                        internalStateDispatch(updateFormInput({ offset: newOffset }));
                     } else {
-                        showAlert('No more courses!');
+                        internalStateDispatch(showAlert('No more courses!'));
                     }
                     break;
                 case 429:
-                    showAlert('Please slow down, you are going too fast!');
+                    internalStateDispatch(showAlert('Please slow down, you are going too fast!'));
                     break;
                 case 500: default:
-                    showAlert('An unexpected error occurs, please report to GitHub issues');
+                    internalStateDispatch(showAlert('An unexpected error occurs, please report to GitHub issues'));
             }
         } catch (error) {
             console.error(error);
-            showAlert('An unexpected error occurs, try again');
+            internalStateDispatch(showAlert('An unexpected error occurs, try again'));
         }
     };
 
     const isCourseSelected = (course) => `${course.year} ${course.quarter} ${course.courseCode}` in selectedCoursesState;
 
     const addOrRemoveCourse = (course, isSelected=true) => {
-        let result = { ...selectedCoursesState };
         let targetCourse = `${course.year} ${course.quarter} ${course.courseCode}`;
         if (isSelected) {
-            result[targetCourse] = course;
-            addCourse(result);
+            selectedCoursesDispatch(addCourse({ targetCourse, course }));
         } else {
-            removeCourse(result, targetCourse);
+            selectedCoursesDispatch(removeCourse(targetCourse));
         }
     };
 
@@ -132,7 +129,7 @@ let CourseList = React.memo(() => {
                 :
                     <Modal
                         isOpen={internalState.showCourseList}
-                        onClose={() => closeCourseList()}
+                        onClose={() => internalStateDispatch(closeCourseList())}
                         title="Search"
                         variant={ModalVariant.large}
                     >

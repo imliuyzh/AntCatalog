@@ -1,22 +1,20 @@
 import Alert from '@mui/material/Alert';
-import { bindActionCreators } from 'redux';
 import Snackbar from '@mui/material/Snackbar';
 import { useDispatch, useSelector } from 'react-redux';
-import * as internalStateActionCreators from '../../actions/internalStateActionCreators';
+import { closeAlert } from '../../features/internalStateSlice';
 
 export default function ErrorAlert() {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
-    let { closeAlert } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
 
     return (
         <Snackbar
             autoHideDuration={3000}
-            onClose={() => closeAlert()}
+            onClose={() => internalStateDispatch(closeAlert())}
             open={internalState.showAlert}
         >
             <Alert
-                onClose={() => closeAlert()}
+                onClose={() => internalStateDispatch(closeAlert())}
                 severity='error'
                 sx={{
                     fontFamily: 'RedHatText, Arial, sans-serif',

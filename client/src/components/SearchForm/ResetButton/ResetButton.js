@@ -1,10 +1,9 @@
-import { bindActionCreators } from 'redux';
 import { ReactComponent as ResetIcon } from '../../../assets/images/reset.svg';
+import { resetCourses } from '../../../features/selectedCoursesSlice';
+import { resetFormInput } from '../../../features/internalStateSlice';
+import { resetResult } from '../../../features/searchResultSlice';
 import styled from '@emotion/styled';
 import { useDispatch } from 'react-redux';
-import * as internalStateActionCreators from '../../../actions/internalStateActionCreators';
-import * as searchResultActionCreators from '../../../actions/searchResultActionCreators';
-import * as selectedCoursesActionCreators from '../../../actions/selectedCoursesActionCreators';
 
 const ResetButtonElement = styled.div`
     margin-bottom: 0;
@@ -34,15 +33,12 @@ export default function ResetButton() {
     let internalStateDispatch = useDispatch(),
         searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
-    let { resetFormInput } = bindActionCreators(internalStateActionCreators, internalStateDispatch);
-    let { replaceResults } = bindActionCreators(searchResultActionCreators, searchResultDispatch);
-    let { resetCourses } = bindActionCreators(selectedCoursesActionCreators, selectedCoursesDispatch);
 
     const reset = (event) => {
         event.preventDefault();
-        resetFormInput();
-        resetCourses();
-        replaceResults(null, []);
+        internalStateDispatch(resetFormInput());
+        searchResultDispatch(resetResult());
+        selectedCoursesDispatch(resetCourses());
     };
 
     return (
