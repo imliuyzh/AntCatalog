@@ -24,9 +24,7 @@ For other information of back end services such as testing, please visit [here](
 + PatternFly
 + React
 + React Router
-+ Redux
-  + React Redux
-  + redux-thunk
++ Redux Toolkit
 
 ### Back end
 + Express.js
