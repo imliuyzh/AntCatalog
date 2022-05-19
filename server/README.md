@@ -120,6 +120,9 @@ A file for limiting five requests per second.
 ##### internalErrorHandler.ts
 A file for handling server errors (HTTP 500).
 
+##### invalidRequestSchemaHandler.ts
+A file for handling wrong user request format (HTTP 422).
+
 ##### invalidRouteHandler.ts
 A file for handling errors where the location specified is not valid (HTTP 404).
 
