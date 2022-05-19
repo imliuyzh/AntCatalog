@@ -38,8 +38,10 @@
 
 import apicache from 'apicache';
 import express from 'express';
-import InstructorController from '../controllers/instructorController';
 import { query } from 'express-validator';
+
+import InstructorController from '../controllers/instructorController';
+import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 
 const cacheWorker = apicache.middleware('30 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
 const validatorPreparer = query('name').default('');
@@ -56,4 +58,4 @@ const validator = query('name')
 
 export default express
     .Router()
-    .get('/', [validatorPreparer, validator, cacheWorker], InstructorController);
+    .get('/', [validatorPreparer, validator, invalidRequestSchemaHandler, cacheWorker], InstructorController);

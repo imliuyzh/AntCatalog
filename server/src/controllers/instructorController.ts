@@ -2,7 +2,6 @@ import express from 'express';
 import Fuse from 'fuse.js';
 import NodeCache from 'node-cache';
 import { QueryTypes } from 'sequelize';
-import { Result, ValidationError, validationResult } from 'express-validator';
 
 import logger from '../utils/logger';
 import sequelize from '../db/sequelize';
@@ -39,19 +38,6 @@ namespace CacheNamespace {
  */
 export default async function(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
-        let errors: Result<ValidationError> = validationResult(req);
-        if (errors.isEmpty() === false) {
-            let errMsg: ValidationError[] = errors.array();
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
-            res
-                .status(422)
-                .json({
-                    success: false,
-                    info: errMsg
-                });
-            return;
-        }
-
         let instructorList: string[] = await CacheNamespace.loadInstructors();
         let fuse: Fuse<string> = new Fuse(instructorList, { minMatchCharLength: 3 });
         let matches: string[] = (req.query.name !== undefined) ? fuse.search(req.query.name.toString(), { limit: 5 }).map(match => match.item) : [];

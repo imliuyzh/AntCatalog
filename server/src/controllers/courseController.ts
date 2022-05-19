@@ -1,5 +1,4 @@
 import express from 'express';
-import { Result, ValidationError, validationResult } from 'express-validator';
 import Sequelize from 'sequelize';
 
 import logger from '../utils/logger';
@@ -70,19 +69,6 @@ type CourseDataQueryParameters = {
  */
 export default async function(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
-        let err: Result<ValidationError> = validationResult(req);
-        if (err.isEmpty() === false) {
-            let errMsg: ValidationError[] = err.array();
-            logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
-            res
-                .status(422)
-                .json({
-                    success: false,
-                    info: errMsg
-                });
-            return;
-        }
-
         logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
         let courses: object[] = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
         logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courses)}`);

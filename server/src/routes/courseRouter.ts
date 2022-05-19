@@ -94,7 +94,9 @@
 import apicache from 'apicache';
 import { body, checkSchema, oneOf } from 'express-validator';
 import express from 'express';
+
 import CourseController from '../controllers/courseController';
+import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 
 const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
@@ -261,4 +263,4 @@ const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => re
 
 export default express
     .Router()
-    .post('/', [validatorPreparer, schemaChecker, validator, cacheWorker], CourseController);
+    .post('/', [validatorPreparer, schemaChecker, validator, invalidRequestSchemaHandler, cacheWorker], CourseController);
