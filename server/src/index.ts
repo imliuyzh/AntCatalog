@@ -3,6 +3,6 @@ import logger from './utils/logger';
 
 const PORT: number = 26997;
 
-let server = app.listen(PORT, () => logger.info(`Server is Running on Port #${PORT}.`));
+const server = app.listen(PORT, () => logger.info(`Server is Running on Port #${PORT}.`));
 
 process.on('SIGTERM', () => server.close(() => logger.info(`Server is Closed.`)));
