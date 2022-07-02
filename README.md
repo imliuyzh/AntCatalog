@@ -110,7 +110,8 @@ The instruction below is written for a Linux free tier instance. You can create 
 5. Run `npm run build` for both `/client` and `/server`
 6. Rename `/client/build` to `/client/static` and move it to `/server`
 7. Delete `/node_modules` for both `/client` and `/server`
-8. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
+8. Remove the line `"build": "npx tsc",` in `/server/package.json`
+9. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
 
 You should see the website deployed when you go to `https://<app-name>.azurewebsites.net`.
