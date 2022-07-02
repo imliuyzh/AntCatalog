@@ -94,7 +94,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 
       0 */12 * * * root certbot -q renew --nginx
       ```
-10. Run `npm run build`, `npm start:aws`, and `sudo service nginx start` on `/server`
+10. Run `npm run build`, `npm run start:aws`, and `sudo service nginx start` on `/server`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 
@@ -106,18 +106,11 @@ The instruction below is written for a Linux free tier instance. You can create 
 3. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in this command: `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
 4. Clone the project to your local machine and run `npm i` for both `/client` and `/server`
 5. Run `npm run build` on `/client`, rename the resulting `/build` folder to `/static`, and move it to `/server`
-6. Replace the corresponding block in `/src/app.ts` to
-   ```
-   if (process.env.NODE_ENV === 'production') {
-      app.use(express.static(path.join(__dirname, '..', 'static')));
-      app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../static/index.html`)));
-   }
-   ```
-7. Remove the `/node_modules` folder for both `/client` and `/server`
-8. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
-   + Provide your instance's information to the rest of the steps
+6. Remove `/node_modules` for both `/client` and `/server`
+7. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
+   + Provide your instance's information to the rest
 
-You should see the website deployed when you entered `https://<app-name>.azurewebsites.net`.
+You should see the website deployed when you go to `https://<app-name>.azurewebsites.net`.
 
 ## Acknowledgments
 This project has inspirations from ZotCurve and is made possible by UC Irvine's Public Records Office.

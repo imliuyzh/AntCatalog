@@ -28,8 +28,14 @@ app.use('/courses', courseRateLimiter, courseRouter);
 app.use('/instructors', instructorRouter);
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '..', '..', 'client', 'build')));
-    app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../../client/build/index.html`)));
+    app.use(express.static((process.env.PRODUCTION_ENV === 'aws')
+        ? path.join(__dirname, '..', '..', 'client', 'build')
+        : path.join(__dirname, '..', 'static')
+    ));
+    app.get('*', (_: unknown, res: express.Response) => res.sendFile((process.env.PRODUCTION_ENV === 'aws')
+        ? path.resolve(`${__dirname}/../../client/build/index.html`)
+        : path.resolve(`${__dirname}/../static/index.html`)
+    ));
 }
 
 app.use(invalidRouteHandler);
