@@ -50,7 +50,7 @@ For other information of back end services such as testing, please visit [here](
 AntCatalog also uses Locust for load testing, which itself is written in Python.
 
 ## Deployment
-If there is a problem with the instructions below, please feel free to create an issue.
+You can use AWS EC2 or Azure App Service to deploy the application. If there is a problem with the instructions, please feel free to create an issue.
 
 ### Amazon Elastic Compute Cloud (EC2)
 The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 installed. Please ensure your operating system is able to initiate a SSH/SCP session.
@@ -94,9 +94,30 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
 
       0 */12 * * * root certbot -q renew --nginx
       ```
-10. Run `npm run build`, `npm start`, and `sudo service nginx start` on `/server`
+10. Run `npm run build`, `npm start:aws`, and `sudo service nginx start` on `/server`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
+
+### Azure App Service
+The instruction below is written for a Linux free tier instance. You can create one by following [here](https://www.youtube.com/watch?v=npI4GD8mFuA). Also, please ensure Visual Studio Code is installed along with the Azure App Service extension.
+
+1. Go to your instance on App Service and navigate to `Application Settings` under `Configuration`
+2. Press `New Application Setting`, create a new entry with `NODE_ENV` as the name and `production` as the value, and save the setting
+3. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in this command: `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
+4. Clone the project to your local machine and run `npm i` for both `/client` and `/server`
+5. Run `npm run build` on `/client`, rename the resulting `/build` folder to `/static`, and move it to `/server`
+6. Replace the corresponding block in `/src/app.ts` to
+   ```
+   if (process.env.NODE_ENV === 'production') {
+      app.use(express.static(path.join(__dirname, '..', 'static')));
+      app.get('*', (_: unknown, res: express.Response) => res.sendFile(path.resolve(`${__dirname}/../static/index.html`)));
+   }
+   ```
+7. Remove the `/node_modules` folder for both `/client` and `/server`
+8. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
+   + Provide your instance's information to the rest of the steps
+
+You should see the website deployed when you entered `https://<app-name>.azurewebsites.net`.
 
 ## Acknowledgments
 This project has inspirations from ZotCurve and is made possible by UC Irvine's Public Records Office.
