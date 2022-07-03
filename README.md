@@ -102,16 +102,12 @@ You should see the website deployed when you entered the public IPv4 address of 
 The instruction below is written for a Linux free tier instance. You can create one by following [here](https://www.youtube.com/watch?v=npI4GD8mFuA). Also, please ensure Visual Studio Code is installed along with the Azure App Service extension.
 
 1. Go to your instance on App Service and navigate to `Application Settings` under `Configuration`
-2. Add the following `name:value` entries by pressing `New Application Setting`:
-   + `NODE_ENV:production`
-   + `PRODUCTION_ENV:azure`
-3. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in this command: `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
-4. Clone the project to your local machine and run `npm i` for both `/client` and `/server`
-5. Run `npm run build` for both `/client` and `/server`
-6. Rename `/client/build` to `/client/static` and move it to `/server`
-7. Delete `/node_modules` for both `/client` and `/server`
-8. Remove the line `"build": "npx tsc",` in `/server/package.json`
-9. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
+2. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in this command: `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
+3. Clone the project to your local machine and run `npm i` for both `/client` and `/server`
+4. Run `npm run build` for both `/client` and `/server`
+5. Rename `/client/build` to `/client/static` and move it to `/server`
+6. Delete `/node_modules` for both `/client` and `/server`
+7. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
 
 You should see the website deployed when you go to `https://<app-name>.azurewebsites.net`.
