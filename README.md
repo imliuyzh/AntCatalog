@@ -107,7 +107,7 @@ The instruction below is written for a Linux free tier instance. You can create 
 4. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
 
-You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take a while (~30 seconds) to load the website again after 20 minutes of inactivity.
+You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take a while to load the website again after 20 minutes of inactivity.
 
 ## Acknowledgments
 This project has inspirations from ZotCurve and is made possible by UC Irvine's Public Records Office.
