@@ -101,12 +101,11 @@ You should see the website deployed when you entered the public IPv4 address of 
 ### Azure App Service
 The instruction below is written for a Linux free tier instance. You can create one by following [here](https://www.youtube.com/watch?v=npI4GD8mFuA). Also, please ensure Visual Studio Code is installed along with the Azure App Service extension.
 
-1. Go to your instance on App Service and navigate to `Application Settings` under `Configuration`
-2. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in this command: `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
-3. Run `npm i` and `npm run build` in `/client`
-4. Rename `/client/build` to `/client/static` and move it to `/server`
-5. Delete `/node_modules` for `/client`
-6. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
+1. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in this command: `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
+2. Clone the repository to your local device and run `npm i && npm run build` in `/client`
+3. Rename `/client/build` to `/client/static` and move it to `/server`
+4. Delete `/node_modules` for `/client`
+5. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
 
 You should see the website deployed when you go to `https://<app-name>.azurewebsites.net`.
