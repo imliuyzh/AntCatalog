@@ -106,8 +106,7 @@ The instruction below is written for a Linux free tier instance. You can create 
    + `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
 2. Clone the repository to your local device and run `npm i && npm run build` in `/client`
 3. Rename `/client/build` to `/client/static` and move it to `/server`
-4. Delete `/node_modules` for `/client`
-5. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
+4. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
 
 You should see the website deployed when you go to `https://<app-name>.azurewebsites.net`.
