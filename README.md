@@ -103,11 +103,10 @@ The instruction below is written for a Linux free tier instance. You can create 
 
 1. Go to your instance on App Service and navigate to `Application Settings` under `Configuration`
 2. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in this command: `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
-3. Clone the project to your local machine and run `npm i` for both `/client` and `/server`
-4. Run `npm run build` for both `/client` and `/server`
-5. Rename `/client/build` to `/client/static` and move it to `/server`
-6. Delete `/node_modules` for both `/client` and `/server`
-7. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
+3. Run `npm i` and `npm run build` in `/client`
+4. Rename `/client/build` to `/client/static` and move it to `/server`
+5. Delete `/node_modules` for `/client`
+6. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
 
 You should see the website deployed when you go to `https://<app-name>.azurewebsites.net`.
