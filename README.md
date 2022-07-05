@@ -27,8 +27,6 @@ For other information of back end services such as testing, please visit [here](
 ### Back end
 + Express.js
   + apicache
-  + compression
-  + CORS
   + Express Rate Limit
   + express-validator
   + Helmet
