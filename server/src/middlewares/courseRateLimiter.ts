@@ -8,10 +8,10 @@ const courseRateLimiter: RateLimitRequestHandler = rateLimit({
     max: 5,
     message: {
         success: false,
-        info: 'Too Many Requests.',
+        info: 'Too Many Requests.'
     },
     standardHeaders: true,
-    windowMs: 1000,
+    windowMs: 1000
 });
 
 export default courseRateLimiter;

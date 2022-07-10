@@ -38,11 +38,9 @@ namespace CacheNamespace {
  */
 export default async function(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
-        const instructorList: string[] = await CacheNamespace.loadInstructors();
-        const fuse: Fuse<string> = new Fuse(instructorList, { minMatchCharLength: 3 });
-        const matches: string[] = (req.query.name !== undefined)
-            ? fuse.search(req.query.name.toString(), { limit: 5 }).map((match) => match.item)
-            : [];
+        let instructorList: string[] = await CacheNamespace.loadInstructors();
+        let fuse: Fuse<string> = new Fuse(instructorList, { minMatchCharLength: 3 });
+        let matches: string[] = (req.query.name !== undefined) ? fuse.search(req.query.name.toString(), { limit: 5 }).map(match => match.item) : [];
         logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(matches)}`);
         res.json({ success: true, matches });
     } catch (exception: any) {

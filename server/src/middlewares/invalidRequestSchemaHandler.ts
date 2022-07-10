@@ -9,15 +9,15 @@ import logger from '../utils/logger';
  * @param next the function that will be invoked after the processing work in this function
  */
 function invalidRequestSchemaHandler(req: Request, res: Response, next: NextFunction): void {
-    const errors: Result<ValidationError> = validationResult(req);
+    let errors: Result<ValidationError> = validationResult(req);
     if (errors.isEmpty() === false) {
-        const errMsg: ValidationError[] = errors.array();
+        let errMsg: ValidationError[] = errors.array();
         logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(errMsg)}`);
         res
             .status(422)
             .json({
                 success: false,
-                info: errMsg,
+                info: errMsg
             });
         return;
     }
