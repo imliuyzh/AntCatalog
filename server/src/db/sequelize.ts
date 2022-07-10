@@ -4,15 +4,15 @@ import { Sequelize } from 'sequelize';
 const sequelize: Sequelize = new Sequelize('sqlite:./src/db/data.db', {
     define: {
         freezeTableName: true,
-        timestamps: false
+        timestamps: false,
     },
     logging: false,
     pool: {
         max: 100,
         min: 30,
         acquire: 10000,
-        idle: 10000
-    }
+        idle: 10000,
+    },
 });
 
 export default sequelize;

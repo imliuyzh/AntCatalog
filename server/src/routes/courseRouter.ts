@@ -2,20 +2,28 @@
  * @api {post} /courses Retrieve statistics for at most 15 courses based on the parameters given
  * @apiName CourseSearch
  * @apiGroup Search
- * 
- * @apiParam {Object} values A mandatory parameter object specifying the quarter, department, course number,
- * course code, and instructor of target classes. One of these fields must be non-empty.
+ *
+ * @apiParam {Object} values A mandatory parameter object specifying the quarter,
+ * department, course number, course code, and instructor of target classes. One of
+ * these fields must be non-empty.
  * @apiParam {Number} [values[year]] Optional year field for the class (e.g. 2021, 2015).
- * @apiParam {String} [values[quarter]] Optional quarter field for the class (e.g. "Spring", "Fall").
- * @apiParam {String} [values[department]] Optional department field for the class (e.g. "COMPSCI", "EDUC").
- * @apiParam {String} [values[courseNumber]] Optional course number field for the class (e.g. "161", "45J").
- * @apiParam {Number} [values[courseCode]] Optional course code field for the class (e.g. 02250, 35780).
- * @apiParam {String} [values[instructor]] Optional instructor field for the class (e.g. "KLEFSTAD, R.", "GOODRICH, M.").
- * 
- * @apiParam {Object} options A mandatory parameter object specifying the way data is going to be fetched.
+ * @apiParam {String} [values[quarter]] Optional quarter field for the class
+ * (e.g. "Spring", "Fall").
+ * @apiParam {String} [values[department]] Optional department field for the class
+ * (e.g. "COMPSCI", "EDUC").
+ * @apiParam {String} [values[courseNumber]] Optional course number field for the class
+ * (e.g. "161", "45J").
+ * @apiParam {Number} [values[courseCode]] Optional course code field for the class
+ * (e.g. 02250, 35780).
+ * @apiParam {String} [values[instructor]] Optional instructor field for the class
+ * (e.g. "KLEFSTAD, R.", "GOODRICH, M.").
+ *
+ * @apiParam {Object} options A mandatory parameter object specifying the way data is going
+ * to be fetched.
  * @apiParam {Boolean} options[aggregate] A mandatory field specifying if data should be merged.
- * @apiParam {Number} options[offset]=0 A mandatory field specifying the range of data, usually used for pagination purposes.
- * 
+ * @apiParam {Number} options[offset]=0 A mandatory field specifying the range of data,
+ * usually used for pagination purposes.
+ *
  * @apiSuccess {Boolean} success A flag set to true if suggestions are successfully computed.
  * @apiSuccess {Boolean} aggregate A flag set to true if the statistics need to be combined.
  * @apiSuccess {Object[]} data Course statistics which matched the parameters given.
@@ -58,7 +66,7 @@
  *             "gpaAvg": 3.7800000000000002
  *         }]
  *     }
- * 
+ *
  * @apiError InvalidSchema The parameters do not match the expectation.
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 422 Unprocessable Entity
@@ -81,7 +89,7 @@
  *             ...
  *         ]
  *     }
- * 
+ *
  * @apiError InternalError An exception is raised inside the server application.
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 500 Internal Server Error
@@ -106,104 +114,104 @@ const schemaChecker = checkSchema({
     'values.year': {
         in: ['body'],
         optional: {
-            options: { nullable: true }
+            options: { nullable: true },
         },
         isInt: {
             bail: true,
-            errorMessage: 'Value Must Be an Integer.'
+            errorMessage: 'Value Must Be an Integer.',
         },
-        toInt: true
+        toInt: true,
     },
     'values.quarter': {
         in: ['body'],
         optional: {
-            options: { nullable: true }
+            options: { nullable: true },
         },
         isString: {
             bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
+            errorMessage: 'Value Must Be a Non-Empty String.',
         },
         trim: true,
         isLength: {
             bail: true,
-            errorMessage: `Value Must Be Either "Fall," "Winter," or "Spring."`,
-            options: { min: 3 }
-        }
+            errorMessage: 'Value Must Be Either "Fall," "Winter," or "Spring."',
+            options: { min: 3 },
+        },
     },
     'values.department': {
         in: ['body'],
         optional: {
-            options: { nullable: true }
+            options: { nullable: true },
         },
         isString: {
             bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
+            errorMessage: 'Value Must Be a Non-Empty String.',
         },
         trim: true,
         isLength: {
             bail: true,
             errorMessage: 'Value Must Be a Non-Empty String.',
-            options: { min: 1 }
-        }
+            options: { min: 1 },
+        },
     },
     'values.courseNumber': {
         in: ['body'],
         optional: {
-            options: { nullable: true }
+            options: { nullable: true },
         },
         isString: {
             bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
+            errorMessage: 'Value Must Be a Non-Empty String.',
         },
         trim: true,
         isLength: {
             bail: true,
             errorMessage: 'Value Must Be a Non-Empty String.',
-            options: { min: 1 }
-        }
+            options: { min: 1 },
+        },
     },
     'values.courseCode': {
         in: ['body'],
         optional: {
-            options: { nullable: true }
+            options: { nullable: true },
         },
         isInt: {
             bail: true,
-            errorMessage: 'Value Must Be an Integer.'
+            errorMessage: 'Value Must Be an Integer.',
         },
-        toInt: true
+        toInt: true,
     },
     'values.instructor': {
         in: ['body'],
         optional: {
-            options: { nullable: true }
+            options: { nullable: true },
         },
         isString: {
             bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
+            errorMessage: 'Value Must Be a Non-Empty String.',
         },
         trim: true,
         isLength: {
             bail: true,
             errorMessage: 'Value Must Be a Non-Empty String.',
-            options: { min: 1 }
-        }
+            options: { min: 1 },
+        },
     },
     'options.aggregate': {
         errorMessage: 'Value Must Be Boolean.',
         in: ['body'],
         isBoolean: true,
-        toBoolean: true
+        toBoolean: true,
     },
     'options.offset': {
         errorMessage: 'Value Must Be an Integer.',
         in: ['body'],
         isInt: {
             errorMessage: 'Value Must Not Be Negative.',
-            options: { min: 0 }
+            options: { min: 0 },
         },
-        toInt: true
-    }
+        toInt: true,
+    },
 });
 const validator = oneOf([
     body('values.year')
@@ -257,7 +265,7 @@ const validator = oneOf([
         .bail()
         .trim()
         .notEmpty()
-        .withMessage('Value Must Not Be Empty.')
+        .withMessage('Value Must Not Be Empty.'),
 ]);
 const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
 

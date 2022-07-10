@@ -5,4 +5,4 @@ const PORT: number = (process.env.PORT !== undefined) ? parseInt(process.env.POR
 
 const server = app.listen(PORT, () => logger.info(`Server is Running on Port #${PORT}.`));
 
-process.on('SIGTERM', () => server.close(() => logger.info(`Server is Closed.`)));
+process.on('SIGTERM', () => server.close(() => logger.info('Server is Closed.')));

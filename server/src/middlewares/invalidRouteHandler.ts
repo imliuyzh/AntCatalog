@@ -13,7 +13,7 @@ function invalidRouteHandler(req: Request, res: Response, next: NextFunction): v
         .status(404)
         .json({
             success: false,
-            info: 'Link Not Found.'
+            info: 'Link Not Found.',
         });
     next();
 }
