@@ -29,8 +29,8 @@ app.use('/instructors', instructorRouter);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static((process.env.PRODUCTION_ENV === 'aws')
-        ? path.join(__dirname, '..', '..', 'client', 'build')
-        : path.join(__dirname, '..', 'static')
+        ? path.resolve(__dirname, '..', '..', 'client', 'build')
+        : path.resolve(__dirname, '..', 'static')
     ));
     app.get('*', (_: unknown, res: express.Response) => res.sendFile((process.env.PRODUCTION_ENV === 'aws')
         ? path.resolve(`${__dirname}/../../client/build/index.html`)
