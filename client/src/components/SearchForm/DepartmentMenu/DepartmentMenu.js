@@ -46,6 +46,7 @@ export default function DepartmentMenu() {
             <option value="CRM/LAW">CRM/LAW . . . . Criminology, Law and Society</option>
             <option value="CSE">CSE . . . . . . . . Computer Science and Engineering</option>
             <option value="DANCE">DANCE . . . . . . Dance</option>
+            <option value="DATA">DATA . . . . . . . Data Science (started 2022 SS1)</option>
             <option value="DERM">DERM . . . . . . .Dermatology</option>
             <option value="DEV BIO">DEV BIO . . . . . Developmental and Cell Biology</option>
             <option value="DRAMA">DRAMA . . . . . .Drama</option>
