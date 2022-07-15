@@ -11,7 +11,7 @@ const GradeChart = React.memo(() => {
         return ['A', 'B', 'C', 'D', 'F', 'P', 'NP'].map(grade => ({
             name: `Aggregate Data`,
             grade,
-            amount: searchResultState.data[0].gradeACount,
+            amount: searchResultState.data[0][`grade${grade}Count`],
             avgGPA: searchResultState.data[0].gpaAvg
         }));
     };
@@ -25,7 +25,7 @@ const GradeChart = React.memo(() => {
                     grade,
                     title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                     courseCode: selectedCoursesState[course].courseCode,
-                    amount: selectedCoursesState[course].gradeACount,
+                    amount: selectedCoursesState[course][`grade${grade}Count`],
                     instructors: selectedCoursesState[course].instructors.join(`/`),
                     avgGPA: selectedCoursesState[course].gpaAvg
                 });
