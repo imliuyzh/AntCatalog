@@ -25,7 +25,8 @@ export default function InstructorAutocomplete() {
                     setInstructorList([]);
                     setOpen(false);
                 });
-        }, 500), [instructorInput]
+        }, 500),
+        [instructorInput]
     );
 
     useEffect(() => {

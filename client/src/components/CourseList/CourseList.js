@@ -1,9 +1,9 @@
 import { addCourse, removeCourse } from '../../features/selectedCoursesSlice';
-import { replaceResult } from '../../features/searchResultSlice';
 import { closeCourseList, showAlert, showCourseList, updateFormInput } from '../../features/internalStateSlice';
-import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import { Pagination } from '@patternfly/react-core';
+import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
+import { replaceResult } from '../../features/searchResultSlice';
 import styled from '@emotion/styled';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,7 +35,7 @@ const CourseListButtonContainerElement = styled.button`
     }
 `;
 
-let CourseList = React.memo(() => {
+const CourseList = React.memo(() => {
     let internalState = useSelector(state => state.internalState),
         searchResultState = useSelector(state => state.searchResult),
         selectedCoursesState = useSelector(state => state.selectedCourses);

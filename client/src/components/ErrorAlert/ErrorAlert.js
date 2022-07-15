@@ -1,7 +1,7 @@
 import Alert from '@mui/material/Alert';
+import { closeAlert } from '../../features/internalStateSlice';
 import Snackbar from '@mui/material/Snackbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeAlert } from '../../features/internalStateSlice';
 
 export default function ErrorAlert() {
     let internalState = useSelector(state => state.internalState);

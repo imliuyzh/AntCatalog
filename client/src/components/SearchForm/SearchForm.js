@@ -3,8 +3,8 @@ import CourseCodeInput from './CourseCodeInput/CourseCodeInput';
 import CourseNumberInput from './CourseNumberInput/CourseNumberInput';
 import DepartmentMenu from './DepartmentMenu/DepartmentMenu';
 import InstructorAutocomplete from './InstructorAutocomplete/InstructorAutocomplete';
-import ResetButton from './ResetButton/ResetButton';
 import QuarterMenu from './QuarterMenu/QuarterMenu';
+import ResetButton from './ResetButton/ResetButton';
 import SearchButton from './SearchButton/SearchButton';
 import styled from '@emotion/styled';
 import YearMenu from './YearMenu/YearMenu';
@@ -138,4 +138,3 @@ export default function SearchForm() {
         </SearchFormContainerElement>
     );
 }
-
