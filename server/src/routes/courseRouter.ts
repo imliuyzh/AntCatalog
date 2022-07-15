@@ -4,17 +4,17 @@
  * @apiGroup Search
  * 
  * @apiParam {Object} values A mandatory parameter object specifying the quarter, department, course number,
- * course code, and instructor of target classes. One of these fields must be non-empty.
- * @apiParam {Number} [values[year]] Optional year field for the class (e.g. 2021, 2015).
- * @apiParam {String} [values[quarter]] Optional quarter field for the class (e.g. "Spring", "Fall").
- * @apiParam {String} [values[department]] Optional department field for the class (e.g. "COMPSCI", "EDUC").
- * @apiParam {String} [values[courseNumber]] Optional course number field for the class (e.g. "161", "45J").
- * @apiParam {Number} [values[courseCode]] Optional course code field for the class (e.g. 02250, 35780).
- * @apiParam {String} [values[instructor]] Optional instructor field for the class (e.g. "KLEFSTAD, R.", "GOODRICH, M.").
+ * course code, and instructor of target classes.
+ * @apiParam {Number[]} [values[year]] Optional year field for the class (e.g. [2015, 2022]).
+ * @apiParam {String[]} [values[quarter]] Optional quarter field for the class (e.g. ["Fall", "Summer"]).
+ * @apiParam {String[]} [values[department]] Optional department field for the class (e.g. ["COMPSCI", "EDUC"]).
+ * @apiParam {String[]} [values[courseNumber]] Optional course number field for the class (e.g. ["161", "45J"]).
+ * @apiParam {Number[]} [values[courseCode]] Optional course code field for the class (e.g. [02250, 35780]).
+ * @apiParam {String[]} [values[instructor]] Optional instructor field for the class (e.g. ["KLEFSTAD, R.", "GOODRICH, M."]).
  * 
  * @apiParam {Object} options A mandatory parameter object specifying the way data is going to be fetched.
  * @apiParam {Boolean} options[aggregate] A mandatory field specifying if data should be merged.
- * @apiParam {Number} options[offset]=0 A mandatory field specifying the range of data, usually used for pagination purposes.
+ * @apiParam {Number} options[offset]=0 A field for specifying the range of data, usually used for pagination purposes.
  * 
  * @apiSuccess {Boolean} success A flag set to true if suggestions are successfully computed.
  * @apiSuccess {Boolean} aggregate A flag set to true if the statistics need to be combined.
@@ -71,7 +71,7 @@
  *                 "nestedErrors": [
  *                     {
  *                         "value": null,
- *                         "msg": "Value Must Be a String.",
+ *                         "msg": "Value must be a string.",
  *                         "param": "values.quarter",
  *                         "location": "body"
  *                     },
@@ -87,12 +87,12 @@
  *     HTTP/1.1 500 Internal Server Error
  *     {
  *         "success": false,
- *         "info": "Encountered an Internal Server-Side Error."
+ *         "info": "Encountered an internal server error."
  *     }
  */
 
 import apicache from 'apicache';
-import { body, checkSchema, oneOf } from 'express-validator';
+import { body, checkSchema, ValidationChain } from 'express-validator';
 import express from 'express';
 
 import CourseController from '../controllers/courseController';
@@ -101,166 +101,120 @@ import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHand
 const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
     .middleware;
-const validatorPreparer = body('options.offset').default(0);
+const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
+const offsetPreparer: ValidationChain = body('options.offset').default(0);
 const schemaChecker = checkSchema({
     'values.year': {
         in: ['body'],
         optional: {
             options: { nullable: true }
-        },
-        isInt: {
-            bail: true,
-            errorMessage: 'Value Must Be an Integer.'
-        },
-        toInt: true
+        }
     },
     'values.quarter': {
         in: ['body'],
         optional: {
             options: { nullable: true }
-        },
-        isString: {
-            bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
-        },
-        trim: true,
-        isLength: {
-            bail: true,
-            errorMessage: `Value Must Be Either "Fall," "Winter," or "Spring."`,
-            options: { min: 3 }
         }
     },
     'values.department': {
         in: ['body'],
         optional: {
             options: { nullable: true }
-        },
-        isString: {
-            bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
-        },
-        trim: true,
-        isLength: {
-            bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.',
-            options: { min: 1 }
         }
     },
     'values.courseNumber': {
         in: ['body'],
         optional: {
             options: { nullable: true }
-        },
-        isString: {
-            bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
-        },
-        trim: true,
-        isLength: {
-            bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.',
-            options: { min: 1 }
         }
     },
     'values.courseCode': {
         in: ['body'],
         optional: {
             options: { nullable: true }
-        },
-        isInt: {
-            bail: true,
-            errorMessage: 'Value Must Be an Integer.'
-        },
-        toInt: true
+        }
     },
     'values.instructor': {
         in: ['body'],
         optional: {
             options: { nullable: true }
-        },
-        isString: {
-            bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.'
-        },
-        trim: true,
-        isLength: {
-            bail: true,
-            errorMessage: 'Value Must Be a Non-Empty String.',
-            options: { min: 1 }
         }
     },
     'options.aggregate': {
-        errorMessage: 'Value Must Be Boolean.',
+        errorMessage: 'It must be a boolean.',
         in: ['body'],
         isBoolean: true,
         toBoolean: true
     },
     'options.offset': {
-        errorMessage: 'Value Must Be an Integer.',
+        errorMessage: 'It must be an integer.',
         in: ['body'],
         isInt: {
-            errorMessage: 'Value Must Not Be Negative.',
+            errorMessage: 'It must not be negative.',
             options: { min: 0 }
         },
         toInt: true
     }
 });
-const validator = oneOf([
+const validators: ValidationChain[] = [
     body('values.year')
-        .exists()
-        .withMessage('Malformed Request Syntax.')
+        .optional({ nullable: true })
+        .isArray()
         .bail()
-        .isInt()
-        .withMessage('Value Must Be an Integer.'),
+        .withMessage('It must be an array of integers.')
+        .custom((years: Number[]) => years.every((year: Number) => Number.isSafeInteger(year) && year >= 2013 && year <= 2022))
+        .bail()
+        .withMessage('It must be an array of positive integers starting from 2013 to 2022.'),
     body('values.quarter')
-        .exists()
-        .withMessage('Malformed Request Syntax.')
+        .optional({ nullable: true })
+        .isArray()
         .bail()
-        .isString()
-        .withMessage('Value Must Be a String.')
+        .withMessage('It must be an array of non-empty strings.')
+        .custom((quarters: String[]) => quarters.every((quarter: String) =>
+            (typeof quarter === 'string' || quarter instanceof String) && ['FALL', 'WINTER', 'SPRING', 'SUMMER'].includes(quarter.trim().toUpperCase())
+        ))
         .bail()
-        .trim()
-        .notEmpty()
-        .withMessage('Value Must Not Be Empty.'),
+        .withMessage('Fall, Winter, Spring, and Summer quarters only.'),
     body('values.department')
-        .exists()
-        .withMessage('Malformed Request Syntax.')
+        .optional({ nullable: true })
+        .isArray()
         .bail()
-        .isString()
-        .withMessage('Value Must Be a String.')
+        .withMessage('It must be an array of non-empty strings.')
+        .custom((departments: String[]) => departments.every((department: String) =>
+            (typeof department === 'string' || department instanceof String) && department.trim().length > 0
+        ))
         .bail()
-        .trim()
-        .notEmpty()
-        .withMessage('Value Must Not Be Empty.'),
+        .withMessage('It must be an array of non-empty strings.'),
     body('values.courseNumber')
-        .exists()
-        .withMessage('Malformed Request Syntax.')
+        .optional({ nullable: true })
+        .isArray()
         .bail()
-        .isString()
-        .withMessage('Value Must Be a String.')
+        .withMessage('It must be an array of non-empty strings.')
+        .custom((courseNumbers: String[]) => courseNumbers.every((courseNumber: String) =>
+            (typeof courseNumber === 'string' || courseNumber instanceof String) && courseNumber.toString().trim().length > 0
+        ))
         .bail()
-        .trim()
-        .notEmpty()
-        .withMessage('Value Must Not Be Empty.'),
+        .withMessage('It must be an array of non-empty strings.'),
     body('values.courseCode')
-        .exists()
-        .withMessage('Malformed Request Syntax.')
+        .optional({ nullable: true })
+        .isArray()
         .bail()
-        .isInt()
-        .withMessage('Value Must Be an Integer.'),
+        .withMessage('It must be an array of positive 5-digit integers.')
+        .custom((courseCodes: Number[]) => courseCodes.every((courseCode: Number) => Number.isSafeInteger(courseCode) && courseCode.toString().trim().length === 5))
+        .bail()
+        .withMessage('It must be an array of positive 5-digit integers.'),
     body('values.instructor')
-        .exists()
-        .withMessage('Malformed Request Syntax.')
+        .optional({ nullable: true })
+        .isArray()
         .bail()
-        .isString()
-        .withMessage('Value Must Be a String.')
+        .withMessage('It must be an array of non-empty strings.')
+        .custom((instructors: String[]) => instructors.every((instructor: String) =>
+            (typeof instructor === 'string' || instructor instanceof String) && instructor.trim().length > 0
+        ))
         .bail()
-        .trim()
-        .notEmpty()
-        .withMessage('Value Must Not Be Empty.')
-]);
-const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
+        .withMessage('It must be an array of non-empty strings.')
+];
 
 export default express
     .Router()
-    .post('/', [validatorPreparer, schemaChecker, validator, invalidRequestSchemaHandler, cacheWorker], CourseController);
+    .post('/', [offsetPreparer, schemaChecker, validators, invalidRequestSchemaHandler, cacheWorker], CourseController);

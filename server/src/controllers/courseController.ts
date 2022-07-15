@@ -3,6 +3,7 @@ import Sequelize from 'sequelize';
 
 import logger from '../utils/logger';
 import sequelize from '../db/sequelize';
+import { validateField } from '../utils/courseControllerUtilities';
 
 type RawAggregateCourseData = {
     gradeACount: number,
@@ -51,7 +52,16 @@ type ProcessedCourseData = {
     gpaAvg: number
 };
 
-type CourseDataQueryParameters = {
+type AggregatedCourseDataQueryParameters = {
+    year?: number,
+    quarter?: string,
+    courseCode?: number,
+    department?: string,
+    courseNumber?: string,
+    instructor?: string
+};
+
+type AssociatedCourseDataQueryParameters = {
     year?: number,
     quarter?: string,
     courseCode?: number,
@@ -93,7 +103,7 @@ export default async function(req: express.Request, res: express.Response, next:
  * @returns a promise for the aggregate data
  */
 async function getAggregatedStatistics(req: express.Request): Promise<RawAggregateCourseData[]> {
-    let [aggregateQuery, parameters]: [string, string[]] = createAggregateQueryWithParameters(req);
+    let [aggregateQuery, parameters]: [string, AggregatedCourseDataQueryParameters] = createAggregateQueryWithParameters(req);
     let result: RawAggregateCourseData[] = await sequelize.query(aggregateQuery, {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
@@ -164,33 +174,33 @@ function createAggregateQuery(instructor: string): string {
  * @param req user's request
  * @returns a string for the SQL query and an array of strings for the query's parameters
  */
-function createAggregateQueryWithParameters(req: express.Request): [string, string[]] {
+function createAggregateQueryWithParameters(req: express.Request): [string, AggregatedCourseDataQueryParameters] {
     let aggregateQuery: string = createAggregateQuery(req.body.values.instructor);
-    let parameters: string[] = [];
+    let parameters: AggregatedCourseDataQueryParameters = {};
 
-    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.course_code = ?`;
-        parameters.push(req.body.values.courseCode);
+    if (validateField(req.body.values.courseCode)) {
+        aggregateQuery = `${aggregateQuery} AND C.course_code IN (:courseCode)`;
+        parameters.courseCode = req.body.values.courseCode;
     }
-    if (req.body.values.courseNumber !== null && req.body.values.courseNumber !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.course_number = ?`;
-        parameters.push(req.body.values.courseNumber.toUpperCase());
+    if (validateField(req.body.values.courseNumber)) {
+        aggregateQuery = `${aggregateQuery} AND C.course_number IN (:courseNumber)`;
+        parameters.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
     }
-    if (req.body.values.department !== null && req.body.values.department !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.department = ?`;
-        parameters.push(req.body.values.department.toUpperCase());
+    if (validateField(req.body.values.department)) {
+        aggregateQuery = `${aggregateQuery} AND C.department IN (:department)`;
+        parameters.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
     }
-    if (req.body.values.quarter !== null && req.body.values.quarter !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.quarter = ?`;
-        parameters.push(req.body.values.quarter);
+    if (validateField(req.body.values.quarter)) {
+        aggregateQuery = `${aggregateQuery} AND C.quarter IN (:quarter)`;
+        parameters.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
     }
-    if (req.body.values.year !== null && req.body.values.year !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND C.year = ?`;
-        parameters.push(req.body.values.year);
+    if (validateField(req.body.values.year)) {
+        aggregateQuery = `${aggregateQuery} AND C.year IN (:year)`;
+        parameters.year = req.body.values.year;
     }
-    if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
-        aggregateQuery = `${aggregateQuery} AND I.name = ?`;
-        parameters.push(req.body.values.instructor.toUpperCase());
+    if (validateField(req.body.values.instructor)) {
+        aggregateQuery = `${aggregateQuery} AND I.name IN (:instructor)`;
+        parameters.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
     }
 
     return [aggregateQuery, parameters];
@@ -202,7 +212,7 @@ function createAggregateQueryWithParameters(req: express.Request): [string, stri
  * @returns a promise for a list of course data that all instructors are stored into a string
  */
 async function getAssociatedCourseList(req: express.Request): Promise<RawCourseData[]> {
-    let [query, parameters]: [string, CourseDataQueryParameters] = createAssociatedCourseListQueryWithParameters(req);
+    let [query, parameters]: [string, AssociatedCourseDataQueryParameters] = createAssociatedCourseListQueryWithParameters(req);
     let courses: RawCourseData[] = await sequelize.query(query, {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
@@ -246,34 +256,34 @@ function createAssociatedCourseListQuery(): string[] {
  * @param req user's request
  * @returns a string for the SQL query and an object for the query's parameters
  */
-function createAssociatedCourseListQueryWithParameters(req: express.Request): [string, CourseDataQueryParameters] {
+function createAssociatedCourseListQueryWithParameters(req: express.Request): [string, AssociatedCourseDataQueryParameters] {
     let tokens: string[] = createAssociatedCourseListQuery();
-    let parameters: CourseDataQueryParameters = { offset: req.body.options.offset };
+    let parameters: AssociatedCourseDataQueryParameters = { offset: req.body.options.offset };
 
-    if (req.body.values.courseCode !== null && req.body.values.courseCode !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.course_code = :courseCode`;
+    if (validateField(req.body.values.courseCode)) {
+        tokens[1] = `${tokens[1]} AND C.course_code IN (:courseCode)`;
         parameters.courseCode = req.body.values.courseCode;
     }
-    if (req.body.values.courseNumber !== null && req.body.values.courseNumber !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.course_number = :courseNumber`;
-        parameters.courseNumber = req.body.values.courseNumber.toUpperCase();
+    if (validateField(req.body.values.courseNumber)) {
+        tokens[1] = `${tokens[1]} AND C.course_number IN (:courseNumber)`;
+        parameters.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
     }
-    if (req.body.values.department !== null && req.body.values.department !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.department = :department`;
-        parameters.department = req.body.values.department.toUpperCase();
+    if (validateField(req.body.values.department)) {
+        tokens[1] = `${tokens[1]} AND C.department IN (:department)`;
+        parameters.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
     }
-    if (req.body.values.quarter !== null && req.body.values.quarter !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.quarter = :quarter`;
-        parameters.quarter = req.body.values.quarter;
+    if (validateField(req.body.values.quarter)) {
+        tokens[1] = `${tokens[1]} AND C.quarter IN (:quarter)`;
+        parameters.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
     }
-    if (req.body.values.year !== null && req.body.values.year !== undefined) {
-        tokens[1] = `${tokens[1]} AND C.year = :year`;
+    if (validateField(req.body.values.year)) {
+        tokens[1] = `${tokens[1]} AND C.year IN (:year)`;
         parameters.year = req.body.values.year;
     }
-    if (req.body.values.instructor !== null && req.body.values.instructor !== undefined) {
+    if (validateField(req.body.values.instructor)) {
         tokens[0] = `${tokens[0]}, Instructor I`;
-        tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name = :instructor`;
-        parameters.instructor = req.body.values.instructor.toUpperCase();
+        tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name IN (:instructor)`;
+        parameters.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
     }
 
     return [tokens.join(' '), parameters];

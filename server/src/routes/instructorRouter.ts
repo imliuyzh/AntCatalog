@@ -21,7 +21,7 @@
  *         "success": false,
  *         "info": [{
  *             "value": "",
- *             "msg": "Value Must Not Be Empty.",
+ *             "msg": "Value must not be empty.",
  *             "param": "name",
  *             "location": "query"
  *         }]
@@ -32,7 +32,7 @@
  *     HTTP/1.1 500 Internal Server Error
  *     {
  *         "success": false,
- *         "info": "Encountered an Internal Server-Side Error."
+ *         "info": "Encountered an internal server error."
  *     }
  */
 
@@ -47,14 +47,14 @@ const cacheWorker = apicache.middleware('30 seconds', (_: unknown, res: express.
 const validatorPreparer = query('name').default('');
 const validator = query('name')
     .exists()
-    .withMessage('Malformed Request Syntax.')
+    .withMessage('The name parameter is required in the query string.')
     .bail()
     .isString()
-    .withMessage('Value Must Be a String.')
+    .withMessage('Value must be a string.')
     .bail()
     .trim()
     .notEmpty()
-    .withMessage('Value Must Not Be Empty.');
+    .withMessage('Value must not be empty.');
 
 export default express
     .Router()

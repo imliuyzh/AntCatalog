@@ -38,33 +38,17 @@ Dependencies to `locustfile.py`.
 The file for handling the `/courses` endpoint which focuses on course search. It accepts a JSON object in the body:
 ```
   {
-    /* At least one of these five fields must not be null/undefined. */
     "values": {
-      /* e.g. "2022", "2015" */
-      "year": number,
-
-      /* e.g. "Spring", "Fall" */
-      "quarter": string,
-      
-      /* See front end dropdown menu for acceptable parameters (e.g. "COMPSCI", "EDUC"). */
-      "department": string,
-      
-      /* e.g. "161", "45J" */
-      "courseNumber": string,
-      
-      /* e.g. 02250, 35780 */
-      "courseCode": number,
-      
-      /* e.g. "KLEFSTAD, R.", "GOODRICH, M." */
-      "instructor": string
+      "year": number[] | null,
+      "quarter": string[] | null,
+      "department": string[] | null,
+      "courseNumber": string[] | null,
+      "courseCode": number[] | null,
+      "instructor": string[] | null
     },
-    
     "options": {
-      /* Indicate true to combine all matches into one. */
-      "aggregate": boolean,
-      
-      /* The number of results to skip over. Optional (default is 0), ignored when aggregate is true. */
-      "offset": number
+      "aggregate": boolean, /* Indicate true to combine all matches into one. */
+      "offset": number | null  /* The number of results to skip over (default to 0). It is ignored when aggregate is set to true. */
     }
   }
 ```

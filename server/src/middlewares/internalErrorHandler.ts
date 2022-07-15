@@ -21,7 +21,7 @@ function internalErrorHandler(err: Error, req: Request | any, res: Response | an
         .status(500)
         .json({
             success: false,
-            info: 'Encountered an Internal Server-Side Error.'
+            info: 'Encountered an internal server error.'
         });
     next();
 }

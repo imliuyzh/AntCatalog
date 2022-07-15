@@ -23,10 +23,10 @@ class User(HttpUser):
         self.client.post("/courses", json=json.loads(
             '{' +
                 '"values": {' +
-                    '"department": "COMPSCI",' +
-                   r'"courseNumber": "' + courseNumber + r'",' +
+                    '"department": ["COMPSCI"],' +
+                   r'"courseNumber": ["' + courseNumber + r'"],' +
                     '"courseCode": null,' +
-                   r'"instructor": "' + instructor + r'"' +
+                   r'"instructor": ["' + instructor + r'"]' +
                '},' +
                '"options": {' +
                     '"aggregate": false,' +
@@ -42,10 +42,10 @@ class User(HttpUser):
         self.client.post("/courses", json=json.loads(
             '{' +
                 '"values": {' +
-                    '"department": "COMPSCI",' +
+                    '"department": ["COMPSCI"],' +
                    r'"courseNumber": null,' +
                     '"courseCode": null,' +
-                   r'"instructor": "' + instructor + r'"' +
+                   r'"instructor": ["' + instructor + r'"]' +
                '},' +
                '"options": {' +
                     '"aggregate": true' +
