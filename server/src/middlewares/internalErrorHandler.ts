@@ -9,7 +9,14 @@ import logger from '../utils/logger';
  * @param next the function that will be invoked after the processing work in this function
  */
 function internalErrorHandler(err: Error, req: Request | any, res: Response | any, next: NextFunction): void {
-    logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.query)} ${JSON.stringify(req.body)} ${err.stack}`);
+    logger.error('ERROR: Exception Thrown', {
+        ip: req.ip,
+        method: req.method,
+        url: req.originalUrl,
+        query: req.query,
+        body: req.body,
+        trace: err.stack
+    });
     res
         .status(500)
         .json({

@@ -8,7 +8,11 @@ import logger from '../utils/logger';
  * @param next the function that will be invoked after the processing work in this function
  */
 function invalidRouteHandler(req: Request, res: Response, next: NextFunction): void {
-    logger.info(`${req.ip} ${req.method} ${req.originalUrl}`);
+    logger.info('ERROR: Link Not Found', {
+        ip: req.ip,
+        method: req.method,
+        url: req.originalUrl
+    });
     res
         .status(404)
         .json({
