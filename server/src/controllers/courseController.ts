@@ -69,12 +69,17 @@ type CourseDataQueryParameters = {
  */
 export default async function(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
-        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} Begin Retrieving Course Data...`);
         let courses: object[] = (req.body.options.aggregate) ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
-        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)} ${JSON.stringify(courses)}`);
         res.json({
             success: true,
             aggregate: req.body.options.aggregate,
+            data: courses
+        });
+        logger.info('INFO: Course Data Retrieved', {
+            ip: req.ip,
+            method: req.method,
+            url: req.originalUrl,
+            body: req.body,
             data: courses
         });
     } catch (exception: any) {

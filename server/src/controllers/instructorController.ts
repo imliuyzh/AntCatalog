@@ -20,11 +20,11 @@ namespace CacheNamespace {
     export async function loadInstructors(): Promise<string[]> {
         let instructorList: string[] = cache.get('instructors') ?? [];
         if (instructorList.length <= 0) {
-            logger.info(`Begin to Retrieve All the Instructors' Name...`);
+            logger.info(`INFO: Begin to Retrieve All the Instructors' Name...`);
             let instructors: Array<{ name: string }> = await sequelize.query('SELECT DISTINCT name FROM Instructor', { type: QueryTypes.SELECT });
             instructors.forEach((instructor: { name: string }) => instructorList.push(instructor['name']));
             cache.set('instructors', instructorList);
-            logger.info(`Finished Retrieving All the Instructors' Name.`);
+            logger.info(`INFO: Finished Retrieving All the Instructors' Name.`);
         }
         return instructorList;
     }
@@ -41,8 +41,13 @@ export default async function(req: express.Request, res: express.Response, next:
         let instructorList: string[] = await CacheNamespace.loadInstructors();
         let fuse: Fuse<string> = new Fuse(instructorList, { minMatchCharLength: 3 });
         let matches: string[] = (req.query.name !== undefined) ? fuse.search(req.query.name.toString(), { limit: 5 }).map(match => match.item) : [];
-        logger.info(`${req.ip} ${req.method} ${req.originalUrl} ${JSON.stringify(matches)}`);
         res.json({ success: true, matches });
+        logger.info('INFO: Received Instructor Matches', {
+            ip: req.ip,
+            method: req.method,
+            url: req.originalUrl,
+            data: matches
+        });
     } catch (exception: any) {
         next(exception);
     }
