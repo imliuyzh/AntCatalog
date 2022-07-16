@@ -5,12 +5,12 @@
  * 
  * @apiParam {Object} values A mandatory parameter object specifying the quarter, department, course number,
  * course code, and instructor of target classes.
- * @apiParam {Number[]} [values[year]] Optional year field for the class (e.g. [2015, 2022]).
- * @apiParam {String[]} [values[quarter]] Optional quarter field for the class (e.g. ["Fall", "Summer"]).
- * @apiParam {String[]} [values[department]] Optional department field for the class (e.g. ["COMPSCI", "EDUC"]).
- * @apiParam {String[]} [values[courseNumber]] Optional course number field for the class (e.g. ["161", "45J"]).
- * @apiParam {Number[]} [values[courseCode]] Optional course code field for the class (e.g. [02250, 35780]).
- * @apiParam {String[]} [values[instructor]] Optional instructor field for the class (e.g. ["KLEFSTAD, R.", "GOODRICH, M."]).
+ * @apiParam {Number[]} [values[year]]=[] Optional year field for the class (e.g. [2015, 2022]).
+ * @apiParam {String[]} [values[quarter]]=[] Optional quarter field for the class (e.g. ["Fall", "Summer"]).
+ * @apiParam {String[]} [values[department]]=[] Optional department field for the class (e.g. ["COMPSCI", "EDUC"]).
+ * @apiParam {String[]} [values[courseNumber]]=[] Optional course number field for the class (e.g. ["161", "45J"]).
+ * @apiParam {Number[]} [values[courseCode]]=[] Optional course code field for the class (e.g. [02250, 35780]).
+ * @apiParam {String[]} [values[instructor]]=[] Optional instructor field for the class (e.g. ["KLEFSTAD, R.", "GOODRICH, M."]).
  * 
  * @apiParam {Object} options A mandatory parameter object specifying the way data is going to be fetched.
  * @apiParam {Boolean} options[aggregate] A mandatory field specifying if data should be merged.
