@@ -43,7 +43,7 @@ describe('POST /courses', () => {
                             year: null,
                             quarter: null,
                             courseNumber: null,
-                            courseCode: 45505,
+                            courseCode: [45505],
                             instructor: null
                         },
                         options: {
@@ -58,8 +58,8 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            department: 'ECON',
-                            courseNumber: '210A',
+                            department: ['ECON'],
+                            courseNumber: ['210A'],
                             courseCode: null,
                             instructor: null
                         },
@@ -81,7 +81,7 @@ describe('POST /courses', () => {
                             department: null,
                             courseNumber: null,
                             courseCode: null,
-                            instructor: 'KLEFSTAD, R.'
+                            instructor: ['KLEFSTAD, R.']
                         },
                         options: {
                             offset: null
@@ -113,37 +113,17 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
-            test('should respond with a failed status when parameters except options are all null', async () => {
-                const response = await request
-                    .post(ROUTE)
-                    .send({
-                        values: {
-                            year: null,
-                            quarter: null,
-                            department: null,
-                            courseNumber: null,
-                            courseCode: null,
-                            instructor: null
-                        },
-                        options: {
-                            aggregate: false,
-                            offset: 0
-                        }
-                    });
-                expect(response.statusCode).toBe(422);
-                expect(response.body.success).toBe(false);
-            });
             test('should respond with a failed status when parameters except values are all null', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2021,
-                            quarter: 'Spring',
-                            department: 'COMPSCI',
-                            courseNumber: '261P',
-                            courseCode: 35210,
-                            instructor: 'SHINDLER, M.'
+                            year: [2021],
+                            quarter: ['Spring'],
+                            department: ['COMPSCI'],
+                            courseNumber: ['261P'],
+                            courseCode: [35210],
+                            instructor: ['SHINDLER, M.']
                         },
                         options: {
                             aggregate: null,
@@ -158,10 +138,10 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: '2021',
-                            quarter: 225,
-                            department: 5+5,
-                            courseNumber: 261,
+                            year: ['2021'],
+                            quarter: [225],
+                            department: [5+5],
+                            courseNumber: [261],
                             courseCode: 'testingtesting',
                             instructor: null
                         },
@@ -181,11 +161,11 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2020,
-                            quarter: 'Winter',
+                            year: [2020],
+                            quarter: ['Winter'],
                             department: null,
                             courseNumber: null,
-                            courseCode: '123A',
+                            courseCode: ['123A'],
                             instructor: null
                         },
                         options: {
@@ -201,11 +181,11 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2020,
-                            quarter: 'Winter',
+                            year: [2020],
+                            quarter: ['Winter'],
                             department: null,
                             courseNumber: null,
-                            courseCode: '            ',
+                            courseCode: ['            '],
                             instructor: null
                         },
                         options: {
@@ -224,8 +204,8 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2021,
-                            quarter: 'Fall',
+                            year: [2021],
+                            quarter: ['Fall'],
                             department: null,
                             courseNumber: null,
                             courseCode: null,
@@ -245,12 +225,12 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2021,
-                            quarter: 'Spring',
-                            department: 'EDUC',
-                            courseNumber: '247',
+                            year: [2021],
+                            quarter: ['Spring'],
+                            department: ['EDUC'],
+                            courseNumber: ['247'],
                             courseCode: null,
-                            instructor: 'GUARINO, J.'
+                            instructor: ['GUARINO, J.']
                         },
                         options: {
                             aggregate: true
@@ -275,10 +255,10 @@ describe('POST /courses', () => {
                         values: {
                             year: null,
                             quarter: null,
-                            department: 'COMPSCI',
-                            courseNumber: '260',
+                            department: ['COMPSCI'],
+                            courseNumber: ['260'],
                             courseCode: null,
-                            instructor: 'DILLENCOURT, M.'
+                            instructor: ['DILLENCOURT, M.']
                         },
                         options: {
                             aggregate: false,
@@ -295,12 +275,12 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2021,
-                            quarter: 'Spring',
-                            department: 'COMPSCI',
-                            courseNumber: '261P',
-                            courseCode: 35210,
-                            instructor: 'SHINDLER, M.'
+                            year: [2021],
+                            quarter: ['Spring'],
+                            department: ['COMPSCI'],
+                            courseNumber: ['261P'],
+                            courseCode: [35210],
+                            instructor: ['SHINDLER, M.']
                         },
                         options: {
                             aggregate: false,
@@ -324,10 +304,10 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2020,
-                            quarter: 'Fall',
-                            department: 'SWE',
-                            courseNumber: '250P',
+                            year: [2020],
+                            quarter: ['Fall'],
+                            department: ['SWE'],
+                            courseNumber: ['250P'],
                             courseCode: null,
                             instructor: null
                         },
@@ -347,8 +327,8 @@ describe('POST /courses', () => {
                         values: {
                             year: null,
                             quarter: null,
-                            department: 'DEPT',
-                            courseNumber: '101',
+                            department: ['DEPT'],
+                            courseNumber: ['101'],
                             courseCode: null,
                             instructor: null
                         },
@@ -369,8 +349,8 @@ describe('POST /courses', () => {
                         values: {
                             year: null,
                             quarter: null,
-                            department: 'DEPT',
-                            courseNumber: '201',
+                            department: ['DEPT'],
+                            courseNumber: ['201'],
                             courseCode: null,
                             instructor: null
                         },
@@ -392,12 +372,12 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2020,
-                            quarter: 'Fall',
-                            department: 'SWE',
-                            courseNumber: '246P',
+                            year: [2020],
+                            quarter: ['Fall'],
+                            department: ['SWE'],
+                            courseNumber: ['246P'],
                             courseCode: null,
-                            instructor: 'LOPES, C.'
+                            instructor: ['LOPES, C.']
                         },
                         options: {
                             aggregate: false,
@@ -422,11 +402,11 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2020,
-                            quarter: 'Fall',
-                            department: 'SWE',
-                            courseNumber: '250P',
-                            courseCode: 37945,
+                            year: [2020],
+                            quarter: ['Fall'],
+                            department: ['SWE'],
+                            courseNumber: ['250P'],
+                            courseCode: [37945],
                             instructor: null
                         },
                         options: {
@@ -454,11 +434,11 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2021,
-                            quarter: 'Winter',
-                            department: 'COMPSCI',
-                            courseNumber: '230',
-                            courseCode: 34770,
+                            year: [2021],
+                            quarter: ['Winter'],
+                            department: ['COMPSCI'],
+                            courseNumber: ['230'],
+                            courseCode: [34770],
                             instructor: null
                         },
                         options: {
@@ -477,12 +457,12 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: 2020,
-                            quarter: 'Spring',
+                            year: [2020],
+                            quarter: ['Spring'],
                             department: null,
                             courseNumber: null,
-                            courseCode: 34750,
-                            instructor: 'HAVVAEI, H.'
+                            courseCode: [34750],
+                            instructor: ['HAVVAEI, H.']
                         },
                         options: {
                             aggregate: false,
@@ -498,6 +478,74 @@ describe('POST /courses', () => {
     });
 
     describe('multiple parameter tests', () => {
-
+        describe('sending with unusual arguments', () => {
+            test('retrieve aggregated data that includes the entire database', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: null,
+                            quarter: null,
+                            department: null,
+                            courseNumber: null,
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(true);
+                expect(response.body.data.length).toBe(1);
+            });
+            test('should respond successfully when all fields under values are set to null 1', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: null,
+                            quarter: null,
+                            department: null,
+                            courseNumber: null,
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(15);
+                expect(response.body.data[0].year).toBe(2013);
+                expect(response.body.data[0].quarter).toBe('Summer');
+            });
+        });
+        describe('sending with unusual and invalid arguments', () => {
+            test('should respond with a failed status when nulls are in a list', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: null,
+                            quarter: [null, null],
+                            department: [null, null, null],
+                            courseNumber: [null, null, null, null],
+                            courseCode: [null, null, null, null, null],
+                            instructor: [null, null, null, null, null, null]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+        });
     });
 });

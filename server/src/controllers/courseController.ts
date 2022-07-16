@@ -121,60 +121,11 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
 }
 
 /**
- * Fetch a list of course data based on user parameters
- * @param req user's request
- * @returns a promise for a list of course data that the instructors are stored into an array instead of a string
- */
-async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
-    let data: RawCourseData[] = await getAssociatedCourseList(req), result: ProcessedCourseData[] = [];
-    data.forEach((course: RawCourseData) => {
-        result.push({
-            ...course,
-            instructors: course['instructors'].split(`/`)
-        });
-    });
-    return result;
-}
-
-/**
- * Create a SQL query based on whether the instructor is provided or not
- * @param instructor the instructor parameter from user parameters
- * @returns a string for a SQL query
- */
-function createAggregateQuery(instructor: string): string {
-    return (instructor === null || instructor === undefined)
-        ? `SELECT
-            SUM(C.grade_a_count) AS gradeACount,
-            SUM(C.grade_b_count) AS gradeBCount,
-            SUM(C.grade_c_count) AS gradeCCount,
-            SUM(C.grade_d_count) AS gradeDCount,
-            SUM(C.grade_f_count) AS gradeFCount,
-            SUM(C.grade_p_count) AS gradePCount,
-            SUM(C.grade_np_count) AS gradeNpCount,
-            AVG(C.gpa_avg) AS gpaAvg
-           FROM Course C
-           WHERE 1 = 1`
-        : `SELECT
-            SUM(C.grade_a_count) AS gradeACount,
-            SUM(C.grade_b_count) AS gradeBCount,
-            SUM(C.grade_c_count) AS gradeCCount,
-            SUM(C.grade_d_count) AS gradeDCount,
-            SUM(C.grade_f_count) AS gradeFCount,
-            SUM(C.grade_p_count) AS gradePCount,
-            SUM(C.grade_np_count) AS gradeNpCount,
-            AVG(C.gpa_avg) AS gpaAvg
-          FROM
-            Course C,
-            Instructor I
-          WHERE C.course_id = I.course_id`;
-}
-
-/**
  * Compute the query and its parameters for aggregate data
  * @param req user's request
  * @returns a string for the SQL query and an array of strings for the query's parameters
  */
-function createAggregateQueryWithParameters(req: express.Request): [string, AggregatedCourseDataQueryParameters] {
+ function createAggregateQueryWithParameters(req: express.Request): [string, AggregatedCourseDataQueryParameters] {
     let aggregateQuery: string = createAggregateQuery(req.body.values.instructor);
     let parameters: AggregatedCourseDataQueryParameters = {};
 
@@ -207,17 +158,91 @@ function createAggregateQueryWithParameters(req: express.Request): [string, Aggr
 }
 
 /**
- * Fetch a list of course data where instructors are stored into a string
- * @param req user's request
- * @returns a promise for a list of course data that all instructors are stored into a string
+ * Create a SQL query based on whether the instructor is provided or not
+ * @param instructor the instructor parameter from user parameters
+ * @returns a string for a SQL query
  */
-async function getAssociatedCourseList(req: express.Request): Promise<RawCourseData[]> {
+ function createAggregateQuery(instructor: string[]): string {
+    return (validateField(instructor))
+        ? `SELECT
+            SUM(C.grade_a_count) AS gradeACount,
+            SUM(C.grade_b_count) AS gradeBCount,
+            SUM(C.grade_c_count) AS gradeCCount,
+            SUM(C.grade_d_count) AS gradeDCount,
+            SUM(C.grade_f_count) AS gradeFCount,
+            SUM(C.grade_p_count) AS gradePCount,
+            SUM(C.grade_np_count) AS gradeNpCount,
+            AVG(C.gpa_avg) AS gpaAvg
+           FROM
+            Course C,
+            Instructor I
+           WHERE C.course_id = I.course_id`
+        : `SELECT
+            SUM(C.grade_a_count) AS gradeACount,
+            SUM(C.grade_b_count) AS gradeBCount,
+            SUM(C.grade_c_count) AS gradeCCount,
+            SUM(C.grade_d_count) AS gradeDCount,
+            SUM(C.grade_f_count) AS gradeFCount,
+            SUM(C.grade_p_count) AS gradePCount,
+            SUM(C.grade_np_count) AS gradeNpCount,
+            AVG(C.gpa_avg) AS gpaAvg
+           FROM Course C
+           WHERE 1 = 1`;
+}
+
+/**
+ * Fetch a list of course data based on user parameters
+ * @param req user's request
+ * @returns a promise for a list of course data that the instructors are stored into an array instead of a string
+ */
+async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
     let [query, parameters]: [string, AssociatedCourseDataQueryParameters] = createAssociatedCourseListQueryWithParameters(req);
     let courses: RawCourseData[] = await sequelize.query(query, {
         replacements: parameters,
         type: Sequelize.QueryTypes.SELECT
     });
-    return courses;
+    return courses.map((course: RawCourseData) => ({
+        ...course,
+        instructors: course['instructors'].split(`/`)
+    }));
+}
+
+/**
+ * Compute the query and its parameters for a list of course data
+ * @param req user's request
+ * @returns a string for the SQL query and an object for the query's parameters
+ */
+ function createAssociatedCourseListQueryWithParameters(req: express.Request): [string, AssociatedCourseDataQueryParameters] {
+    let tokens: string[] = createAssociatedCourseListQuery();
+    let parameters: AssociatedCourseDataQueryParameters = { offset: req.body.options.offset };
+
+    if (validateField(req.body.values.courseCode)) {
+        tokens[1] = `${tokens[1]} AND C.course_code IN (:courseCode)`;
+        parameters.courseCode = req.body.values.courseCode;
+    }
+    if (validateField(req.body.values.courseNumber)) {
+        tokens[1] = `${tokens[1]} AND C.course_number IN (:courseNumber)`;
+        parameters.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
+    }
+    if (validateField(req.body.values.department)) {
+        tokens[1] = `${tokens[1]} AND C.department IN (:department)`;
+        parameters.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
+    }
+    if (validateField(req.body.values.quarter)) {
+        tokens[1] = `${tokens[1]} AND C.quarter IN (:quarter)`;
+        parameters.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
+    }
+    if (validateField(req.body.values.year)) {
+        tokens[1] = `${tokens[1]} AND C.year IN (:year)`;
+        parameters.year = req.body.values.year;
+    }
+    if (validateField(req.body.values.instructor)) {
+        tokens[0] = `${tokens[0]}, Instructor I`;
+        tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name IN (:instructor)`;
+        parameters.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
+    }
+
+    return [tokens.join(' '), parameters];
 }
 
 /**
@@ -249,42 +274,4 @@ function createAssociatedCourseListQuery(): string[] {
         `ORDER BY C.course_id ASC
          LIMIT 15 OFFSET :offset`
     ];
-}
-
-/**
- * Compute the query and its parameters for a list of course data
- * @param req user's request
- * @returns a string for the SQL query and an object for the query's parameters
- */
-function createAssociatedCourseListQueryWithParameters(req: express.Request): [string, AssociatedCourseDataQueryParameters] {
-    let tokens: string[] = createAssociatedCourseListQuery();
-    let parameters: AssociatedCourseDataQueryParameters = { offset: req.body.options.offset };
-
-    if (validateField(req.body.values.courseCode)) {
-        tokens[1] = `${tokens[1]} AND C.course_code IN (:courseCode)`;
-        parameters.courseCode = req.body.values.courseCode;
-    }
-    if (validateField(req.body.values.courseNumber)) {
-        tokens[1] = `${tokens[1]} AND C.course_number IN (:courseNumber)`;
-        parameters.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
-    }
-    if (validateField(req.body.values.department)) {
-        tokens[1] = `${tokens[1]} AND C.department IN (:department)`;
-        parameters.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
-    }
-    if (validateField(req.body.values.quarter)) {
-        tokens[1] = `${tokens[1]} AND C.quarter IN (:quarter)`;
-        parameters.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
-    }
-    if (validateField(req.body.values.year)) {
-        tokens[1] = `${tokens[1]} AND C.year IN (:year)`;
-        parameters.year = req.body.values.year;
-    }
-    if (validateField(req.body.values.instructor)) {
-        tokens[0] = `${tokens[0]}, Instructor I`;
-        tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name IN (:instructor)`;
-        parameters.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
-    }
-
-    return [tokens.join(' '), parameters];
 }

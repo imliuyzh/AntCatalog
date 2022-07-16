@@ -200,7 +200,7 @@ const validators: ValidationChain[] = [
         .isArray()
         .bail()
         .withMessage('It must be an array of positive 5-digit integers.')
-        .custom((courseCodes: Number[]) => courseCodes.every((courseCode: Number) => Number.isSafeInteger(courseCode) && courseCode.toString().trim().length === 5))
+        .custom((courseCodes: Number[]) => courseCodes.every((courseCode: Number) => Number.isSafeInteger(courseCode) && courseCode.toString().trim().length > 0))
         .bail()
         .withMessage('It must be an array of positive 5-digit integers.'),
     body('values.instructor')
