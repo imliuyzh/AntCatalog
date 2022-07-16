@@ -32,9 +32,42 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
+            test('should respond with a failed status when body is malformed 1', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .set('Content-Type', 'application/json')
+                    .send(`{
+                        options: {
+                            "aggregate": false,
+                            "offset": 0
+                        `
+                    );
+                expect(response.statusCode).toBe(500);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when body is malformed 2', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .set('Content-Type', 'application/json')
+                    .send(`{`);
+                expect(response.statusCode).toBe(500);
+                expect(response.body.success).toBe(false);
+            });
         });
         
         describe('sending requests with missing fields', () => {
+            test('should respond successfully where the entire values object is gone since none of it is mandatory', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(1);
+            });
             test('should respond when the offset field is gone since it looks for aggregate data', async () => {
                 const response = await request
                     .post(ROUTE)
@@ -524,6 +557,248 @@ describe('POST /courses', () => {
                 expect(response.body.data[0].year).toBe(2013);
                 expect(response.body.data[0].quarter).toBe('Summer');
             });
+            test('sending with year as an empty array', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [],
+                            quarter: ['Fall'],
+                            department: ['SWE'],
+                            courseNumber: ['250p'],
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+            });
+            test('sending without year', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            quarter: ['Fall'],
+                            department: ['SWE'],
+                            courseNumber: ['250p'],
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+            });
+            test('sending with quarter as an empty array', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2021],
+                            quarter: [],
+                            department: ['SWE'],
+                            courseNumber: ['250p'],
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 5
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(0);
+            });
+            test('sending without quarter', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2021],
+                            department: ['SWE'],
+                            courseNumber: ['250p'],
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 5
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(0);
+            });
+            test('sending with department as an empty array', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2022],
+                            quarter: null,
+                            department: [],
+                            courseNumber: ['260p'],
+                            courseCode: null,
+                            instructor: ['SHINDLER, M.', 'DILLENCOURT, M.']
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(1);
+                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+            });
+            test('sending without department', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2022],
+                            quarter: null,
+                            courseNumber: ['260p'],
+                            courseCode: null,
+                            instructor: ['SHINDLER, M.', 'DILLENCOURT, M.']
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(1);
+                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+            });
+            test('sending with courseCode as an empty array', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2022],
+                            quarter: null,
+                            department: [],
+                            courseNumber: ['260p', '123p'],
+                            courseCode: [],
+                            instructor: ['SHINDLER, M.', 'DILLENCOURT, M.']
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(1);
+                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+            });
+            test('sending without courseCode', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2022],
+                            quarter: null,
+                            department: [],
+                            courseNumber: ['260p', '123p'],
+                            instructor: ['SHINDLER, M.', 'DILLENCOURT, M.']
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(1);
+                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+            });
+            test('sending with courseNumber as an empty array', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2022],
+                            quarter: null,
+                            department: null,
+                            courseNumber: [],
+                            courseCode: null,
+                            instructor: ['SHINDLER, M.', 'LEVORATO, M.']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(3);
+            });
+            test('sending without courseNumber', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2022],
+                            quarter: null,
+                            department: null,
+                            courseCode: null,
+                            instructor: ['SHINDLER, M.', 'LEVORATO, M.']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.data.length).toBe(3);
+            });
+            test('sending with instructor as an empty array', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2021],
+                            quarter: null,
+                            department: ["COMPSCI", "EECS", "NET SYS"],
+                            courseNumber: ["201", "232", "248"],
+                            courseCode: null,
+                            instructor: []
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+            });
+            test('sending without instructor', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2021],
+                            quarter: null,
+                            department: ["COMPSCI", "EECS", "NET SYS"],
+                            courseNumber: ["201", "232", "248"],
+                            courseCode: null,
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+            });
         });
         describe('sending with unusual and invalid arguments', () => {
             test('should respond with a failed status when nulls are in a list', async () => {
@@ -537,6 +812,22 @@ describe('POST /courses', () => {
                             courseNumber: [null, null, null, null],
                             courseCode: [null, null, null, null, null],
                             instructor: [null, null, null, null, null, null]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when array is nested', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: null,
+                            instructor: [['SHINDLER, M.'], 'WORTMAN, K.', [['KLEFSTAD, R.'], 'DILLENCOURT, M.']]
                         },
                         options: {
                             aggregate: false,

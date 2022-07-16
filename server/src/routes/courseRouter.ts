@@ -102,7 +102,7 @@ const cache = apicache
 const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
 const validators: ValidationChain[] = [
     body('values.year')
-        .optional({ nullable: true })
+        .default([])
         .isArray()
         .bail()
         .withMessage('It must be an array of integers.')
@@ -110,7 +110,7 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be an array of positive integers starting from 2013 to 2022.'),
     body('values.quarter')
-        .optional({ nullable: true })
+        .default([])
         .isArray()
         .bail()
         .withMessage('It must be an array of non-empty strings.')
@@ -120,7 +120,7 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('Fall, Winter, Spring, and Summer quarters only.'),
     body('values.department')
-        .optional({ nullable: true })
+        .default([])
         .isArray()
         .bail()
         .withMessage('It must be an array of non-empty strings.')
@@ -130,7 +130,7 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be an array of non-empty strings.'),
     body('values.courseNumber')
-        .optional({ nullable: true })
+        .default([])
         .isArray()
         .bail()
         .withMessage('It must be an array of non-empty strings.')
@@ -140,7 +140,7 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be an array of non-empty strings.'),
     body('values.courseCode')
-        .optional({ nullable: true })
+        .default([])
         .isArray()
         .bail()
         .withMessage('It must be an array of positive 5-digit integers.')
@@ -148,7 +148,7 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be an array of positive 5-digit integers.'),
     body('values.instructor')
-        .optional({ nullable: true })
+        .default([])
         .isArray()
         .bail()
         .withMessage('It must be an array of non-empty strings.')
