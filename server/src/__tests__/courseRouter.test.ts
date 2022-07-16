@@ -620,12 +620,12 @@ describe('POST /courses', () => {
                 expect(response.body.data.length).toBe(1);
                 expect(Math.abs(3.68 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
             });
-            test('my fall 2021 schedule', async () => {
+            test('aggregate on one class only', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
                         values: {
-                            year: [2021],
+                            year: [2017, 2021],
                             department: ["COMPSCI"],
                             courseNumber: ["261P"],
                             instructor: ["shindler, m."]
