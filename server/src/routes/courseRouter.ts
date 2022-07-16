@@ -105,58 +105,81 @@ const validators: ValidationChain[] = [
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of integers.')
-        .custom((years: Number[]) => years.every((year: Number) => Number.isSafeInteger(year) && year >= 2013 && year <= 2022))
+        .withMessage('It must be an array of integers.'),
+    body('values.year[*]')
+        .isInt({
+            min: 2013,
+            max: 2022
+        })
         .bail()
-        .withMessage('It must be an array of positive integers starting from 2013 to 2022.'),
+        .withMessage('It must be a positive integer starting from 2013 to 2022.'),
     body('values.quarter')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.')
-        .custom((quarters: String[]) => quarters.every((quarter: String) =>
-            (typeof quarter === 'string' || quarter instanceof String) && ['FALL', 'WINTER', 'SPRING', 'SUMMER'].includes(quarter.trim().toUpperCase())
-        ))
+        .withMessage('It must be an array of non-empty strings.'),
+    body('values.quarter[*]')
+        .isString()
+        .bail()
+        .withMessage('It must be a non-empty string.')
+        .trim()
+        .notEmpty()
+        .bail()
+        .withMessage('It must be a non-empty string.')
+        .custom((quarter: String) => ['FALL', 'WINTER', 'SPRING', 'SUMMER'].includes(quarter.toUpperCase()))
         .bail()
         .withMessage('Fall, Winter, Spring, and Summer quarters only.'),
     body('values.department')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.')
-        .custom((departments: String[]) => departments.every((department: String) =>
-            (typeof department === 'string' || department instanceof String) && department.trim().length > 0
-        ))
-        .bail()
         .withMessage('It must be an array of non-empty strings.'),
+    body('values.department[*]')
+        .isString()
+        .bail()
+        .withMessage('It must be a non-empty string.')
+        .trim()
+        .notEmpty()
+        .bail()
+        .withMessage('It must be a non-empty string.'),
     body('values.courseNumber')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.')
-        .custom((courseNumbers: String[]) => courseNumbers.every((courseNumber: String) =>
-            (typeof courseNumber === 'string' || courseNumber instanceof String) && courseNumber.toString().trim().length > 0
-        ))
-        .bail()
         .withMessage('It must be an array of non-empty strings.'),
+    body('values.courseNumber[*]')
+        .isString()
+        .bail()
+        .withMessage('It must be a non-empty string.')
+        .trim()
+        .notEmpty()
+        .bail()
+        .withMessage('It must be a non-empty string.'),
     body('values.courseCode')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of positive 5-digit integers.')
-        .custom((courseCodes: Number[]) => courseCodes.every((courseCode: Number) => Number.isSafeInteger(courseCode) && courseCode.toString().trim().length > 0))
-        .bail()
         .withMessage('It must be an array of positive 5-digit integers.'),
+    body('values.courseCode[*]')
+        .isInt({
+            allow_leading_zeroes: true,
+            max: 99999
+        })
+        .bail()
+        .withMessage('It must be a positive 5-digit integer.'),
     body('values.instructor')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.')
-        .custom((instructors: String[]) => instructors.every((instructor: String) =>
-            (typeof instructor === 'string' || instructor instanceof String) && instructor.trim().length > 0
-        ))
-        .bail()
         .withMessage('It must be an array of non-empty strings.'),
+    body('values.instructor[*]')
+        .isString()
+        .bail()
+        .withMessage('It must be a non-empty string.')
+        .trim()
+        .notEmpty()
+        .bail()
+        .withMessage('It must be a non-empty string.'),
     body('options.aggregate')
         .exists()
         .bail()
