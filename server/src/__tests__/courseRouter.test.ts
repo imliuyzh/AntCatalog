@@ -577,7 +577,7 @@ describe('POST /courses', () => {
                 expect(response.body.aggregate).toBe(false);
                 expect(response.body.data.length).toBe(0);
             });
-            test('get graduate networking classes', async () => {
+            test('get graduate networking classes 1', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -597,6 +597,28 @@ describe('POST /courses', () => {
                 expect(response.body.success).toBe(true);
                 expect(response.body.aggregate).toBe(false);
                 expect(response.body.data.length).toBe(6);
+            });
+            test('get graduate networking classes 2', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2021],
+                            quarter: ["Fall"],
+                            department: ["COMPSCI", "EECS", "NET SYS"],
+                            courseNumber: ["201", "232", "248A"],
+                            courseCode: null,
+                            instructor: ["LEVORATO, M."]
+                        },
+                        options: {
+                            aggregate: true
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(true);
+                expect(response.body.data.length).toBe(1);
+                expect(Math.abs(3.68 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
             });
         });        
 
