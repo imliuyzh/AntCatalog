@@ -104,10 +104,13 @@ export default async function(req: express.Request, res: express.Response, next:
  */
 async function getAggregatedStatistics(req: express.Request): Promise<RawAggregateCourseData[]> {
     let [aggregateQuery, replacements]: [string, AggregatedCourseDataQueryParameters] = createAggregateQueryWithParameters(req);
-    return await sequelize.query(aggregateQuery, {
+    let result: RawAggregateCourseData[] = await sequelize.query(aggregateQuery, {
         replacements,
         type: Sequelize.QueryTypes.SELECT
     });
+
+    let { gradeACount, gradeBCount, gradeCCount, gradeDCount, gradeFCount } = result[0];
+    return ([gradeACount, gradeBCount, gradeCCount, gradeDCount, gradeFCount].some((count: Number) => count > 0)) ? result : [];
 }
 
 /**
