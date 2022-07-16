@@ -92,7 +92,7 @@
  */
 
 import apicache from 'apicache';
-import { body, checkSchema, ValidationChain } from 'express-validator';
+import { body, ValidationChain } from 'express-validator';
 import express from 'express';
 
 import CourseController from '../controllers/courseController';
@@ -102,60 +102,6 @@ const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
     .middleware;
 const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
-const offsetPreparer: ValidationChain = body('options.offset').default(0);
-const schemaChecker = checkSchema({
-    'values.year': {
-        in: ['body'],
-        optional: {
-            options: { nullable: true }
-        }
-    },
-    'values.quarter': {
-        in: ['body'],
-        optional: {
-            options: { nullable: true }
-        }
-    },
-    'values.department': {
-        in: ['body'],
-        optional: {
-            options: { nullable: true }
-        }
-    },
-    'values.courseNumber': {
-        in: ['body'],
-        optional: {
-            options: { nullable: true }
-        }
-    },
-    'values.courseCode': {
-        in: ['body'],
-        optional: {
-            options: { nullable: true }
-        }
-    },
-    'values.instructor': {
-        in: ['body'],
-        optional: {
-            options: { nullable: true }
-        }
-    },
-    'options.aggregate': {
-        errorMessage: 'It must be a boolean.',
-        in: ['body'],
-        isBoolean: true,
-        toBoolean: true
-    },
-    'options.offset': {
-        errorMessage: 'It must be an integer.',
-        in: ['body'],
-        isInt: {
-            errorMessage: 'It must not be negative.',
-            options: { min: 0 }
-        },
-        toInt: true
-    }
-});
 const validators: ValidationChain[] = [
     body('values.year')
         .optional({ nullable: true })
@@ -212,9 +158,25 @@ const validators: ValidationChain[] = [
             (typeof instructor === 'string' || instructor instanceof String) && instructor.trim().length > 0
         ))
         .bail()
-        .withMessage('It must be an array of non-empty strings.')
+        .withMessage('It must be an array of non-empty strings.'),
+    body('options.aggregate')
+        .exists()
+        .bail()
+        .withMessage('It is a mandatory field.')
+        .isBoolean()
+        .bail()
+        .withMessage('It must be a boolean.'),
+    body('options.offset')
+        .optional()
+        .default(0)
+        .isInt({
+            allow_leading_zeroes: false,
+            min: 0
+        })
+        .bail()
+        .withMessage('It must be an integer starting from 0.')
 ];
 
 export default express
     .Router()
-    .post('/', [offsetPreparer, schemaChecker, validators, invalidRequestSchemaHandler, cacheWorker], CourseController);
+    .post('/', [validators, invalidRequestSchemaHandler, cacheWorker], CourseController);

@@ -47,13 +47,14 @@ const cacheWorker = apicache.middleware('30 seconds', (_: unknown, res: express.
 const validatorPreparer = query('name').default('');
 const validator = query('name')
     .exists()
+    .bail()
     .withMessage('The name parameter is required in the query string.')
-    .bail()
     .isString()
-    .withMessage('Value must be a string.')
     .bail()
+    .withMessage('Value must be a string.')
     .trim()
     .notEmpty()
+    .bail()
     .withMessage('Value must not be empty.');
 
 export default express
