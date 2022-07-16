@@ -589,6 +589,28 @@ describe('POST /courses', () => {
                 expect(response.body.aggregate).toBe(false);
                 expect(response.body.data.length).toBe(6);
             });
+            test(`get 3 prof. wortman's 261P`, async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2019, 2020, 2022],
+                            quarter: ["Winter", "Spring"],
+                            department: ["COMPSCI"],
+                            courseNumber: ["261P"],
+                            courseCode: [35540, 35230, 35240],
+                            instructor: ['WORTMAN, K.']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(3);
+            });
             test('get a class in the wrong time', async () => {
                 const response = await request
                     .post(ROUTE)
@@ -716,7 +738,7 @@ describe('POST /courses', () => {
         });
 
         describe('sending with unusual arguments', () => {
-            test('retrieve aggregated data that includes the entire database', async () => {
+            test('retrieve aggregated data that includes the entire database 1', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -737,7 +759,28 @@ describe('POST /courses', () => {
                 expect(response.body.aggregate).toBe(true);
                 expect(response.body.data.length).toBe(1);
             });
-            test('should respond successfully when all fields under values are set to null 1', async () => {
+            test('retrieve aggregated data that includes the entire database 2', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [],
+                            quarter: [],
+                            department: [],
+                            courseNumber: [],
+                            courseCode: [],
+                            instructor: [],
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(true);
+                expect(response.body.data.length).toBe(1);
+            });
+            test('should respond successfully when all fields under values are set to null', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -748,6 +791,30 @@ describe('POST /courses', () => {
                             courseNumber: null,
                             courseCode: null,
                             instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(15);
+                expect(response.body.data[0].year).toBe(2013);
+                expect(response.body.data[0].quarter).toBe('Summer');
+            });
+            test('should respond successfully when all fields under values are set to empty array', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [],
+                            quarter: [],
+                            department: [],
+                            courseNumber: [],
+                            courseCode: [],
+                            instructor: [],
                         },
                         options: {
                             aggregate: false,
@@ -1047,8 +1114,151 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
+                            year: [[]],
+                            quarter: [[], []],
+                            department: [[], [], []],
+                            courseNumber: [[], [], [], []],
+                            courseCode: [[], [], [], [], []],
+                            instructor: [[], [], [], [], [], []]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when array is nested 3', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
                             year: [[null], null, [[null], null]],
                             instructor: [[null], null, [[null], null], null]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+        });
+
+        describe('sending request with partly valid arguments', () => {
+            test('partly valid arguments 1', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2020],
+                            quarter: [15412],
+                            department: ["IN4MATX", "ENGLISH"],
+                            courseNumber: [],
+                            courseCode: [421],
+                            instructor: ['STAFF1', 'STAFF2']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('partly valid arguments 2', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2020],
+                            quarter: ['feeweb23b'],
+                            department: ["IN4MATX", "ENGLISH"],
+                            courseNumber: [],
+                            courseCode: [421],
+                            instructor: ['STAFF1', 'STAFF2']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('partly valid arguments 3', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2020],
+                            quarter: ['Winter'],
+                            department: [3.1415189, 1, 2, 3],
+                            courseNumber: [],
+                            courseCode: [421],
+                            instructor: ['STAFF1', 'STAFF2']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('partly valid arguments 4', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2020],
+                            quarter: ['Winter'],
+                            department: ['ART', 'MUSIC'],
+                            courseNumber: [23532, 3412],
+                            courseCode: [421],
+                            instructor: ['STAFF1', 'STAFF2']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('partly valid arguments 5', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2020],
+                            quarter: ['Winter'],
+                            department: ['ART'],
+                            courseNumber: ['23532', '3412'],
+                            courseCode: ['vwevwe', 'vwevewv'],
+                            instructor: []
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('partly valid arguments 6', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2020],
+                            quarter: ['Winter'],
+                            department: ['ART'],
+                            courseNumber: ['23532', '3412'],
+                            courseCode: null,
+                            instructor: [3, 2, 1]
                         },
                         options: {
                             aggregate: false,
