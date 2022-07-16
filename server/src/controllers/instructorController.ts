@@ -31,7 +31,7 @@ namespace CacheNamespace {
 }
 
 /**
- * A controller for instructor fuzzy search.
+ * A controller for instructor fuzzy search
  * @param req user's request
  * @param res response to user's request
  * @param next the function that will be called if an exception is thrown
@@ -42,7 +42,7 @@ export default async function(req: express.Request, res: express.Response, next:
         let fuse: Fuse<string> = new Fuse(instructorList, { minMatchCharLength: 3 });
         let matches: string[] = (req.query.name !== undefined) ? fuse.search(req.query.name.toString(), { limit: 5 }).map(match => match.item) : [];
         res.json({ success: true, matches });
-        logger.info('INFO: Received Instructor Matches', {
+        logger.info('INFO: Received /instructors Data', {
             ip: req.ip,
             method: req.method,
             url: req.originalUrl,
