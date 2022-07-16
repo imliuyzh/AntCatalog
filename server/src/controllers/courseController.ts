@@ -3,7 +3,6 @@ import Sequelize from 'sequelize';
 
 import logger from '../utils/logger';
 import sequelize from '../db/sequelize';
-import { validateField } from '../utils/courseControllerUtilities';
 
 type RawAggregateCourseData = {
     gradeACount: number,
@@ -122,27 +121,27 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
     let aggregateQuery: string = createAggregateQuery(req.body.values.instructor);
     let replacements: AggregatedCourseDataQueryParameters = {};
 
-    if (validateField(req.body.values.courseCode)) {
+    if (req.body.values.courseCode.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.course_code IN (:courseCode)`;
         replacements.courseCode = req.body.values.courseCode;
     }
-    if (validateField(req.body.values.courseNumber)) {
+    if (req.body.values.courseNumber.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.course_number IN (:courseNumber)`;
         replacements.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
     }
-    if (validateField(req.body.values.department)) {
+    if (req.body.values.department.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.department IN (:department)`;
         replacements.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
     }
-    if (validateField(req.body.values.quarter)) {
+    if (req.body.values.quarter.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.quarter IN (:quarter)`;
         replacements.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
     }
-    if (validateField(req.body.values.year)) {
+    if (req.body.values.year.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.year IN (:year)`;
         replacements.year = req.body.values.year;
     }
-    if (validateField(req.body.values.instructor)) {
+    if (req.body.values.instructor.length > 0) {
         aggregateQuery = `${aggregateQuery} AND I.name IN (:instructor)`;
         replacements.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
     }
@@ -156,7 +155,7 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
  * @returns a string for a SQL query
  */
  function createAggregateQuery(instructor: string[]): string {
-    return (validateField(instructor))
+    return (instructor.length > 0)
         ? `SELECT
             IFNULL(SUM(C.grade_a_count), 0) AS gradeACount,
             IFNULL(SUM(C.grade_b_count), 0) AS gradeBCount,
@@ -209,27 +208,27 @@ async function getAssociatedCourses(req: express.Request): Promise<ProcessedCour
     let tokens: string[] = createAssociatedCourseListQuery();
     let replacements: AssociatedCourseDataQueryParameters = { offset: req.body.options.offset };
 
-    if (validateField(req.body.values.courseCode)) {
+    if (req.body.values.courseCode.length > 0) {
         tokens[1] = `${tokens[1]} AND C.course_code IN (:courseCode)`;
         replacements.courseCode = req.body.values.courseCode;
     }
-    if (validateField(req.body.values.courseNumber)) {
+    if (req.body.values.courseNumber.length > 0) {
         tokens[1] = `${tokens[1]} AND C.course_number IN (:courseNumber)`;
         replacements.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
     }
-    if (validateField(req.body.values.department)) {
+    if (req.body.values.department.length > 0) {
         tokens[1] = `${tokens[1]} AND C.department IN (:department)`;
         replacements.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
     }
-    if (validateField(req.body.values.quarter)) {
+    if (req.body.values.quarter.length > 0) {
         tokens[1] = `${tokens[1]} AND C.quarter IN (:quarter)`;
         replacements.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
     }
-    if (validateField(req.body.values.year)) {
+    if (req.body.values.year.length > 0) {
         tokens[1] = `${tokens[1]} AND C.year IN (:year)`;
         replacements.year = req.body.values.year;
     }
-    if (validateField(req.body.values.instructor)) {
+    if (req.body.values.instructor.length > 0) {
         tokens[0] = `${tokens[0]}, Instructor I`;
         tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name IN (:instructor)`;
         replacements.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
