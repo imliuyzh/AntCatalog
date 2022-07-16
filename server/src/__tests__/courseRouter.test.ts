@@ -123,6 +123,39 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
+            test('should respond with a failed status when aggregate is missing 1', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .set('Content-Type', 'application/json')
+                    .send({
+                        values: {
+                            year: null,
+                            quarter: null,
+                            courseNumber: null,
+                            courseCode: [45505],
+                            instructor: null
+                        },
+                        options: {}
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when aggregate is missing 2', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .set('Content-Type', 'application/json')
+                    .send({
+                        values: {
+                            year: null,
+                            quarter: null,
+                            courseNumber: null,
+                            courseCode: [45505],
+                            instructor: null
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
         });
         
         describe('sending requests with invalid parameters', () => {
