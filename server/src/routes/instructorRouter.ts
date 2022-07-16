@@ -38,13 +38,13 @@
 
 import apicache from 'apicache';
 import express from 'express';
-import { query } from 'express-validator';
+import { query, ValidationChain } from 'express-validator';
 
 import InstructorController from '../controllers/instructorController';
 import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 
 const cacheWorker = apicache.middleware('30 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
-const validator = query('name')
+const validator: ValidationChain = query('name')
     .exists()
     .bail()
     .withMessage('The name parameter is required in the query string.')
