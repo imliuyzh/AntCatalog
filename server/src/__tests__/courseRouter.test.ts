@@ -620,7 +620,67 @@ describe('POST /courses', () => {
                 expect(response.body.data.length).toBe(1);
                 expect(Math.abs(3.68 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
             });
-        });        
+            test('my fall 2021 schedule', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2021],
+                            department: ["COMPSCI"],
+                            courseNumber: ["261P"],
+                            instructor: ["shindler, m."]
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(true);
+                expect(response.body.data.length).toBe(1);
+                expect(Math.abs(3.95 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+            });
+        });
+        
+        describe('no matches', () => {
+            test('aggregate on non existent classes', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: null,
+                            quarter: null,
+                            department: ["EXP", "D2"],
+                            courseNumber: ["001", "100"],
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: true,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(true);
+                expect(response.body.data.length).toBe(0);
+            });
+            test('search on non existent classes', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            courseCode: [0_2522, 0_3234, 34654],
+                        },
+                        options: {
+                            aggregate: false,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(0);
+            });
+        });
 
         describe('sending with unusual arguments', () => {
             test('retrieve aggregated data that includes the entire database', async () => {
