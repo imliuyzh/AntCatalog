@@ -66,19 +66,17 @@
  *         "success": false,
  *         "info": [
  *             {
- *                 "msg": "Invalid value(s)",
- *                 "param": "_error",
- *                 "nestedErrors": [
- *                     {
- *                         "value": null,
- *                         "msg": "Value must be a string.",
- *                         "param": "values.quarter",
- *                         "location": "body"
- *                     },
- *                     ...
- *                 ]
+ *                 "value": ["2021"],
+ *                 "msg": "It must be an array of positive integers starting from 2013 to 2022.",
+ *                 "param": "values.year",
+ *                 "location": "body"
  *             },
- *             ...
+ *             {
+ *                 "value": [247],
+ *                 "msg": "It must be an array of non-empty strings.",
+ *                 "param": "values.courseNumber",
+ *                 "location": "body"
+ *             }
  *         ]
  *     }
  * 

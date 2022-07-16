@@ -12,18 +12,18 @@ function invalidRequestSchemaHandler(req: Request, res: Response, next: NextFunc
     let errors: Result<ValidationError> = validationResult(req);
     if (errors.isEmpty() === false) {
         let errMsg: ValidationError[] = errors.array();
-        logger.info('ERROR: Invalid Request Schema', {
-            ip: req.ip,
-            method: req.method,
-            url: req.originalUrl,
-            validatorErrors: errMsg
-        });
         res
             .status(422)
             .json({
                 success: false,
                 info: errMsg
             });
+        logger.info('ERROR: Invalid Request Schema', {
+            ip: req.ip,
+            method: req.method,
+            url: req.originalUrl,
+            validatorErrors: errMsg
+        });
         return;
     }
     next();
