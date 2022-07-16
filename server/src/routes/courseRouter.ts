@@ -167,10 +167,9 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be a boolean.'),
     body('options.offset')
-        .optional()
         .default(0)
         .isInt({
-            allow_leading_zeroes: false,
+            allow_leading_zeroes: true,
             min: 0
         })
         .bail()

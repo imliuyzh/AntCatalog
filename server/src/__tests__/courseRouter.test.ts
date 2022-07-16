@@ -320,7 +320,7 @@ describe('POST /courses', () => {
                 expect(response.body.aggregate).toBe(false);
                 expect(response.body.data.length).toBe(1);
             });
-            test('should respond zero match since there is no such class 1', async () => {
+            test('should have no count since there is no such class 1', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -340,7 +340,15 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(200);
                 expect(response.body.success).toBe(true);
                 expect(response.body.aggregate).toBe(true);
-                expect(response.body.data.length).toBe(0);
+                expect(response.body.data.length).toBe(1);
+                expect(response.body.data[0].gradeACount).toBe(0);
+                expect(response.body.data[0].gradeBCount).toBe(0);
+                expect(response.body.data[0].gradeCCount).toBe(0);
+                expect(response.body.data[0].gradeDCount).toBe(0);
+                expect(response.body.data[0].gradeFCount).toBe(0);
+                expect(response.body.data[0].gradePCount).toBe(0);
+                expect(response.body.data[0].gradeNpCount).toBe(0);
+                expect(response.body.data[0].gpaAvg).toBe(0);
             });
             test('should respond zero match since there is no such class 2', async () => {
                 const response = await request
