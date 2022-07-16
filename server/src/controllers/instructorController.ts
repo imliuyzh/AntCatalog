@@ -40,7 +40,7 @@ export default async function(req: express.Request, res: express.Response, next:
     try {
         let instructorList: string[] = await CacheNamespace.loadInstructors();
         let fuse: Fuse<string> = new Fuse(instructorList, { minMatchCharLength: 3 });
-        let matches: string[] = (req.query.name !== undefined) ? fuse.search(req.query.name.toString(), { limit: 5 }).map(match => match.item) : [];
+        let matches: string[] = fuse.search(req.query.name!.toString(), { limit: 5 }).map(match => match.item);
         res.json({ success: true, matches });
         logger.info('INFO: Received /instructors Data', {
             ip: req.ip,
