@@ -510,7 +510,96 @@ describe('POST /courses', () => {
         });
     });
 
-    describe('multiple parameter tests', () => {
+    describe('multiple parameters tests', () => {
+        describe('sending with typical arguments', () => {
+            test('my fall 2021 schedule', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2021],
+                            quarter: ["Fall"],
+                            department: ["COMPSCI"],
+                            courseNumber: ["220P", "250P", "253P"],
+                            courseCode: null,
+                            instructor: ["KLEFSTAD, R.", "LI, C.", "BURTSEV, A."]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(3);
+            });
+            test('my spring 2022 schedule', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2022],
+                            quarter: ["Spring"],
+                            department: ["COMPSCI"],
+                            courseNumber: ["260P", "296P", "297P"],
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(6);
+            });
+            test('get a class in the wrong time', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: null,
+                            quarter: ["Summer"],
+                            department: ["COMPSCI"],
+                            courseNumber: ["222", "232"],
+                            courseCode: null,
+                            instructor: null
+                        },
+                        options: {
+                            aggregate: false,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(0);
+            });
+            test('get graduate networking classes', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2019, 2021],
+                            quarter: ["Fall"],
+                            department: ["COMPSCI", "EECS", "NET SYS"],
+                            courseNumber: ["201", "232", "248A"],
+                            courseCode: null,
+                            instructor: ["LEVORATO, M."]
+                        },
+                        options: {
+                            aggregate: false,
+                        }
+                    });
+                expect(response.statusCode).toBe(200);
+                expect(response.body.success).toBe(true);
+                expect(response.body.aggregate).toBe(false);
+                expect(response.body.data.length).toBe(6);
+            });
+        });        
+
         describe('sending with unusual arguments', () => {
             test('retrieve aggregated data that includes the entire database', async () => {
                 const response = await request
@@ -800,6 +889,7 @@ describe('POST /courses', () => {
                 expect(response.body.success).toBe(true);
             });
         });
+
         describe('sending with unusual and invalid arguments', () => {
             test('should respond with a failed status when nulls are in a list', async () => {
                 const response = await request
@@ -821,13 +911,29 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
-            test('should respond with a failed status when array is nested', async () => {
+            test('should respond with a failed status when array is nested 1', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
                         values: {
                             year: null,
                             instructor: [['SHINDLER, M.'], 'WORTMAN, K.', [['KLEFSTAD, R.'], 'DILLENCOURT, M.']]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when array is nested 2', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [[null], null, [[null], null]],
+                            instructor: [[null], null, [[null], null], null]
                         },
                         options: {
                             aggregate: false,
