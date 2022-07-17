@@ -4,6 +4,11 @@ import styled from '@emotion/styled';
 
 const GitHubLinkContainerElement = styled.div`
     margin-top: 56px;
+    transition: all 0.5s;
+
+    &:hover {
+        transform: scale(1.2);
+    }
 
     #github-button {
         align-items: center;
@@ -13,7 +18,6 @@ const GitHubLinkContainerElement = styled.div`
         font-size: 14px;
         gap: 5px;
         justify-content: center;
-        transition: all 1s;
     }
 
     #github-button:hover {
@@ -22,12 +26,7 @@ const GitHubLinkContainerElement = styled.div`
 
     #github-icon {
         height: 24px;
-        transition: all 0.5s;
         width: 24px;
-    }
-
-    #github-icon:hover {
-        transform: scale(1.2);
     }
 `;
 

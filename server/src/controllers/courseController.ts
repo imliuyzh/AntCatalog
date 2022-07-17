@@ -107,7 +107,6 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
         replacements,
         type: Sequelize.QueryTypes.SELECT
     });
-
     let { gradeACount, gradeBCount, gradeCCount, gradeDCount, gradeFCount } = result[0];
     return ([gradeACount, gradeBCount, gradeCCount, gradeDCount, gradeFCount].some((count: Number) => count > 0)) ? result : [];
 }
