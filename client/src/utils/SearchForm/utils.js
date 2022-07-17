@@ -5,7 +5,16 @@ export const styles1 = {
         borderRadius: '0px',
         boxSizing: 'border-box',
         fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
-        fontSize: '14px'
+        fontSize: '14px',
+        '&:focus': {
+            boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
+        },
+        '&:focus-within': {
+            boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
+        },
+        '&:hover': {
+            borderColor: '#aab3bc'
+        }
     }),
     input: (styles) => ({
         ...styles,
@@ -20,7 +29,7 @@ export const styles1 = {
     }),
     multiValueRemove: (styles) => ({
         ...styles,
-        ':hover': {
+        '&:hover': {
             backgroundColor: '#ffd200',
             color: '#1b3d6d',
         },
@@ -51,7 +60,16 @@ export const styles2 = {
         borderRadius: '0px',
         boxSizing: 'border-box',
         fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
-        fontSize: '14px'
+        fontSize: '14px',
+        '&:focus': {
+            boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
+        },
+        '&:focus-within': {
+            boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
+        },
+        '&:hover': {
+            borderColor: '#aab3bc'
+        }
     }),
     dropdownIndicator: (styles) => ({
         ...styles,
@@ -79,7 +97,7 @@ export const styles2 = {
     }),
     multiValueRemove: (styles) => ({
         ...styles,
-        ':hover': {
+        '&:hover': {
             backgroundColor: '#ffd200',
             color: '#1b3d6d',
         },
