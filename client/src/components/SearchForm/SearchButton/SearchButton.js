@@ -35,12 +35,12 @@ export default function SearchButton() {
     const generateRequestParams = () => {
         return {
             values: {
-                year: (internalState.formInput.year.trim().length > 0) ? parseInt(internalState.formInput.year) : null,
-                quarter: (internalState.formInput.quarter.trim().length > 0) ? internalState.formInput.quarter : null,
-                department: (internalState.formInput.department.trim().length > 0) ? internalState.formInput.department : null,
-                courseNumber: (internalState.formInput.courseNumber.trim().length > 0) ? internalState.formInput.courseNumber : null,
-                courseCode: (internalState.formInput.courseCode.trim().length > 0) ? parseInt(internalState.formInput.courseCode) : null,
-                instructor: (internalState.formInput.instructor.trim().length > 0) ? internalState.formInput.instructor : null
+                year: (internalState.formInput.year.length > 0) ? internalState.formInput.year : null,
+                quarter: (internalState.formInput.quarter.length > 0) ? internalState.formInput.quarter : null,
+                department: (internalState.formInput.department.length > 0) ? internalState.formInput.department : null,
+                courseNumber: (internalState.formInput.courseNumber.length > 0) ? internalState.formInput.courseNumber : null,
+                courseCode: (internalState.formInput.courseCode.length > 0) ? internalState.formInput.courseCode : null,
+                instructor: (internalState.formInput.instructor.length > 0) ? internalState.formInput.instructor : null
             },
             options: {
                 aggregate: internalState.formInput.aggregate,

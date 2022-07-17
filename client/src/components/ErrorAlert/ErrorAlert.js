@@ -1,4 +1,4 @@
-import { Button, Modal, ModalVariant } from '@patternfly/react-core';
+import { Alert, AlertActionCloseButton, AlertGroup } from '@patternfly/react-core';
 import { closeAlert } from '../../features/internalStateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,16 +6,17 @@ export default function ErrorAlert() {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
 
-    return (
-        <Modal
-            actions={[<Button key="confirm" onClick={() => internalStateDispatch(closeAlert())} variant="primary">OK</Button>]}
-            isOpen={internalState.showAlert}
-            onClose={() => internalStateDispatch(closeAlert())}
-            showClose
-            title="Error"
-            variant={ModalVariant.small}
-        >
-            {internalState.alertMessage} 
-        </Modal>
-    );
+    return internalState.showAlert
+        ? (
+            <AlertGroup isToast isLiveRegion>
+                <Alert
+                    actionClose={<AlertActionCloseButton onClose={() => internalStateDispatch(closeAlert())} />}
+                    isLiveRegion
+                    title={internalState.alertMessage}
+                    tooltipPosition='bottom-start'
+                    variant="danger"
+                />
+            </AlertGroup>
+        )
+        : '';
 }
