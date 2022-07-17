@@ -37,12 +37,14 @@ export const styles1 = {
     noOptionsMessage: (styles) => ({
         ...styles,
         color: '#aab3bc',
-        fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontSize: '14px'
     }),
-    option: (styles) => ({
+    option: (styles, { isFocused }) => ({
         ...styles,
-        color: '#aab3bc',
-        fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
+        backgroundColor: isFocused ? '#f5f5f5' : '#ffffff',
+        color: '#000000',
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
         padding: 10
     }),
@@ -87,7 +89,8 @@ export const styles2 = {
     loadingMessage: (styles) => ({
         ...styles,
         color: '#aab3bc',
-        fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontSize: '14px'
     }),
     multiValueLabel: (styles) => ({
         ...styles,
@@ -105,14 +108,16 @@ export const styles2 = {
     noOptionsMessage: (styles) => ({
         ...styles,
         color: '#aab3bc',
-        fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontSize: '14px'
     }),
-    option: (styles) => ({
+    option: (styles, { isFocused }) => ({
         ...styles,
-        color: '#aab3bc',
-        fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
+        backgroundColor: isFocused ? '#f5f5f5' : '#ffffff',
+        color: '#000000',
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
-        padding: 12
+        padding: 12,
     }),
     placeholder: (styles) => ({
         ...styles,
