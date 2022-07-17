@@ -231,7 +231,7 @@ describe('POST /courses', () => {
                             quarter: ['Winter'],
                             department: null,
                             courseNumber: null,
-                            courseCode: ['123A'],
+                            courseCode: ['A123'],
                             instructor: null
                         },
                         options: {
