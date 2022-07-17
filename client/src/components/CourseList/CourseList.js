@@ -45,11 +45,11 @@ const CourseList = React.memo(() => {
 
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
-            internalStateDispatch(showAlert('Course list is disabled for aggregated data'));
+            internalStateDispatch(showAlert('Course list is disabled for aggregated data.'));
         } else if (searchResultState.isAggregateData === null && searchResultState.data.length === 0) {
-            internalStateDispatch(showAlert('Please search for courses'));
+            internalStateDispatch(showAlert('Please search for courses.'));
         } else if (searchResultState.data.length === 0) {
-            internalStateDispatch(showAlert('Empty course list'));
+            internalStateDispatch(showAlert('Empty course list.'));
         } else {
             internalStateDispatch(showCourseList());
         }
@@ -98,11 +98,11 @@ const CourseList = React.memo(() => {
                     internalStateDispatch(showAlert('Please slow down, you are going too fast!'));
                     break;
                 case 500: default:
-                    internalStateDispatch(showAlert('An unexpected error occurs, please report to GitHub issues'));
+                    internalStateDispatch(showAlert('An unexpected error occurs, please report to GitHub issues.'));
             }
         } catch (error) {
             console.error(error);
-            internalStateDispatch(showAlert('An unexpected error occurs, try again'));
+            internalStateDispatch(showAlert('An unexpected error occurs, try again.'));
         }
     };
 

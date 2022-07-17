@@ -71,18 +71,18 @@ export default function SearchButton() {
                     } else if (information.aggregate === true && information.data.length > 0) {
                         internalStateDispatch(closeCourseList());
                     } else {
-                        internalStateDispatch(showAlert('Empty search results'));
+                        internalStateDispatch(showAlert('No search results.'));
                     }
                     break;
                 case 422:
-                    internalStateDispatch(showAlert('Please ensure your search condition is valid'));
+                    internalStateDispatch(showAlert('Please ensure your search condition is valid.'));
                     break;
                 case 500: default:
-                    internalStateDispatch(showAlert('An unexpected error occurs, please report to GitHub issues'));
+                    internalStateDispatch(showAlert('An unexpected error occurs, please report to GitHub issues.'));
             }
         } catch (error) {
             console.error(error);
-            internalStateDispatch(showAlert('An unexpected error occurs, try again'));
+            internalStateDispatch(showAlert('An unexpected error occurs, try again.'));
         }
     };
 

@@ -1,6 +1,5 @@
-import Alert from '@mui/material/Alert';
+import { Button, Modal, ModalVariant } from '@patternfly/react-core';
 import { closeAlert } from '../../features/internalStateSlice';
-import Snackbar from '@mui/material/Snackbar';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ErrorAlert() {
@@ -8,21 +7,15 @@ export default function ErrorAlert() {
     let internalStateDispatch = useDispatch();
 
     return (
-        <Snackbar
-            autoHideDuration={3000}
+        <Modal
+            actions={[<Button key="confirm" onClick={() => internalStateDispatch(closeAlert())} variant="primary">OK</Button>]}
+            isOpen={internalState.showAlert}
             onClose={() => internalStateDispatch(closeAlert())}
-            open={internalState.showAlert}
+            showClose
+            title="Error"
+            variant={ModalVariant.small}
         >
-            <Alert
-                onClose={() => internalStateDispatch(closeAlert())}
-                severity='error'
-                sx={{
-                    fontFamily: 'RedHatText, Arial, sans-serif',
-                    width: '100%'
-                }}
-            >
-                {internalState.alertMessage}
-            </Alert>
-        </Snackbar>
+            {internalState.alertMessage} 
+        </Modal>
     );
 }
