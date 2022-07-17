@@ -18,11 +18,11 @@ For other information of back end services such as testing, please visit [here](
 + Ant Design Charts
 + Emotion
 + Lodash
-+ Material UI
 + PatternFly
 + React
 + React Router
 + Redux Toolkit
++ react-select
 
 ### Back end
 + Express.js
