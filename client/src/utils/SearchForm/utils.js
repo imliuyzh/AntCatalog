@@ -94,7 +94,7 @@ export const styles2 = {
         color: '#aab3bc',
         fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
         fontSize: 14,
-        padding: 10
+        padding: 12
     }),
     placeholder: (styles) => ({
         ...styles,
