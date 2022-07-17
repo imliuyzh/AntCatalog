@@ -7,6 +7,7 @@ import QuarterMenu from './QuarterMenu/QuarterMenu';
 import ResetButton from './ResetButton/ResetButton';
 import SearchButton from './SearchButton/SearchButton';
 import styled from '@emotion/styled';
+import { useRef } from 'react';
 import YearMenu from './YearMenu/YearMenu';
 
 const SearchFormContainerElement = styled.div`
@@ -35,33 +36,37 @@ const SearchFormContainerElement = styled.div`
 `;
 
 export default function SearchForm() {
+    let yearInput = useRef(null), quarterInput = useRef(null),
+        departmentInput = useRef(null), courseNumberInput = useRef(null),
+        courseCodeInput = useRef(null), instructorInput= useRef(null);
+
     return (
         <SearchFormContainerElement>
             <form id="search-form">
                 <div className="form-group">
                     <div className="group-elements">
-                        <YearMenu />
+                        <YearMenu inputRef={yearInput} />
                     </div>
                     <div className="group-elements">
-                        <QuarterMenu />
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <div className="group-elements">
-                        <DepartmentMenu />
-                    </div>
-                    <div className="group-elements">
-                        <CourseNumberInput />
-                    </div>
-                    <div className="group-elements">
-                        <CourseCodeInput />
+                        <QuarterMenu inputRef={quarterInput} />
                     </div>
                 </div>
 
                 <div className="form-group">
                     <div className="group-elements">
-                        <InstructorAutocomplete />
+                        <DepartmentMenu inputRef={departmentInput} />
+                    </div>
+                    <div className="group-elements">
+                        <CourseNumberInput inputRef={courseNumberInput} />
+                    </div>
+                    <div className="group-elements">
+                        <CourseCodeInput inputRef={courseCodeInput} />
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <div className="group-elements">
+                        <InstructorAutocomplete inputRef={instructorInput} />
                     </div>
                     <div className="group-elements">
                         <AggregateOption />
@@ -70,7 +75,14 @@ export default function SearchForm() {
 
                 <div className="form-group-with-less-bottom-margin">
                     <SearchButton />
-                    <ResetButton />
+                    <ResetButton
+                        yearInput={yearInput}
+                        quarterInput={quarterInput}
+                        departmentInput={departmentInput}
+                        courseNumberInput={courseNumberInput}
+                        courseCodeInput={courseCodeInput}
+                        instructorInput={instructorInput}
+                    />
                 </div>
             </form>
         </SearchFormContainerElement>

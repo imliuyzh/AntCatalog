@@ -11,7 +11,7 @@ const QUARTER = [
     { value: 'Summer', label: 'Summer' },
 ];
 
-export default function QuarterMenu() {
+export default function QuarterMenu({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <Select
@@ -21,6 +21,7 @@ export default function QuarterMenu() {
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}
             options={QUARTER}
             placeholder="Quarter"
+            ref={inputRef}
             styles={styles1}
         />
     );

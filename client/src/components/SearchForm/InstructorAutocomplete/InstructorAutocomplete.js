@@ -6,7 +6,7 @@ import { updateFormInput } from '../../../features/internalStateSlice';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function InstructorAutocomplete() {
+export default function InstructorAutocomplete({ inputRef }) {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
 
@@ -35,6 +35,7 @@ export default function InstructorAutocomplete() {
             onChange={(newValue) => internalStateDispatch(updateFormInput({ instructor: newValue.map(({ value }) => value) }))}
             options={internalState.formInput.instructor}
             placeholder="Instructor"
+            ref={inputRef}
             styles={styles2}
         />
     );

@@ -607,7 +607,7 @@ const DEPARTMENT = [
     }
 ];
 
-export default function DepartmentMenu() {
+export default function DepartmentMenu({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <Select
@@ -617,6 +617,7 @@ export default function DepartmentMenu() {
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
             options={DEPARTMENT}
             placeholder="Department"
+            ref={inputRef}
             styles={styles1}
         />
     );

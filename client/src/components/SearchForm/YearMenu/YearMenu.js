@@ -17,7 +17,7 @@ const YEARS = [
     { value: 2013, label: '2013' }
 ];
 
-export default function YearMenu() {
+export default function YearMenu({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <Select
@@ -27,6 +27,7 @@ export default function YearMenu() {
             onChange={(option) => internalStateDispatch(updateFormInput({ year: option.map(({ value }) => value) }))}
             options={YEARS}
             placeholder="Year"
+            ref={inputRef}
             styles={styles1}
         />
     );

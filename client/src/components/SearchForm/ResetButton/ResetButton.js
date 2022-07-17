@@ -1,5 +1,9 @@
 import { ReactComponent as ResetIcon } from '../../../assets/images/reset.svg';
+import { resetCourses } from '../../../features/selectedCoursesSlice';
+import { resetFormInput } from '../../../features/internalStateSlice';
+import { resetResult } from '../../../features/searchResultSlice';
 import styled from '@emotion/styled';
+import { useDispatch } from 'react-redux';
 
 const ResetButtonElement = styled.div`
     margin-bottom: 0;
@@ -25,10 +29,28 @@ const ResetButtonElement = styled.div`
     }
 `;
 
-export default function ResetButton() {
+export default function ResetButton({ yearInput, quarterInput, departmentInput, courseNumberInput, courseCodeInput, instructorInput }) {
+    let internalStateDispatch = useDispatch(),
+        searchResultDispatch = useDispatch(),
+        selectedCoursesDispatch = useDispatch();
+
+    const reset = (event) => {
+        event.preventDefault();
+        internalStateDispatch(resetFormInput());
+        searchResultDispatch(resetResult());
+        selectedCoursesDispatch(resetCourses());
+
+        yearInput.current.clearValue();
+        quarterInput.current.clearValue();
+        departmentInput.current.clearValue();
+        courseNumberInput.current.clearValue();
+        courseCodeInput.current.clearValue();
+        instructorInput.current.clearValue();
+    };
+
     return (
         <ResetButtonElement>
-            <button id="reset-button" onClick={() => window.location.reload()} type="button">
+            <button id="reset-button" onClick={event => reset(event)} type="button">
                 <ResetIcon fill="#333538" id="reset-icon" />
                 Reset
             </button>

@@ -4,7 +4,7 @@ import { styles2 } from '../../../utils/SearchForm/utils';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 
-export default function CourseCodeInput() {
+export default function CourseCodeInput({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <CreatableSelect
@@ -12,6 +12,7 @@ export default function CourseCodeInput() {
             isMulti
             onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseCode: newValue.map(({ value }) => value)}))}
             placeholder="Course Code"
+            ref={inputRef}
             styles={styles2}
         />
     );
