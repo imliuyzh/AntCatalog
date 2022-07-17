@@ -107,6 +107,7 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be an array of integers.'),
     body('values.year[*]')
+        .toInt()
         .isInt({
             min: 2013,
             max: 2022
@@ -161,6 +162,7 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be an array of positive 5-digit integers.'),
     body('values.courseCode[*]')
+        .toInt()
         .isInt({
             allow_leading_zeroes: true,
             max: 99999
