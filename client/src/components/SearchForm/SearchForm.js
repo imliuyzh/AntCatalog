@@ -14,9 +14,11 @@ const SearchFormContainerElement = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
 
     #search-form {
-        margin: 0 56px;
+        padding: 0 56px;
+        width: 100%;
     }
 
     .form-group {
@@ -27,72 +29,8 @@ const SearchFormContainerElement = styled.div`
         margin: 48px 0 20px;
     }
 
-    .select-menu {
-        align-items: center;
-        display: grid;
-        grid-template-areas: 'select';
-    }
-
-    .select-menu select {
-        appearance: none;
-        background-color: transparent;
-        border: 1.5px solid #aab3bc;
-        color: #aab3bc;
-        cursor: pointer;
-        font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
-        font-size: 14px;
-        line-height: 25px;
-        margin: 0;
-        padding: 4px 18px;
-        width: 100%;
-    }
-
-    @-moz-document url-prefix() {
-        .select-menu select {
-            text-indent: -2px;
-        }
-    }
-
-    .select-menu select:focus {
-        outline: none;
-    }
-
-    .select-menu::after  {
-        background-color: #aab3bc;
-        clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-        content: '';
-        height: 0.4em;
-        justify-self: end;
-        margin-right: 8px;
-        width: 0.7em;
-    }
-
-    select,
-    .select-menu:after {
-        grid-area: select;
-    }
-
     .group-elements {
         margin: 8px 0;
-    }
-
-    input[type="text"],
-    input[type="text"]:focus {
-        background-color: #ffffff;
-        border: 1.5px solid #aab3bc;
-        box-sizing: border-box;
-        color: #aab3bc;
-        font-family: FFKievitSlabWebProBook, 'Times New Roman', serif;
-        font-size: 14px;
-        line-height: 25px;
-        outline: none;
-        padding: 4px 18px;
-        width: 100%;
-    }
-
-    input::placeholder {
-        color: #aab3bc;
-        opacity: 1;
     }
 `;
 
@@ -101,16 +39,16 @@ export default function SearchForm() {
         <SearchFormContainerElement>
             <form id="search-form">
                 <div className="form-group">
-                    <div className="group-elements select-menu">
+                    <div className="group-elements">
                         <YearMenu />
                     </div>
-                    <div className="group-elements select-menu">
+                    <div className="group-elements">
                         <QuarterMenu />
                     </div>
                 </div>
 
                 <div className="form-group">
-                    <div className="group-elements select-menu">
+                    <div className="group-elements">
                         <DepartmentMenu />
                     </div>
                     <div className="group-elements">

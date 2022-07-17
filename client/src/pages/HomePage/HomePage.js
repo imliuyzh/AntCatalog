@@ -60,7 +60,7 @@ export default function HomePage() {
             <ErrorAlert />
             <main id="content">
                 <section id="search-area">
-                    <img src={Logo} id="logo" alt="AntCatalog Logo" onClick={(_) => window.location.reload()} />
+                    <img src={Logo} id="logo" alt="AntCatalog Logo" onClick={() => window.location.reload()} />
                     <SearchForm />
                     <CourseList />
                 </section>

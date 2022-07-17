@@ -1,18 +1,18 @@
+import CreatableSelect from 'react-select/creatable';
+import makeAnimated from 'react-select/animated';
+import { styles2 } from '../../../utils/SearchForm/utils';
 import { updateFormInput } from '../../../features/internalStateSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function CourseCodeInput() {
-    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
-
     return (
-        <input
-            className="input-elements"
-            id="course-code"
-            onChange={event => internalStateDispatch(updateFormInput({ courseCode: event.target.value }))}
+        <CreatableSelect
+            components={makeAnimated()}
+            isMulti
+            onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseCode: newValue.map(({ value }) => value)}))}
             placeholder="Course Code"
-            type="text"
-            value={internalState.formInput.courseCode}
+            styles={styles2}
         />
     );
 }

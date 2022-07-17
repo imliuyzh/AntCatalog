@@ -3,12 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     alertMessage: '',
     formInput: {
-        year: '',
-        quarter: '',
-        department: '',
-        courseNumber: '',
-        courseCode: '',
-        instructor: '',
+        year: [],
+        quarter: [],
+        department: [],
+        courseNumber: [],
+        courseCode: [],
+        instructor: [],
         aggregate: false,
         offset: 0
     },
@@ -32,12 +32,12 @@ export const internalStateSlice = createSlice({
         },
         resetFormInput: (state) => {
             state.formInput = {
-                year: '',
-                quarter: '',
-                department: '',
-                courseNumber: '',
-                courseCode: '',
-                instructor: '',
+                year: [],
+                quarter: [],
+                department: [],
+                courseNumber: [],
+                courseCode: [],
+                instructor: [],
                 aggregate: false,
                 offset: 0
             };

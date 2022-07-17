@@ -1,167 +1,623 @@
+import makeAnimated from 'react-select/animated';
+import Select from 'react-select';
+import { styles1 } from '../../../utils/SearchForm/utils';
 import { updateFormInput } from '../../../features/internalStateSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+const DEPARTMENT = [
+    {
+        "value": "AC ENG",
+        "label": "AC ENG . . . . . .Academic English"
+    },
+    {
+        "value": "AFAM",
+        "label": "AFAM . . . . . . . African American Studies"
+    },
+    {
+        "value": "ANATOMY",
+        "label": "ANATOMY . . . .Anatomy and Neurobiology"
+    },
+    {
+        "value": "ANESTH",
+        "label": "ANESTH . . . . . Anesthesiology"
+    },
+    {
+        "value": "ANTHRO",
+        "label": "ANTHRO . . . . . Anthropology"
+    },
+    {
+        "value": "ARABIC",
+        "label": "ARABIC . . . . . .Arabic"
+    },
+    {
+        "value": "ARMN",
+        "label": "ARMN . . . . . . .Armenian (started 2018 Spg)"
+    },
+    {
+        "value": "ART",
+        "label": "ART . . . . . . . . .Art"
+    },
+    {
+        "value": "ART HIS",
+        "label": "ART HIS . . . . . .Art History"
+    },
+    {
+        "value": "ARTS",
+        "label": "ARTS . . . . . . . Arts"
+    },
+    {
+        "value": "ARTSHUM",
+        "label": "ARTSHUM . . . . Arts and Humanities"
+    },
+    {
+        "value": "ASIANAM",
+        "label": "ASIANAM . . . . Asian American Studies"
+    },
+    {
+        "value": "BANA",
+        "label": "BANA . . . . . . . Business Analytics (started 2017 SS2)"
+    },
+    {
+        "value": "BATS",
+        "label": "BATS . . . . . . . Biomedical and Translational Science"
+    },
+    {
+        "value": "BIO SCI",
+        "label": "BIO SCI . . . . . .Biological Sciences"
+    },
+    {
+        "value": "BIOCHEM",
+        "label": "BIOCHEM . . . . Biological Chemistry"
+    },
+    {
+        "value": "BME",
+        "label": "BME . . . . . . . . Biomedical Engineering"
+    },
+    {
+        "value": "BSEMD",
+        "label": "BSEMD . . . . . .Bio Sci & Educational Media Design (until 2017 Wtr)"
+    },
+    {
+        "value": "CAMPREC",
+        "label": "CAMPREC . . . .Campus Recreation"
+    },
+    {
+        "value": "CBE",
+        "label": "CBE . . . . . . . . Chemical and Biomolecular Engineering (started 2018 Fall)"
+    },
+    {
+        "value": "CBEMS",
+        "label": "CBEMS . . . . . .Chemical Engr and Materials Science (until 2019 SS2)"
+    },
+    {
+        "value": "CEM",
+        "label": "CEM . . . . . . . . Community and Environmental Medicine"
+    },
+    {
+        "value": "CHC/LAT",
+        "label": "CHC/LAT . . . . . Chicano Latino"
+    },
+    {
+        "value": "CHEM",
+        "label": "CHEM . . . . . . .Chemistry"
+    },
+    {
+        "value": "CHINESE",
+        "label": "CHINESE . . . . .Chinese"
+    },
+    {
+        "value": "CLASSIC",
+        "label": "CLASSIC . . . . .Classics"
+    },
+    {
+        "value": "CLT&THY",
+        "label": "CLT&THY . . . . .Culture & Theory"
+    },
+    {
+        "value": "COGS",
+        "label": "COGS . . . . . . . Cognitive Sciences"
+    },
+    {
+        "value": "COM LIT",
+        "label": "COM LIT . . . . . Comparative Literature"
+    },
+    {
+        "value": "COMPSCI",
+        "label": "COMPSCI . . . . Computer Science"
+    },
+    {
+        "value": "CRITISM",
+        "label": "CRITISM . . . . . Criticism"
+    },
+    {
+        "value": "CRM/LAW",
+        "label": "CRM/LAW . . . . Criminology, Law and Society"
+    },
+    {
+        "value": "CSE",
+        "label": "CSE . . . . . . . . Computer Science and Engineering"
+    },
+    {
+        "value": "DANCE",
+        "label": "DANCE . . . . . . Dance"
+    },
+    {
+        "value": "DATA",
+        "label": "DATA . . . . . . . Data Science (started 2022 SS1)"
+    },
+    {
+        "value": "DERM",
+        "label": "DERM . . . . . . .Dermatology"
+    },
+    {
+        "value": "DEV BIO",
+        "label": "DEV BIO . . . . . Developmental and Cell Biology"
+    },
+    {
+        "value": "DRAMA",
+        "label": "DRAMA . . . . . .Drama"
+    },
+    {
+        "value": "E ASIAN",
+        "label": "E ASIAN . . . . . East Asian Languages and Literatures (until 2019 SS2)"
+    },
+    {
+        "value": "EARTHSS",
+        "label": "EARTHSS . . . . Earth System Science"
+    },
+    {
+        "value": "EAS",
+        "label": "EAS . . . . . . . . East Asian Studies (started 2019 Fall)"
+    },
+    {
+        "value": "ECO EVO",
+        "label": "ECO EVO . . . . Ecology and Evolutionary Biology"
+    },
+    {
+        "value": "ECON",
+        "label": "ECON . . . . . . . Economics"
+    },
+    {
+        "value": "ECPS",
+        "label": "ECPS . . . . . . . Embedded and Cyber-Physical Systems"
+    },
+    {
+        "value": "ED AFF",
+        "label": "ED AFF . . . . . .Educational Affairs (Sch of Med)"
+    },
+    {
+        "value": "EDUC",
+        "label": "EDUC . . . . . . . Education"
+    },
+    {
+        "value": "EECS",
+        "label": "EECS . . . . . . . Electrical Engineering & Computer Science"
+    },
+    {
+        "value": "EHS",
+        "label": "EHS . . . . . . . . Environmental Health Sciences"
+    },
+    {
+        "value": "ENGLISH",
+        "label": "ENGLISH . . . . .English"
+    },
+    {
+        "value": "ENGR",
+        "label": "ENGR . . . . . . . Engineering"
+    },
+    {
+        "value": "ENGRCEE",
+        "label": "ENGRCEE . . . .Engineering, Civil and Environmental"
+    },
+    {
+        "value": "ENGRMAE",
+        "label": "ENGRMAE . . . .Engineering, Mechanical and Aerospace"
+    },
+    {
+        "value": "ENGRMSE",
+        "label": "ENGRMSE . . . .Materials Science and Engineering (until 2020 SS2)"
+    },
+    {
+        "value": "EPIDEM",
+        "label": "EPIDEM . . . . . .Epidemiology"
+    },
+    {
+        "value": "ER MED",
+        "label": "ER MED . . . . . Emergency Medicine"
+    },
+    {
+        "value": "EURO ST",
+        "label": "EURO ST . . . . .European Studies"
+    },
+    {
+        "value": "FAM MED",
+        "label": "FAM MED . . . . Family Medicine"
+    },
+    {
+        "value": "FIN",
+        "label": "FIN . . . . . . . . . Finance (started 2017 Fall)"
+    },
+    {
+        "value": "FLM&MDA",
+        "label": "FLM&MDA . . . .Film and Media Studies"
+    },
+    {
+        "value": "FRENCH",
+        "label": "FRENCH . . . . . French"
+    },
+    {
+        "value": "GDIM",
+        "label": "GDIM . . . . . . . .Game Design and Interactive Media (started 2021 Fall)"
+    },
+    {
+        "value": "GEN&SEX",
+        "label": "GEN&SEX . . . . Gender and Sexuality Studies"
+    },
+    {
+        "value": "GERMAN",
+        "label": "GERMAN . . . . .German"
+    },
+    {
+        "value": "GLBL ME",
+        "label": "GLBL ME . . . . .Global Middle East Studies"
+    },
+    {
+        "value": "GLBLCLT",
+        "label": "GLBLCLT . . . . .Global Cultures"
+    },
+    {
+        "value": "GREEK",
+        "label": "GREEK . . . . . . Greek"
+    },
+    {
+        "value": "HEBREW",
+        "label": "HEBREW . . . . .Hebrew"
+    },
+    {
+        "value": "HINDI",
+        "label": "HINDI . . . . . . . .Hindi"
+    },
+    {
+        "value": "HISTORY",
+        "label": "HISTORY . . . . .History"
+    },
+    {
+        "value": "HUMAN",
+        "label": "HUMAN . . . . . .Humanities"
+    },
+    {
+        "value": "HUMARTS",
+        "label": "HUMARTS . . . . Humanities and Arts"
+    },
+    {
+        "value": "I&C SCI",
+        "label": "I&C SCI . . . . . . Information and Computer Science"
+    },
+    {
+        "value": "IN4MATX",
+        "label": "IN4MATX . . . . . Informatics"
+    },
+    {
+        "value": "INNO",
+        "label": "INNO . . . . . . . .Masters of Innovation and Entrepreneurship (started 2019 Fall)"
+    },
+    {
+        "value": "INT MED",
+        "label": "INT MED . . . . . Internal Medicine"
+    },
+    {
+        "value": "INTL ST",
+        "label": "INTL ST . . . . . . International Studies"
+    },
+    {
+        "value": "IRAN",
+        "label": "IRAN . . . . . . . .Iranian (started 2020 Fall)"
+    },
+    {
+        "value": "ITALIAN",
+        "label": "ITALIAN . . . . . .Italian"
+    },
+    {
+        "value": "JAPANSE",
+        "label": "JAPANSE . . . . Japanese"
+    },
+    {
+        "value": "KOREAN",
+        "label": "KOREAN . . . . .Korean"
+    },
+    {
+        "value": "LATIN",
+        "label": "LATIN . . . . . . . Latin"
+    },
+    {
+        "value": "LAW",
+        "label": "LAW . . . . . . . . Law"
+    },
+    {
+        "value": "LINGUIS",
+        "label": "LINGUIS . . . . . .Linguistics (until 2019 SS2)"
+    },
+    {
+        "value": "LIT JRN",
+        "label": "LIT JRN . . . . . . Literary Journalism"
+    },
+    {
+        "value": "LPS",
+        "label": "LPS . . . . . . . . .Logic and Philosophy of Science"
+    },
+    {
+        "value": "LSCI",
+        "label": "LSCI . . . . . . . . Language Science (started 2019 Fall)"
+    },
+    {
+        "value": "M&MG",
+        "label": "M&MG . . . . . . .Microbiology and Molecular Genetics"
+    },
+    {
+        "value": "MATH",
+        "label": "MATH . . . . . . . Mathematics"
+    },
+    {
+        "value": "MED",
+        "label": "MED . . . . . . . . Medicine"
+    },
+    {
+        "value": "MED ED",
+        "label": "MED ED . . . . . Medical Education"
+    },
+    {
+        "value": "MED HUM",
+        "label": "MED HUM . . . . Medical Humanities"
+    },
+    {
+        "value": "MGMT",
+        "label": "MGMT . . . . . . .Management"
+    },
+    {
+        "value": "MGMT EP",
+        "label": "MGMT EP . . . . Executive MBA"
+    },
+    {
+        "value": "MGMT FE",
+        "label": "MGMT FE . . . . Fully Employed MBA"
+    },
+    {
+        "value": "MGMT HC",
+        "label": "MGMT HC . . . . Health Care MBA"
+    },
+    {
+        "value": "MGMTMBA",
+        "label": "MGMTMBA . . . Management MBA"
+    },
+    {
+        "value": "MGMTPHD",
+        "label": "MGMTPHD . . . .Management PhD"
+    },
+    {
+        "value": "MIC BIO",
+        "label": "MIC BIO . . . . . .Microbiology"
+    },
+    {
+        "value": "MOL BIO",
+        "label": "MOL BIO . . . . . Molecular Biology and Biochemistry"
+    },
+    {
+        "value": "MPAC",
+        "label": "MPAC . . . . . . .Accounting"
+    },
+    {
+        "value": "MSE",
+        "label": "MSE . . . . . . . . Materials Science and Engineering (started 2020 Fall)"
+    },
+    {
+        "value": "MUSIC",
+        "label": "MUSIC . . . . . . .Music"
+    },
+    {
+        "value": "NET SYS",
+        "label": "NET SYS . . . . .Networked Systems"
+    },
+    {
+        "value": "NEURBIO",
+        "label": "NEURBIO . . . . .Neurobiology and Behavior"
+    },
+    {
+        "value": "NEUROL",
+        "label": "NEUROL . . . . . Neurology"
+    },
+    {
+        "value": "NUR SCI",
+        "label": "NUR SCI . . . . . Nursing Science"
+    },
+    {
+        "value": "OB/GYN",
+        "label": "OB/GYN . . . . . Obstetrics and Gynecology"
+    },
+    {
+        "value": "OPHTHAL",
+        "label": "OPHTHAL . . . . Ophthalmology"
+    },
+    {
+        "value": "PATH",
+        "label": "PATH . . . . . . . Pathology and Laboratory Medicine"
+    },
+    {
+        "value": "PED GEN",
+        "label": "PED GEN . . . . Pediatrics Genetics"
+    },
+    {
+        "value": "PEDS",
+        "label": "PEDS . . . . . . . Pediatrics"
+    },
+    {
+        "value": "PERSIAN",
+        "label": "PERSIAN . . . . .Persian"
+    },
+    {
+        "value": "PHARM",
+        "label": "PHARM . . . . . .Pharmacology (started 2020 Fall)"
+    },
+    {
+        "value": "PHILOS",
+        "label": "PHILOS . . . . . .Philosophy"
+    },
+    {
+        "value": "PHMD",
+        "label": "PHMD . . . . . . .Pharmacy (started 2021 Fall)"
+    },
+    {
+        "value": "PHRMSCI",
+        "label": "PHRMSCI . . . . Pharmaceutical Sciences"
+    },
+    {
+        "value": "PHY SCI",
+        "label": "PHY SCI . . . . . Physical Science"
+    },
+    {
+        "value": "PHYSICS",
+        "label": "PHYSICS . . . . .Physics"
+    },
+    {
+        "value": "PHYSIO",
+        "label": "PHYSIO . . . . . .Physiology and Biophysics"
+    },
+    {
+        "value": "PLASTIC",
+        "label": "PLASTIC . . . . . Plastic Surgery"
+    },
+    {
+        "value": "PM&R",
+        "label": "PM&R . . . . . . .Physical Medicine and Rehabilitation"
+    },
+    {
+        "value": "POL SCI",
+        "label": "POL SCI . . . . . Political Science"
+    },
+    {
+        "value": "PORTUG",
+        "label": "PORTUG . . . . . Portuguese"
+    },
+    {
+        "value": "PP&D",
+        "label": "PP&D . . . . . . . Planning, Policy, and Design (until 2018 SS2; see UPPP)"
+    },
+    {
+        "value": "PSCI",
+        "label": "PSCI . . . . . . . .Psychological Science (started 2019 Fall)"
+    },
+    {
+        "value": "PSY BEH",
+        "label": "PSY BEH . . . . .Psychology and Social Behavior (until 2019 SS2)"
+    },
+    {
+        "value": "PSYCH",
+        "label": "PSYCH . . . . . . Cognitive Sciences"
+    },
+    {
+        "value": "PUB POL",
+        "label": "PUB POL . . . . .Public Policy"
+    },
+    {
+        "value": "PUBHLTH",
+        "label": "PUBHLTH . . . . Public Health"
+    },
+    {
+        "value": "RADIO",
+        "label": "RADIO . . . . . . .Radiology"
+    },
+    {
+        "value": "REL STD",
+        "label": "REL STD . . . . . Religious Studies"
+    },
+    {
+        "value": "ROTC",
+        "label": "ROTC . . . . . . . Reserve Officers' Training Corps"
+    },
+    {
+        "value": "RUSSIAN",
+        "label": "RUSSIAN . . . . .Russian"
+    },
+    {
+        "value": "SOC SCI",
+        "label": "SOC SCI . . . . . Social Science"
+    },
+    {
+        "value": "SOCECOL",
+        "label": "SOCECOL . . . . Social Ecology"
+    },
+    {
+        "value": "SOCIOL",
+        "label": "SOCIOL . . . . . .Sociology"
+    },
+    {
+        "value": "SPANISH",
+        "label": "SPANISH . . . . .Spanish"
+    },
+    {
+        "value": "SPPS",
+        "label": "SPPS . . . . . . . Social Policy & Public Service"
+    },
+    {
+        "value": "STATS",
+        "label": "STATS . . . . . . .Statistics"
+    },
+    {
+        "value": "SURGERY",
+        "label": "SURGERY . . . .Surgery"
+    },
+    {
+        "value": "SWE",
+        "label": "SWE . . . . . . . .Software Engineering (started 2019 Fall)"
+    },
+    {
+        "value": "TAGALOG",
+        "label": "TAGALOG . . . . Tagalog"
+    },
+    {
+        "value": "TOX",
+        "label": "TOX . . . . . . . . .Toxicology"
+    },
+    {
+        "value": "UCDC",
+        "label": "UCDC . . . . . . . UC Washington DC"
+    },
+    {
+        "value": "UNI AFF",
+        "label": "UNI AFF . . . . . .University Affairs"
+    },
+    {
+        "value": "UNI STU",
+        "label": "UNI STU . . . . . .University Studies"
+    },
+    {
+        "value": "UPPP",
+        "label": "UPPP . . . . . . . Urban Planning and Public Policy (started 2018 Fall)"
+    },
+    {
+        "value": "VIETMSE",
+        "label": "VIETMSE . . . . .Vietnamese"
+    },
+    {
+        "value": "VIS STD",
+        "label": "VIS STD . . . . . .Visual Studies"
+    },
+    {
+        "value": "WRITING",
+        "label": "WRITING . . . . . Writing"
+    }
+];
 
 export default function DepartmentMenu() {
-    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
-
     return (
-        <select
-            aria-label="Department"
-            onChange={event => internalStateDispatch(updateFormInput({ department: event.target.value }))}
-            value={internalState.formInput.department}
-        >
-            <option value="" disabled>Department</option>
-            <option value="AC ENG">AC ENG . . . . . .Academic English</option>
-            <option value="AFAM">AFAM . . . . . . . African American Studies</option>
-            <option value="ANATOMY">ANATOMY . . . .Anatomy and Neurobiology</option>
-            <option value="ANESTH">ANESTH . . . . . Anesthesiology</option>
-            <option value="ANTHRO">ANTHRO . . . . . Anthropology</option>
-            <option value="ARABIC">ARABIC . . . . . .Arabic</option>
-            <option value="ARMN">ARMN . . . . . . .Armenian (started 2018 Spg)</option>
-            <option value="ART">ART . . . . . . . . .Art</option>
-            <option value="ART HIS">ART HIS . . . . . .Art History</option>
-            <option value="ARTS">ARTS . . . . . . . Arts</option>
-            <option value="ARTSHUM">ARTSHUM . . . . Arts and Humanities</option>
-            <option value="ASIANAM">ASIANAM . . . . Asian American Studies</option>
-            <option value="BANA">BANA . . . . . . . Business Analytics (started 2017 SS2)</option>
-            <option value="BATS">BATS . . . . . . . Biomedical and Translational Science</option>
-            <option value="BIO SCI">BIO SCI . . . . . .Biological Sciences</option>
-            <option value="BIOCHEM">BIOCHEM . . . . Biological Chemistry</option>
-            <option value="BME">BME . . . . . . . . Biomedical Engineering</option>
-            <option value="BSEMD">BSEMD . . . . . .Bio Sci &amp; Educational Media Design (until 2017 Wtr)</option>
-            <option value="CAMPREC">CAMPREC . . . .Campus Recreation</option>
-            <option value="CBE">CBE . . . . . . . . Chemical and Biomolecular Engineering (started 2018 Fall)</option>
-            <option value="CBEMS">CBEMS . . . . . .Chemical Engr and Materials Science (until 2019 SS2)</option>
-            <option value="CEM">CEM . . . . . . . . Community and Environmental Medicine</option>
-            <option value="CHC/LAT">CHC/LAT . . . . . Chicano Latino</option>
-            <option value="CHEM">CHEM . . . . . . .Chemistry</option>
-            <option value="CHINESE">CHINESE . . . . .Chinese</option>
-            <option value="CLASSIC">CLASSIC . . . . .Classics</option>
-            <option value="CLT&amp;THY">CLT&amp;THY . . . . .Culture &amp; Theory</option>
-            <option value="COGS">COGS . . . . . . . Cognitive Sciences  (started 2016 Fall)</option>
-            <option value="COM LIT">COM LIT . . . . . Comparative Literature</option>
-            <option value="COMPSCI">COMPSCI . . . . Computer Science</option>
-            <option value="CRITISM">CRITISM . . . . . Criticism</option>
-            <option value="CRM/LAW">CRM/LAW . . . . Criminology, Law and Society</option>
-            <option value="CSE">CSE . . . . . . . . Computer Science and Engineering</option>
-            <option value="DANCE">DANCE . . . . . . Dance</option>
-            <option value="DATA">DATA . . . . . . . Data Science (started 2022 SS1)</option>
-            <option value="DERM">DERM . . . . . . .Dermatology</option>
-            <option value="DEV BIO">DEV BIO . . . . . Developmental and Cell Biology</option>
-            <option value="DRAMA">DRAMA . . . . . .Drama</option>
-            <option value="E ASIAN">E ASIAN . . . . . East Asian Languages and Literatures (until 2019 SS2)</option>
-            <option value="EARTHSS">EARTHSS . . . . Earth System Science</option>
-            <option value="EAS">EAS . . . . . . . . East Asian Studies (started 2019 Fall)</option>
-            <option value="ECO EVO">ECO EVO . . . . Ecology and Evolutionary Biology</option>
-            <option value="ECON">ECON . . . . . . . Economics</option>
-            <option value="ECPS">ECPS . . . . . . . Embedded and Cyber-Physical Systems</option>
-            <option value="ED AFF">ED AFF . . . . . .Educational Affairs (Sch of Med)</option>
-            <option value="EDUC">EDUC . . . . . . . Education</option>
-            <option value="EECS">EECS . . . . . . . Electrical Engineering &amp; Computer Science</option>
-            <option value="EHS">EHS . . . . . . . . Environmental Health Sciences</option>
-            <option value="ENGLISH">ENGLISH . . . . .English</option>
-            <option value="ENGR">ENGR . . . . . . . Engineering</option>
-            <option value="ENGRCEE">ENGRCEE . . . .Engineering, Civil and Environmental</option>
-            <option value="ENGRMAE">ENGRMAE . . . .Engineering, Mechanical and Aerospace</option>
-            <option value="ENGRMSE">ENGRMSE . . . .Materials Science and Engineering (until 2020 SS2)</option>
-            <option value="EPIDEM">EPIDEM . . . . . .Epidemiology</option>
-            <option value="ER MED">ER MED . . . . . Emergency Medicine</option>
-            <option value="EURO ST">EURO ST . . . . .European Studies</option>
-            <option value="FAM MED">FAM MED . . . . Family Medicine</option>
-            <option value="FIN">FIN . . . . . . . . . Finance (started 2017 Fall)</option>
-            <option value="FLM&amp;MDA">FLM&amp;MDA . . . .Film and Media Studies</option>
-            <option value="FRENCH">FRENCH . . . . . French</option>
-            <option value="GDIM">GDIM . . . . . . . .Game Design and Interactive Media (started 2021 Fall)</option>
-            <option value="GEN&amp;SEX">GEN&amp;SEX . . . . Gender and Sexuality Studies</option>
-            <option value="GERMAN">GERMAN . . . . .German</option>
-            <option value="GLBL ME">GLBL ME . . . . .Global Middle East Studies (started 2016 Fall)</option>
-            <option value="GLBLCLT">GLBLCLT . . . . .Global Cultures</option>
-            <option value="GREEK">GREEK . . . . . . Greek</option>
-            <option value="HEBREW">HEBREW . . . . .Hebrew</option>
-            <option value="HINDI">HINDI . . . . . . . .Hindi</option>
-            <option value="HISTORY">HISTORY . . . . .History</option>
-            <option value="HUMAN">HUMAN . . . . . .Humanities</option>
-            <option value="HUMARTS">HUMARTS . . . . Humanities and Arts</option>
-            <option value="I&amp;C SCI">I&amp;C SCI . . . . . . Information and Computer Science</option>
-            <option value="IN4MATX">IN4MATX . . . . . Informatics</option>
-            <option value="INNO">INNO . . . . . . . .Masters of Innovation and Entrepreneurship (started 2019 Fall)</option>
-            <option value="INT MED">INT MED . . . . . Internal Medicine</option>
-            <option value="INTL ST">INTL ST . . . . . . International Studies</option>
-            <option value="IRAN">IRAN . . . . . . . .Iranian (started 2020 Fall)</option>
-            <option value="ITALIAN">ITALIAN . . . . . .Italian</option>
-            <option value="JAPANSE">JAPANSE . . . . Japanese</option>
-            <option value="KOREAN">KOREAN . . . . .Korean</option>
-            <option value="LATIN">LATIN . . . . . . . Latin</option>
-            <option value="LINGUIS">LINGUIS . . . . . .Linguistics (until 2019 SS2)</option>
-            <option value="LIT JRN">LIT JRN . . . . . . Literary Journalism</option>
-            <option value="LPS">LPS . . . . . . . . .Logic and Philosophy of Science</option>
-            <option value="LSCI">LSCI . . . . . . . . Language Science (started 2019 Fall)</option>
-            <option value="M&amp;MG">M&amp;MG . . . . . . .Microbiology and Molecular Genetics</option>
-            <option value="MATH">MATH . . . . . . . Mathematics</option>
-            <option value="MED">MED . . . . . . . . Medicine</option>
-            <option value="MED ED">MED ED . . . . . Medical Education</option>
-            <option value="MED HUM">MED HUM . . . . Medical Humanities (started 2016 Fall)</option>
-            <option value="MGMT">MGMT . . . . . . .Management</option>
-            <option value="MGMT EP">MGMT EP . . . . Executive MBA</option>
-            <option value="MGMT FE">MGMT FE . . . . Fully Employed MBA</option>
-            <option value="MGMT HC">MGMT HC . . . . Health Care MBA</option>
-            <option value="MGMTMBA">MGMTMBA . . . Management MBA</option>
-            <option value="MGMTPHD">MGMTPHD . . . .Management PhD</option>
-            <option value="MIC BIO">MIC BIO . . . . . .Microbiology</option>
-            <option value="MOL BIO">MOL BIO . . . . . Molecular Biology and Biochemistry</option>
-            <option value="MPAC">MPAC . . . . . . .Accounting</option>
-            <option value="MSE">MSE . . . . . . . . Materials Science and Engineering (started 2020 Fall)</option>
-            <option value="MUSIC">MUSIC . . . . . . .Music</option>
-            <option value="NET SYS">NET SYS . . . . .Networked Systems</option>
-            <option value="NEURBIO">NEURBIO . . . . .Neurobiology and Behavior</option>
-            <option value="NEUROL">NEUROL . . . . . Neurology</option>
-            <option value="NUR SCI">NUR SCI . . . . . Nursing Science</option>
-            <option value="OB/GYN">OB/GYN . . . . . Obstetrics and Gynecology</option>
-            <option value="OPHTHAL">OPHTHAL . . . . Ophthalmology</option>
-            <option value="PATH">PATH . . . . . . . Pathology and Laboratory Medicine</option>
-            <option value="PED GEN">PED GEN . . . . Pediatrics Genetics</option>
-            <option value="PEDS">PEDS . . . . . . . Pediatrics</option>
-            <option value="PERSIAN">PERSIAN . . . . .Persian</option>
-            <option value="PHARM">PHARM . . . . . .Pharmacology (started 2020 Fall)</option>
-            <option value="PHILOS">PHILOS . . . . . .Philosophy</option>
-            <option value="PHMD">PHMD . . . . . . .Pharmacy (started 2021 Fall)</option>
-            <option value="PHRMSCI">PHRMSCI . . . . Pharmaceutical Sciences</option>
-            <option value="PHY SCI">PHY SCI . . . . . Physical Science</option>
-            <option value="PHYSICS">PHYSICS . . . . .Physics</option>
-            <option value="PHYSIO">PHYSIO . . . . . .Physiology and Biophysics</option>
-            <option value="PLASTIC">PLASTIC . . . . . Plastic Surgery</option>
-            <option value="PM&amp;R">PM&amp;R . . . . . . .Physical Medicine and Rehabilitation</option>
-            <option value="POL SCI">POL SCI . . . . . Political Science</option>
-            <option value="PORTUG">PORTUG . . . . . Portuguese</option>
-            <option value="PP&amp;D">PP&amp;D . . . . . . . Planning, Policy, and Design (until 2018 SS2; see UPPP)</option>
-            <option value="PSCI">PSCI . . . . . . . .Psychological Science (started 2019 Fall)</option>
-            <option value="PSY BEH">PSY BEH . . . . .Psychology and Social Behavior (until 2019 SS2)</option>
-            <option value="PSYCH">PSYCH . . . . . . Psychology</option>
-            <option value="PUB POL">PUB POL . . . . .Public Policy</option>
-            <option value="PUBHLTH">PUBHLTH . . . . Public Health</option>
-            <option value="RADIO">RADIO . . . . . . .Radiology</option>
-            <option value="REL STD">REL STD . . . . . Religious Studies</option>
-            <option value="ROTC">ROTC . . . . . . . Reserve Officers' Training Corps</option>
-            <option value="RUSSIAN">RUSSIAN . . . . .Russian</option>
-            <option value="SOC SCI">SOC SCI . . . . . Social Science</option>
-            <option value="SOCECOL">SOCECOL . . . . Social Ecology</option>
-            <option value="SOCIOL">SOCIOL . . . . . .Sociology</option>
-            <option value="SPANISH">SPANISH . . . . .Spanish</option>
-            <option value="SPPS">SPPS . . . . . . . Social Policy &amp; Public Service</option>
-            <option value="STATS">STATS . . . . . . .Statistics</option>
-            <option value="SURGERY">SURGERY . . . .Surgery</option>
-            <option value="SWE">SWE . . . . . . . .Software Engineering (started 2019 Fall)</option>
-            <option value="TAGALOG">TAGALOG . . . . Tagalog</option>
-            <option value="TOX">TOX . . . . . . . . .Toxicology</option>
-            <option value="UCDC">UCDC . . . . . . . UC Washington DC</option>
-            <option value="UNI AFF">UNI AFF . . . . . .University Affairs</option>
-            <option value="UNI STU">UNI STU . . . . . .University Studies</option>
-            <option value="UPPP">UPPP . . . . . . . Urban Planning and Public Policy (started 2018 Fall)</option>
-            <option value="VIETMSE">VIETMSE . . . . .Vietnamese</option>
-            <option value="VIS STD">VIS STD . . . . . .Visual Studies</option>
-            <option value="WOMN ST">WOMN ST . . . . Women's Studies (until 2014 SS2)</option>
-            <option value="WRITING">WRITING . . . . . Writing</option>
-        </select>
+        <Select
+            closeMenuOnSelect={false}
+            components={makeAnimated()}
+            isMulti
+            onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
+            options={DEPARTMENT}
+            placeholder="Department"
+            styles={styles1}
+        />
     );
 }
