@@ -4,10 +4,9 @@ import makeAnimated from 'react-select/animated';
 import { styles2 } from '../../../utils/SearchForm/utils';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function InstructorAutocomplete({ inputRef }) {
-    let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch();
 
     // eslint-disable-next-line
@@ -33,7 +32,6 @@ export default function InstructorAutocomplete({ inputRef }) {
             isMulti
             loadOptions={loadOptions}
             onChange={(newValue) => internalStateDispatch(updateFormInput({ instructor: newValue.map(({ value }) => value) }))}
-            options={internalState.formInput.instructor}
             placeholder="Instructor"
             ref={inputRef}
             styles={styles2}
