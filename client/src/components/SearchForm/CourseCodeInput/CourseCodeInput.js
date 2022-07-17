@@ -10,7 +10,7 @@ export default function CourseCodeInput({ inputRef }) {
         <CreatableSelect
             components={makeAnimated()}
             isMulti
-            onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseCode: newValue.map(({ value }) => value)}))}
+            onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseCode: newValue.map(({ value }) => value) }))}
             placeholder="Course Code"
             ref={inputRef}
             styles={styles2}
