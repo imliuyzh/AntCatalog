@@ -14,7 +14,6 @@ export default function ErrorAlert() {
                     onTimeout={() => internalStateDispatch(closeAlert())}
                     timeout={3000}
                     title={internalState.alertMessage}
-                    tooltipPosition='bottom-start'
                     variant="danger"
                 />
             </AlertGroup>
