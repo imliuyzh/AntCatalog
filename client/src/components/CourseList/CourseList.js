@@ -117,6 +117,17 @@ const CourseList = React.memo(() => {
         }
     };
 
+    const normalizeCourseCode = (code) => {
+        let digits = ['0', '0', '0', '0', '0'], courseCode = code.toString();
+        let arrayIndex = 4, courseCodeIndex = courseCode.length - 1;
+        while (courseCodeIndex >= 0) {
+            digits[arrayIndex] = courseCode[courseCodeIndex];
+            --courseCodeIndex;
+            --arrayIndex;
+        }
+        return digits.join('');
+    };
+
     return (
         <>
             <CourseListButtonContainerElement onClick={handleOnClick} type="button">
@@ -136,7 +147,7 @@ const CourseList = React.memo(() => {
                         <TableComposable variant="compact">
                             <Thead>
                                 <Tr>
-                                    <Th>{''}</Th>
+                                    <Th></Th>
                                     <Th>Year</Th>
                                     <Th>Quarter</Th>
                                     <Th>Course Code</Th>
@@ -156,7 +167,7 @@ const CourseList = React.memo(() => {
                                         }} />
                                         <Td dataLabel="Year">{course.year}</Td>
                                         <Td dataLabel="Quarter">{course.quarter}</Td>
-                                        <Td dataLabel="Course Code">{course.courseCode}</Td>
+                                        <Td dataLabel="Course Code">{normalizeCourseCode(course.courseCode)}</Td>
                                         <Td dataLabel="Department">{course.department}</Td>
                                         <Td dataLabel="Course Number">{course.courseNumber}</Td>
                                         <Td dataLabel="Course Title">{course.courseTitle}</Td>
