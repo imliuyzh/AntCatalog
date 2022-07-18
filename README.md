@@ -4,7 +4,7 @@ Before moving on in this section, please install the latest LTS version of Node.
 
 ### Front end
 1. Enter the `client` folder in the command line and execute `npm i` to install the packages
-2. Run `npm start` to run the front end application
+2. Run `npm start` to execute the front end application running on `localhost:3000`
 
 ### Back end
 1. Enter the `server` folder in the command line and execute `npm i` to install the packages
@@ -108,4 +108,4 @@ The instruction below is written for a Linux free tier instance. You can create 
 You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take a while to load the website again after 20 minutes of inactivity.
 
 ## Acknowledgments
-This project has inspirations from ZotCurve and is made possible by UC Irvine's Public Records Office.
+This project has inspirations from [ZotCurve](https://github.com/ZotCurve/ZotCurve.github.io) and is made possible by UC Irvine's Public Records Office.
