@@ -21,6 +21,14 @@ export const styles1 = {
         color: '#aab3bc',
         paddingLeft: 8
     }),
+    menu: (styles) => ({
+        ...styles,
+        borderRadius: 0
+    }),
+    menuList: (styles) => ({
+        ...styles,
+        margin: '8px auto'
+    }),
     multiValueLabel: (styles) => ({
         ...styles,
         backgroundColor: 'slate',
@@ -46,7 +54,8 @@ export const styles1 = {
         color: '#000000',
         fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
-        padding: 10
+        lineHeight: 1.5,
+        padding: '7px 20px',
     }),
     placeholder: (styles) => ({
         ...styles,
@@ -86,6 +95,14 @@ export const styles2 = {
         color: '#aab3bc',
         paddingLeft: 8
     }),
+    menu: (styles) => ({
+        ...styles,
+        borderRadius: 0
+    }),
+    menuList: (styles) => ({
+        ...styles,
+        margin: '8px auto'
+    }),
     loadingMessage: (styles) => ({
         ...styles,
         color: '#aab3bc',
@@ -117,7 +134,8 @@ export const styles2 = {
         color: '#000000',
         fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
-        padding: 12,
+        lineHeight: 1.5,
+        padding: '8px 20px',
     }),
     placeholder: (styles) => ({
         ...styles,

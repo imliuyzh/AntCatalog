@@ -53,6 +53,7 @@ const GradeChart = React.memo(() => {
         marginRatio: 0,
         padding: 'auto',
         seriesField: 'name',
+        theme: { fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji` },
         tooltip: { customContent: (title, items) => <CourseTooltip isAggregateData={searchResultState.isAggregateData} items={items} title={title} /> },
         xField: 'grade',
         yField: 'amount',

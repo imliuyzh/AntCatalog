@@ -11,7 +11,8 @@ export default function ErrorAlert() {
             <AlertGroup isToast isLiveRegion>
                 <Alert
                     actionClose={<AlertActionCloseButton onClose={() => internalStateDispatch(closeAlert())} />}
-                    isLiveRegion
+                    onTimeout={() => internalStateDispatch(closeAlert())}
+                    timeout={3000}
                     title={internalState.alertMessage}
                     tooltipPosition='bottom-start'
                     variant="danger"
