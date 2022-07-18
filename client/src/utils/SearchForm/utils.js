@@ -123,11 +123,5 @@ export const styles2 = {
         ...styles,
         color: '#aab3bc',
         paddingLeft: 8
-    }),
-    valueContainer: (styles) => ({
-        ...styles,
-        '& div:first-of-type': {
-            width: 'fit-content !important'
-        }
     })
 };

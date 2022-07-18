@@ -1,4 +1,3 @@
-import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { styles1 } from '../../../utils/SearchForm/utils';
 import { updateFormInput } from '../../../features/internalStateSlice';
@@ -16,7 +15,6 @@ export default function QuarterMenu({ inputRef }) {
     return (
         <Select
             closeMenuOnSelect={false}
-            components={makeAnimated()}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}
             options={QUARTER}

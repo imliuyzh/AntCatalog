@@ -1,6 +1,5 @@
 import AsyncSelect from 'react-select/async';
 import debounce from 'lodash/debounce';
-import makeAnimated from 'react-select/animated';
 import { styles2 } from '../../../utils/SearchForm/utils';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useCallback } from 'react';
@@ -28,7 +27,6 @@ export default function InstructorAutocomplete({ inputRef }) {
 
     return (
         <AsyncSelect
-            components={makeAnimated()}
             isMulti
             loadOptions={loadOptions}
             onChange={(newValue) => internalStateDispatch(updateFormInput({ instructor: newValue.map(({ value }) => value) }))}

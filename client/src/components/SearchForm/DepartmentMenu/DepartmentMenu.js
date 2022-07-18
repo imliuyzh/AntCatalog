@@ -1,4 +1,3 @@
-import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { styles1 } from '../../../utils/SearchForm/utils';
 import { updateFormInput } from '../../../features/internalStateSlice';
@@ -612,7 +611,6 @@ export default function DepartmentMenu({ inputRef }) {
     return (
         <Select
             closeMenuOnSelect={false}
-            components={makeAnimated()}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
             options={DEPARTMENT}
