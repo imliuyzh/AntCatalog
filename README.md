@@ -21,8 +21,8 @@ For other information of back end services such as testing, please visit [here](
 + PatternFly
 + React
 + React Router
++ React Select
 + Redux Toolkit
-+ react-select
 
 ### Back end
 + Express.js
