@@ -39,8 +39,8 @@ export const styles1 = {
         ...styles,
         '&:hover': {
             backgroundColor: '#ffd200',
-            color: '#1b3d6d',
-        },
+            color: '#1b3d6d'
+        }
     }),
     noOptionsMessage: (styles) => ({
         ...styles,
@@ -55,7 +55,7 @@ export const styles1 = {
         fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
         lineHeight: 1.5,
-        padding: '7px 20px',
+        padding: '7px 20px'
     }),
     placeholder: (styles) => ({
         ...styles,
@@ -119,8 +119,8 @@ export const styles2 = {
         ...styles,
         '&:hover': {
             backgroundColor: '#ffd200',
-            color: '#1b3d6d',
-        },
+            color: '#1b3d6d'
+        }
     }),
     noOptionsMessage: (styles) => ({
         ...styles,
@@ -135,7 +135,7 @@ export const styles2 = {
         fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
         lineHeight: 1.5,
-        padding: '8px 20px',
+        padding: '8px 20px'
     }),
     placeholder: (styles) => ({
         ...styles,
