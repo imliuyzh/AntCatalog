@@ -1,6 +1,7 @@
 import { addCourse, removeCourse } from '../../features/selectedCoursesSlice';
 import { closeCourseList, showAlert, showCourseList, updateFormInput } from '../../features/internalStateSlice';
 import { Modal, ModalVariant } from '@patternfly/react-core';
+import normalizeCourseCode from '../../utils/normalizeCourseCode';
 import { Pagination } from '@patternfly/react-core';
 import { ReactComponent as ListIcon } from '../../assets/images/list.svg';
 import { replaceResult } from '../../features/searchResultSlice';
@@ -115,17 +116,6 @@ const CourseList = React.memo(() => {
         } else {
             selectedCoursesDispatch(removeCourse(targetCourse));
         }
-    };
-
-    const normalizeCourseCode = (code) => {
-        let digits = ['0', '0', '0', '0', '0'], courseCode = code.toString();
-        let arrayIndex = 4, courseCodeIndex = courseCode.length - 1;
-        while (courseCodeIndex >= 0) {
-            digits[arrayIndex] = courseCode[courseCodeIndex];
-            --courseCodeIndex;
-            --arrayIndex;
-        }
-        return digits.join('');
     };
 
     return (

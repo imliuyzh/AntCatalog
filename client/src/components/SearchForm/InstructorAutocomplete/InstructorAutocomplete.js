@@ -1,6 +1,6 @@
 import AsyncSelect from 'react-select/async';
 import debounce from 'lodash/debounce';
-import { styles2 } from '../../../utils/SearchForm/utils';
+import { styles2 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 

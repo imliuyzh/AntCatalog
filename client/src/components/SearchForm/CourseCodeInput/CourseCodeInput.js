@@ -1,5 +1,5 @@
 import CreatableSelect from 'react-select/creatable';
-import { styles2 } from '../../../utils/SearchForm/utils';
+import { styles2 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 

@@ -1,5 +1,5 @@
 import Select from 'react-select';
-import { styles1 } from '../../../utils/SearchForm/utils';
+import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 

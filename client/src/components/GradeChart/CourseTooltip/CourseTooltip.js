@@ -1,3 +1,4 @@
+import normalizeCourseCode from '../../../utils/normalizeCourseCode';
 import styled from '@emotion/styled';
 import { v4 } from 'uuid';
 
@@ -41,7 +42,7 @@ export default function CourseTooltip({ isAggregateData, items, title }) {
                                     ? ''
                                     : <div>
                                           <span style={{ marginRight: 5 }}>Course Code:</span>
-                                          <span className="g2-tooltip-list-item-value">{data.courseCode}</span>
+                                          <span className="g2-tooltip-list-item-value">{normalizeCourseCode(data.courseCode)}</span>
                                       </div>
                             }
                             <div>
