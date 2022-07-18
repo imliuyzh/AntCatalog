@@ -27,33 +27,36 @@ export default function CourseTooltip({ isAggregateData, items, title }) {
                     >
                         <div style={{
                             alignItems: 'center',
-                            display: 'flex'
+                            display: 'flex',
+                            lineHeight: 1.5
                         }}>
                             <span className="g2-tooltip-marker" style={{ backgroundColor: color }}></span>
                             <span>{(isAggregateData) ? data.grade : data.title}</span>
                         </div>
                         <CourseInformationContainerElement>
-                            <div>
+                            <div style={{ lineHeight: 1.5 }}>
                                 <span style={{ marginRight: 5 }}>Amount:</span>
                                 <span className="g2-tooltip-list-item-value">{data.amount}</span>
                             </div>
                             {
                                 (isAggregateData)
                                     ? ''
-                                    : <div>
+                                    : <div style={{ lineHeight: 1.5 }}>
                                           <span style={{ marginRight: 5 }}>Course Code:</span>
                                           <span className="g2-tooltip-list-item-value">{normalizeCourseCode(data.courseCode)}</span>
                                       </div>
                             }
-                            <div>
+                            <div style={{ lineHeight: 1.5 }}>
                                 <span style={{ marginRight: 5 }}>GPA:</span>
                                 <span className="g2-tooltip-list-item-value">{data.avgGPA.toFixed(2)}/4</span>
                             </div>
                             {
                                 (isAggregateData)
                                     ? ''
-                                    : <div>
-                                          <span style={{ marginRight: 5 }}>Instructor(s):</span>
+                                    : <div style={{ lineHeight: 1.5 }}>
+                                          <span style={{ marginRight: 5 }}>
+                                            Instructor(s):
+                                          </span>
                                           <span className="g2-tooltip-list-item-value">{data.instructors}</span>
                                       </div>
                             }
