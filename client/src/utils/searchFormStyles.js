@@ -1,14 +1,12 @@
 export const styles1 = {
-    control: (styles) => ({
+    control: (styles, { isFocused }) => ({
         ...styles,
         border: `1.5px solid #aab3bc`,
         borderRadius: '0px',
+        boxShadow: isFocused ? '0 0 0 .2rem rgba(0,123,255,.25)' : styles.boxShadow,
         boxSizing: 'border-box',
         fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
         fontSize: '14px',
-        '&:focus': {
-            boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
-        },
         '&:focus-within': {
             boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
         },
@@ -35,8 +33,10 @@ export const styles1 = {
         color: '#555759',
         fontFamily: 'RedHatText, Arial, sans-serif'
     }),
-    multiValueRemove: (styles) => ({
+    multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
+        backgroundColor: (isFocused || isSelected) ? '#ffd200' : styles.backgroundColor,
+        color: (isFocused || isSelected) ? '#1b3d6d' : styles.backgroundColor,
         '&:hover': {
             backgroundColor: '#ffd200',
             color: '#1b3d6d'
@@ -65,16 +65,14 @@ export const styles1 = {
 };
 
 export const styles2 = {
-    control: (styles) => ({
+    control: (styles, { isFocused }) => ({
         ...styles,
         border: `1.5px solid #aab3bc`,
         borderRadius: '0px',
+        boxShadow: isFocused ? '0 0 0 .2rem rgba(0,123,255,.25)' : styles.boxShadow,
         boxSizing: 'border-box',
         fontFamily: `FFKievitSlabWebProBook, 'Times New Roman', serif`,
         fontSize: '14px',
-        '&:focus': {
-            boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
-        },
         '&:focus-within': {
             boxShadow: '0 0 0 .2rem rgba(0,123,255,.25)'
         },
@@ -115,8 +113,10 @@ export const styles2 = {
         color: '#555759',
         fontFamily: 'RedHatText, Arial, sans-serif'
     }),
-    multiValueRemove: (styles) => ({
+    multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
+        backgroundColor: (isFocused || isSelected) ? '#ffd200' : styles.backgroundColor,
+        color: (isFocused || isSelected) ? '#1b3d6d' : styles.backgroundColor,
         '&:hover': {
             backgroundColor: '#ffd200',
             color: '#1b3d6d'
