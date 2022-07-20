@@ -36,9 +36,9 @@ For other information of back end services such as testing, please visit [here](
   + ts-jest
 + Node.js
 + Nodemon
-+ SuperTest
 + Sequelize
   + sqlite3
++ SuperTest
 + TypeScript
   + ts-node
 + winston
