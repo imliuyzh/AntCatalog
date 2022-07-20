@@ -4,7 +4,7 @@ Before moving on in this section, please install the latest LTS version of Node.
 
 ### Front end
 1. Enter the `client` folder in the command line and execute `npm i` to install the packages
-2. Run `npm start` to see the front end application on `localhost:3000`
+2. Run `npm start` to see the front end application
 
 ### Back end
 1. Enter the `server` folder in the command line and execute `npm i` to install the packages
