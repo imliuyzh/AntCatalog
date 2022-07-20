@@ -63,13 +63,17 @@ export default function HomePage() {
                 <section id="search-area">
                     <img src={Logo} id="logo" alt="AntCatalog Logo" onClick={() => window.location.reload()} />
                     <SearchForm />
-                    <Suspense fallback={null}><CourseList /></Suspense>
+                    <Suspense fallback={null}>
+                        <CourseList />
+                    </Suspense>
                 </section>
                 <section id="chart-area">
                     {(([null, false].includes(internalState.formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
                                 || (internalState.formInput.aggregate === true && searchResultState.data.length <= 0))
                             ? <EmptyChart />
-                            : <Suspense fallback={<EmptyChart />}><GradeChart /></Suspense>}
+                            : <Suspense fallback={<EmptyChart />}>
+                                  <GradeChart />
+                              </Suspense>}
                 </section>
             </main>
         </HomePageContainerElement>
