@@ -18,8 +18,18 @@ export default function App() {
             <Global styles={GlobalStyles} />
             <BrowserRouter>
                 <Routes>
-                    <Route element={<HomePage />} path="/" />
-                    <Route element={<Suspense fallback={null}><ErrorPage /></Suspense>} path="*" />
+                    <Route
+                        element={<HomePage />}
+                        path="/"
+                    />
+                    <Route
+                        element={
+                            <Suspense fallback={null}>
+                                <ErrorPage />
+                            </Suspense>
+                        }
+                        path="*"
+                    />
                 </Routes>
             </BrowserRouter>
         </>
