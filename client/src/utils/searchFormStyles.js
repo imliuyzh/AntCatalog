@@ -29,9 +29,8 @@ export const styles1 = {
     }),
     multiValueLabel: (styles) => ({
         ...styles,
-        backgroundColor: 'slate',
         color: '#555759',
-        fontFamily: 'RedHatText, Arial, sans-serif'
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`
     }),
     multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
@@ -109,9 +108,8 @@ export const styles2 = {
     }),
     multiValueLabel: (styles) => ({
         ...styles,
-        backgroundColor: 'slate',
         color: '#555759',
-        fontFamily: 'RedHatText, Arial, sans-serif'
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`
     }),
     multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
