@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { css, Global } from "@emotion/react";
 import HomePage from './pages/HomePage/HomePage';
 import { lazy, Suspense } from 'react';
-import { Spinner } from '@patternfly/react-core';
 
 const GlobalStyles = css`
     ::selection {
@@ -20,7 +19,7 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route element={<HomePage />} path="/" />
-                    <Route element={<Suspense fallback={<Spinner isSVG />}><ErrorPage /></Suspense>} path="*" />
+                    <Route element={<Suspense fallback={null}><ErrorPage /></Suspense>} path="*" />
                 </Routes>
             </BrowserRouter>
         </>
