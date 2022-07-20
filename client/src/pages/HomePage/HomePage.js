@@ -1,11 +1,10 @@
-import CourseList from '../../components/CourseList/CourseList';
-import GradeChart from '../../components/GradeChart/GradeChart';
 import EmptyChart from '../../components/EmptyChart/EmptyChart';
 import ErrorAlert from '../../components/ErrorAlert/ErrorAlert';
 import Logo from '../../assets/images/logo.png';
+import { lazy, Suspense, useEffect } from 'react';
 import SearchForm from '../../components/SearchForm/SearchForm';
+import { Spinner } from '@patternfly/react-core';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 const HomePageContainerElement = styled.div`
@@ -48,6 +47,9 @@ const HomePageContainerElement = styled.div`
     }
 `;
 
+const CourseList = lazy(() => import('../../components/CourseList/CourseList'));
+const GradeChart = lazy(() => import('../../components/GradeChart/GradeChart'));
+
 export default function HomePage() {
     let internalState = useSelector(state => state.internalState),
         searchResultState = useSelector(state => state.searchResult),
@@ -62,13 +64,13 @@ export default function HomePage() {
                 <section id="search-area">
                     <img src={Logo} id="logo" alt="AntCatalog Logo" onClick={() => window.location.reload()} />
                     <SearchForm />
-                    <CourseList />
+                    <Suspense fallback={<Spinner isSVG />}><CourseList /></Suspense>
                 </section>
                 <section id="chart-area">
                     {(([null, false].includes(internalState.formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
                                 || (internalState.formInput.aggregate === true && searchResultState.data.length <= 0))
                             ? <EmptyChart />
-                            : <GradeChart />}
+                            : <Suspense fallback={<Spinner isSVG />}><GradeChart /></Suspense>}
                 </section>
             </main>
         </HomePageContainerElement>
