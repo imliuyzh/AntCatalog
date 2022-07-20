@@ -3,7 +3,6 @@ import ErrorAlert from '../../components/ErrorAlert/ErrorAlert';
 import Logo from '../../assets/images/logo.png';
 import { lazy, Suspense, useEffect } from 'react';
 import SearchForm from '../../components/SearchForm/SearchForm';
-import { Spinner } from '@patternfly/react-core';
 import styled from '@emotion/styled';
 import { useSelector } from 'react-redux';
 
@@ -64,13 +63,13 @@ export default function HomePage() {
                 <section id="search-area">
                     <img src={Logo} id="logo" alt="AntCatalog Logo" onClick={() => window.location.reload()} />
                     <SearchForm />
-                    <Suspense fallback={<Spinner isSVG />}><CourseList /></Suspense>
+                    <Suspense fallback={null}><CourseList /></Suspense>
                 </section>
                 <section id="chart-area">
                     {(([null, false].includes(internalState.formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
                                 || (internalState.formInput.aggregate === true && searchResultState.data.length <= 0))
                             ? <EmptyChart />
-                            : <Suspense fallback={<Spinner isSVG />}><GradeChart /></Suspense>}
+                            : <Suspense fallback={<EmptyChart />}><GradeChart /></Suspense>}
                 </section>
             </main>
         </HomePageContainerElement>
