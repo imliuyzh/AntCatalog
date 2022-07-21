@@ -14,6 +14,7 @@ export default function QuarterMenu({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <Select
+            aria-label="quarter-input"
             closeMenuOnSelect={false}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}

@@ -7,6 +7,7 @@ export default function CourseCodeInput({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <CreatableSelect
+            aria-label="course-code-input"
             isMulti
             onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseCode: newValue.map(({ value }) => value) }))}
             placeholder="Course Code"
