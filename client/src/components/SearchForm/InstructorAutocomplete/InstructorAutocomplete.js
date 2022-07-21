@@ -21,6 +21,7 @@ export default function InstructorAutocomplete({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <AsyncSelect
+            aria-label="instructor-input"
             isMulti
             loadOptions={loadOptions}
             onChange={(newValue) => internalStateDispatch(updateFormInput({ instructor: newValue.map(({ value }) => value) }))}

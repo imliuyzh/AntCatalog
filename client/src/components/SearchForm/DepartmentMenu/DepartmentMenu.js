@@ -610,6 +610,7 @@ export default function DepartmentMenu({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <Select
+            aria-label="department-input"
             closeMenuOnSelect={false}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
