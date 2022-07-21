@@ -10,7 +10,7 @@ describe('miscellaneous cases', () => {
         expect(response.statusCode).toBe(404);
         expect(response.body.success).toBe(false);
     });
-    test('should respond with 500 status when there is an internal error', async () => {
+    test('should respond with 500 status when there is an internal error', () => {
         let res = {
             status: jest.fn().mockReturnThis(),
             send: jest.fn().mockReturnThis(),
