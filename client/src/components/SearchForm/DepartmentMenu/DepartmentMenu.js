@@ -601,6 +601,10 @@ const DEPARTMENT = [
         "label": "VIS STD . . . . . .Visual Studies"
     },
     {
+        "value": "WOMN ST",
+        "label": "WOMN ST . . . . . Women's Studies"
+    },
+    {
         "value": "WRITING",
         "label": "WRITING . . . . . Writing"
     }
