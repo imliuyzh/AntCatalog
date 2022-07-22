@@ -14,7 +14,7 @@ function internalErrorHandler(err: Error, req: Request | any, res: Response | an
         method: req.method,
         url: req.originalUrl,
         query: req.query,
-        body: req.body,
+        body: JSON.stringify(req.body, null, 2),
         trace: err.stack
     });
     res
