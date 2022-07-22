@@ -99,7 +99,7 @@ import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHand
 const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
     .middleware;
-const cacheWorker = cache('2 minutes', (_: unknown, res: express.Response) => res.statusCode === 200);
+const cacheWorker = cache('60 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
 const validators: ValidationChain[] = [
     body('values.year')
         .default([])
