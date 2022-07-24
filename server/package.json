@@ -11,8 +11,6 @@
     "stop": "pm2 stop ./build/index.js",
     "test": "jest"
   },
-  "author": "Yizhen Liu",
-  "license": "ISC",
   "devDependencies": {
     "@types/apicache": "^1.6.1",
     "@types/compression": "^1.7.2",

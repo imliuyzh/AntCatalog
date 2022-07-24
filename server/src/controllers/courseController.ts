@@ -88,8 +88,8 @@ export default async function(req: express.Request, res: express.Response, next:
             ip: req.ip,
             method: req.method,
             url: req.originalUrl,
-            body: req.body,
-            data: courses
+            body: JSON.stringify(req.body, null, 2),
+            data: JSON.stringify(courses)
         });
     } catch (exception: any) {
         next(exception);

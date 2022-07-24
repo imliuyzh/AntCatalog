@@ -1,6 +1,5 @@
 import normalizeCourseCode from '../../../utils/normalizeCourseCode';
 import styled from '@emotion/styled';
-import { v4 } from 'uuid';
 
 const CourseInformationContainerElement = styled.div`
     display: flex;
@@ -14,10 +13,10 @@ export default function CourseTooltip({ isAggregateData, items, title }) {
         <>
             { (isAggregateData) ? '' : <h5 style={{ marginTop: 16 }}>{title}</h5> }
             <ul style={{ paddingLeft: 0 }}>
-                {items?.map(({ data, color }) => 
+                {items?.map(({ data, color }, index) => 
                     <li
                         className="g2-tooltip-list-item"
-                        key={v4()}
+                        key={`tooltip-item-${index}`}
                         style={{
                             display: 'flex',
                             flexDirection: 'column',

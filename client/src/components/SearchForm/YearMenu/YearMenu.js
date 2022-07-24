@@ -20,11 +20,12 @@ export default function YearMenu({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
         <Select
+            aria-label="year-input"
             closeMenuOnSelect={false}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ year: option.map(({ value }) => value) }))}
             options={YEARS}
-            placeholder="Year"
+            placeholder="Years"
             ref={inputRef}
             styles={styles1}
         />

@@ -43,7 +43,7 @@ export default function EmptyChart() {
                 late grade submittal. If this happens, please create an issue on GitHub.
 
                 <GitHubLinkContainerElement>
-                    <a href="https://github.com/imliuyzh/AntCatalog" id="github-button" target="_blank" rel="noreferrer">
+                    <a href="https://github.com/imliuyzh/AntCatalog" id="github-button" target="_blank" title="GitHub" rel="noreferrer">
                         <GithubIcon fill="#000000" id="github-icon" />
                     </a>
                 </GitHubLinkContainerElement>
