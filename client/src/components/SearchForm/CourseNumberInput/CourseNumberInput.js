@@ -10,7 +10,7 @@ export default function CourseNumberInput({ inputRef }) {
             aria-label="course-number-input"
             isMulti
             onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseNumber: newValue.map(({ value }) => value) }))}
-            placeholder="Course Number"
+            placeholder="Course Numbers"
             ref={inputRef}
             styles={styles2}
         />

@@ -19,7 +19,7 @@ export default function QuarterMenu({ inputRef }) {
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}
             options={QUARTER}
-            placeholder="Quarter"
+            placeholder="Quarters"
             ref={inputRef}
             styles={styles1}
         />

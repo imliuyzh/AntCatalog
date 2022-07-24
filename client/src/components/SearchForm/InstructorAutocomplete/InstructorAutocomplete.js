@@ -29,7 +29,7 @@ export default function InstructorAutocomplete({ inputRef }) {
             isMulti
             loadOptions={loadOptions}
             onChange={(newValue) => internalStateDispatch(updateFormInput({ instructor: newValue.map(({ value }) => value) }))}
-            placeholder="Instructor"
+            placeholder="Instructors"
             ref={inputRef}
             styles={styles2}
         />
