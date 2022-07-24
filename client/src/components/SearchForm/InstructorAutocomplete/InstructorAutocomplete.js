@@ -5,14 +5,18 @@ import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 
 const loadOptions = debounce((instructorInput, callback) => {
-    if (instructorInput.length >= 2) {
-        fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/instructors?name=${encodeURIComponent(instructorInput)}`)
-            .then(response => response.json())
-            .then(data => callback(data.matches.map(match => ({
-                value: match,
-                label: match
-            }))));
-    } else {
+    try {
+        if (instructorInput.trim().length >= 2) {
+            fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/instructors?name=${encodeURIComponent(instructorInput)}`)
+                .then(response => response.json())
+                .then(data => callback(data.matches.map(match => ({
+                    value: match,
+                    label: match
+                }))));
+        } else {
+            callback([]);
+        }
+    } catch {
         callback([]);
     }
 }, 200);
