@@ -126,15 +126,15 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
     }
     if (req.body.values.courseNumber.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.course_number IN (:courseNumber)`;
-        replacements.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
+        replacements.courseNumber = req.body.values.courseNumber;
     }
     if (req.body.values.department.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.department IN (:department)`;
-        replacements.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
+        replacements.department = req.body.values.department;
     }
     if (req.body.values.quarter.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.quarter IN (:quarter)`;
-        replacements.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
+        replacements.quarter = req.body.values.quarter;
     }
     if (req.body.values.year.length > 0) {
         aggregateQuery = `${aggregateQuery} AND C.year IN (:year)`;
@@ -142,7 +142,7 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
     }
     if (req.body.values.instructor.length > 0) {
         aggregateQuery = `${aggregateQuery} AND I.name IN (:instructor)`;
-        replacements.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
+        replacements.instructor = req.body.values.instructor;
     }
 
     return [aggregateQuery, replacements];
@@ -213,15 +213,15 @@ async function getAssociatedCourses(req: express.Request): Promise<ProcessedCour
     }
     if (req.body.values.courseNumber.length > 0) {
         tokens[1] = `${tokens[1]} AND C.course_number IN (:courseNumber)`;
-        replacements.courseNumber = req.body.values.courseNumber.map((number: string) => number.toUpperCase());
+        replacements.courseNumber = req.body.values.courseNumber;
     }
     if (req.body.values.department.length > 0) {
         tokens[1] = `${tokens[1]} AND C.department IN (:department)`;
-        replacements.department = req.body.values.department.map((dept: string) => dept.toUpperCase());
+        replacements.department = req.body.values.department;
     }
     if (req.body.values.quarter.length > 0) {
         tokens[1] = `${tokens[1]} AND C.quarter IN (:quarter)`;
-        replacements.quarter = req.body.values.quarter.map((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase());
+        replacements.quarter = req.body.values.quarter;
     }
     if (req.body.values.year.length > 0) {
         tokens[1] = `${tokens[1]} AND C.year IN (:year)`;
@@ -230,7 +230,7 @@ async function getAssociatedCourses(req: express.Request): Promise<ProcessedCour
     if (req.body.values.instructor.length > 0) {
         tokens[0] = `${tokens[0]}, Instructor I`;
         tokens[1] = `${tokens[1]} AND C.course_id = I.course_id AND IV.course_id = I.course_id AND I.name IN (:instructor)`;
-        replacements.instructor = req.body.values.instructor.map((inst: string) => inst.toUpperCase());
+        replacements.instructor = req.body.values.instructor;
     }
 
     return [tokens.join(' '), replacements];

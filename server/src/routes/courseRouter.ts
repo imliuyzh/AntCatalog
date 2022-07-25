@@ -129,7 +129,8 @@ const validators: ValidationChain[] = [
         .withMessage('It must be a non-empty string.')
         .custom((quarter: String) => ['FALL', 'WINTER', 'SPRING', 'SUMMER'].includes(quarter.toUpperCase()))
         .bail()
-        .withMessage('Fall, Winter, Spring, and Summer quarters only.'),
+        .withMessage('Fall, Winter, Spring, and Summer quarters only.')
+        .customSanitizer((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase()),
     body('values.department')
         .default([])
         .isArray()
@@ -142,7 +143,8 @@ const validators: ValidationChain[] = [
         .trim()
         .notEmpty()
         .bail()
-        .withMessage('It must be a non-empty string.'),
+        .withMessage('It must be a non-empty string.')
+        .toUpperCase(),
     body('values.courseNumber')
         .default([])
         .isArray()
@@ -155,7 +157,8 @@ const validators: ValidationChain[] = [
         .trim()
         .notEmpty()
         .bail()
-        .withMessage('It must be a non-empty string.'),
+        .withMessage('It must be a non-empty string.')
+        .toUpperCase(),
     body('values.courseCode')
         .default([])
         .isArray()
@@ -181,7 +184,8 @@ const validators: ValidationChain[] = [
         .trim()
         .notEmpty()
         .bail()
-        .withMessage('It must be a non-empty string.'),
+        .withMessage('It must be a non-empty string.')
+        .toUpperCase(),
     body('options.aggregate')
         .exists()
         .bail()
