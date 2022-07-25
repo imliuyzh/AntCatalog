@@ -130,7 +130,7 @@ const validators: ValidationChain[] = [
         .custom((quarter: String) => ['FALL', 'WINTER', 'SPRING', 'SUMMER'].includes(quarter.toUpperCase()))
         .bail()
         .withMessage('Fall, Winter, Spring, and Summer quarters only.')
-        .customSanitizer((qtr: string) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase()),
+        .customSanitizer((qtr: string, _: unknown) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase()),
     body('values.department')
         .default([])
         .isArray()
