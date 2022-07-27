@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 export default function CourseNumberInput({ inputRef }) {
     let internalStateDispatch = useDispatch();
     return (
-        <Tooltip content="Please provide alphanumeric codes for courses (e.g. H2A, 8C & 1020).">
+        <Tooltip content="Please provide alphanumeric codes for courses (e.g. H2A, 8C & 102).">
             <CreatableSelect
                 aria-label="course-number-input"
                 isMulti
