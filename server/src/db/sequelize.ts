@@ -1,3 +1,4 @@
+import { OPEN_READONLY } from 'sqlite3';
 import { Sequelize } from 'sequelize';
 
 // Database connection specifications
@@ -6,6 +7,8 @@ const sequelize: Sequelize = new Sequelize('sqlite:./src/db/data.db', {
         freezeTableName: true,
         timestamps: false
     },
+    dialect: 'sqlite',
+    dialectOptions: { mode: OPEN_READONLY },
     logging: false,
     pool: {
         max: 100,
