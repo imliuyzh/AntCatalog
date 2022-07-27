@@ -619,7 +619,7 @@ export default function DepartmentMenu({ inputRef }) {
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
             options={DEPARTMENT}
-            placeholder="Departments (All)"
+            placeholder="All Departments"
             ref={inputRef}
             styles={styles1}
         />
