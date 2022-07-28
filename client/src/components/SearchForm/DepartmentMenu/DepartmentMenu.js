@@ -3,7 +3,7 @@ import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 
-const DEPARTMENT = [
+const DEPARTMENTS = [
     {
         "value": "AC ENG",
         "label": "AC ENG . . . . . .Academic English"
@@ -618,7 +618,7 @@ export default function DepartmentMenu({ inputRef }) {
             closeMenuOnSelect={false}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
-            options={DEPARTMENT}
+            options={DEPARTMENTS}
             placeholder="Include All Departments"
             ref={inputRef}
             styles={styles1}
