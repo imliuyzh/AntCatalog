@@ -1,4 +1,4 @@
-00# `/server`
+# `/server`
 
 ## Structure
 ### `/src`
