@@ -95,11 +95,11 @@ A SQLite database containing course information.
 ```
 
 ##### sequelize.ts
-A file connecting to the SQLite database above.
+A file connecting to the SQLite file database above.
 
 #### `/middlewares`
 ##### courseRateLimiter.ts
-A file for limiting five requests per second.
+A file for limiting five requests per second for the `/course` endpoint.
 
 ##### internalErrorHandler.ts
 A file for handling malformed JSON request bodies as well as server errors (HTTP 400 & HTTP 500).
@@ -108,7 +108,7 @@ A file for handling malformed JSON request bodies as well as server errors (HTTP
 A file for handling wrong user request format (HTTP 422).
 
 ##### invalidRouteHandler.ts
-A file for handling errors where the location specified is not valid (HTTP 404).
+A file for handling errors where an invalid location is specified (HTTP 404).
 
 #### `/routes`
 ##### courseRouter.ts
