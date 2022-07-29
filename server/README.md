@@ -102,7 +102,7 @@ A file connecting to the SQLite database above.
 A file for limiting five requests per second.
 
 ##### internalErrorHandler.ts
-A file for handling server errors (HTTP 500).
+A file for handling malformed request format which throws `SyntaxError` and server errors (HTTP 400 & HTTP 500).
 
 ##### invalidRequestSchemaHandler.ts
 A file for handling wrong user request format (HTTP 422).
