@@ -18,10 +18,10 @@ function internalErrorHandler(err: Error, req: Request | any, res: Response | an
         trace: err.stack
     });
     res
-        .status(500)
+        .status(err.name === 'SyntaxError' ? 400 : 500)
         .json({
             success: false,
-            info: 'Encountered an internal server error.'
+            info: err.name === 'SyntaxError' ? 'Please review your request format.' : 'Encountered an internal server error.'
         });
     next();
 }

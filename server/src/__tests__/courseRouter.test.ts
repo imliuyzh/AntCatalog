@@ -42,7 +42,7 @@ describe('POST /courses', () => {
                             "offset": 0
                         `
                     );
-                expect(response.statusCode).toBe(500);
+                expect(response.statusCode).toBe(400);
                 expect(response.body.success).toBe(false);
             });
             test('should respond with a failed status when body is malformed 2', async () => {
@@ -50,7 +50,7 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .set('Content-Type', 'application/json')
                     .send(`{`);
-                expect(response.statusCode).toBe(500);
+                expect(response.statusCode).toBe(400);
                 expect(response.body.success).toBe(false);
             });
         });
