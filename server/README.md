@@ -99,7 +99,7 @@ A file connecting to the SQLite file database above.
 
 #### `/middlewares`
 ##### courseRateLimiter.ts
-A file for limiting five requests per second for the `/course` endpoint.
+A file for limiting five requests per second for the `/courses` endpoint.
 
 ##### internalErrorHandler.ts
 A file for handling malformed JSON request bodies as well as server errors (HTTP 400 & HTTP 500).
