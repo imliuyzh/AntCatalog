@@ -59,6 +59,14 @@
  *         }]
  *     }
  * 
+ * @apiError BrokenRequestError An exception is raised when parsing the request body.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Internal Server Error
+ *     {
+ *         "success": false,
+ *         "info": "Please review your request body."
+ *     }
+ * 
  * @apiError InvalidSchema The parameters do not match the expectation.
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 422 Unprocessable Entity

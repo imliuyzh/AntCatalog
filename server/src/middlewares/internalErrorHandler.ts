@@ -21,7 +21,7 @@ function internalErrorHandler(err: Error, req: Request | any, res: Response | an
         .status(err.name === 'SyntaxError' ? 400 : 500)
         .json({
             success: false,
-            info: err.name === 'SyntaxError' ? 'Please review your request format.' : 'Encountered an internal server error.'
+            info: err.name === 'SyntaxError' ? 'Please review your request body.' : 'Encountered an internal server error.'
         });
     next();
 }
