@@ -61,7 +61,7 @@
  * 
  * @apiError BrokenRequestError An exception is raised when parsing the request body.
  * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Internal Server Error
+ *     HTTP/1.1 400 Bad Request
  *     {
  *         "success": false,
  *         "info": "Please review your request body."
