@@ -28,7 +28,7 @@ The program for performing stress testing. To run it:
    + Execute `npm run dev` in `/server` beforehand
    + Run `sysctl -w fs.file-max=500000` if the system open file limit is too low (this is in console messages)
 5. Open http://0.0.0.0:8089 and type 100 and 50
-6. Press start swarming
+6. Press `Start Swarming`
 
 ##### requirements.txt
 Dependencies to `locustfile.py`.
