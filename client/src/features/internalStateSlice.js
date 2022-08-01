@@ -12,6 +12,7 @@ const initialState = {
         aggregate: false,
         offset: 0
     },
+    isFormModified: false,
     showAlert: false,
     showCourseList: false,
 };
@@ -41,16 +42,21 @@ export const internalStateSlice = createSlice({
                 aggregate: false,
                 offset: 0
             };
+            state.isFormModified = false;
         },
         showCourseList: (state) => {
             state.showCourseList = true;
         },
         updateFormInput: (state, action) => {
             state.formInput = { ...state.formInput, ...action.payload };
+            state.isFormModified = true;
+        },
+        updateIsFormModified: (state, action) => {
+            state.isFormModified = action.payload;
         },
     },
 });
 
-export const { closeAlert, closeCourseList, showAlert, resetFormInput, showCourseList, updateFormInput } = internalStateSlice.actions;
+export const { closeAlert, closeCourseList, showAlert, resetFormInput, showCourseList, updateFormInput, updateIsFormModified } = internalStateSlice.actions;
 
 export default internalStateSlice.reducer;

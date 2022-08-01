@@ -1,4 +1,4 @@
-import { closeCourseList, showAlert, showCourseList, updateFormInput } from '../../../features/internalStateSlice';
+import { closeCourseList, showAlert, showCourseList, updateFormInput, updateIsFormModified } from '../../../features/internalStateSlice';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
 import { replaceResult } from '../../../features/searchResultSlice';
 import styled from '@emotion/styled';
@@ -32,22 +32,20 @@ export default function SearchButton() {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch(), searchResultDispatch = useDispatch();
 
-    const generateRequestParams = () => {
-        return {
-            values: {
-                year: (internalState.formInput.year.length > 0) ? internalState.formInput.year : null,
-                quarter: (internalState.formInput.quarter.length > 0) ? internalState.formInput.quarter : null,
-                department: (internalState.formInput.department.length > 0) ? internalState.formInput.department : null,
-                courseNumber: (internalState.formInput.courseNumber.length > 0) ? internalState.formInput.courseNumber : null,
-                courseCode: (internalState.formInput.courseCode.length > 0) ? internalState.formInput.courseCode : null,
-                instructor: (internalState.formInput.instructor.length > 0) ? internalState.formInput.instructor : null
-            },
-            options: {
-                aggregate: internalState.formInput.aggregate,
-                offset: 0
-            }
-        };
-    };
+    const generateRequestParams = () => ({
+        values: {
+            year: (internalState.formInput.year.length > 0) ? internalState.formInput.year : null,
+            quarter: (internalState.formInput.quarter.length > 0) ? internalState.formInput.quarter : null,
+            department: (internalState.formInput.department.length > 0) ? internalState.formInput.department : null,
+            courseNumber: (internalState.formInput.courseNumber.length > 0) ? internalState.formInput.courseNumber : null,
+            courseCode: (internalState.formInput.courseCode.length > 0) ? internalState.formInput.courseCode : null,
+            instructor: (internalState.formInput.instructor.length > 0) ? internalState.formInput.instructor : null
+        },
+        options: {
+            aggregate: internalState.formInput.aggregate,
+            offset: 0
+        }
+    });
 
     const submitForm = async (event) => {
         event.preventDefault();
@@ -66,6 +64,7 @@ export default function SearchButton() {
                         data: information.data
                     }));
                     internalStateDispatch(updateFormInput({ offset: 0 }));
+                    internalStateDispatch(updateIsFormModified(false));
                     if (information.aggregate === false && information.data.length > 0) {
                         internalStateDispatch(showCourseList());
                     } else if (information.aggregate === true && information.data.length > 0) {

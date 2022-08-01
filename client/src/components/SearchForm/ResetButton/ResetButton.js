@@ -36,9 +36,6 @@ export default function ResetButton({ yearInput, quarterInput, departmentInput, 
 
     const reset = (event) => {
         event.preventDefault();
-        internalStateDispatch(resetFormInput());
-        searchResultDispatch(resetResult());
-        selectedCoursesDispatch(resetCourses());
 
         yearInput.current.clearValue();
         quarterInput.current.clearValue();
@@ -46,6 +43,10 @@ export default function ResetButton({ yearInput, quarterInput, departmentInput, 
         courseNumberInput.current.clearValue();
         courseCodeInput.current.clearValue();
         instructorInput.current.clearValue();
+
+        internalStateDispatch(resetFormInput());
+        searchResultDispatch(resetResult());
+        selectedCoursesDispatch(resetCourses());
     };
 
     return (

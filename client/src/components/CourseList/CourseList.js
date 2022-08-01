@@ -1,5 +1,5 @@
 import { addCourse, removeCourse } from '../../features/selectedCoursesSlice';
-import { closeCourseList, showAlert, showCourseList, updateFormInput } from '../../features/internalStateSlice';
+import { closeCourseList, showAlert, showCourseList, updateFormInput, updateIsFormModified } from '../../features/internalStateSlice';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import normalizeCourseCode from '../../utils/normalizeCourseCode';
 import { Pagination } from '@patternfly/react-core';
@@ -48,6 +48,8 @@ const CourseList = React.memo(() => {
             internalStateDispatch(showAlert('Course list is disabled for aggregated data.'));
         } else if (searchResultState.isAggregateData === null && searchResultState.data.length === 0) {
             internalStateDispatch(showAlert('Please search for courses.'));
+        } else if (internalState.isFormModified) {
+            internalStateDispatch(showAlert('Please search with new conditions in the form.'));
         } else if (searchResultState.data.length === 0) {
             internalStateDispatch(showAlert('Empty course list.'));
         } else {
@@ -55,22 +57,20 @@ const CourseList = React.memo(() => {
         }
     };
 
-    const generateRequestParams = (newOffset) => {
-        return {
-            values: {
-                year: (internalState.formInput.year.length > 0) ? internalState.formInput.year : null,
-                quarter: (internalState.formInput.quarter.length > 0) ? internalState.formInput.quarter : null,
-                department: (internalState.formInput.department.length > 0) ? internalState.formInput.department : null,
-                courseNumber: (internalState.formInput.courseNumber.length > 0) ? internalState.formInput.courseNumber : null,
-                courseCode: (internalState.formInput.courseCode.length > 0) ? internalState.formInput.courseCode : null,
-                instructor: (internalState.formInput.instructor.length > 0) ? internalState.formInput.instructor : null
-            },
-            options: {
-                aggregate: false,
-                offset: newOffset
-            }
-        };
-    };
+    const generateRequestParams = (newOffset) => ({
+        values: {
+            year: (internalState.formInput.year.length > 0) ? internalState.formInput.year : null,
+            quarter: (internalState.formInput.quarter.length > 0) ? internalState.formInput.quarter : null,
+            department: (internalState.formInput.department.length > 0) ? internalState.formInput.department : null,
+            courseNumber: (internalState.formInput.courseNumber.length > 0) ? internalState.formInput.courseNumber : null,
+            courseCode: (internalState.formInput.courseCode.length > 0) ? internalState.formInput.courseCode : null,
+            instructor: (internalState.formInput.instructor.length > 0) ? internalState.formInput.instructor : null
+        },
+        options: {
+            aggregate: false,
+            offset: newOffset
+        }
+    });
 
     const fetchPageData = async (event, newOffset) => {
         try {
@@ -80,7 +80,7 @@ const CourseList = React.memo(() => {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'
             });
-            
+
             switch (response.status) {
                 case 200:
                     let information = await response.json();
@@ -90,6 +90,7 @@ const CourseList = React.memo(() => {
                             data: information.data
                         }));
                         internalStateDispatch(updateFormInput({ offset: newOffset }));
+                        internalStateDispatch(updateIsFormModified(false));
                     } else {
                         internalStateDispatch(showAlert('No more courses!'));
                     }
@@ -121,7 +122,7 @@ const CourseList = React.memo(() => {
         <>
             <CourseListButtonContainerElement onClick={handleOnClick} type="button">
                 <ListIcon fill="#aab3bc" id="list-icon" />
-                <span>Course List (Last Search)</span>
+                <span>Course List</span>
             </CourseListButtonContainerElement>
 
             {(internalState.formInput.aggregate)
