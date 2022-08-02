@@ -97,9 +97,9 @@ You should see the website deployed when you entered the public IPv4 address of 
 ### Azure App Service
 The instruction below is written for a Linux free tier instance. You can create one by following [here](https://www.youtube.com/watch?v=npI4GD8mFuA). Also, please ensure Visual Studio Code is installed along with the Azure App Service extension.
 
-1. Open the [Cloud Shell](https://shell.azure.com/) and replace `<resource-group-name>` and `<app-name>` in these commands:
-   + `az webapp config appsettings set --resource-group <resource-group-name> --name <app-name> --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true`
-   + `az webapp config set --resource-group <resource-group-name> --name <app-name> --startup-file "npm run start:azure"`
+1. Go to the configuration page of the instance
+   + Under `Application settings`, add a new application setting called `SCM_DO_BUILD_DURING_DEPLOYMENT` and set it to true
+   + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0, turn off ARR affinity, enable HTTPS Only, and set Minimum TLS Version to 1.2
 2. Clone the repository to your local device and run `npm i && npm run build` in `/client`
 3. Rename `/client/build` to `/client/static` and move it to `/server`
 4. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
