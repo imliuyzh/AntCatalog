@@ -37,7 +37,7 @@ export default function SearchButton() {
         event.preventDefault();
         try {
             let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/courses`, {
-                body: JSON.stringify(generateRequestParams(internalState.formInput, 0)),
+                body: JSON.stringify(generateRequestParams(internalState.formInput)),
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'
             });

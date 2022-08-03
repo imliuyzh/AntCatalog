@@ -1,4 +1,4 @@
-export default function generateRequestParams(formInput, newOffset) {
+export default function generateRequestParams(formInput, newOffset = 0) {
     return {
         values: {
             year: formInput.year,
