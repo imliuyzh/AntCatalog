@@ -1,4 +1,5 @@
 import { closeCourseList, showAlert, showCourseList, updateFormInput, updateIsFormModified } from '../../../features/internalStateSlice';
+import generateRequestParams from '../../../utils/generateRequestParams';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
 import { replaceResult } from '../../../features/searchResultSlice';
 import styled from '@emotion/styled';
@@ -32,26 +33,11 @@ export default function SearchButton() {
     let internalState = useSelector(state => state.internalState);
     let internalStateDispatch = useDispatch(), searchResultDispatch = useDispatch();
 
-    const generateRequestParams = () => ({
-        values: {
-            year: (internalState.formInput.year.length > 0) ? internalState.formInput.year : null,
-            quarter: (internalState.formInput.quarter.length > 0) ? internalState.formInput.quarter : null,
-            department: (internalState.formInput.department.length > 0) ? internalState.formInput.department : null,
-            courseNumber: (internalState.formInput.courseNumber.length > 0) ? internalState.formInput.courseNumber : null,
-            courseCode: (internalState.formInput.courseCode.length > 0) ? internalState.formInput.courseCode : null,
-            instructor: (internalState.formInput.instructor.length > 0) ? internalState.formInput.instructor : null
-        },
-        options: {
-            aggregate: internalState.formInput.aggregate,
-            offset: 0
-        }
-    });
-
     const submitForm = async (event) => {
         event.preventDefault();
         try {
             let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/courses`, {
-                body: JSON.stringify(generateRequestParams()),
+                body: JSON.stringify(generateRequestParams(internalState.formInput, 0)),
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'
             });

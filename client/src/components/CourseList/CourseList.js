@@ -1,5 +1,6 @@
 import { addCourse, removeCourse } from '../../features/selectedCoursesSlice';
 import { closeCourseList, showAlert, showCourseList, updateFormInput, updateIsFormModified } from '../../features/internalStateSlice';
+import generateRequestParams from '../../utils/generateRequestParams';
 import { Modal, ModalVariant } from '@patternfly/react-core';
 import normalizeCourseCode from '../../utils/normalizeCourseCode';
 import { Pagination } from '@patternfly/react-core';
@@ -57,26 +58,11 @@ const CourseList = React.memo(() => {
         }
     };
 
-    const generateRequestParams = (newOffset) => ({
-        values: {
-            year: (internalState.formInput.year.length > 0) ? internalState.formInput.year : null,
-            quarter: (internalState.formInput.quarter.length > 0) ? internalState.formInput.quarter : null,
-            department: (internalState.formInput.department.length > 0) ? internalState.formInput.department : null,
-            courseNumber: (internalState.formInput.courseNumber.length > 0) ? internalState.formInput.courseNumber : null,
-            courseCode: (internalState.formInput.courseCode.length > 0) ? internalState.formInput.courseCode : null,
-            instructor: (internalState.formInput.instructor.length > 0) ? internalState.formInput.instructor : null
-        },
-        options: {
-            aggregate: false,
-            offset: newOffset
-        }
-    });
-
     const fetchPageData = async (event, newOffset) => {
         try {
             event.preventDefault();
             let response = await fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/courses`, {
-                body: JSON.stringify(generateRequestParams(newOffset)),
+                body: JSON.stringify(generateRequestParams(internalState.formInput, newOffset)),
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'
             });
