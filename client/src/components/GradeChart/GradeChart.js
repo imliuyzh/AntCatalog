@@ -21,9 +21,11 @@ const GradeChart = React.memo(() => {
         for (let course in selectedCoursesState) {
             for (let grade of ['A', 'B', 'C', 'D', 'F', 'P', 'NP']) {
                 result.push({
-                    name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
+                    name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} `
+                        + `(${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
                     grade,
-                    title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} (${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
+                    title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} `
+                        + `(${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                     courseCode: selectedCoursesState[course].courseCode,
                     amount: selectedCoursesState[course][`grade${grade}Count`],
                     instructors: selectedCoursesState[course].instructors.join(`/`),
@@ -53,7 +55,8 @@ const GradeChart = React.memo(() => {
         marginRatio: 0,
         padding: 'auto',
         seriesField: 'name',
-        theme: { fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji` },
+        theme: { fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, `
+            + `apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji` },
         tooltip: { customContent: (title, items) => <CourseTooltip isAggregateData={searchResultState.isAggregateData} items={items} title={title} /> },
         xField: 'grade',
         yField: 'amount',

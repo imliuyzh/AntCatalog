@@ -30,7 +30,8 @@ export const styles1 = {
     multiValueLabel: (styles) => ({
         ...styles,
         color: '#555759',
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
+            + `segoe ui emoji, Segoe UI Symbol, noto color emoji`
     }),
     multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
@@ -44,14 +45,16 @@ export const styles1 = {
     noOptionsMessage: (styles) => ({
         ...styles,
         color: '#aab3bc',
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
+            + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: '14px'
     }),
     option: (styles, { isFocused }) => ({
         ...styles,
         backgroundColor: isFocused ? '#f5f5f5' : '#ffffff',
         color: '#000000',
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
+            + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
         lineHeight: 1.5,
         padding: '7px 20px'
@@ -103,13 +106,15 @@ export const styles2 = {
     loadingMessage: (styles) => ({
         ...styles,
         color: '#aab3bc',
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
+            + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: '14px'
     }),
     multiValueLabel: (styles) => ({
         ...styles,
         color: '#555759',
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
+            + `segoe ui emoji, Segoe UI Symbol, noto color emoji`
     }),
     multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
@@ -123,14 +128,16 @@ export const styles2 = {
     noOptionsMessage: (styles) => ({
         ...styles,
         color: '#aab3bc',
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
+            + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: '14px'
     }),
     option: (styles, { isFocused }) => ({
         ...styles,
         backgroundColor: isFocused ? '#f5f5f5' : '#ffffff',
         color: '#000000',
-        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji`,
+        fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
+            + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: 14,
         lineHeight: 1.5,
         padding: '8px 20px'
