@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { css, Global } from "@emotion/react";
-import HomePage from './pages/HomePage/HomePage';
 import { lazy, Suspense } from 'react';
 
 const GlobalStyles = css`
@@ -10,6 +9,7 @@ const GlobalStyles = css`
     }
 `;
 
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const ErrorPage = lazy(() => import('./pages/ErrorPage/ErrorPage'));
 
 export default function App() {
@@ -17,20 +17,12 @@ export default function App() {
         <>
             <Global styles={GlobalStyles} />
             <BrowserRouter>
-                <Routes>
-                    <Route
-                        element={<HomePage />}
-                        path="/"
-                    />
-                    <Route
-                        element={
-                            <Suspense fallback={null}>
-                                <ErrorPage />
-                            </Suspense>
-                        }
-                        path="*"
-                    />
-                </Routes>
+                <Suspense fallback={null}>
+                    <Routes>
+                        <Route element={<HomePage />} path="/" />
+                        <Route element={<ErrorPage />} path="*" />
+                    </Routes>
+                </Suspense>
             </BrowserRouter>
         </>
     );
