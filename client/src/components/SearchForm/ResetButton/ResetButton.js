@@ -10,7 +10,7 @@ const ResetButtonElement = styled.div`
 
     #reset-button {
         align-items: center;
-        background-color: #efefef;
+        background-color: #f1f3f5;
         border: none;
         color: #333538;
         cursor: pointer;

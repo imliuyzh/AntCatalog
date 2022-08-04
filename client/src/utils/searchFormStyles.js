@@ -27,6 +27,10 @@ export const styles1 = {
         ...styles,
         margin: '8px auto'
     }),
+    multiValue: (styles) => ({
+        ...styles,
+        backgroundColor: '#f1f3f5',
+    }),
     multiValueLabel: (styles) => ({
         ...styles,
         color: '#555759',
@@ -36,7 +40,7 @@ export const styles1 = {
     multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
         backgroundColor: (isFocused || isSelected) ? '#ffd200' : styles.backgroundColor,
-        color: (isFocused || isSelected) ? '#1b3d6d' : styles.backgroundColor,
+        color: (isFocused || isSelected) ? '#1b3d6d' : styles.color,
         '&:hover': {
             backgroundColor: '#ffd200',
             color: '#1b3d6d'
@@ -49,9 +53,13 @@ export const styles1 = {
             + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: '14px'
     }),
-    option: (styles, { isFocused }) => ({
+    option: (styles, { isFocused, isSelected }) => ({
         ...styles,
-        backgroundColor: isFocused ? '#f5f5f5' : '#ffffff',
+        ':active': {
+            ...styles[':active'],
+            backgroundColor: '#f1f3f5'
+        },
+        backgroundColor: (isFocused || isSelected) ? '#f1f3f5' : '#ffffff',
         color: '#000000',
         fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
             + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
@@ -110,6 +118,10 @@ export const styles2 = {
             + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: '14px'
     }),
+    multiValue: (styles) => ({
+        ...styles,
+        backgroundColor: '#f1f3f5',
+    }),
     multiValueLabel: (styles) => ({
         ...styles,
         color: '#555759',
@@ -119,7 +131,7 @@ export const styles2 = {
     multiValueRemove: (styles, { isFocused, isSelected }) => ({
         ...styles,
         backgroundColor: (isFocused || isSelected) ? '#ffd200' : styles.backgroundColor,
-        color: (isFocused || isSelected) ? '#1b3d6d' : styles.backgroundColor,
+        color: (isFocused || isSelected) ? '#1b3d6d' : styles.color,
         '&:hover': {
             backgroundColor: '#ffd200',
             color: '#1b3d6d'
@@ -132,9 +144,13 @@ export const styles2 = {
             + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
         fontSize: '14px'
     }),
-    option: (styles, { isFocused }) => ({
+    option: (styles, { isFocused, isSelected }) => ({
         ...styles,
-        backgroundColor: isFocused ? '#f5f5f5' : '#ffffff',
+        ':active': {
+            ...styles[':active'],
+            backgroundColor: '#f1f3f5'
+        },
+        backgroundColor: (isFocused || isSelected) ? '#f1f3f5' : '#ffffff',
         color: '#000000',
         fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, apple color emoji, `
             + `segoe ui emoji, Segoe UI Symbol, noto color emoji`,
