@@ -45,28 +45,28 @@ export default function SearchForm() {
             <form id="search-form">
                 <div className="form-group">
                     <div className="group-elements">
-                        <YearMenu inputRef={yearInput} />
+                        <YearMenu ref={yearInput} />
                     </div>
                     <div className="group-elements">
-                        <QuarterMenu inputRef={quarterInput} />
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <div className="group-elements">
-                        <DepartmentMenu inputRef={departmentInput} />
-                    </div>
-                    <div className="group-elements">
-                        <CourseNumberInput inputRef={courseNumberInput} />
-                    </div>
-                    <div className="group-elements">
-                        <CourseCodeInput inputRef={courseCodeInput} />
+                        <QuarterMenu ref={quarterInput} />
                     </div>
                 </div>
 
                 <div className="form-group">
                     <div className="group-elements">
-                        <InstructorAutocomplete inputRef={instructorInput} />
+                        <DepartmentMenu ref={departmentInput} />
+                    </div>
+                    <div className="group-elements">
+                        <CourseNumberInput ref={courseNumberInput} />
+                    </div>
+                    <div className="group-elements">
+                        <CourseCodeInput ref={courseCodeInput} />
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <div className="group-elements">
+                        <InstructorAutocomplete ref={instructorInput} />
                     </div>
                     <div className="group-elements">
                         <AggregateOption />

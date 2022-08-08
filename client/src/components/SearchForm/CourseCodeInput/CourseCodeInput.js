@@ -4,8 +4,9 @@ import { Tooltip } from '@patternfly/react-core';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import * as React from 'react';
 
-export default function CourseCodeInput({ inputRef }) {
+const CourseCodeInput = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
     let [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
@@ -23,9 +24,11 @@ export default function CourseCodeInput({ inputRef }) {
                 onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseCode: newValue.map(({ value }) => value) }))}
                 onFocus={(_) => setIsTooltipVisible(true)}
                 placeholder="Course Codes"
-                ref={inputRef}
+                ref={ref}
                 styles={styles2}
             />
         </Tooltip>
     );
-}
+});
+
+export default CourseCodeInput;

@@ -2,6 +2,7 @@ import Select from 'react-select';
 import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
+import * as React from 'react';
 
 const DEPARTMENTS = [
     {
@@ -610,7 +611,7 @@ const DEPARTMENTS = [
     }
 ];
 
-export default function DepartmentMenu({ inputRef }) {
+const DepartmentMenu = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
     return (
         <Select
@@ -620,8 +621,10 @@ export default function DepartmentMenu({ inputRef }) {
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
             options={DEPARTMENTS}
             placeholder="Include All Departments"
-            ref={inputRef}
+            ref={ref}
             styles={styles1}
         />
     );
-}
+});
+
+export default DepartmentMenu;

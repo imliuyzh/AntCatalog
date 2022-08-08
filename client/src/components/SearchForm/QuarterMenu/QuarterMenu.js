@@ -2,6 +2,7 @@ import Select from 'react-select';
 import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
+import * as React from 'react';
 
 const QUARTERS = [
     { value: 'Fall', label: 'Fall' },
@@ -10,7 +11,7 @@ const QUARTERS = [
     { value: 'Summer', label: 'Summer' },
 ];
 
-export default function QuarterMenu({ inputRef }) {
+const QuarterMenu = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
     return (
         <Select
@@ -20,8 +21,10 @@ export default function QuarterMenu({ inputRef }) {
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}
             options={QUARTERS}
             placeholder="Quarters"
-            ref={inputRef}
+            ref={ref}
             styles={styles1}
         />
     );
-}
+});
+
+export default QuarterMenu;

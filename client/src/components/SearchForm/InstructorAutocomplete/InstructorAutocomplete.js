@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce';
 import { styles2 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
+import * as React from 'react';
 
 const loadOptions = debounce((instructorInput, callback) => {
     try {
@@ -21,7 +22,7 @@ const loadOptions = debounce((instructorInput, callback) => {
     }
 }, 200);
 
-export default function InstructorAutocomplete({ inputRef }) {
+const InstructorAutocomplete = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
     return (
         <AsyncSelect
@@ -30,8 +31,10 @@ export default function InstructorAutocomplete({ inputRef }) {
             loadOptions={loadOptions}
             onChange={(newValue) => internalStateDispatch(updateFormInput({ instructor: newValue.map(({ value }) => value) }))}
             placeholder="Instructors"
-            ref={inputRef}
+            ref={ref}
             styles={styles2}
         />
     );
-}
+});
+
+export default InstructorAutocomplete;

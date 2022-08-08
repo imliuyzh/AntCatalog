@@ -2,6 +2,7 @@ import Select from 'react-select';
 import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
+import * as React from 'react';
 
 const YEARS = [
     { value: 2022, label: '2022' },
@@ -16,7 +17,7 @@ const YEARS = [
     { value: 2013, label: '2013' }
 ];
 
-export default function YearMenu({ inputRef }) {
+const YearMenu = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
     return (
         <Select
@@ -26,8 +27,10 @@ export default function YearMenu({ inputRef }) {
             onChange={(option) => internalStateDispatch(updateFormInput({ year: option.map(({ value }) => value) }))}
             options={YEARS}
             placeholder="Years"
-            ref={inputRef}
+            ref={ref}
             styles={styles1}
         />
     );
-}
+});
+
+export default YearMenu;
