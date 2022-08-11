@@ -101,7 +101,7 @@ The instruction below is written for a Linux free tier instance. You can create 
    + Under `Application settings`, add a new application setting called `SCM_DO_BUILD_DURING_DEPLOYMENT` and set it to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0, turn off ARR affinity, enable HTTPS Only, and set Minimum TLS Version to 1.2
 2. Clone the repository to your local device and run `npm i && npm run build` in `/client`
-3. Rename `/client/build` to `/client/static` and move it to `/server`
+3. Move `/client/build` to `/server` as `/server/public`
 4. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
 
