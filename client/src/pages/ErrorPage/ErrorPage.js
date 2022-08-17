@@ -49,7 +49,7 @@ const ErrorPageContainerElement = styled.div`
         justify-content: center;
         margin: 6rem 0 0;
         padding: 8px 28px;
-        transition: all 0.8s;
+        transition: all 0.5s;
         width: 100%;
     }
     
