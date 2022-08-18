@@ -157,7 +157,7 @@ const CourseList = React.memo(() => {
                             isCompact
                             onPreviousClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset - PAGE_ITEM_LIMIT)}
                             onNextClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset + PAGE_ITEM_LIMIT)}
-                            page={parseInt((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}
+                            page={parseInt(((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT).toString())}
                             perPage={PAGE_ITEM_LIMIT}
                             perPageOptions={[{
                                 title: "15",
@@ -167,7 +167,7 @@ const CourseList = React.memo(() => {
                                 itemsPerPage: '',
                                 perPageSuffix: 'Max'
                             }}
-                            toggleTemplate={() => `Page ${parseInt((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT)}`}
+                            toggleTemplate={() => `Page ${parseInt(((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT).toString())}`}
                             variant="bottom"
                         />
                     </Modal>}
