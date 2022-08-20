@@ -18,5 +18,5 @@ export default function ErrorAlert() {
                 />
             </AlertGroup>
         )
-        : '';
+        : null;
 }
