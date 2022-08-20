@@ -55,8 +55,40 @@ const GradeChart = React.memo(() => {
         marginRatio: 0,
         padding: 'auto',
         seriesField: 'name',
-        theme: { fontFamily: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, `
-            + `apple color emoji, segoe ui emoji, Segoe UI Symbol, noto color emoji` },
+        theme: {
+            components: {
+                tooltip: {
+                    domStyles: {
+                        "course-code-container": { lineHeight: 1.5 },
+                        "course-code-label": { marginRight: 5 },
+                        "course-grade-count": { lineHeight: 1.5 },
+                        "course-grade-label": { marginRight: 5 },
+                        "course-information-container": {
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '4px',
+                            margin: '5px 0 0 16px'
+                        },
+                        "g2-tooltip-list-item": {
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            marginBottom: 4,
+                        },
+                        "gpa-container": { lineHeight: 1.5 },
+                        "gpa-label": { marginRight: 5 },
+                        "instructors-container": { lineHeight: 1.5 },
+                        "instructors-label": { marginRight: 5 },
+                        "tooltip-container": { padding: searchResultState.isAggregateData ? '2px 2px 12px' : '16px 2px' },
+                        "tooltip-headline": {
+                            alignItems: 'center',
+                            display: 'flex',
+                            lineHeight: 1.5
+                        },
+                    }
+                }
+            }
+        },
         tooltip: { customContent: (title, items) => <CourseTooltip isAggregateData={searchResultState.isAggregateData} items={items} title={title} /> },
         xField: 'grade',
         yField: 'amount',
