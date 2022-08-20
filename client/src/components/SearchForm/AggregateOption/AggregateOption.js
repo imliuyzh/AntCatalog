@@ -25,16 +25,18 @@ export default function AggregateOption() {
         searchResultDispatch = useDispatch(),
         selectedCoursesDispatch = useDispatch();
 
+    const handleOnChange = (event) => {
+        internalStateDispatch(updateFormInput({ aggregate: event.target.checked }));
+        searchResultDispatch(resetResult());
+        selectedCoursesDispatch(resetCourses());
+    };
+
     return (
         <AggregateOptionElement>
             <input
                 checked={internalState.formInput.aggregate}
                 id="aggregate-view"
-                onChange={event => {
-                    internalStateDispatch(updateFormInput({ aggregate: event.target.checked }));
-                    searchResultDispatch(resetResult());
-                    selectedCoursesDispatch(resetCourses());
-                }}
+                onChange={handleOnChange}
                 type="checkbox"
             />
             <label htmlFor="aggregate-view">Aggregate View</label>
