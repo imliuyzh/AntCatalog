@@ -38,7 +38,7 @@ const GradeChart = React.memo(() => {
 
     const config = {
         autoHide: true,
-        color: ['#0066cc', '#8bc1f7', '#002f5d', '#519de9', '#004b95'],
+        color: ['#0066cc', '#8bc1f7', '#002f5d', '#2b9af3', '#519de9', '#004b95', '#004080', '#002952', '#001223'],
         data: (searchResultState.isAggregateData) ? formatAggregateCoursesData() : formatSelectedCoursesData(),
         isGroup: true,
         label: {
