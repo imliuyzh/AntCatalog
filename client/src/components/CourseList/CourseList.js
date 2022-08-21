@@ -1,8 +1,8 @@
 import CourseListButton from './CourseListButton/CourseListButton';
 import CourseListModal from './CourseListModal/CourseListModal';
-import { memo } from 'react';
+import * as React from 'react';
 
-const CourseList = memo(() => (
+const CourseList = React.memo(() => (
     <>
         <CourseListButton />
         <CourseListModal />
