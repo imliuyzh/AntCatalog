@@ -34,7 +34,7 @@ export default function CourseListButton() {
     const handleOnClick = () => {
         if (searchResultState.isAggregateData) {
             internalStateDispatch(showAlert('Course list is disabled for aggregated data.'));
-        } else if (searchResultState.isAggregateData === null && searchResultState.data.length === 0) {
+        } else if (searchResultState.isAggregateData !== true && searchResultState.data.length === 0) {
             internalStateDispatch(showAlert('Please search for courses.'));
         } else if (internalState.isFormModified) {
             internalStateDispatch(showAlert('Please search with new conditions in the form.'));

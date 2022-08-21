@@ -56,6 +56,10 @@ export default function HomePage() {
 
     useEffect(() => document.title = 'AntCatalog', []);
 
+    const noDataExist = (isAggregate) => isAggregate !== true
+        ? Object.keys(selectedCoursesState).length <= 0
+        : searchResultState.data.length <= 0;
+
     return (
         <HomePageContainerElement>
             <ErrorAlert />
@@ -68,12 +72,9 @@ export default function HomePage() {
                     </Suspense>
                 </section>
                 <section id="chart-area">
-                    {(([null, false].includes(internalState.formInput.aggregate) && Object.keys(selectedCoursesState).length <= 0)
-                                || (internalState.formInput.aggregate === true && searchResultState.data.length <= 0))
-                            ? <EmptyChart />
-                            : <Suspense fallback={<EmptyChart />}>
-                                  <GradeChart />
-                              </Suspense>}
+                    {noDataExist(internalState.formInput.aggregate)
+                        ? <EmptyChart />
+                        : <Suspense fallback={<EmptyChart />}><GradeChart /></Suspense>}
                 </section>
             </main>
         </HomePageContainerElement>
