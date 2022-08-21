@@ -75,7 +75,7 @@ export default function SearchButton() {
         <SearchButtonElement>
             <button id="search-button" onClick={async (event) => await submitForm(event)} type="submit">
                 <SearchIcon fill="#ffffff" id="search-icon" />
-                Search
+                <span>Search</span>
             </button>
         </SearchButtonElement>
     );

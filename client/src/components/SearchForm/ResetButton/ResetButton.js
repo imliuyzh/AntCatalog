@@ -53,7 +53,7 @@ export default function ResetButton({ yearInput, quarterInput, departmentInput, 
         <ResetButtonElement>
             <button id="reset-button" onClick={event => reset(event)} type="button">
                 <ResetIcon fill="#333538" id="reset-icon" />
-                Reset
+                <span>Reset</span>
             </button>
         </ResetButtonElement>
     );
