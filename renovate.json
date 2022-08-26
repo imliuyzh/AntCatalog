@@ -3,5 +3,6 @@
   "extends": [
     "config:base"
   ],
+  "ignorePaths": ["server/src/benchmark"],
   "prHourlyLimit": 5
 }
