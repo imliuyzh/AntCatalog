@@ -37,7 +37,7 @@
     "express-rate-limit": "^6.1.0",
     "express-validator": "^6.12.1",
     "fuse.js": "^6.4.6",
-    "helmet": "^5.0.1",
+    "helmet": "^6.0.0",
     "node-cache": "^5.1.2",
     "sequelize": "^6.6.5",
     "sqlite3": "^5.0.2",
