@@ -4,8 +4,8 @@ import logger from '../utils/logger';
 /**
  * An error handler when an exception is thrown within the server
  * @param err an error object for the specific exception thrown
- * @param req the client's request (it can also be any due to the need for mocking)
- * @param res data that will be sent to the client (it can also be any due to the need for mocking)
+ * @param req the client's request
+ * @param res data that will be sent to the client
  * @param next the function that will be invoked after the processing work in this function
  */
 function internalErrorHandler(err: Error, req: Request, res: Response, next: NextFunction): void {
