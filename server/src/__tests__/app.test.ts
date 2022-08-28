@@ -1,8 +1,10 @@
 import supertest from 'supertest';
 import app from '../app';
-import internalErrorHandler from '../middlewares/internalErrorHandler';
+import InstructorController from '../controllers/instructorController';
 
 const request = supertest(app);
+
+jest.mock('../controllers/instructorController');
 
 describe('miscellaneous cases', () => {
     test('should respond with 404 status when sending requests to an endpoint that does not exist', async () => {
@@ -10,22 +12,14 @@ describe('miscellaneous cases', () => {
         expect(response.statusCode).toBe(404);
         expect(response.body.success).toBe(false);
     });
-    test('should respond with 500 status when there is an internal error', () => {
-        let res = {
-            status: jest.fn().mockReturnThis(),
-            send: jest.fn().mockReturnThis(),
-            json: jest.fn().mockReturnThis(),
-        };
-        let error = {
-            name: 'error',
-            statusCode: 500,
-            status: 1,
-            message: 'Encountered an Internal Server-Side Error.',
-            error: 'string'
-        };
+    test('should respond with 500 status when there is an internal error', async () => {
+        const MockedInstructorController = InstructorController as unknown as jest.Mock<typeof InstructorController>;
+        MockedInstructorController.mockImplementation(() => {
+            throw new Error();
+        });
 
-        internalErrorHandler(error, {}, res, jest.fn());
-        expect(error.statusCode).toBe(500);
-        expect(error.message).toBe('Encountered an Internal Server-Side Error.');
+        const response = await request.get('/instructors?name=name');
+        expect(response.statusCode).toBe(500);
+        expect(response.body.info).toBe('Encountered an internal server error.');
     });
 });

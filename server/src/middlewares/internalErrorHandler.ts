@@ -8,7 +8,7 @@ import logger from '../utils/logger';
  * @param res data that will be sent to the client (it can also be any due to the need for mocking)
  * @param next the function that will be invoked after the processing work in this function
  */
-function internalErrorHandler(err: Error, req: Request | any, res: Response | any, next: NextFunction): void {
+function internalErrorHandler(err: Error, req: Request, res: Response, next: NextFunction): void {
     logger.error('ERROR: Exception Thrown', {
         ip: req.ip,
         method: req.method,
