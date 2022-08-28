@@ -48,7 +48,7 @@ import apicache from 'apicache';
 import express from 'express';
 import { query, ValidationChain } from 'express-validator';
 
-import InstructorController from '../controllers/instructorController';
+import instructorController from '../controllers/instructorController';
 import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 
 const cacheWorker = apicache.middleware('30 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
@@ -66,4 +66,4 @@ const validator: ValidationChain = query('name')
 
 export default express
     .Router()
-    .get('/', [validator, invalidRequestSchemaHandler, cacheWorker], InstructorController);
+    .get('/', [validator, invalidRequestSchemaHandler, cacheWorker], instructorController);
