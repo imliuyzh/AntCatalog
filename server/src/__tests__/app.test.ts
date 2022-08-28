@@ -1,6 +1,8 @@
+import { describe, expect, jest, test } from '@jest/globals';
 import supertest from 'supertest';
+
 import app from '../app';
-import InstructorController from '../controllers/instructorController';
+import instructorController from '../controllers/instructorController';
 
 const request = supertest(app);
 
@@ -13,7 +15,7 @@ describe('miscellaneous cases', () => {
         expect(response.body.success).toBe(false);
     });
     test('should respond with 500 status when there is an internal error', async () => {
-        const MockedInstructorController = InstructorController as unknown as jest.Mock<typeof InstructorController>;
+        const MockedInstructorController = instructorController as unknown as jest.Mock<typeof instructorController>;
         MockedInstructorController.mockImplementation(() => {
             throw new Error();
         });
