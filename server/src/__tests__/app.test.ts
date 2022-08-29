@@ -15,8 +15,8 @@ describe('miscellaneous cases', () => {
         expect(response.body.success).toBe(false);
     });
     test('should respond with 500 status when there is an internal error', async () => {
-        const MockedInstructorController = instructorController as jest.MockedFunction<typeof instructorController>;
-        MockedInstructorController.mockImplementation(() => {
+        let mockedInstructorController = instructorController as jest.MockedFunction<typeof instructorController>;
+        mockedInstructorController.mockImplementation(() => {
             throw new Error();
         });
 
