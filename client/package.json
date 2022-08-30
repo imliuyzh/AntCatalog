@@ -3,8 +3,8 @@
   "private": true,
   "dependencies": {
     "@ant-design/charts": "1.4.2",
-    "@emotion/react": "11.10.0",
-    "@emotion/styled": "11.10.0",
+    "@emotion/react": "11.10.4",
+    "@emotion/styled": "11.10.4",
     "@patternfly/react-core": "4.231.8",
     "@patternfly/react-table": "4.100.8",
     "@reduxjs/toolkit": "1.8.5",
