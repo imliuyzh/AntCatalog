@@ -64,65 +64,63 @@ export default function CourseListModal() {
         }
     };
     
-    return internalState.formInput.aggregate
-        ? null
-        : (
-            <Modal
-                isOpen={internalState.showCourseList}
-                onClose={() => internalStateDispatch(closeCourseList())}
-                title="Search"
-                variant={ModalVariant.large}
-            >
-                <TableComposable variant="compact">
-                    <Thead>
-                        <Tr>
-                            <Th></Th>
-                            <Th>Year</Th>
-                            <Th>Quarter</Th>
-                            <Th>Course Code</Th>
-                            <Th>Department</Th>
-                            <Th>Course Number</Th>
-                            <Th>Course Title</Th>
-                            <Th>Instructor(s)</Th>
+    return (
+        <Modal
+            isOpen={internalState.showCourseList}
+            onClose={() => internalStateDispatch(closeCourseList())}
+            title="Search"
+            variant={ModalVariant.large}
+        >
+            <TableComposable variant="compact">
+                <Thead>
+                    <Tr>
+                        <Th></Th>
+                        <Th>Year</Th>
+                        <Th>Quarter</Th>
+                        <Th>Course Code</Th>
+                        <Th>Department</Th>
+                        <Th>Course Number</Th>
+                        <Th>Course Title</Th>
+                        <Th>Instructor(s)</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {searchResultState.data.map((course, rowIndex) => (
+                        <Tr key={`course-list-item-${rowIndex}`}>
+                            <Td select={{
+                                isSelected: isCourseSelected(course),
+                                onSelect: (_, isSelected) => addOrRemoveCourse(course, isSelected),
+                                rowIndex
+                            }} />
+                            <Td dataLabel="Year">{course.year}</Td>
+                            <Td dataLabel="Quarter">{course.quarter}</Td>
+                            <Td dataLabel="Course Code">{normalizeCourseCode(course.courseCode)}</Td>
+                            <Td dataLabel="Department">{course.department}</Td>
+                            <Td dataLabel="Course Number">{course.courseNumber}</Td>
+                            <Td dataLabel="Course Title">{course.courseTitle}</Td>
+                            <Td dataLabel="Instructor(s)">{course.instructors.join(`/`)}</Td>
                         </Tr>
-                    </Thead>
-                    <Tbody>
-                        {searchResultState.data.map((course, rowIndex) => (
-                            <Tr key={`course-list-item-${rowIndex}`}>
-                                <Td select={{
-                                    isSelected: isCourseSelected(course),
-                                    onSelect: (_, isSelected) => addOrRemoveCourse(course, isSelected),
-                                    rowIndex
-                                }} />
-                                <Td dataLabel="Year">{course.year}</Td>
-                                <Td dataLabel="Quarter">{course.quarter}</Td>
-                                <Td dataLabel="Course Code">{normalizeCourseCode(course.courseCode)}</Td>
-                                <Td dataLabel="Department">{course.department}</Td>
-                                <Td dataLabel="Course Number">{course.courseNumber}</Td>
-                                <Td dataLabel="Course Title">{course.courseTitle}</Td>
-                                <Td dataLabel="Instructor(s)">{course.instructors.join(`/`)}</Td>
-                            </Tr>
-                        ))}
-                    </Tbody>
-                </TableComposable>
-                <Pagination
-                    dropDirection="up"
-                    isCompact
-                    onPreviousClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset - PAGE_ITEM_LIMIT)}
-                    onNextClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset + PAGE_ITEM_LIMIT)}
-                    page={parseInt(((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT).toString())}
-                    perPage={PAGE_ITEM_LIMIT}
-                    perPageOptions={[{
-                        title: "15",
-                        value: PAGE_ITEM_LIMIT
-                    }]}
-                    titles={{
-                        itemsPerPage: '',
-                        perPageSuffix: 'Max'
-                    }}
-                    toggleTemplate={() => `Page ${parseInt(((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT).toString())}`}
-                    variant="bottom"
-                />
-            </Modal>
+                    ))}
+                </Tbody>
+            </TableComposable>
+            <Pagination
+                dropDirection="up"
+                isCompact
+                onPreviousClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset - PAGE_ITEM_LIMIT)}
+                onNextClick={async (event, _) => await fetchPageData(event, internalState.formInput.offset + PAGE_ITEM_LIMIT)}
+                page={parseInt(((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT).toString())}
+                perPage={PAGE_ITEM_LIMIT}
+                perPageOptions={[{
+                    title: "15",
+                    value: PAGE_ITEM_LIMIT
+                }]}
+                titles={{
+                    itemsPerPage: '',
+                    perPageSuffix: 'Max'
+                }}
+                toggleTemplate={() => `Page ${parseInt(((internalState.formInput.offset + PAGE_ITEM_LIMIT) / PAGE_ITEM_LIMIT).toString())}`}
+                variant="bottom"
+            />
+        </Modal>
     );
 }
