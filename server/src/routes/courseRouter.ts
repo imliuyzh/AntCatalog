@@ -102,6 +102,7 @@ import { body, ValidationChain } from 'express-validator';
 import express from 'express';
 
 import courseController from '../controllers/courseController';
+import courseRateLimiter from '../middlewares/courseRateLimiter';
 import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 
 const cache = apicache
@@ -213,4 +214,9 @@ const validators: ValidationChain[] = [
 
 export default express
     .Router()
-    .post('/', [validators, invalidRequestSchemaHandler, cacheWorker], courseController);
+    .post(
+        '/',
+        process.env.NODE_ENV === 'test' ? [] : courseRateLimiter,
+        [validators, invalidRequestSchemaHandler, cacheWorker],
+        courseController
+    );
