@@ -24,6 +24,7 @@ The program for performing stress testing. To run it:
 1. Navigate to this directory
 2. Run `python3 -m venv .` or `python -m venv .` (may need to install python3-venv if on Linux)
 3. Run `source bin/activate` (Linux) or `cd Scripts && activate` (Windows)
+   + Install the necessary packages with `pip install -r requirements.txt`
 4. Run `locust -f ./locustfile.py --host=http://localhost:26997`
    + Execute `npm run build` and `NODE_ENV=test node ./build/index.js` in `/server` beforehand
    + Run `sysctl -w fs.file-max=500000` if the system open file limit is too low (this is in console messages)
