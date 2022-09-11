@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 
 const ErrorPageContainerElement = styled.main`
     background-image: url(${ErrorIllustration});
-    background-size: cover;
     background-repeat: no-repeat;
+    background-size: cover;
     display: grid;
     height: 100vh;
     padding: 2rem;
@@ -17,11 +17,6 @@ const ErrorPageContainerElement = styled.main`
 
     a, a:hover {
         text-decoration: none;
-    }
-
-    #description {
-        color: #6a6e73;
-        line-height: 2rem;
     }
     
     #home-button {
