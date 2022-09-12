@@ -11,26 +11,30 @@ const ErrorPageContainerElement = styled.main`
     background-size: cover;
     display: grid;
     height: 100vh;
-    padding: 2rem;
     place-items: center;
     width: 100vw;
 
     a, a:hover {
         text-decoration: none;
     }
-    
-    #home-button {
-        align-items: center;
-        background-color: #0064a4;
-        border: 1px solid #efefef;
-        color: #ffffff;
-        cursor: pointer;
-        display: flex;
-        font-size: 14px;
-        gap: 5px;
-        justify-content: center;
-        padding: 8px 20px;
+
+    .pf-c-card {
+        box-shadow: var(--pf-global--BoxShadow--xl);
+        margin: 2rem;
     }
+`;
+
+const HomePageButtonElement = styled.button`
+    align-items: center;
+    background-color: #0064a4;
+    border: 1px solid #efefef;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+    gap: 5px;
+    justify-content: center;
+    padding: 8px 20px;
 `;
 
 export default function ErrorPage() {
@@ -49,7 +53,7 @@ export default function ErrorPage() {
                 </CardBody>
                 <CardFooter>
                     <Link to="/">
-                        <button id="home-button">Return to Home</button>  
+                        <HomePageButtonElement>Return to Home</HomePageButtonElement>  
                     </Link>
                 </CardFooter>
             </Card>
