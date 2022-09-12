@@ -1,9 +1,8 @@
 import { addCourse, removeCourse } from '../../../features/selectedCoursesSlice';
 import { closeCourseList, showAlert, updateFormInput, updateIsFormModified } from '../../../features/internalStateSlice';
 import generateRequestParams from '../../../utils/generateRequestParams';
-import { Modal, ModalVariant } from '@patternfly/react-core';
+import { Modal, ModalVariant, Pagination } from '@patternfly/react-core';
 import normalizeCourseCode from '../../../utils/normalizeCourseCode';
-import { Pagination } from '@patternfly/react-core';
 import { replaceResult } from '../../../features/searchResultSlice';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import { useDispatch, useSelector } from 'react-redux';

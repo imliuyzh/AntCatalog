@@ -1,8 +1,7 @@
-import { Card, CardBody, CardFooter, CardTitle } from '@patternfly/react-core';
+import { Card, CardBody, CardFooter, CardTitle, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import ErrorIllustration from '../../assets/images/error-bg.jpg';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { useEffect } from 'react';
 
 const ErrorPageContainerElement = styled.main`
