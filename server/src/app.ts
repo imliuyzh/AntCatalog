@@ -2,9 +2,9 @@ import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
-import path from 'path';
 
 import courseRouter from './routes/courseRouter';
+import { determineIndexFilePath, determineStaticFileFolder } from './utils/staticFilesPathSetter';
 import instructorRouter from './routes/instructorRouter';
 import internalErrorHandler from './middlewares/internalErrorHandler';
 import invalidRouteHandler from './middlewares/invalidRouteHandler';
@@ -27,14 +27,8 @@ app.use('/courses', courseRouter);
 app.use('/instructors', instructorRouter);
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static((process.env.PRODUCTION_ENV === 'aws')
-        ? path.resolve(__dirname, '..', '..', 'client', 'build')
-        : path.resolve(__dirname, '..', 'public')
-    ));
-    app.get('*', (_: unknown, res: express.Response) => res.sendFile((process.env.PRODUCTION_ENV === 'aws')
-        ? path.resolve(`${__dirname}/../../client/build/index.html`)
-        : path.resolve(`${__dirname}/../public/index.html`)
-    ));
+    app.use(express.static(determineStaticFileFolder()));
+    app.get('*', (_: unknown, res: express.Response) => res.sendFile(determineIndexFilePath()));
 }
 
 app.use(invalidRouteHandler);
