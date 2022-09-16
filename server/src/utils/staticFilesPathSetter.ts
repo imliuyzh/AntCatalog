@@ -7,9 +7,9 @@ import path from 'path';
 function determineIndexFilePath(): string {
     switch (process.env.PRODUCTION_ENV) {
         case 'aws':
-            return path.resolve(`${__dirname}/../../client/build/index.html`);
+            return path.resolve(`${__dirname}/../../../client/build/index.html`);
         case 'azure':
-            return path.resolve(`${__dirname}/../public/index.html`);
+            return path.resolve(`${__dirname}/../../public/index.html`);
         default:
             throw new Error('Unknown production environment.');
     }
@@ -22,9 +22,9 @@ function determineIndexFilePath(): string {
 function determineStaticFileFolder(): string {
     switch (process.env.PRODUCTION_ENV) {
         case 'aws':
-            return path.resolve(__dirname, '..', '..', 'client', 'build');
+            return path.resolve(`${__dirname}/../../../client/build`);
         case 'azure':
-            return path.resolve(__dirname, '..', 'public');
+            return path.resolve(`${__dirname}/../../public`);
         default:
             throw new Error('Unknown production environment.');
     }
