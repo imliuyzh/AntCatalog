@@ -21,6 +21,10 @@ const ErrorPageContainerElement = styled.main`
         box-shadow: var(--pf-global--BoxShadow--xl);
         margin: 2rem;
     }
+
+    .pf-c-card__title {
+        font-family: var(--pf-global--FontFamily--sans-serif);
+    }
 `;
 
 const HomePageButtonElement = styled.button`
