@@ -5,7 +5,7 @@ beforeAll(() => {
     process.env.NODE_ENV = 'production';
 });
 
-describe('test determineIndexFilePath()', () => {
+describe('determineIndexFilePath() tests', () => {
     test('should respond with correct path when PRODUCTION_ENV is aws', () => {
         process.env.PRODUCTION_ENV = 'aws';
         expect(determineIndexFilePath()).toContain('client/build/index.html');
@@ -20,7 +20,7 @@ describe('test determineIndexFilePath()', () => {
     });
 });
 
-describe('test determineStaticFileFolder()', () => {
+describe('determineStaticFileFolder() tests', () => {
     test('should respond with correct folder when PRODUCTION_ENV is aws', () => {
         process.env.PRODUCTION_ENV = 'aws';
         expect(determineStaticFileFolder()).toContain('client/build');
