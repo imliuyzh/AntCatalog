@@ -8,9 +8,9 @@ const GradeChart = React.memo(() => {
         selectedCoursesState = useSelector(state => state.selectedCourses);
 
     const formatAggregateCoursesData = () => {
-        return ['A', 'B', 'C', 'D', 'F', 'P', 'NP'].map(grade => ({
+        return ['A', 'B', 'C', 'D', 'F', 'P', 'Np'].map(grade => ({
             name: `Aggregate Data`,
-            grade,
+            grade: grade.toUpperCase(),
             amount: searchResultState.data[0][`grade${grade}Count`],
             avgGPA: searchResultState.data[0].gpaAvg
         }));
@@ -19,11 +19,11 @@ const GradeChart = React.memo(() => {
     const formatSelectedCoursesData = () => {
         let result = [];
         for (let course in selectedCoursesState) {
-            for (let grade of ['A', 'B', 'C', 'D', 'F', 'P', 'NP']) {
+            for (let grade of ['A', 'B', 'C', 'D', 'F', 'P', 'Np']) {
                 result.push({
                     name: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} `
                         + `(${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year}/${selectedCoursesState[course].courseCode})`,
-                    grade,
+                    grade: grade.toUpperCase(),
                     title: `${selectedCoursesState[course].department} ${selectedCoursesState[course].courseNumber} `
                         + `(${selectedCoursesState[course].quarter} ${selectedCoursesState[course].year})`,
                     courseCode: selectedCoursesState[course].courseCode,
