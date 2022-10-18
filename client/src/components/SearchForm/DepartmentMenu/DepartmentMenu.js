@@ -1,8 +1,11 @@
+import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 import * as React from 'react';
+
+const animatedComponents = makeAnimated();
 
 const DEPARTMENTS = [
     {
@@ -617,6 +620,7 @@ const DepartmentMenu = React.forwardRef((_, ref) => {
         <Select
             aria-label="department-input"
             closeMenuOnSelect={false}
+            components={animatedComponents}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
             options={DEPARTMENTS}

@@ -1,3 +1,4 @@
+import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
@@ -11,12 +12,15 @@ const QUARTERS = [
     { value: 'Summer', label: 'Summer' },
 ];
 
+const animatedComponents = makeAnimated();
+
 const QuarterMenu = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
     return (
         <Select
             aria-label="quarter-input"
             closeMenuOnSelect={false}
+            components={animatedComponents}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}
             options={QUARTERS}

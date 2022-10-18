@@ -1,3 +1,4 @@
+import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { styles1 } from '../../../utils/searchFormStyles';
 import { updateFormInput } from '../../../features/internalStateSlice';
@@ -17,12 +18,15 @@ const YEARS = [
     { value: 2013, label: '2013' }
 ];
 
+const animatedComponents = makeAnimated();
+
 const YearMenu = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
     return (
         <Select
             aria-label="year-input"
             closeMenuOnSelect={false}
+            components={animatedComponents}
             isMulti
             onChange={(option) => internalStateDispatch(updateFormInput({ year: option.map(({ value }) => value) }))}
             options={YEARS}

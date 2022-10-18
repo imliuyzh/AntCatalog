@@ -1,9 +1,12 @@
 import CreatableSelect from 'react-select/creatable';
+import makeAnimated from 'react-select/animated';
 import { styles2 } from '../../../utils/searchFormStyles';
 import { Tooltip } from '@patternfly/react-core';
 import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 import * as React from 'react';
+
+const animatedComponents = makeAnimated();
 
 const CourseNumberInput = React.forwardRef((_, ref) => {
     let internalStateDispatch = useDispatch();
@@ -18,6 +21,7 @@ const CourseNumberInput = React.forwardRef((_, ref) => {
         >
             <CreatableSelect
                 aria-label="course-number-input"
+                components={animatedComponents}
                 isMulti
                 onBlur={(_) => setIsTooltipVisible(false)}
                 onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseNumber: newValue.map(({ value }) => value) }))}
