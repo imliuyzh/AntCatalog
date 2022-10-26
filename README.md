@@ -54,7 +54,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 inst
    + Restrict SSH access to your IP address only and allow HTTP/HTTPS connections from everywhere with the security group feature
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
-   + Get Node.js v18 and npm
+   + Get npm and the most current release of Node.js v18
 4. Clone the project to the instance and run `npm i` for both `/client` and `/server`
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
@@ -108,4 +108,4 @@ The instruction below is written for a Linux free tier instance. You can create 
 You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity.
 
 ## Acknowledgments
-This project has inspirations from [ZotCurve](https://github.com/ZotCurve/ZotCurve.github.io) and the data is from UC Irvine's Public Records Office.
+This project has inspirations from [ZotCurve](https://github.com/ZotCurve/ZotCurve.github.io) and the grade distribution data is from UC Irvine's Public Records Office.
