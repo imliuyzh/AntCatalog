@@ -13,6 +13,8 @@ Before moving on in this section, please install npm as well as the most current
 
 For other information of back end services such as testing, please visit [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
 
+**Fall 2022 Update**: This repository will no longer to be maintained due to graduation.
+
 ## Built With
 ### Front end
 + Ant Design Charts
