@@ -51,7 +51,7 @@ AntCatalog also uses Locust for load testing, which itself is written in Python.
 You can use AWS EC2 or Azure App Service to deploy the application. If there is a problem with the instructions, please feel free to create an issue.
 
 ### Amazon Elastic Compute Cloud (EC2)
-The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 installed. Please ensure your operating system is able to initiate a SSH/SCP session.
+The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v22.04 installed. Please ensure your operating system is able to initiate a SSH/SCP session.
 1. Create an instance on EC2 like [this](https://www.youtube.com/watch?v=GEVbYQWWJkQ)
    + Restrict SSH access to your IP address only and allow HTTP/HTTPS connections from everywhere with the security group feature
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
