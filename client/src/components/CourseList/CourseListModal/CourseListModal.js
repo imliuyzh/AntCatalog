@@ -74,13 +74,13 @@ export default function CourseListModal() {
                 <Thead>
                     <Tr>
                         <Th></Th>
-                        <Th>Year</Th>
-                        <Th>Quarter</Th>
-                        <Th>Course Code</Th>
-                        <Th>Department</Th>
-                        <Th>Course Number</Th>
-                        <Th>Course Title</Th>
-                        <Th>Instructor(s)</Th>
+                        <Th tooltip={null}>Year</Th>
+                        <Th tooltip={null}>Quarter</Th>
+                        <Th tooltip={null}>Course Code</Th>
+                        <Th tooltip={null}>Department</Th>
+                        <Th tooltip={null}>Course Number</Th>
+                        <Th tooltip={null}>Course Title</Th>
+                        <Th tooltip={null}>Instructor(s)</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
