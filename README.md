@@ -1,3 +1,4 @@
+![Demonstration](./demo.gif)
 # AntCatalog
 ## Getting Started
 Before moving on in this section, please install npm as well as the most current release of Node.js v18. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
