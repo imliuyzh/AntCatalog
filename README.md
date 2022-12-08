@@ -1,5 +1,8 @@
 ![Demonstration](./demo.gif)
 # AntCatalog
+## Announcement
+This repository will no longer to be maintained after Fall 2022 due to graduation.
+
 ## Getting Started
 Before moving on in this section, please install npm as well as the most current release of Node.js v18. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
 
@@ -13,8 +16,6 @@ Before moving on in this section, please install npm as well as the most current
    + If there is an error about ts-node, run `npm i -g ts-node`
 
 For other information of back end services such as testing, please visit [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
-
-**Fall 2022 Update**: This repository will no longer to be maintained due to graduation.
 
 ## Built With
 ### Front end
