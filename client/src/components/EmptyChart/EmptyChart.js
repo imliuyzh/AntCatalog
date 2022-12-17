@@ -38,7 +38,6 @@ export default function EmptyChart() {
                 AntCatalog allows its users to examine the grade distribution of graduate-level courses in the University of
                 California, Irvine (UCI). Currently, AntCatalog does not plan to include either Law nor undergraduate division
                 courses due to significant efforts on data cleaning. The range of data starts in Summer 2013 and ends in Fall 2022.
-                I will attempt to update the statistics once every quarter by contacting UCI's Public Records Office (PRO).
                 Sometimes, you may not find the data for a particular course due to circumstances like late grade submittal.
                 If this happens, please create an issue on GitHub.
 
