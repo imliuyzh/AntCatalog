@@ -108,13 +108,13 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
         type: Sequelize.QueryTypes.SELECT
     });
     let { gradeACount, gradeBCount, gradeCCount, gradeDCount, gradeFCount } = result[0];
-    return ([gradeACount, gradeBCount, gradeCCount, gradeDCount, gradeFCount].some((count: Number) => count > 0)) ? result : [];
+    return ([gradeACount, gradeBCount, gradeCCount, gradeDCount, gradeFCount].some((count: number) => count > 0)) ? result : [];
 }
 
 /**
  * Compute the query and its parameters for aggregate data
  * @param req user's request
- * @returns a string for the SQL query and an array of strings for the query's parameters
+ * @returns a string for the SQL query and an object for the query's parameters
  */
  function createAggregateQueryWithParameters(req: express.Request): [string, AggregatedCourseDataQueryParameters] {
     let aggregateQuery: string = createAggregateQuery(req.body.values.instructor);
@@ -184,7 +184,7 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
 /**
  * Fetch a list of course data based on user parameters
  * @param req user's request
- * @returns a promise for a list of course data that the instructors are stored into an array instead of a string
+ * @returns a promise for a list of course data that the instructors are separated into an array
  */
 async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
     let [query, replacements]: [string, AssociatedCourseDataQueryParameters] = createAssociatedCourseListQueryWithParameters(req);
