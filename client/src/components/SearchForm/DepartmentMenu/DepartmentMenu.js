@@ -34,7 +34,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "ARMN",
-        "label": "ARMN . . . . . . .Armenian (started 2018 Spg)"
+        "label": "ARMN . . . . . . .Armenian"
     },
     {
         "value": "ART",
@@ -58,7 +58,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "BANA",
-        "label": "BANA . . . . . . . Business Analytics (started 2017 SS2)"
+        "label": "BANA . . . . . . . Business Analytics"
     },
     {
         "value": "BATS",
@@ -78,7 +78,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "BSEMD",
-        "label": "BSEMD . . . . . .Bio Sci & Educational Media Design (until 2017 Wtr)"
+        "label": "BSEMD . . . . . .Bio Sci & Educational Media Design"
     },
     {
         "value": "CAMPREC",
@@ -86,11 +86,11 @@ const DEPARTMENTS = [
     },
     {
         "value": "CBE",
-        "label": "CBE . . . . . . . . Chemical and Biomolecular Engineering (started 2018 Fall)"
+        "label": "CBE . . . . . . . . Chemical and Biomolecular Engineering"
     },
     {
         "value": "CBEMS",
-        "label": "CBEMS . . . . . .Chemical Engr and Materials Science (until 2019 SS2)"
+        "label": "CBEMS . . . . . .Chemical Engr and Materials Science"
     },
     {
         "value": "CEM",
@@ -146,7 +146,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "DATA",
-        "label": "DATA . . . . . . . Data Science (started 2022 SS1)"
+        "label": "DATA . . . . . . . Data Science"
     },
     {
         "value": "DERM",
@@ -162,7 +162,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "E ASIAN",
-        "label": "E ASIAN . . . . . East Asian Languages and Literatures (until 2019 SS2)"
+        "label": "E ASIAN . . . . . East Asian Languages and Literatures"
     },
     {
         "value": "EARTHSS",
@@ -170,7 +170,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "EAS",
-        "label": "EAS . . . . . . . . East Asian Studies (started 2019 Fall)"
+        "label": "EAS . . . . . . . . East Asian Studies"
     },
     {
         "value": "ECO EVO",
@@ -218,7 +218,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "ENGRMSE",
-        "label": "ENGRMSE . . . .Materials Science and Engineering (until 2020 SS2)"
+        "label": "ENGRMSE . . . .Materials Science and Engineering"
     },
     {
         "value": "EPIDEM",
@@ -238,7 +238,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "FIN",
-        "label": "FIN . . . . . . . . . Finance (started 2017 Fall)"
+        "label": "FIN . . . . . . . . . Finance"
     },
     {
         "value": "FLM&MDA",
@@ -250,7 +250,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "GDIM",
-        "label": "GDIM . . . . . . . .Game Design and Interactive Media (started 2021 Fall)"
+        "label": "GDIM . . . . . . . .Game Design and Interactive Media"
     },
     {
         "value": "GEN&SEX",
@@ -302,7 +302,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "INNO",
-        "label": "INNO . . . . . . . .Masters of Innovation and Entrepreneurship (started 2019 Fall)"
+        "label": "INNO . . . . . . . .Masters of Innovation and Entrepreneurship"
     },
     {
         "value": "INT MED",
@@ -314,7 +314,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "IRAN",
-        "label": "IRAN . . . . . . . .Iranian (started 2020 Fall)"
+        "label": "IRAN . . . . . . . .Iranian"
     },
     {
         "value": "ITALIAN",
@@ -338,7 +338,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "LINGUIS",
-        "label": "LINGUIS . . . . . .Linguistics (until 2019 SS2)"
+        "label": "LINGUIS . . . . . .Linguistics"
     },
     {
         "value": "LIT JRN",
@@ -350,7 +350,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "LSCI",
-        "label": "LSCI . . . . . . . . Language Science (started 2019 Fall)"
+        "label": "LSCI . . . . . . . . Language Science"
     },
     {
         "value": "M&MG",
@@ -410,7 +410,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "MSE",
-        "label": "MSE . . . . . . . . Materials Science and Engineering (started 2020 Fall)"
+        "label": "MSE . . . . . . . . Materials Science and Engineering"
     },
     {
         "value": "MUSIC",
@@ -458,7 +458,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "PHARM",
-        "label": "PHARM . . . . . .Pharmacology (started 2020 Fall)"
+        "label": "PHARM . . . . . .Pharmacology"
     },
     {
         "value": "PHILOS",
@@ -466,7 +466,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "PHMD",
-        "label": "PHMD . . . . . . .Pharmacy (started 2021 Fall)"
+        "label": "PHMD . . . . . . .Pharmacy"
     },
     {
         "value": "PHRMSCI",
@@ -502,15 +502,15 @@ const DEPARTMENTS = [
     },
     {
         "value": "PP&D",
-        "label": "PP&D . . . . . . . Planning, Policy, and Design (until 2018 SS2; see UPPP)"
+        "label": "PP&D . . . . . . . Planning, Policy, and Design"
     },
     {
         "value": "PSCI",
-        "label": "PSCI . . . . . . . .Psychological Science (started 2019 Fall)"
+        "label": "PSCI . . . . . . . .Psychological Science"
     },
     {
         "value": "PSY BEH",
-        "label": "PSY BEH . . . . .Psychology and Social Behavior (until 2019 SS2)"
+        "label": "PSY BEH . . . . .Psychology and Social Behavior"
     },
     {
         "value": "PSYCH",
@@ -570,7 +570,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "SWE",
-        "label": "SWE . . . . . . . .Software Engineering (started 2019 Fall)"
+        "label": "SWE . . . . . . . .Software Engineering"
     },
     {
         "value": "TAGALOG",
@@ -594,7 +594,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "UPPP",
-        "label": "UPPP . . . . . . . Urban Planning and Public Policy (started 2018 Fall)"
+        "label": "UPPP . . . . . . . Urban Planning and Public Policy"
     },
     {
         "value": "VIETMSE",
