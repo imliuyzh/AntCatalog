@@ -186,7 +186,7 @@ const DEPARTMENTS = [
     },
     {
         "value": "ED AFF",
-        "label": "ED AFF . . . . . .Educational Affairs (Sch of Med)"
+        "label": "ED AFF . . . . . .Educational Affairs"
     },
     {
         "value": "EDUC",
