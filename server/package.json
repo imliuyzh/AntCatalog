@@ -1,7 +1,6 @@
 {
   "name": "antcatalog-server",
   "private": true,
-  "main": "index.js",
   "scripts": {
     "build": "npx tsc",
     "coverage": "jest --coverage",
