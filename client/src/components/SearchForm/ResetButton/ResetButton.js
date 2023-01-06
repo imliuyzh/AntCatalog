@@ -19,7 +19,7 @@ const ResetButtonElement = styled.div`
         font-size: 14px;
         gap: 5px;
         justify-content: center;
-        margin: 8px 0;
+        margin: 8px 0 0;
         padding: 8px 0;
         width: 100%;
     }

@@ -20,7 +20,7 @@ const HomePageContainerElement = styled.div`
         width: 80%;
     }
 
-    #search-area {
+    #left-area {
         align-items: center;
         display: flex;
         flex-direction: column;
@@ -29,7 +29,11 @@ const HomePageContainerElement = styled.div`
         width: 450px;
     }
 
-    #chart-area {
+    #course-list-area {
+        margin: 20px 0 0;
+    }
+
+    #right-area {
         padding: 24px 16px;
         max-width: 800px;
         width: 50vw;
@@ -40,7 +44,7 @@ const HomePageContainerElement = styled.div`
             padding: 48px 0;
         }
 
-        #chart-area {
+        #right-area {
             width: 100%;
         }
     }
@@ -64,14 +68,16 @@ export default function HomePage() {
         <HomePageContainerElement>
             <ErrorAlert />
             <main id="content">
-                <section id="search-area">
+                <section id="left-area">
                     <img src={Logo} id="logo" alt="AntCatalog Logo" onClick={() => window.location.reload()} />
                     <SearchForm />
-                    <Suspense fallback={null}>
-                        <CourseList />
-                    </Suspense>
+                    <div id="course-list-area">
+                        <Suspense fallback={null}>
+                            <CourseList />
+                        </Suspense>
+                    </div>
                 </section>
-                <section id="chart-area">
+                <section id="right-area">
                     {noDataExist(internalState.formInput.aggregate)
                         ? <EmptyChart />
                         : <Suspense fallback={<EmptyChart />}><GradeChart /></Suspense>}

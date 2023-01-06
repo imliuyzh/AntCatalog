@@ -23,11 +23,7 @@ const SearchFormContainerElement = styled.div`
     }
 
     .form-group {
-        margin: 48px 0;
-    }
-
-    .form-group-with-less-bottom-margin {
-        margin: 48px 0 20px;
+        margin: 48px 0 0;
     }
 
     .group-elements {
@@ -73,7 +69,7 @@ export default function SearchForm() {
                     </div>
                 </div>
 
-                <div className="form-group-with-less-bottom-margin">
+                <div className="form-group">
                     <SearchButton />
                     <ResetButton
                         yearInput={yearInput}
