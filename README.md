@@ -64,7 +64,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v
 6. Run `sudo apt install nginx` to install NGINX
    + Run `sudo service nginx stop` and `sudo rm /etc/nginx/sites-available/default`
    + Run `sudo touch /etc/nginx/sites-available/default`
-   + Paste the code snippet below into the file you just created
+   + Paste the code snippet below into the file you just created and make necessary adjustments
       ```
       server {
           listen 80;
