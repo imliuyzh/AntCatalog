@@ -46,7 +46,11 @@ export default function CourseListButton() {
     };
 
     return (
-        <CourseListButtonContainerElement onClick={handleOnClick} type="button">
+        <CourseListButtonContainerElement
+            id="course-list-button"
+            onClick={handleOnClick}
+            type="button"
+        >
             <ListIcon fill="#aab3bc" id="list-icon" />
             <span>Course List</span>
         </CourseListButtonContainerElement>

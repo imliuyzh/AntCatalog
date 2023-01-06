@@ -29,7 +29,7 @@ const HomePageContainerElement = styled.div`
         width: 450px;
     }
 
-    #course-list-area {
+    #course-list-button {
         margin: 20px 0 0;
     }
 
@@ -71,11 +71,9 @@ export default function HomePage() {
                 <section id="left-area">
                     <img src={Logo} id="logo" alt="AntCatalog Logo" onClick={() => window.location.reload()} />
                     <SearchForm />
-                    <div id="course-list-area">
-                        <Suspense fallback={null}>
-                            <CourseList />
-                        </Suspense>
-                    </div>
+                    <Suspense fallback={null}>
+                        <CourseList />
+                    </Suspense>
                 </section>
                 <section id="right-area">
                     {noDataExist(internalState.formInput.aggregate)
