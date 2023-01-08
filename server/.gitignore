@@ -12,3 +12,4 @@ src/benchmark
 
 # production
 build/
+public/
