@@ -89,7 +89,10 @@ const GradeChart = React.memo(() => {
                 }
             }
         },
-        tooltip: { customContent: (title, items) => <CourseTooltip isAggregateData={searchResultState.isAggregateData} items={items} title={title} /> },
+        tooltip: {
+            customContent: (title, items) => <CourseTooltip isAggregateData={searchResultState.isAggregateData} items={items} title={title} />,
+            enterable: true,
+        },
         xField: 'grade',
         yField: 'amount',
     };
