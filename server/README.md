@@ -36,21 +36,20 @@ Dependencies to `locustfile.py`.
 
 #### `/controllers`
 ##### courseController.ts
-The file for handling the `/courses` endpoint which focuses on course search. It accepts a JSON object in the body:
+The file for handling the `/courses` endpoint which is about course search. It accepts a JSON object in the body as shown below. Note that every field, except `options["aggregate"]`, is optional.
 ```
   {
-    /* Each field here is optional (default to an empty array). */
     "values": {
-      "year": number[],
-      "quarter": string[],
-      "department": string[],
-      "courseNumber": string[],
-      "courseCode": number[],
-      "instructor": string[]
+      "year": number[]?,
+      "quarter": string[]?,
+      "department": string[]?,
+      "courseNumber": string[]?,
+      "courseCode": number[]?,
+      "instructor": string[]?
     },
     "options": {
       "aggregate": boolean, /* Indicate true to combine all matches into one. */
-      "offset": number  /* The number of results to skip over (default to 0). It is ignored when aggregate is set to true. */
+      "offset": number?  /* The number of results to skip over (default to 0). It is ignored when aggregate is set to true. */
     }
   }
 ```
