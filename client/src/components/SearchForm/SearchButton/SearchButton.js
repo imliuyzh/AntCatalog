@@ -1,5 +1,5 @@
 import { closeCourseList, showAlert, showCourseList, updateFormInput, updateIsFormModified } from '../../../features/internalStateSlice';
-import generateRequestParams from '../../../utils/generateRequestParams';
+import generateRequestParams from '../../../utils/requestParamsGenerator';
 import { ReactComponent as SearchIcon } from '../../../assets/images/search.svg';
 import { replaceResult } from '../../../features/searchResultSlice';
 import styled from '@emotion/styled';

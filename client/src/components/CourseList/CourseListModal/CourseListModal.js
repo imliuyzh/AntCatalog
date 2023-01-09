@@ -1,8 +1,7 @@
 import { addCourse, removeCourse } from '../../../features/selectedCoursesSlice';
 import { closeCourseList, showAlert, updateFormInput, updateIsFormModified } from '../../../features/internalStateSlice';
-import generateRequestParams from '../../../utils/generateRequestParams';
+import generateRequestParams from '../../../utils/requestParamsGenerator';
 import { Modal, ModalVariant, Pagination } from '@patternfly/react-core';
-import normalizeCourseCode from '../../../utils/normalizeCourseCode';
 import { replaceResult } from '../../../features/searchResultSlice';
 import { TableComposable, Tbody, Td, Th, Thead, Tr } from '@patternfly/react-table';
 import { useDispatch, useSelector } from 'react-redux';
@@ -93,7 +92,7 @@ export default function CourseListModal() {
                             }} />
                             <Td dataLabel="Year">{course.year}</Td>
                             <Td dataLabel="Quarter">{course.quarter}</Td>
-                            <Td dataLabel="Course Code">{normalizeCourseCode(course.courseCode)}</Td>
+                            <Td dataLabel="Course Code">{`${'0'.repeat(5 - course.courseCode.toString().length)}${course.courseCode}`}</Td>
                             <Td dataLabel="Department">{course.department}</Td>
                             <Td dataLabel="Course Number">{course.courseNumber}</Td>
                             <Td dataLabel="Course Title">{course.courseTitle}</Td>
