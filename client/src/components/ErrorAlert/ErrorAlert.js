@@ -5,14 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const ErrorAlertContainerElement = styled.div`
     .pf-c-alert {
-        --pf-c-alert--BackgroundColor: #c9190b;
-        --pf-c-alert--BorderTopColor: #c9190b;
-        --pf-c-alert__icon--Color: #ffffff;
-        --pf-c-alert__title--Color: #ffffff;
+        --pf-c-alert--BackgroundColor: var(--pf-global--palette--red-100);
+        --pf-c-alert__icon--Color: var(--pf-global--palette--white);
+        --pf-c-alert__title--Color: var(--pf-global--palette--white);
     }
 
     .pf-c-alert__action > .pf-c-button {
-        color: #ffffff;
+        color: var(--pf-global--palette--white);
+        transition: 0.2s all;
+    }
+
+    .pf-c-alert__action > .pf-c-button:hover {
+        color: var(--pf-global--palette--red-300);
     }
 `;
 
