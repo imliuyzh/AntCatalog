@@ -1,4 +1,3 @@
-![Demonstration](./demo.gif)
 # AntCatalog
 *This repository will no longer to be maintained starting Winter 2023 and forward due to graduation.*
 
