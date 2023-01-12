@@ -18,12 +18,9 @@ const ErrorPageContainerElement = styled.main`
     }
 
     .pf-c-card {
+        --pf-c-card__title--FontFamily: var(--pf-global--FontFamily--sans-serif);
         box-shadow: var(--pf-global--BoxShadow--xl);
         margin: 2rem;
-    }
-
-    .pf-c-card__title {
-        font-family: var(--pf-global--FontFamily--sans-serif);
     }
 `;
 
