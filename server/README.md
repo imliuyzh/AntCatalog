@@ -122,5 +122,5 @@ Top-level declaration file for the corresponding controller.
 ##### logger.ts
 A file for reporting user request information like IP address and body content in a file under the generated `/logs` folder.
 
-## Code Analysis and Testing
-AntCatalog uses Jest and SuperTest for testing. Type `npm run test` to run all the test cases and `npm run coverage` to see test coverage information.
+## Testing
+AntCatalog uses Jest and SuperTest for testing. Type `npm run test` to run all the test cases and `npm run coverage` to see test coverage information. As of February 2023, the back end achieved 97% statement coverage and 95% branch coverage.
