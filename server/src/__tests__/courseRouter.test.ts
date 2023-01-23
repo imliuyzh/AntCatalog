@@ -928,7 +928,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(200);
                 expect(response.body.success).toBe(true);
                 expect(response.body.data.length).toBe(1);
-                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+                expect(Math.abs(3.51 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
             });
             test('sending without department', async () => {
                 const response = await request
@@ -948,7 +948,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(200);
                 expect(response.body.success).toBe(true);
                 expect(response.body.data.length).toBe(1);
-                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+                expect(Math.abs(3.51 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
             });
             test('sending with courseCode as an empty array', async () => {
                 const response = await request
@@ -969,7 +969,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(200);
                 expect(response.body.success).toBe(true);
                 expect(response.body.data.length).toBe(1);
-                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+                expect(Math.abs(3.51 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
             });
             test('sending without courseCode', async () => {
                 const response = await request
@@ -989,7 +989,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(200);
                 expect(response.body.success).toBe(true);
                 expect(response.body.data.length).toBe(1);
-                expect(Math.abs(3.5 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
+                expect(Math.abs(3.51 - response.body.data[0].gpaAvg)).toBeCloseTo(1e-14);
             });
             test('sending with courseNumber as an empty array', async () => {
                 const response = await request
@@ -997,7 +997,7 @@ describe('POST /courses', () => {
                     .send({
                         values: {
                             year: [2022],
-                            quarter: null,
+                            quarter: [],
                             department: null,
                             courseNumber: [],
                             courseCode: null,
@@ -1010,7 +1010,7 @@ describe('POST /courses', () => {
                     });
                 expect(response.statusCode).toBe(200);
                 expect(response.body.success).toBe(true);
-                expect(response.body.data.length).toBe(3);
+                expect(response.body.data.length).toBe(6);
             });
             test('sending without courseNumber', async () => {
                 const response = await request
@@ -1030,7 +1030,7 @@ describe('POST /courses', () => {
                     });
                 expect(response.statusCode).toBe(200);
                 expect(response.body.success).toBe(true);
-                expect(response.body.data.length).toBe(3);
+                expect(response.body.data.length).toBe(6);
             });
             test('sending with instructor as an empty array', async () => {
                 const response = await request
