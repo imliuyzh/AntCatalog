@@ -11,6 +11,7 @@ const HomePageContainerElement = styled.div`
         align-items: center;
         display: flex;
         flex-wrap: wrap;
+        gap: 2vw;
         height: 100vh;
         justify-content: center;
     }

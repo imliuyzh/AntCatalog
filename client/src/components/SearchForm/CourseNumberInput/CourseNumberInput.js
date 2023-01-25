@@ -14,7 +14,7 @@ const CourseNumberInput = React.forwardRef((_, ref) => {
             aria-label="course-number-input"
             components={animatedComponents}
             isMulti
-            noOptionsMessage={() => "Please provide alphanumeric codes for courses (e.g. H2A, 8C & 102)"}
+            noOptionsMessage={() => "Please provide alphanumeric codes for courses (e.g. H2A, 8C & 102)."}
             onChange={(newValue, _) => internalStateDispatch(updateFormInput({ courseNumber: newValue.map(({ value }) => value) }))}
             placeholder="Course Numbers"
             ref={ref}
