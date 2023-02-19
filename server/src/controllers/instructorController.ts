@@ -7,15 +7,16 @@ import logger from '../utils/logger';
 import sequelize from '../db/sequelize';
 
 /**
- * A namespace storing a cache of a list of all instructors, intended to be used only in this file
+ * A namespace storing a cache of a list of all instructors,
+ * intended to be used only in this file.
  */
 namespace CacheNamespace {
     let cache: NodeCache = new NodeCache();
 
     /**
      * Return a list of all instructors in the database -
-     * if it is not in the cache, load it from the database and store it in the cache
-     * @returns a promise containing every instructor's name
+     * if it is not in the cache, load it from the database and store it in the cache.
+     * @returns A promise containing every instructor's name.
      */
     export async function loadInstructors(): Promise<string[]> {
         let instructorList: string[] = cache.get('instructors') ?? [];
@@ -31,10 +32,10 @@ namespace CacheNamespace {
 }
 
 /**
- * A controller for instructor fuzzy search
- * @param req user's request
- * @param res response to user's request
- * @param next the function that will be called if an exception is thrown
+ * A controller for instructor fuzzy search endpoint.
+ * @param req An object for user's request.
+ * @param res An object for the response to user's request.
+ * @param next The function that will be called if an exception is thrown.
  */
 export default async function(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {

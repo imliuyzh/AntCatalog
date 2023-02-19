@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import logger from '../utils/logger';
 
 /**
- * An error handler when an exception is thrown within the server
- * @param err an error object for the specific exception thrown
- * @param req the client's request
- * @param res data that will be sent to the client
- * @param next the function that will be invoked after the processing work in this function
+ * An error handler when an exception is thrown within the server.
+ * @param err An object for the specific exception thrown.
+ * @param req An object for user's request.
+ * @param res An object for the response to user's request.
+ * @param next The function that will be called if an exception is thrown.
  */
 function internalErrorHandler(err: Error, req: Request, res: Response, next: NextFunction): void {
     logger.error('ERROR: Exception Thrown', {

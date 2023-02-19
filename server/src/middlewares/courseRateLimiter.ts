@@ -1,7 +1,7 @@
 import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 
 /**
- * Restricts 5 requests maximum per second from the same client
+ * Limit 5 requests maximum per second for a client.
  */
 const courseRateLimiter: RateLimitRequestHandler = rateLimit({
     legacyHeaders: false,

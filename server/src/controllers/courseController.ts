@@ -71,10 +71,10 @@ type AssociatedCourseDataQueryParameters = {
 };
 
 /**
- * A controller for course search
- * @param req user's request
- * @param res response to user's request
- * @param next the function that will be called if an exception is thrown
+ * A controller for the course search endpoint.
+ * @param req An object for user's request.
+ * @param res An object for the response to user's request.
+ * @param next The function that will be called if an exception is thrown.
  */
 export default async function(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
@@ -97,9 +97,9 @@ export default async function(req: express.Request, res: express.Response, next:
 }
 
 /**
- * Fetch aggregate course data based on user parameters
- * @param req user's request
- * @returns a promise for the aggregate data
+ * Fetch aggregate course data based on user parameters.
+ * @param req An object for user's request.
+ * @returns A promise for the aggregate data.
  */
 async function getAggregatedStatistics(req: express.Request): Promise<RawAggregateCourseData[]> {
     let [aggregateQuery, replacements]: [string, AggregatedCourseDataQueryParameters] = createAggregateQueryWithParameters(req);
@@ -112,9 +112,9 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
 }
 
 /**
- * Compute the query and its parameters for aggregate data
- * @param req user's request
- * @returns a string for the SQL query and an object for the query's parameters
+ * Compute the query and its parameters for aggregate data.
+ * @param req An object for user's request.
+ * @returns A string for the SQL query and an object for the query's parameters.
  */
  function createAggregateQueryWithParameters(req: express.Request): [string, AggregatedCourseDataQueryParameters] {
     let aggregateQuery: string = createAggregateQuery(req.body.values.instructor);
@@ -149,9 +149,9 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
 }
 
 /**
- * Create a SQL query based on whether the instructor is provided or not
- * @param instructor the instructor parameter from user parameters
- * @returns a string for a SQL query
+ * Create a SQL query based on whether the instructor is provided or not.
+ * @param instructor The value of the instructor parameter in user parameters.
+ * @returns The basis for the SQL query template.
  */
  function createAggregateQuery(instructor: string[]): string {
     return (instructor.length > 0)
@@ -182,9 +182,9 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
 }
 
 /**
- * Fetch a list of course data based on user parameters
- * @param req user's request
- * @returns a promise for a list of course data that the instructors are separated into an array
+ * Fetch a list of course data based on user parameters.
+ * @param req An object for user's request.
+ * @returns A promise for a list of course data that the instructors are separated into an array.
  */
 async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
     let [query, replacements]: [string, AssociatedCourseDataQueryParameters] = createAssociatedCourseListQueryWithParameters(req);
@@ -199,9 +199,9 @@ async function getAssociatedCourses(req: express.Request): Promise<ProcessedCour
 }
 
 /**
- * Compute the query and its parameters for a list of course data
- * @param req user's request
- * @returns a string for the SQL query and an object for the query's parameters
+ * Compute the query and its parameters for a list of course data.
+ * @param req An object for user's request.
+ * @returns A string for the SQL query and an object for the query's parameters.
  */
  function createAssociatedCourseListQueryWithParameters(req: express.Request): [string, AssociatedCourseDataQueryParameters] {
     let tokens: string[] = createAssociatedCourseListQuery();
@@ -237,8 +237,8 @@ async function getAssociatedCourses(req: express.Request): Promise<ProcessedCour
 }
 
 /**
- * Return an array of a big SQL query
- * @returns an array that makes up a SQL string
+ * Return an array for the basis of a SQL query for fetching individual courses.
+ * @returns An array that makes up the basis a SQL query.
  */
 function createAssociatedCourseListQuery(): string[] {
     return [

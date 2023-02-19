@@ -3,9 +3,9 @@ import logger from '../utils/logger';
 
 /**
  * A handler to handle the case when the user is trying to access an invalid endpoint/URL
- * @param req the client's request
- * @param res data that will be sent to the client
- * @param next the function that will be invoked after the processing work in this function
+ * @param req An object for user's request.
+ * @param res An object for the response to user's request.
+ * @param next The function that will be invoked after the work is done.
  */
 function invalidRouteHandler(req: Request, res: Response, next: NextFunction): void {
     res
