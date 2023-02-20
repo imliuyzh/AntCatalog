@@ -1,9 +1,14 @@
+import Transport from 'winston-transport';
 import winston from 'winston';
+
+const transport: Transport = new winston.transports.File({ filename: `./logs/${Date.now()}.log` });
 
 // A variable to create a log with the timestamp when the server starts
 const logger: winston.Logger = winston.createLogger({
+    exceptionHandlers: transport,
     format: winston.format.combine(winston.format.timestamp(), winston.format.prettyPrint()),
-    transports: [new winston.transports.File({ filename: `./logs/${Date.now()}.log` })]
+    rejectionHandlers: transport,
+    transports: transport
 });
 
 export default logger;
