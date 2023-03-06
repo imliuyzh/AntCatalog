@@ -12,8 +12,8 @@ env:
   NODE_VERSION: '18.x'
 
 jobs:
-  build:
-    name: Build
+  build-and-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@main
@@ -37,16 +37,7 @@ jobs:
           npm run build
         working-directory: server
 
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-20.04
-    needs: build
-    environment:
-      name: 'production'
-
-    steps:
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
