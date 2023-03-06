@@ -42,7 +42,7 @@ export default function EmptyChart() {
                 late grade submittal. If so, please create an issue on GitHub.
 
                 Due to graduation, AntCatalog will no longer to be maintained after the 2022-2023 academic year. Please
-                take a look at [PeterPortal](https://github.com/icssc) from now on.
+                go to PeterPortal from now on.
 
                 <GitHubLinkContainerElement>
                     <a href="https://github.com/imliuyzh/AntCatalog" id="github-button" target="_blank" title="GitHub" rel="noreferrer">
