@@ -102,7 +102,7 @@ You should see the website deployed when you entered the public IPv4 address of 
 The instruction below is written for a Linux free tier instance. You can create one by following [here](https://www.youtube.com/watch?v=npI4GD8mFuA). Also, please ensure Visual Studio Code is installed along with the Azure App Service extension.
 
 1. Go to the configuration page of the instance
-   + Under `Application settings`, add a new application setting called `SCM_DO_BUILD_DURING_DEPLOYMENT` and set it to true
+   + Under `Application settings`, add two new entries, `SCM_DO_BUILD_DURING_DEPLOYMENT` and `WEBSITE_WEBDEPLOY_USE_SCM`, to application setting and set both to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS Only
 2. Clone the repository to your local device and run `npm i && npm run build` in `/client`
 3. Move `/client/build` to `/server` as `/server/public`
