@@ -101,15 +101,15 @@ You should see the website deployed when you entered the public IPv4 address of 
 ### Azure App Service
 The instruction below is written for a Linux free tier instance. You can create one by following [this video](https://www.youtube.com/watch?v=npI4GD8mFuA). 
 
-#### GitHub Actions
+#### Deploy with GitHub Actions
 1. Go to the configuration page of the instance
    + Under `Application settings`, add two new entries, `SCM_DO_BUILD_DURING_DEPLOYMENT` and `WEBSITE_WEBDEPLOY_USE_SCM`, to application setting and set both to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS Only
 2. Generate a publish profile and use it to create a GitHub secret by following the sections "Generate deployment credentials" and "Configure the GitHub secret" in [this link](https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions).
-2. The application should be deployed when a new commit is pushed to the main branch.
+3. The application should be deployed when a new commit is pushed to the main branch.
 
 #### Deploy with Visual Studio Code
-Please ensure the Azure App Service extension is installed beforehand.
+Please ensure the Azure App Service extension is installed.
 
 1. Go to the configuration page of the instance
    + Under `Application settings`, add `SCM_DO_BUILD_DURING_DEPLOYMENT` to application setting and set it to true
