@@ -1,0 +1,55 @@
+name: Deploy AntCatalog to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: antcatalog
+  AZURE_WEBAPP_PACKAGE_PATH: './server'
+  NODE_VERSION: '18.x'
+  UBUNTU_VERSION: ubuntu-20.04
+
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ env.UBUNTU_VERSION }}
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: npm install and build on /client
+        run: |
+          npm install
+          npm run build
+        working-directory: client
+
+      - name: npm install, test, and build on /server
+        run: |
+          npm install
+          npm run test
+          mv ../client/build ./public
+          npm run build
+        working-directory: server
+
+  deploy:
+    name: Deploy
+    runs-on: ${{ env.UBUNTU_VERSION }}
+    needs: build
+    environment:
+      name: 'production'
+
+    steps:
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
