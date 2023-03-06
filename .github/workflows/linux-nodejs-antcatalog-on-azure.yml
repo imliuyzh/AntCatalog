@@ -1,4 +1,4 @@
-name: Deploy AntCatalog to Azure Web App
+name: Deploy AntCatalog to Azure App Service
 
 on:
   push:
@@ -8,35 +8,37 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: antcatalog
-  NODE_VERSION: 'lts/hydrogen'
 
 jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-20.04
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@main
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: lts/hydrogen
 
       - name: npm install and build on /client
         run: |
-          npm install
+          npm ci
           npm run build
         working-directory: client
 
       - name: npm install, test, and build on /server
         run: |
-          npm install
+          npm ci
           npm run test
+          rm -r ./logs
           mv ../client/build ./public
           npm run build
         working-directory: server
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
