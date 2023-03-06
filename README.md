@@ -1,7 +1,7 @@
 ![Demonstration](./demo.gif)
 
 # AntCatalog
-*This repository will no longer to be actively maintained starting Winter 2023 and forward due to graduation. Please check out [PeterPortal](https://github.com/icssc) from now on.*
+*This repository will no longer to be maintained after the 2022-2023 academic year. Please check out [PeterPortal](https://github.com/icssc) from now on.*
 
 ## Getting Started
 Before moving on in this section, please install npm as well as the most current release of Node.js v18. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
