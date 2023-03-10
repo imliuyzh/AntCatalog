@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { css, Global } from "@emotion/react";
+import HomePage from './pages/HomePage/HomePage';
 import { lazy, Suspense } from 'react';
 
 const GlobalStyles = css`
@@ -9,7 +10,6 @@ const GlobalStyles = css`
     }
 `;
 
-const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const ErrorPage = lazy(() => import('./pages/ErrorPage/ErrorPage'));
 
 export default function App() {
