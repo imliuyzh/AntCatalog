@@ -41,8 +41,7 @@ describe('POST /courses', () => {
                         options: {
                             "aggregate": false,
                             "offset": 0
-                        `
-                    );
+                    `);
                 expect(response.statusCode).toBe(400);
                 expect(response.body.success).toBe(false);
             });
@@ -706,7 +705,7 @@ describe('POST /courses', () => {
                         values: {
                             year: null,
                             quarter: null,
-                            department: ["EXP", "D2"],
+                            department: ["EXP", "UPPX"],
                             courseNumber: ["001", "100"],
                             courseCode: null,
                             instructor: null
@@ -1148,8 +1147,8 @@ describe('POST /courses', () => {
             });
         });
 
-        describe('sending request with partly valid arguments', () => {
-            test('partly valid arguments 1', async () => {
+        describe('sending request with partially valid arguments', () => {
+            test('partially valid arguments 1', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -1169,7 +1168,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
-            test('partly valid arguments 2', async () => {
+            test('partially valid arguments 2', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -1189,7 +1188,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
-            test('partly valid arguments 3', async () => {
+            test('partially valid arguments 3', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -1209,7 +1208,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
-            test('partly valid arguments 4', async () => {
+            test('partially valid arguments 4', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -1229,7 +1228,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
-            test('partly valid arguments 5', async () => {
+            test('partially valid arguments 5', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -1249,7 +1248,7 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
-            test('partly valid arguments 6', async () => {
+            test('partially valid arguments 6', async () => {
                 const response = await request
                     .post(ROUTE)
                     .send({
@@ -1260,6 +1259,54 @@ describe('POST /courses', () => {
                             courseNumber: ['23532', '3412'],
                             courseCode: null,
                             instructor: [3, 2, 1]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+        });
+        
+        describe('sending request with invalid arguments', () => {
+            test('long department names', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            department: ['In ex augue, dictum a felis non, consequat laoreet massa. Aliquam posuere lorem non finibus auctor. In varius mi id lectus interdum', 'Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?', 'Time:        4.383 s, estimated 6 s']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('long course numbers', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            courseCode: ['In ex augue, dictum a felis non, consequat laoreet massa. Aliquam posuere lorem non finibus auctor. In varius mi id lectus interdum', 'Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?', 'Time:        4.383 s, estimated 6 s']
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('long instructor names', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            instructor: ['In ex augue, dictum a felis non, consequat laoreet massa. Aliquam posuere lorem non finibus auctor. In varius mi id lectus interdum', 'Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?', 'Time:        4.383 s, estimated 6 s']
                         },
                         options: {
                             aggregate: false,

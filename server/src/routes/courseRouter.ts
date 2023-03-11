@@ -150,9 +150,12 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be a non-empty string.')
         .trim()
-        .notEmpty()
+        .isLength({
+            min: 3,
+            max: 10
+        })
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage('It must have 3 to 10 characters.')
         .toUpperCase(),
     body('values.courseNumber')
         .default([])
@@ -164,9 +167,12 @@ const validators: ValidationChain[] = [
         .bail()
         .withMessage('It must be a non-empty string.')
         .trim()
-        .notEmpty()
+        .isLength({
+            min: 1,
+            max: 8
+        })
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage('It must have 1 to 8 characters.')
         .toUpperCase(),
     body('values.courseCode')
         .default([])
@@ -189,11 +195,14 @@ const validators: ValidationChain[] = [
     body('values.instructor[*]')
         .isString()
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage('It must be a string.')
         .trim()
-        .notEmpty()
+        .isLength({
+            min: 2,
+            max: 20
+        })
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage('It must have 2 to 20 characters.')
         .toUpperCase(),
     body('options.aggregate')
         .exists()

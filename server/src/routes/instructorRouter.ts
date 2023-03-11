@@ -60,9 +60,12 @@ const validator: ValidationChain = query('name')
     .bail()
     .withMessage('Value must be a string.')
     .trim()
-    .notEmpty()
+    .isLength({
+        min: 2,
+        max: 20
+    })
     .bail()
-    .withMessage('Value must not be empty.');
+    .withMessage('The length of the value must be between 2 and 20 (inclusive).');
 
 export default express
     .Router()
