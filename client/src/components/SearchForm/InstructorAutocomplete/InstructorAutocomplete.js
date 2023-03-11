@@ -9,18 +9,15 @@ import * as React from 'react';
 const animatedComponents = makeAnimated();
 
 const loadOptions = debounce((instructorInput, callback) => {
-    try {
-        if (instructorInput.trim().length >= 2) {
-            fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/instructors?name=${encodeURIComponent(instructorInput)}`)
-                .then(response => response.json())
-                .then(data => callback(data.matches.map(match => ({
-                    value: match,
-                    label: match
-                }))));
-        } else {
-            callback([]);
-        }
-    } catch {
+    if (instructorInput.trim().length >= 2) {
+        fetch(`${window.ANTCATALOG_SERVICES_ENDPOINT}/instructors?name=${encodeURIComponent(instructorInput)}`)
+            .then(response => response.json())
+            .then(data => callback(data.matches.map(match => ({
+                value: match,
+                label: match
+            }))))
+            .catch(() => callback([]));
+    } else {
         callback([]);
     }
 }, 200);
