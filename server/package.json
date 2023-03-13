@@ -39,7 +39,7 @@
     "helmet": "6.0.1",
     "node-cache": "5.1.2",
     "sequelize": "6.29.3",
-    "sqlite3": "5.1.4",
+    "sqlite3": "5.1.5",
     "winston": "3.8.2"
   }
 }
