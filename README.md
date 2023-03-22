@@ -59,7 +59,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
    + Get npm and the most current release of Node.js v18
-4. Clone the project to the instance and run `npm i` for both `/client` and `/server`
+4. Clone the project to the instance and run `npm ci` for both `/client` and `/server`
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
 6. Run `sudo apt install nginx` to install NGINX
@@ -106,7 +106,7 @@ The instruction below is written for a Linux free tier instance. You can create 
    + Under `Application settings`, add `WEBSITE_WEBDEPLOY_USE_SCM` to application setting and set it to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS Only
 2. Create a GitHub secret using a publish profile by following the sections "Generate deployment credentials" and "Configure the GitHub secret" in [this link](https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions)
-3. Change the value of `AZURE_WEBAPP_NAME` in `/github/workflows/linux-nodejs-antcatalog-on-azure.yml` to the value of your instance
+3. Change the value of `AZURE_WEBAPP_NAME` in `/github/workflows/linux-nodejs-antcatalog-on-azure.yml` to the name of your instance
 4. The application should be deployed whenever a new commit is pushed to the main branch
    + You can run the deployment workflow manually by following [this link](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) 
 
@@ -116,7 +116,7 @@ Please ensure the Azure App Service extension is installed.
 1. Go to the configuration page of the instance
    + Under `Application settings`, add `SCM_DO_BUILD_DURING_DEPLOYMENT` to application setting and set it to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS Only
-2. Clone the repository to your local device and run `npm i && npm run build` in `/client`
+2. Clone the repository to your local device and run `npm ci && npm run build` in `/client`
 3. Move `/client/build` to `/server` as `/server/public`
 4. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
    + Provide your instance's information to the rest
