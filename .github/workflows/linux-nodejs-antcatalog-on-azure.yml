@@ -23,13 +23,13 @@ jobs:
         with:
           node-version: lts/hydrogen
 
-      - name: npm install and build on /client
+      - name: npm ci and build on /client
         run: |
           npm ci
           npm run build
         working-directory: client
 
-      - name: npm install, test, and build on /server
+      - name: npm ci, test, and build on /server
         run: |
           npm ci
           npm run test
