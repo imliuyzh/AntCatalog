@@ -30,6 +30,7 @@ const InstructorAutocomplete = React.forwardRef((_, ref) => {
             components={animatedComponents}
             isMulti
             loadOptions={loadOptions}
+            noOptionsMessage={() => "No matches."}
             onChange={(newValue) => internalStateDispatch(updateFormInput({ instructor: newValue.map(({ value }) => value) }))}
             placeholder="Instructors"
             ref={ref}
