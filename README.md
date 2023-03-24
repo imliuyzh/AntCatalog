@@ -100,8 +100,6 @@ You should see the website deployed when you entered the public IPv4 address of 
 
 ### Azure App Service
 The instruction below is written for a Linux free tier instance. You can create one by following [this video](https://www.youtube.com/watch?v=npI4GD8mFuA). 
-
-#### Deploy with GitHub Actions
 1. Go to the configuration page of the instance
    + Under `Application settings`, add `WEBSITE_WEBDEPLOY_USE_SCM` to application setting and set it to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS only
