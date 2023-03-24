@@ -104,22 +104,11 @@ The instruction below is written for a Linux free tier instance. You can create 
 #### Deploy with GitHub Actions
 1. Go to the configuration page of the instance
    + Under `Application settings`, add `WEBSITE_WEBDEPLOY_USE_SCM` to application setting and set it to true
-   + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS Only
+   + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS only
 2. Create a GitHub secret using a publish profile by following the sections "Generate deployment credentials" and "Configure the GitHub secret" in [this link](https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions)
 3. Change the value of `AZURE_WEBAPP_NAME` in `/github/workflows/linux-nodejs-antcatalog-on-azure.yml` to the name of your instance
 4. The application should be deployed whenever a new commit is pushed to the main branch
-   + You can run the deployment workflow manually by following [this link](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) 
-
-#### Deploy with Visual Studio Code
-Please ensure the Azure App Service extension is installed.
-
-1. Go to the configuration page of the instance
-   + Under `Application settings`, add `SCM_DO_BUILD_DURING_DEPLOYMENT` to application setting and set it to true
-   + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS Only
-2. Clone the repository to your local device and run `npm ci && npm run build` in `/client`
-3. Move `/client/build` to `/server` as `/server/public`
-4. Open the entire repository in Visual Studio Code, right click on `/server`, and select `Deploy to Web App...`
-   + Provide your instance's information to the rest
+   + You can run the deployment workflow manually by following [this link](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow)
 
 You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity.
 
