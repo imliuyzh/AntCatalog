@@ -33,9 +33,13 @@ jobs:
         run: |
           npm ci
           npm run test
-          rm -r ./logs
-          mv ../client/build ./public
           npm run build
+        working-directory: server
+
+      - name: Prepare Deployment Assets
+        run: |
+          rm -r ./logs ./node_modules
+          mv ../client/build ./public
         working-directory: server
 
       - name: Deploy to Azure Web App
