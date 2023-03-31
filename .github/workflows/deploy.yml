@@ -36,7 +36,7 @@ jobs:
           npm run build
         working-directory: server
 
-      - name: Prepare Deployment Assets
+      - name: Prepare Deployment Artifact
         run: |
           rm -r ./logs
           mv ../client/build ./public
