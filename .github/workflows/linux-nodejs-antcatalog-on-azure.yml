@@ -38,7 +38,7 @@ jobs:
 
       - name: Prepare Deployment Assets
         run: |
-          rm -r ./logs ./node_modules
+          rm -r ./logs
           mv ../client/build ./public
         working-directory: server
 
