@@ -92,7 +92,7 @@ export default function CourseListModal() {
                             }} />
                             <Td dataLabel="Year">{course.year}</Td>
                             <Td dataLabel="Quarter">{course.quarter}</Td>
-                            <Td dataLabel="Course Code">{`${'0'.repeat(5 - course.courseCode.toString().length)}${course.courseCode}`}</Td>
+                            <Td dataLabel="Course Code">{course.courseCode.toString().padStart(5, '0')}</Td>
                             <Td dataLabel="Department">{course.department}</Td>
                             <Td dataLabel="Course Number">{course.courseNumber}</Td>
                             <Td dataLabel="Course Title">{course.courseTitle}</Td>

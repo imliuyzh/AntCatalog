@@ -20,7 +20,7 @@ export default function CourseTooltip({ isAggregateData, items, title }) {
                                     : <div className="course-code-container">
                                           <span className="course-code-label">Course Code: </span>
                                           <span className="g2-tooltip-list-item-value">
-                                            {`${'0'.repeat(5 - data.courseCode.toString().length)}${data.courseCode}`}
+                                            {data.courseCode.toString().padStart(5, '0')}
                                           </span>
                                       </div>
                             }
