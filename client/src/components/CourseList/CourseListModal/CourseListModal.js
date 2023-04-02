@@ -40,7 +40,7 @@ export default function CourseListModal() {
                     }
                     break;
                 case 429:
-                    internalStateDispatch(showAlert('Please slow down, you are going too fast!'));
+                    internalStateDispatch(showAlert('Please slow down.'));
                     break;
                 case 500: default:
                     internalStateDispatch(showAlert('An unexpected error occurs, please report to GitHub issues.'));
