@@ -36,9 +36,9 @@
     "express-rate-limit": "6.7.0",
     "express-validator": "6.15.0",
     "fuse.js": "6.6.2",
-    "helmet": "6.1.1",
+    "helmet": "6.1.2",
     "node-cache": "5.1.2",
-    "sequelize": "6.30.0",
+    "sequelize": "6.31.0",
     "sqlite3": "5.1.6",
     "winston": "3.8.2"
   }
