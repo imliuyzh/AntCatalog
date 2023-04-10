@@ -1,5 +1,3 @@
-# Remember to comment out courseRateLimiter before testing.
-
 import json, random
 from locust import HttpUser, task, between
 
