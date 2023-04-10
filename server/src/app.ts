@@ -18,8 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet({
     contentSecurityPolicy: {
-        useDefaults: true,
-        directives: { scriptSrc: [`'self'`, `'unsafe-inline'`] }
+        directives: { scriptSrc: [`'self'`, `'unsafe-inline'`] },
+        useDefaults: true
     }
 }));
 
