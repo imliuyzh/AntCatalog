@@ -104,11 +104,11 @@ The instruction below is written for a Linux free tier instance. You can create 
    + Under `Application settings`, add `WEBSITE_WEBDEPLOY_USE_SCM` to application setting and set it to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS only
 2. Create a GitHub secret using a publish profile by following the sections "Generate deployment credentials" and "Configure the GitHub secret" in [this link](https://learn.microsoft.com/en-us/azure/app-service/deploy-github-actions)
-3. Change the value of `AZURE_WEBAPP_NAME` in `/github/workflows/linux-nodejs-antcatalog-on-azure.yml` to the name of your instance
+3. Change the value of `AZURE_WEBAPP_NAME` in `/github/workflows/deploy.yml` to the name of your instance
 4. The application should be deployed whenever a new commit is pushed to the main branch
    + You can run the deployment workflow manually by following [this link](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow)
 
-You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity.
+You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity. However, this problem should be solved when the cron job in `/github/workflows/poll.yml` runs every 20 minutes.
 
 ## Acknowledgments
 This project has inspirations from [ZotCurve](https://github.com/ZotCurve/ZotCurve.github.io) and the grade distribution data is from UC Irvine's Public Records Office.
