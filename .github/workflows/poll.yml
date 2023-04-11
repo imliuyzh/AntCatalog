@@ -1,0 +1,17 @@
+name: Poll to Keep AntCatalog Active
+description: Send a request every 20 minutes so it will not be unloaded.
+
+on:
+  schedule:
+    - cron: '*/20 * * * *'
+  workflow_dispatch:
+
+jobs:
+  poll:
+    name: Poll
+    runs-on: ubuntu-20.04
+    timeout-minutes: 1
+    steps:
+      - name: Send a Request to the API
+        run: |
+          curl https://antcatalog.azurewebsites.net/instructors?name=random_name
