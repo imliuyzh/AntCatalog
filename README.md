@@ -108,7 +108,7 @@ The instruction below is written for a Linux free tier instance. You can create 
 4. The application should be deployed whenever a new commit is pushed to the main branch
    + You can run the deployment workflow manually by following [this link](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow)
 
-You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity. However, this problem should be solved when the cron job in `/github/workflows/poll.yml` runs every 20 minutes.
+You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity. However, this problem should be solved when the cron job in `/github/workflows/poll.yml` runs.
 
 ## Acknowledgments
 This project has inspirations from [ZotCurve](https://github.com/ZotCurve/ZotCurve.github.io) and the grade distribution data is from UC Irvine's Public Records Office.
