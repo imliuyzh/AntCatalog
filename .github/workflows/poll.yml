@@ -1,5 +1,4 @@
 name: Poll to Keep AntCatalog Active
-description: Send a request every 20 minutes so it will not be unloaded.
 
 on:
   schedule:
