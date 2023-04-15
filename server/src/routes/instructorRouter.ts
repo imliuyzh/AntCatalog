@@ -28,9 +28,9 @@
  *     {
  *         "success": false,
  *         "info": [{
- *             "value": "",
- *             "msg": "Value must not be empty.",
- *             "param": "name",
+ *             "type": "field",
+ *             "msg": "The name parameter is required in the query string.",
+ *             "path": "name",
  *             "location": "query"
  *         }]
  *     }
@@ -52,21 +52,22 @@ import instructorController from '../controllers/instructorController';
 import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 
 const cacheWorker = apicache.middleware('30 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
-const validator: ValidationChain = query('name')
-    .exists()
-    .bail()
-    .withMessage('The name parameter is required in the query string.')
-    .isString()
-    .bail()
-    .withMessage('Value must be a string.')
-    .trim()
-    .isLength({
-        min: 2,
-        max: 20
-    })
-    .bail()
-    .withMessage('The length of the value must be between 2 and 20 (inclusive).');
+const validateRequest: () => ValidationChain = () =>
+    query('name')
+        .exists()
+        .bail()
+        .withMessage('The name parameter is required in the query string.')
+        .isString()
+        .bail()
+        .withMessage('Value must be a string.')
+        .trim()
+        .isLength({
+            min: 2,
+            max: 20
+        })
+        .bail()
+        .withMessage('The length of the value must be between 2 and 20 (inclusive).');
 
 export default express
     .Router()
-    .get('/', [validator, invalidRequestSchemaHandler, cacheWorker], instructorController);
+    .get('/', [validateRequest(), invalidRequestSchemaHandler, cacheWorker], instructorController);

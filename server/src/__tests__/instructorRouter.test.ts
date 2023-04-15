@@ -22,6 +22,21 @@ describe('GET /instructors', () => {
             expect(response.statusCode).toBe(422);
             expect(response.body.success).toBe(false);
         });
+        test('should respond with a failed status when body is not an object 1', async () => {
+            const response = await request
+                .get(ROUTE)
+                .set('Content-Type', 'application/json')
+                .send('vvsadvasvasegw');
+            expect(response.statusCode).toBe(400);
+            expect(response.body.success).toBe(false);
+        });
+        test('should respond with a failed status when body is not an object 2', async () => {
+            const response = await request
+                .get(ROUTE)
+                .send('vvsadvasvasegw');
+            expect(response.statusCode).toBe(422);
+            expect(response.body.success).toBe(false);
+        });
     });
 
     describe('no matches for strings of length < 2', () => {

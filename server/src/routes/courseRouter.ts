@@ -74,15 +74,9 @@
  *         "success": false,
  *         "info": [
  *             {
- *                 "value": ["2021"],
- *                 "msg": "It must be an array of positive integers starting from 2013 to 2022.",
- *                 "param": "values.year",
- *                 "location": "body"
- *             },
- *             {
- *                 "value": [247],
- *                 "msg": "It must be an array of non-empty strings.",
- *                 "param": "values.courseNumber",
+ *                 "type": "field",
+ *                 "msg": "It is a mandatory field.",
+ *                 "path": "options.aggregate",
  *                 "location": "body"
  *             }
  *         ]
@@ -109,7 +103,7 @@ const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
     .middleware;
 const cacheWorker = cache('60 seconds', (_: unknown, res: express.Response) => res.statusCode === 200);
-const validators: ValidationChain[] = [
+const validateRequest: () => ValidationChain[] = () => [
     body('values.year')
         .default([])
         .isArray()
@@ -226,6 +220,6 @@ export default express
     .post(
         '/',
         process.env.NODE_ENV === 'test' ? [] : courseRateLimiter,
-        [validators, invalidRequestSchemaHandler, cacheWorker],
+        [validateRequest(), invalidRequestSchemaHandler, cacheWorker],
         courseController
     );

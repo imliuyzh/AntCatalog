@@ -14,8 +14,12 @@ describe('determineIndexFilePath() tests', () => {
         process.env.PRODUCTION_ENV = 'azure';
         expect(determineIndexFilePath()).toContain('public/index.html');
     });
-    test('should throw exception when PRODUCTION_ENV is something else', () => {
+    test('should throw exception when PRODUCTION_ENV is something else 1', () => {
         process.env.PRODUCTION_ENV = '';
+        expect(determineIndexFilePath).toThrow();
+    });
+    test('should throw exception when PRODUCTION_ENV is something else 2', () => {
+        process.env.PRODUCTION_ENV = undefined;
         expect(determineIndexFilePath).toThrow();
     });
 });
@@ -29,9 +33,13 @@ describe('determineStaticFileFolder() tests', () => {
         process.env.PRODUCTION_ENV = 'azure';
         expect(determineStaticFileFolder()).toContain('public');
     });
-    test('should throw exception when PRODUCTION_ENV is something else', () => {
+    test('should throw exception when PRODUCTION_ENV is something else 1', () => {
         process.env.PRODUCTION_ENV = '';
         expect(determineStaticFileFolder).toThrow();
+    });
+    test('should throw exception when PRODUCTION_ENV is something else 2', () => {
+        process.env.PRODUCTION_ENV = undefined;
+        expect(determineIndexFilePath).toThrow();
     });
 });
 

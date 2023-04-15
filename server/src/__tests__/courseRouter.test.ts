@@ -33,6 +33,44 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
+            test('should respond with a failed status when body is not an object 1', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .set('Content-Type', 'application/json')
+                    .send('vvsadvasvasegw');
+                expect(response.statusCode).toBe(400);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when body is not an object 2', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send('vvsadvasvasegw');
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when body is not an object 3', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .set('Content-Type', 'application/json')
+                    .send([]);
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when body is not an object 4', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send(undefined);
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('should respond with a failed status when body is not an object 5', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .set('Content-Type', 'application/json')
+                    .send([NaN]);
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
             test('should respond with a failed status when body is malformed 1', async () => {
                 const response = await request
                     .post(ROUTE)
