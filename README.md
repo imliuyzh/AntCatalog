@@ -54,11 +54,11 @@ You can use AWS EC2 or Azure App Service to deploy the application. If there is 
 
 ### Amazon Elastic Compute Cloud (EC2)
 The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v22.04 installed. Please ensure your operating system is able to initiate a SSH/SCP session.
+
 1. Create an instance on EC2 like [this](https://www.youtube.com/watch?v=GEVbYQWWJkQ)
    + Restrict SSH access to your IP address only and allow HTTP/HTTPS connections from everywhere with the security group feature
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
-3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm
-   + Get npm and the most current release of Node.js v18
+3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm and the most current release of Node.js v18
 4. Clone the project to the instance and run `npm ci` for both `/client` and `/server`
 5. Run `npm run build` on `/client`
    + If there is a memory error, you can run `npm run build` locally and move the `/build` folder to `/client` on the instance
@@ -83,7 +83,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v
       }
       ```
 7. Execute `npm install pm2 -g` and `pm2 startup`
-   + Copy and paste the generated command to ensure pm2 is started automatically when the OS booted
+   + Copy and paste the generated command to ensure pm2 is started automatically when the system is booted
 8. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
 9. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx` and answer the questions based on your circumstances
     + Renew the SSL certificate by `sudo certbot renew`
@@ -100,6 +100,7 @@ You should see the website deployed when you entered the public IPv4 address of 
 
 ### Azure App Service
 The instruction below is written for a Linux free tier instance. You can create one by following [this video](https://www.youtube.com/watch?v=npI4GD8mFuA). 
+
 1. Go to the configuration page of the instance
    + Under `Application settings`, add `WEBSITE_WEBDEPLOY_USE_SCM` to application setting and set it to true
    + Under `General settings`, set the startup command to `npm run start:azure`, disable FTP state, set HTTP version to 2.0 with TLS version 1.2, turn off ARR affinity, and enable HTTPS only
@@ -108,7 +109,7 @@ The instruction below is written for a Linux free tier instance. You can create 
 4. The application should be deployed whenever a new commit is pushed to the main branch
    + You can run the deployment workflow manually by following [this link](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow)
 
-You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity. However, this problem should be solved when the cron job in `/github/workflows/poll.yml` runs.
+You should see the website deployed on `https://<app-name>.azurewebsites.net`. Note that it will take about a minute to load the website again after 20 minutes of inactivity. However, a workaround is implemented with the cron job in `/github/workflows/poll.yml`.
 
 ## Acknowledgments
-This project has inspirations from [ZotCurve](https://github.com/ZotCurve/ZotCurve.github.io) and the grade distribution data is from UC Irvine's Public Records Office.
+This project has inspirations from [ZotCurve](https://github.com/ZotCurve/ZotCurve.github.io) and the grade distribution data is from UC Irvine's Public Records Office (PRO).
