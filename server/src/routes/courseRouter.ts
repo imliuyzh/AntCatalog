@@ -72,14 +72,12 @@
  *     HTTP/1.1 422 Unprocessable Entity
  *     {
  *         "success": false,
- *         "info": [
- *             {
- *                 "type": "field",
- *                 "msg": "It is a mandatory field.",
- *                 "path": "options.aggregate",
- *                 "location": "body"
- *             }
- *         ]
+ *         "info": [{
+ *             "type": "field",
+ *             "msg": "It is a mandatory field.",
+ *             "path": "options.aggregate",
+ *             "location": "body"
+ *         }]
  *     }
  * 
  * @apiError InternalError An exception is raised inside the server application.
