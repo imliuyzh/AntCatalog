@@ -21,6 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
+          check-latest: true
           node-version: lts/hydrogen
 
       - name: npm ci and build on /client
