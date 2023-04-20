@@ -13,4 +13,4 @@ jobs:
     steps:
       - name: Send a Request to the API
         run: |
-          curl https://antcatalog.azurewebsites.net/instructors?name=random_name
+          curl https://antcatalog.azurewebsites.net/instructors?name=random_name -m 5
