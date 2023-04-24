@@ -1306,9 +1306,40 @@ describe('POST /courses', () => {
                 expect(response.statusCode).toBe(422);
                 expect(response.body.success).toBe(false);
             });
+            test('partially valid arguments 7', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            year: [2020],
+                            quarter: ['Winter'],
+                            courseCode: [-12443]
+                        },
+                        options: {
+                            aggregate: false,
+                            offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('partially valid arguments 8', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            courseCode: [3124343, 12442]
+                        },
+                        options: {
+                            aggregate: true
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
         });
         
-        describe('sending request with invalid arguments', () => {
+        describe('sending request with long arguments', () => {
             test('long department names', async () => {
                 const response = await request
                     .post(ROUTE)
@@ -1349,6 +1380,20 @@ describe('POST /courses', () => {
                         options: {
                             aggregate: false,
                             offset: 0
+                        }
+                    });
+                expect(response.statusCode).toBe(422);
+                expect(response.body.success).toBe(false);
+            });
+            test('long course codes', async () => {
+                const response = await request
+                    .post(ROUTE)
+                    .send({
+                        values: {
+                            courseCode: [2147483647, -2147483648]
+                        },
+                        options: {
+                            aggregate: true
                         }
                     });
                 expect(response.statusCode).toBe(422);

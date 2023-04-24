@@ -74,7 +74,7 @@
  *         "success": false,
  *         "info": [{
  *             "type": "field",
- *             "msg": "It is a mandatory field.",
+ *             "msg": "\"options.aggregate\" is required.",
  *             "path": "options.aggregate",
  *             "location": "body"
  *         }]
@@ -106,7 +106,7 @@ const validateRequest: () => ValidationChain[] = () => [
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of integers.'),
+        .withMessage(`"values.year" must be an array of integers.`),
     body('values.year[*]')
         .toInt()
         .isInt({
@@ -114,95 +114,96 @@ const validateRequest: () => ValidationChain[] = () => [
             max: 2022
         })
         .bail()
-        .withMessage('It must be a positive integer starting from 2013 to 2022.'),
+        .withMessage(`Values within "values.year" must be positive integers starting from 2013 to 2022.`),
     body('values.quarter')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.'),
+        .withMessage(`"values.quarter" must be an array of non-empty strings.`),
     body('values.quarter[*]')
         .isString()
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage(`Values within "values.quarter" must be non-empty strings.`)
         .trim()
         .notEmpty()
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage(`Values within "values.quarter" must be non-empty strings.`)
         .custom((quarter: String) => ['FALL', 'WINTER', 'SPRING', 'SUMMER'].includes(quarter.toUpperCase()))
         .bail()
-        .withMessage('Fall, Winter, Spring, and Summer quarters only.')
+        .withMessage('Fall, Winter, Spring, and Summer only.')
         .customSanitizer((qtr: string, _: unknown) => qtr[0].toUpperCase() + qtr.slice(1, qtr.length).toLowerCase()),
     body('values.department')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.'),
+        .withMessage(`"values.department" must be an array of non-empty strings.`),
     body('values.department[*]')
         .isString()
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage(`Values within "values.department" must be non-empty strings.`)
         .trim()
         .isLength({
             min: 3,
             max: 10
         })
         .bail()
-        .withMessage('It must have 3 to 10 characters.')
+        .withMessage(`Values within "values.department" must have 3 to 10 characters.`)
         .toUpperCase(),
     body('values.courseNumber')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.'),
+        .withMessage(`"values.courseNumber" must be an array of non-empty strings.`),
     body('values.courseNumber[*]')
         .isString()
         .bail()
-        .withMessage('It must be a non-empty string.')
+        .withMessage(`Values within "values.courseNumber" must be non-empty strings.`)
         .trim()
         .isLength({
             min: 1,
             max: 8
         })
         .bail()
-        .withMessage('It must have 1 to 8 characters.')
+        .withMessage(`Values within "values.courseNumber" must have 1 to 8 characters.`)
         .toUpperCase(),
     body('values.courseCode')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of positive 5-digit integers.'),
+        .withMessage(`"values.courseCode" must be an array of positive 5-digit integers.`),
     body('values.courseCode[*]')
         .toInt()
         .isInt({
             allow_leading_zeroes: true,
+            min: 1,
             max: 99999
         })
         .bail()
-        .withMessage('It must be a positive 5-digit integer.'),
+        .withMessage(`Values within "values.courseCode" must be positive 5-digit integers.`),
     body('values.instructor')
         .default([])
         .isArray()
         .bail()
-        .withMessage('It must be an array of non-empty strings.'),
+        .withMessage(`"values.instructor" must be an array of non-empty strings.`),
     body('values.instructor[*]')
         .isString()
         .bail()
-        .withMessage('It must be a string.')
+        .withMessage(`Values within "values.instructor" must be strings.`)
         .trim()
         .isLength({
             min: 2,
             max: 20
         })
         .bail()
-        .withMessage('It must have 2 to 20 characters.')
+        .withMessage(`Values within "values.instructor" must have 2 to 20 characters.`)
         .toUpperCase(),
     body('options.aggregate')
         .exists()
         .bail()
-        .withMessage('It is a mandatory field.')
+        .withMessage(`"options.aggregate" is required.`)
         .isBoolean()
         .bail()
-        .withMessage('It must be a boolean.'),
+        .withMessage(`"options.aggregate" must be a boolean.`),
     body('options.offset')
         .default(0)
         .isInt({
@@ -210,7 +211,7 @@ const validateRequest: () => ValidationChain[] = () => [
             min: 0
         })
         .bail()
-        .withMessage('It must be an integer starting from 0.')
+        .withMessage(`"options.offset" must be an integer starting from 0.`)
 ];
 
 export default express

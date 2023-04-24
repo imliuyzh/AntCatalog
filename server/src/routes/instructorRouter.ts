@@ -29,7 +29,7 @@
  *         "success": false,
  *         "info": [{
  *             "type": "field",
- *             "msg": "The name parameter is required in the query string.",
+ *             "msg": "\"name\" is required.",
  *             "path": "name",
  *             "location": "query"
  *         }]
@@ -56,17 +56,17 @@ const validateRequest: () => ValidationChain = () =>
     query('name')
         .exists()
         .bail()
-        .withMessage('The name parameter is required in the query string.')
+        .withMessage(`"name" is required.`)
         .isString()
         .bail()
-        .withMessage('Value must be a string.')
+        .withMessage(`"name" must be a string.`)
         .trim()
         .isLength({
             min: 2,
             max: 20
         })
         .bail()
-        .withMessage('The length of the value must be between 2 and 20 (inclusive).');
+        .withMessage(`"name" must have 2 to 20 characters.`);
 
 export default express
     .Router()
