@@ -79,17 +79,13 @@ describe('GET /instructors', () => {
     });
 
     describe('should have at most five matches at any given time', () => {
-        test('should respond with SHINDLER, M. when given shnidler', async () => {
+        test('sshould have only 5 results 1', async () => {
             const response = await request.get(`${ROUTE}?name=shnidler`);
-            expect(response.body.matches.length).toBeLessThanOrEqual(5);
-        });
-        test('should have only 5 results', async () => {
-            const response = await request.get(`${ROUTE}?name=abc`);
             expect(response.body.matches.length).toBe(5);
         });
-        test('should respond with LI, C. when given li,', async () => {
-            const response = await request.get(`${ROUTE}?name=li,c`);
-            expect(response.body.matches).toContain('LI, C.');
+        test('should have only 5 results 2', async () => {
+            const response = await request.get(`${ROUTE}?name=abc`);
+            expect(response.body.matches.length).toBe(5);
         });
     });
 
@@ -139,6 +135,25 @@ describe('GET /instructors', () => {
             expect(response.statusCode).toBe(200);
             expect(response.body.success).toBe(true);
             expect(response.body.matches[0]).toBe('ZIV, H.');
+        });
+        test('should respond with LI, C. when given li,', async () => {
+            const response = await request.get(`${ROUTE}?name=li,c`);
+            expect(response.body.matches).toContain('LI, C.');
+        });
+    });
+
+    describe('miscellaneous cases', () => {
+        test('should respond with no match 1', async () => {
+            const response = await request.get(`${ROUTE}?name=123`);
+            expect(response.statusCode).toBe(200);
+            expect(response.body.success).toBe(true);
+            expect(response.body.matches.length).toBe(0);
+        });
+        test('should respond with no match 2', async () => {
+            const response = await request.get(`${ROUTE}?name=${encodeURIComponent('名字')}`);
+            expect(response.statusCode).toBe(200);
+            expect(response.body.success).toBe(true);
+            expect(response.body.matches.length).toBe(0);
         });
     });
 });

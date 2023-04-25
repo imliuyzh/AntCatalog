@@ -22,6 +22,10 @@ describe('determineIndexFilePath() tests', () => {
         process.env.PRODUCTION_ENV = undefined;
         expect(determineIndexFilePath).toThrow();
     });
+    test('should throw exception when PRODUCTION_ENV is something else 3', () => {
+        process.env.PRODUCTION_ENV = 'microsoft azure';
+        expect(determineIndexFilePath).toThrow();
+    });
 });
 
 describe('determineStaticFileFolder() tests', () => {
@@ -39,6 +43,10 @@ describe('determineStaticFileFolder() tests', () => {
     });
     test('should throw exception when PRODUCTION_ENV is something else 2', () => {
         process.env.PRODUCTION_ENV = undefined;
+        expect(determineIndexFilePath).toThrow();
+    });
+    test('should throw exception when PRODUCTION_ENV is something else 3', () => {
+        process.env.PRODUCTION_ENV = 'microsoft azure';
         expect(determineIndexFilePath).toThrow();
     });
 });

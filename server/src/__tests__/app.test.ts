@@ -14,6 +14,27 @@ describe('miscellaneous cases', () => {
         expect(response.statusCode).toBe(404);
         expect(response.body.success).toBe(false);
     });
+    test('should respond with 404 status when sending requests to DELETE /courses', async () => {
+        const response = await request
+            .delete('/courses')
+            .send({
+                values: {
+                    instructor: ['BURTSEV, A.']
+                },
+                options: {
+                    aggregate: true,
+                }
+            });
+        expect(response.statusCode).toBe(404);
+        expect(response.body.success).toBe(false);
+    });
+    test('should respond with 404 status when sending requests to POST /instructors', async () => {
+        const response = await request
+            .post('/instructors')
+            .send('randomstring');
+        expect(response.statusCode).toBe(404);
+        expect(response.body.success).toBe(false);
+    });
     test('should respond with 500 status when there is an internal error', async () => {
         let mockedInstructorController = instructorController as jest.MockedFunction<typeof instructorController>;
         mockedInstructorController.mockImplementation(() => {
