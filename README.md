@@ -7,12 +7,12 @@
 Before moving on in this section, please install npm as well as the most current release of Node.js v18. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
 
 ### Front end
-1. Enter the `client` folder in the command line and execute `npm i` to install the packages
-2. Run `npm start` to see the front end application
+1. Enter the `client` folder in the command line and run `npm i` to install the packages
+2. Execute `npm start` to see the front end application
 
 ### Back end
-1. Enter the `server` folder in the command line and execute `npm i` to install the packages
-2. Run `npm run dev` to start the back end service
+1. Enter the `server` folder in the command line and run `npm i` to install the packages
+2. Execute `npm run dev` to start the back end service
    + If there is an error about ts-node, run `npm i -g ts-node`
 
 For other information of back end services such as testing, please visit [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
