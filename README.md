@@ -60,7 +60,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v
 2. Connect to the AWS instance you just created with `ssh -i "PEM_FILE_HERE" ubuntu@AWS_INSTANCE_PUBLIC_IPV4_DNS`
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm and the most current release of Node.js v18
 4. Clone the project to the instance and run `npm ci` for both `client` and `server`
-5. Run `npm run build` on `client`
+5. Execute `npm run build` on `client`
    + If there is a memory error, you can run `npm run build` locally and move the `build` folder to `client` on the server
 6. Run `sudo apt install nginx` to install NGINX
    + Run `sudo service nginx stop` and `sudo rm /etc/nginx/sites-available/default`
@@ -82,7 +82,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v
           }
       }
       ```
-7. Execute `npm install pm2 -g` and `pm2 startup`
+7. Run `npm install pm2 -g` and `pm2 startup`
    + Copy and paste the generated command to ensure pm2 is started automatically when the system is booted
 8. Install Certbot to enable HTTPS by `sudo snap install --classic certbot`
 9. Inject HTTPS settings into current NGINX setting with `sudo certbot --nginx` and answer the questions based on your circumstances
@@ -94,7 +94,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v
 
       0 */12 * * * root certbot -q renew --nginx
       ```
-10. Run `npm run build`, `npm run start:aws`, and `sudo service nginx start` on `server`
+10. Execute `npm run build`, `npm run start:aws`, and `sudo service nginx start` on `server`
 
 You should see the website deployed when you entered the public IPv4 address of the instance.
 
