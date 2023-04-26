@@ -61,7 +61,7 @@ The instruction below is written for an AWS EC2 instance with Ubuntu v20.04 or v
 3. Follow [this tutorial](https://www.youtube.com/watch?v=ohBFbA0O6hs) to install nvm and the most current release of Node.js v18
 4. Clone the project to the instance and run `npm ci` for both `client` and `server`
 5. Execute `npm run build` on `client`
-   + If there is a memory error, you can run `npm run build` locally and move the `build` folder to `client` on the server
+   + If there is a memory error, you can execute `npm run build` locally and move the `build` folder to `client` on the instance
 6. Run `sudo apt install nginx` to install NGINX
    + Run `sudo service nginx stop` and `sudo rm /etc/nginx/sites-available/default`
    + Run `sudo touch /etc/nginx/sites-available/default`
