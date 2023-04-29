@@ -9,7 +9,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 window.ANTCATALOG_SERVICES_ENDPOINT =
-    (process.env.NODE_ENV === 'production') ? '' : 'http://localhost:26997'
+    (process.env.NODE_ENV === 'production') ? '' : 'http://localhost:26997';
 
 ReactDOM.render(
     <React.StrictMode>
