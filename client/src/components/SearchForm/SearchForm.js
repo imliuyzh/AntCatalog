@@ -38,7 +38,7 @@ export default function SearchForm() {
 
     return (
         <SearchFormContainerElement>
-            <form id="search-form">
+            <form id="search-form" role="search">
                 <div className="form-group">
                     <div className="group-elements">
                         <YearMenu ref={yearInput} />
