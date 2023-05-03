@@ -28,6 +28,7 @@ const YearMenu = React.forwardRef((_, ref) => {
             closeMenuOnSelect={false}
             components={animatedComponents}
             isMulti
+            noOptionsMessage={() => "No options."}
             onChange={(option) => internalStateDispatch(updateFormInput({ year: option.map(({ value }) => value) }))}
             options={YEARS}
             placeholder="Years"

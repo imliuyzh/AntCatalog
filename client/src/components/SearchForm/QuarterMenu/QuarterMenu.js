@@ -22,6 +22,7 @@ const QuarterMenu = React.forwardRef((_, ref) => {
             closeMenuOnSelect={false}
             components={animatedComponents}
             isMulti
+            noOptionsMessage={() => "No options."}
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}
             options={QUARTERS}
             placeholder="Quarters"
