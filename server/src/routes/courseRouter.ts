@@ -93,9 +93,9 @@ import apicache from 'apicache';
 import { body, ValidationChain } from 'express-validator';
 import express from 'express';
 
-import courseController from '../controllers/courseController';
 import courseRateLimiter from '../middlewares/courseRateLimiter';
 import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
+import listCourses from '../controllers/courseController';
 
 const cache = apicache
     .options({ appendKey: (req: express.Request, _: unknown) => JSON.stringify(req.body) })
@@ -220,5 +220,5 @@ export default express
         '/',
         process.env.NODE_ENV === 'test' ? [] : courseRateLimiter,
         [validateRequest(), invalidRequestSchemaHandler, cacheWorker],
-        courseController
+        listCourses
     );
