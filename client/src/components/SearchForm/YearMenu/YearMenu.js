@@ -5,7 +5,7 @@ import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 import * as React from 'react';
 
-const years = Array.from(new Array(10), (_, index) => ({
+const years = Array.from(new Array(2022 - 2013 + 1), (_, index) => ({
     label: `${2022 - index}`,
     value: 2022 - index
 }));
