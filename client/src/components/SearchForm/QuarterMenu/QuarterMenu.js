@@ -5,12 +5,10 @@ import { updateFormInput } from '../../../features/internalStateSlice';
 import { useDispatch } from 'react-redux';
 import * as React from 'react';
 
-const QUARTERS = [
-    { value: 'Fall', label: 'Fall' },
-    { value: 'Winter', label: 'Winter' },
-    { value: 'Spring', label: 'Spring' },
-    { value: 'Summer', label: 'Summer' },
-];
+const quarters = ['Fall', 'Winter', 'Spring', 'Summer'].map((quarter) => ({
+    label: quarter,
+    value: quarter
+}));
 
 const animatedComponents = makeAnimated();
 
@@ -24,7 +22,7 @@ const QuarterMenu = React.forwardRef((_, ref) => {
             isMulti
             noOptionsMessage={() => "No options."}
             onChange={(option) => internalStateDispatch(updateFormInput({ quarter: option.map(({ value }) => value) }))}
-            options={QUARTERS}
+            options={quarters}
             placeholder="Quarters"
             ref={ref}
             styles={styles1}

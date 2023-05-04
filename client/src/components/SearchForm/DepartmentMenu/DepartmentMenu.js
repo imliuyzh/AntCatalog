@@ -7,7 +7,7 @@ import * as React from 'react';
 
 const animatedComponents = makeAnimated();
 
-const DEPARTMENTS = [
+const departments = [
     {
         "value": "AC ENG",
         "label": "AC ENG . . . . . .Academic English"
@@ -624,7 +624,7 @@ const DepartmentMenu = React.forwardRef((_, ref) => {
             isMulti
             noOptionsMessage={() => "No options."}
             onChange={(option) => internalStateDispatch(updateFormInput({ department: option.map(({ value }) => value) }))}
-            options={DEPARTMENTS}
+            options={departments}
             placeholder="Include All Departments"
             ref={ref}
             styles={styles1}
