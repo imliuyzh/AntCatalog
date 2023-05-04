@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import * as React from 'react';
 
 const years = Array.from(new Array(10), (_, index) => ({
-    label: `${index + 2013}`,
-    value: index + 2013
+    label: `${2022 - index}`,
+    value: 2022 - index
 }));
 
 const animatedComponents = makeAnimated();
