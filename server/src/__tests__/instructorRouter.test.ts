@@ -158,7 +158,7 @@ describe('GET /instructors', () => {
     });
 });
 
-describe('POST/PUT/DELETE /instructors', () => {
+describe('POST/PATCH/PUT/DELETE /instructors', () => {
     test('should respond with 405 status when sending requests to POST /instructors', async () => {
         const response = await request
             .post('/instructors?name=kay')
@@ -166,16 +166,23 @@ describe('POST/PUT/DELETE /instructors', () => {
         expect(response.statusCode).toBe(405);
         expect(response.body.success).toBe(false);
     });
+    test('should respond with 405 status when sending requests to PATCH /instructors', async () => {
+        const response = await request
+            .patch('/instructors?name=carey')
+            .send();
+        expect(response.statusCode).toBe(405);
+        expect(response.body.success).toBe(false);
+    });
     test('should respond with 405 status when sending requests to PUT /instructors', async () => {
         const response = await request
-            .post('/instructors?name=pattis')
+            .put('/instructors?name=pattis')
             .send();
         expect(response.statusCode).toBe(405);
         expect(response.body.success).toBe(false);
     });
     test('should respond with 405 status when sending requests to DELETE /instructors', async () => {
         const response = await request
-            .post('/instructors?name=ibrahim')
+            .delete('/instructors?name=ibrahim')
             .send();
         expect(response.statusCode).toBe(405);
         expect(response.body.success).toBe(false);
