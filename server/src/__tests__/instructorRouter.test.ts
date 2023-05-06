@@ -157,3 +157,27 @@ describe('GET /instructors', () => {
         });
     });
 });
+
+describe('POST/PUT/DELETE /instructors', () => {
+    test('should respond with 405 status when sending requests to POST /instructors', async () => {
+        const response = await request
+            .post('/instructors?name=kay')
+            .send();
+        expect(response.statusCode).toBe(405);
+        expect(response.body.success).toBe(false);
+    });
+    test('should respond with 405 status when sending requests to PUT /instructors', async () => {
+        const response = await request
+            .post('/instructors?name=pattis')
+            .send();
+        expect(response.statusCode).toBe(405);
+        expect(response.body.success).toBe(false);
+    });
+    test('should respond with 405 status when sending requests to DELETE /instructors', async () => {
+        const response = await request
+            .post('/instructors?name=ibrahim')
+            .send();
+        expect(response.statusCode).toBe(405);
+        expect(response.body.success).toBe(false);
+    });
+})

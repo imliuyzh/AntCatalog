@@ -94,6 +94,7 @@ import { body, ValidationChain } from 'express-validator';
 import express from 'express';
 
 import courseRateLimiter from '../middlewares/courseRateLimiter';
+import invalidMethodHandler from '../middlewares/invalidMethodHandler';
 import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 import listCourses from '../controllers/courseController';
 
@@ -221,4 +222,5 @@ export default express
         process.env.NODE_ENV === 'test' ? [] : courseRateLimiter,
         [validateRequest(), invalidRequestSchemaHandler, cacheWorker],
         listCourses
-    );
+    )
+    .all('/', invalidMethodHandler);

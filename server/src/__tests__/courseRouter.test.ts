@@ -1402,3 +1402,48 @@ describe('POST /courses', () => {
         });
     });
 });
+
+describe('GET/PUT/DELETE /courses', () => {
+    test('should respond with 405 status when sending requests to GET /courses', async () => {
+        const response = await request
+            .get('/courses')
+            .send({
+                values: {
+                    instructor: ['BURTSEV, A.']
+                },
+                options: {
+                    aggregate: true,
+                }
+            });
+        expect(response.statusCode).toBe(405);
+        expect(response.body.success).toBe(false);
+    });
+    test('should respond with 405 status when sending requests to PUT /courses', async () => {
+        const response = await request
+            .put('/courses')
+            .send({
+                values: {
+                    instructor: ['BURTSEV, A.']
+                },
+                options: {
+                    aggregate: true,
+                }
+            });
+        expect(response.statusCode).toBe(405);
+        expect(response.body.success).toBe(false);
+    });
+    test('should respond with 405 status when sending requests to DELETE /courses', async () => {
+        const response = await request
+            .delete('/courses')
+            .send({
+                values: {
+                    instructor: ['BURTSEV, A.']
+                },
+                options: {
+                    aggregate: true,
+                }
+            });
+        expect(response.statusCode).toBe(405);
+        expect(response.body.success).toBe(false);
+    });
+})

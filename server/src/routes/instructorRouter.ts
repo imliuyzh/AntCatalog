@@ -48,6 +48,7 @@ import apicache from 'apicache';
 import express from 'express';
 import { query, ValidationChain } from 'express-validator';
 
+import invalidMethodHandler from '../middlewares/invalidMethodHandler';
 import invalidRequestSchemaHandler from '../middlewares/invalidRequestSchemaHandler';
 import listInstructors from '../controllers/instructorController';
 
@@ -74,4 +75,5 @@ export default express
         '/', 
         [validateRequest(), invalidRequestSchemaHandler, cacheWorker],
         listInstructors
-    );
+    )
+    .all('/', invalidMethodHandler);
