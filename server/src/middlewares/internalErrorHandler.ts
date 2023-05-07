@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logger from '../utils/logger';
 
 /**
- * An error handler when an exception is thrown within the server.
+ * An error handler for the case when an exception is thrown within the server.
  * @param err An object for the specific exception thrown.
  * @param req An object for user's request.
  * @param res An object for the response to user's request.

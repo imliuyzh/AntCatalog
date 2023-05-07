@@ -76,9 +76,11 @@ type AssociatedCourseDataQueryParameters = {
  * @param res An object for the response to user's request.
  * @param next The function that will be called if an exception is thrown.
  */
-async function listCourses(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+async function listCourseData(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
-        let courses: object[] = req.body.options.aggregate ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
+        let courses: object[] = req.body.options.aggregate
+            ? await getAggregatedStatistics(req)
+            : await getAssociatedCourses(req);
         res.json({
             success: true,
             aggregate: req.body.options.aggregate,
@@ -149,8 +151,8 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
 }
 
 /**
- * Create a SQL query based on whether the instructor is provided or not.
- * @param instructor The value of the instructor parameter in user parameters.
+ * Create a SQL query based on whether the instructors are provided or not.
+ * @param instructor The value of the instructor parameter.
  * @returns The basis for the SQL query template.
  */
  function createAggregateQuery(instructor: string[]): string {
@@ -187,7 +189,8 @@ async function getAggregatedStatistics(req: express.Request): Promise<RawAggrega
  * @returns A promise for a list of course data that the instructors are separated into an array.
  */
 async function getAssociatedCourses(req: express.Request): Promise<ProcessedCourseData[]> {
-    let [query, replacements]: [string, AssociatedCourseDataQueryParameters] = createAssociatedCourseListQueryWithParameters(req);
+    let [query, replacements]: [string, AssociatedCourseDataQueryParameters]
+        = createAssociatedCourseListQueryWithParameters(req);
     let courses: RawCourseData[] = await sequelize.query(query, {
         replacements,
         type: Sequelize.QueryTypes.SELECT
@@ -199,7 +202,7 @@ async function getAssociatedCourses(req: express.Request): Promise<ProcessedCour
 }
 
 /**
- * Compute the query and its parameters for a list of course data.
+ * Compute the query and its parameters for course list data.
  * @param req An object for user's request.
  * @returns A string for the SQL query and an object for the query's parameters.
  */
@@ -267,4 +270,4 @@ function createAssociatedCourseListQuery(): string[] {
     ];
 }
 
-export default listCourses;
+export default listCourseData;

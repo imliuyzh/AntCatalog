@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import logger from '../utils/logger';
 
 /**
- * A handler to handle the case when the user is trying to access an existing endpoint
- * with the wrong HTTP method.
+ * An error handler for the case when the user is trying to access
+ * an existing endpoint with the wrong HTTP method.
  * @param req An object for user's request.
  * @param res An object for the response to user's request.
  */

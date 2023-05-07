@@ -3,7 +3,7 @@ import { Result, ValidationError, validationResult } from 'express-validator';
 import logger from '../utils/logger';
 
 /**
- * An error handler when the request format does not match the expected.
+ * An error handler for the case when the request format does not match the expectation.
  * @param req An object for user's request.
  * @param res An object for the response to user's request.
  * @param next The function that will be invoked after the work is done.

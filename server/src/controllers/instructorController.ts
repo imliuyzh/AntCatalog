@@ -11,7 +11,7 @@ import sequelize from '../db/sequelize';
  * intended to be used only in this file.
  */
 namespace CacheNamespace {
-    let cache: NodeCache = new NodeCache();
+    const cache: NodeCache = new NodeCache();
 
     /**
      * Return a list of all instructors in the database -
@@ -22,7 +22,10 @@ namespace CacheNamespace {
         let instructorList: string[] = cache.get('instructors') ?? [];
         if (instructorList.length <= 0) {
             logger.info(`INFO: Begin to Retrieve All the Instructors' Name...`);
-            let instructors: Array<{ name: string }> = await sequelize.query('SELECT DISTINCT name FROM Instructor', { type: QueryTypes.SELECT });
+            let instructors: Array<{ name: string }> = await sequelize.query(
+                'SELECT DISTINCT name FROM Instructor',
+                { type: QueryTypes.SELECT }
+            );
             instructors.forEach((instructor: { name: string }) => instructorList.push(instructor['name']));
             cache.set('instructors', instructorList);
             logger.info(`INFO: Finished Retrieving All the Instructors' Name.`);

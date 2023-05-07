@@ -1,7 +1,7 @@
 import path from 'path';
 
 /**
- * Generate the path to the index.html file.
+ * Generate the path to index.html.
  * @returns The full path where index.html is located at.
  */
 function determineIndexFilePath(): string {
@@ -16,8 +16,8 @@ function determineIndexFilePath(): string {
 }
 
 /**
- * Generate the path to the front end assets folder.
- * @returns The full path where the front end assets are at.
+ * Generate the path to the front end artifact.
+ * @returns The full path where the front end artifact is at.
  */
 function determineStaticFileFolder(): string {
     switch (process.env.PRODUCTION_ENV) {
