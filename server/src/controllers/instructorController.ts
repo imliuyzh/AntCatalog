@@ -37,7 +37,7 @@ namespace CacheNamespace {
  * @param res An object for the response to user's request.
  * @param next The function that will be called if an exception is thrown.
  */
-export default async function listInstructors(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+async function listInstructors(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
         let instructorList: string[] = await CacheNamespace.loadInstructors();
         let fuse: Fuse<string> = new Fuse(instructorList, { minMatchCharLength: 3 });
@@ -53,3 +53,5 @@ export default async function listInstructors(req: express.Request, res: express
         next(exception);
     }
 }
+
+export default listInstructors;

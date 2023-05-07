@@ -76,7 +76,7 @@ type AssociatedCourseDataQueryParameters = {
  * @param res An object for the response to user's request.
  * @param next The function that will be called if an exception is thrown.
  */
-export default async function listCourses(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+async function listCourses(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
         let courses: object[] = req.body.options.aggregate ? await getAggregatedStatistics(req) : await getAssociatedCourses(req);
         res.json({
@@ -266,3 +266,5 @@ function createAssociatedCourseListQuery(): string[] {
          LIMIT 15 OFFSET :offset`
     ];
 }
+
+export default listCourses;
