@@ -105,6 +105,9 @@ A file for limiting five requests per second for the `/courses` endpoint.
 ##### internalErrorHandler.ts
 A file for handling malformed JSON request bodies as well as server errors (HTTP 400 & HTTP 500).
 
+##### invalidMethodHandler.ts
+A file for handling errors where an invalid method is specified (HTTP 405).
+
 ##### invalidRequestSchemaHandler.ts
 A file for handling wrong user request format (HTTP 422).
 

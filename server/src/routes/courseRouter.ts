@@ -67,6 +67,14 @@
  *         "info": "Please review your request body."
  *     }
  * 
+ * @apiError InvalidMethodError The request's method is not valid.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 405 Method Not Allowed
+ *     {
+ *         "success": false,
+ *         "info": "Method not allowed."
+ *     }
+ * 
  * @apiError InvalidSchema The parameters do not match the expectation.
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 422 Unprocessable Entity
