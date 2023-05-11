@@ -39,7 +39,7 @@ export default function EmptyChart() {
                 Fall 2022 in the University of California, Irvine (UCI). The data is from the university's Public
                 Records Office (PRO). AntCatalog does not include courses from the Law and undergraduate divisions due
                 to significant amount of data cleaning. On a side note, AntCatalog will no longer to be maintained after
-                the 2022-2023 academic year due to graduation. Please go to PeterPortal from now on.
+                the 2022-2023 academic year due to graduation. Please visit PeterPortal from now on.
 
                 <GitHubLinkContainerElement>
                     <a href="https://github.com/imliuyzh/AntCatalog" id="github-button" target="_blank" title="GitHub" rel="noreferrer">
