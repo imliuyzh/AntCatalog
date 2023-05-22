@@ -1,10 +1,10 @@
 ![Demonstration](./demo.gif)
 
 # AntCatalog
-*This repository will no longer to be maintained after the 2022-2023 academic year. Please check out [PeterPortal](https://github.com/icssc) from now on.*
+*This repository will no longer to be maintained after the 2022-2023 academic year. Moving forward, please check out [PeterPortal](https://github.com/icssc).*
 
 ## Getting Started
-Before moving on in this section, please install npm as well as the most current release of Node.js v18. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
+Before going through this section, please install npm as well as the most current release of Node.js v18. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
 
 ### Front end
 1. Enter the `client` folder in the command line and run `npm i` to install the packages
@@ -15,7 +15,7 @@ Before moving on in this section, please install npm as well as the most current
 2. Execute `npm run dev` to start the back end service
    + If there is an error about ts-node, run `npm i -g ts-node`
 
-For other information of back end services such as testing, please visit [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
+For other information of back end services such as testing, please see [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
 
 ## Built With
 ### Front end
