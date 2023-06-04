@@ -762,7 +762,7 @@ describe('POST /courses', () => {
                     .post(ROUTE)
                     .send({
                         values: {
-                            courseCode: [0_2522, 0_3234, 34654],
+                            courseCode: [2522, 3234, 34654],
                         },
                         options: {
                             aggregate: false,

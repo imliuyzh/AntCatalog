@@ -60,7 +60,7 @@ The file for handling the `/instructors` endpoint which focuses on instructor na
 #### `/db`
 ##### data.db
 A SQLite database containing course information.
-```
+```sql
     CREATE TABLE Course (
         course_id INTEGER,
         year INTEGER NOT NULL,
