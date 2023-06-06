@@ -35,11 +35,12 @@ export default function EmptyChart() {
         <EmptyState variant={EmptyStateVariant.xl}>
             <Title headingLevel="h1" size="4xl">About</Title>
             <EmptyStateBody>
-                AntCatalog is a tool for examining the grade distribution of graduate-level courses from Summer 2013 to
-                Fall 2022 in the University of California, Irvine (UCI). The data comes from the university's Public
-                Records Office (PRO). AntCatalog does not include courses from the Law and undergraduate divisions due
-                to significant amount of data cleaning required. On a side note, AntCatalog will no longer to be maintained
-                after the 2022-2023 academic year due to graduation. Please visit PeterPortal moving forward.
+                AntCatalog is a tool for analyzing the grade distribution of graduate-level courses between Summer 2013
+                and Fall 2022 in the University of California, Irvine (UCI). The data is sourced from the university's
+                Public Records Office (PRO). However, it should be noted that AntCatalog does not cover Law and undergraduate
+                courses due to the extensive amount of data cleaning required. Unfortunately, we regret to inform that
+                AntCatalog will cease maintenance after the 2022-2023 academic year due to graduation. Please visit
+                PeterPortal moving forward.
 
                 <GitHubLinkContainerElement>
                     <a href="https://github.com/imliuyzh/AntCatalog" id="github-button" target="_blank" title="GitHub" rel="noreferrer">
