@@ -15,7 +15,7 @@ Before going through this section, please install npm as well as the most curren
 2. Execute `npm run dev` to start the back end service
    + If there is an error about ts-node, run `npm i -g ts-node`
 
-For other information of back end services such as testing, please see [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
+For more information on the back end service, please see [here](https://github.com/imliuyzh/AntCatalog/tree/main/server). 
 
 ## Built With
 ### Front end
