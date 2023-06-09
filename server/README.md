@@ -28,7 +28,7 @@ The program for performing stress testing. To run it:
 4. Execute `npm run build` and `NODE_ENV=test node ./build/index.js` in `/server`
 5. Run `locust -f ./locustfile.py --host=http://localhost:26997`
    + Run `sysctl -w fs.file-max=500000` if the open file limit is too low
-6. Open http://0.0.0.0:8089 and type 100 and 50
+6. Open http://0.0.0.0:8089 and provide numeric values like 100 and 50
 7. Press `Start Swarming`
 
 ##### requirements.txt
