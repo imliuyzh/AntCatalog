@@ -28,7 +28,7 @@ The program for performing stress testing. To run it:
 4. Execute `npm run build` and `NODE_ENV=test node ./build/index.js` in `/server`
 5. Run `locust -f ./locustfile.py --host=http://localhost:26997`
    + Run `sysctl -w fs.file-max=500000` if the open file limit is too low
-6. Open http://0.0.0.0:8089 and type 100 and 50
+6. Open http://0.0.0.0:8089 and provide numeric values like 100 and 50
 7. Press `Start Swarming`
 
 ##### requirements.txt
@@ -59,40 +59,40 @@ The file for handling the `/instructors` endpoint which focuses on instructor na
 
 #### `/db`
 ##### data.db
-A SQLite database containing course information.
-```
-    CREATE TABLE Course (
-        course_id INTEGER,
-        year INTEGER NOT NULL,
-        quarter TEXT NOT NULL,
-        course_code INTEGER NOT NULL,
-        department TEXT NOT NULL,
-        course_number TEXT NOT NULL,
-        course_title TEXT NOT NULL,
-        grade_a_count INTEGER NOT NULL,
-        grade_b_count INTEGER NOT NULL,
-        grade_c_count INTEGER NOT NULL,
-        grade_d_count INTEGER NOT NULL,
-        grade_f_count INTEGER NOT NULL,
-        grade_p_count INTEGER NOT NULL,
-        grade_np_count INTEGER NOT NULL,
-        gpa_avg REAL NOT NULL,
-        CONSTRAINT CoursePrimaryKey PRIMARY KEY (course_id)
-    );
+A SQLite database containing course information with the following schema:
+```sql
+CREATE TABLE Course (
+    course_id INTEGER,
+    year INTEGER NOT NULL,
+    quarter TEXT NOT NULL,
+    course_code INTEGER NOT NULL,
+    department TEXT NOT NULL,
+    course_number TEXT NOT NULL,
+    course_title TEXT NOT NULL,
+    grade_a_count INTEGER NOT NULL,
+    grade_b_count INTEGER NOT NULL,
+    grade_c_count INTEGER NOT NULL,
+    grade_d_count INTEGER NOT NULL,
+    grade_f_count INTEGER NOT NULL,
+    grade_p_count INTEGER NOT NULL,
+    grade_np_count INTEGER NOT NULL,
+    gpa_avg REAL NOT NULL,
+    CONSTRAINT CoursePrimaryKey PRIMARY KEY (course_id)
+);
 
-    CREATE TABLE Instructor (
-        course_id INTEGER,
-        name TEXT,
-        CONSTRAINT InstructorPrimaryKey PRIMARY KEY (course_id, name),
-        CONSTRAINT InstructorCourseIdForeignKey FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE
-    );
+CREATE TABLE Instructor (
+    course_id INTEGER,
+    name TEXT,
+    CONSTRAINT InstructorPrimaryKey PRIMARY KEY (course_id, name),
+    CONSTRAINT InstructorCourseIdForeignKey FOREIGN KEY (course_id) REFERENCES Course(course_id) ON DELETE CASCADE
+);
 
-    CREATE VIEW InstructorView AS
-        SELECT
-            I.course_id,
-            GROUP_CONCAT(I.name, '/') AS names
-        FROM Instructor I
-        GROUP BY I.course_id;
+CREATE VIEW InstructorView AS
+    SELECT
+        I.course_id,
+        GROUP_CONCAT(I.name, '/') AS names
+    FROM Instructor I
+    GROUP BY I.course_id;
 ```
 
 ##### sequelize.ts

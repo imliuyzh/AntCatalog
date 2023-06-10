@@ -47,7 +47,7 @@ export default function CourseListModal() {
             }
         } catch (error) {
             console.error(error);
-            internalStateDispatch(showAlert('An unexpected error occurs, try again.'));
+            internalStateDispatch(showAlert('An unexpected error occurs, please try again.'));
         }
     };
 

@@ -183,7 +183,6 @@ const validateRequest: () => ValidationChain[] = () => [
     body('values.courseCode[*]')
         .toInt()
         .isInt({
-            allow_leading_zeroes: true,
             min: 1,
             max: 99999
         })
@@ -215,10 +214,7 @@ const validateRequest: () => ValidationChain[] = () => [
         .withMessage(`"options.aggregate" must be a boolean.`),
     body('options.offset')
         .default(0)
-        .isInt({
-            allow_leading_zeroes: true,
-            min: 0
-        })
+        .isInt({ min: 0 })
         .bail()
         .withMessage(`"options.offset" must be an integer starting from 0.`)
 ];
