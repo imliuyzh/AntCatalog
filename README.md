@@ -4,7 +4,7 @@
 *This repository will no longer to be maintained after the 2022-2023 academic year. Please check out [PeterPortal](https://github.com/icssc) moving forward.*
 
 ## Getting Started
-Before going through this section, please install npm as well as the most current release of Node.js v18. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
+Before going through this section, please install the most current release of Node.js v18 that is compatible with npm v9. It is recommended to follow the tutorial [here](https://www.youtube.com/watch?v=ohBFbA0O6hs).
 
 ### Front end
 1. Enter the `client` folder in the command line and run `npm i` to install the packages
